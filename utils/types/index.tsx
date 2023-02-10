@@ -64,17 +64,12 @@ export type IdValidity = {
    lastName: string
 }
 
-export type CreateAccountFormDataUi = {
-    email: string,
-    username: string,
-    firstName: string,
-    lastName: string,
-    // gender: string,
-    password: string,
-    confirmPassword: string,
+
+
+
+export type ForgetPasswordFormData = {
+    emailAddress: string
 }
-
-
 
 
 export type ProfileFormData = {

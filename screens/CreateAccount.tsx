@@ -1,18 +1,18 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { View, Text, ScrollView, StyleSheet } from 'react-native'
-import React from 'react'
+import React, { useState } from 'react'
 import GlobalStyle from '../utils/globalStyle'
 import { CreateAccountFormDataUi } from '../utils/types';
 import { useFormik } from 'formik';
 import { CreateAccountSchema } from '../utils/schemas';
-import { FONTS } from '../utils/constants/theme';
+import { COLORS, FONTS } from '../utils/constants/theme';
 import { TextInput } from '../components/TextInput';
 import IconTextButton from '../components/IconTextButton';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { hp, wp } from '../utils/helper';
 
 const CreateAccount = ({navigation}: any) => {
-
+ const [cookieSelected,setCookieSelected] = useState(false)
   const initialValues: CreateAccountFormDataUi = {
     email: '',
     username: '',
@@ -100,18 +100,18 @@ const CreateAccount = ({navigation}: any) => {
           />
 
 
-          {/* <View style={[styles.row, { marginVertical: hp(2) }]}>
+         <View style={[styles.row, { marginVertical: hp(2) }]}>
             {
-              cookieSelected ? <Pressable onPress={() => setCookieSelected(false)}><View style={styles.coloredBox}></View></Pressable> : <Pressable onPress={() => setCookieSelected(true)}><View style={styles.box}></View></Pressable>
+              cookieSelected ? <TouchableOpacity onPress={() => setCookieSelected(false)}><View style={styles.coloredBox}></View></TouchableOpacity> : <TouchableOpacity onPress={() => setCookieSelected(true)}><View style={styles.box}></View></TouchableOpacity>
             }
 
             <View style={{ flexDirection: 'row', alignItems: 'center', marginLeft: hp(10) }}>
-              <TextField text='I agree to privacy policy' fontSize={hp(12)} fontWeight='400' lineHeight={hp(18)} />
-              <TextField text=' cookies policy ' color='#485FE6' fontWeight='bold' fontSize={hp(12)} lineHeight={hp(18)} />
-              <TextField text='and ' fontSize={hp(12)} fontWeight='400' lineHeight={hp(18)} />
-              <TextField text='terms and conditions.' color='#485FE6' fontWeight='bold' fontSize={hp(12)} lineHeight={hp(18)} />
+              <Text style={{...FONTS.body5}}>I agree to privacy policy </Text> 
+              <Text style={{...FONTS.body5, color: COLORS.primary}}>cookies policy </Text> 
+              <Text style={{...FONTS.body5}}>and </Text>
+              <Text style={{...FONTS.body5, color: COLORS.primary}}>terms and conditions.</Text>
             </View>
-          </View> */}
+          </View> 
 
           <View style={styles.btnContainer}>
             <IconTextButton label="Create Account" onPress={handleSubmit} />

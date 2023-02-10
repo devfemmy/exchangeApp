@@ -1,16 +1,17 @@
-import { View, Text, StyleSheet } from 'react-native'
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
 import React from 'react'
 import GlobalStyle from '../utils/globalStyle'
 import { hp, wp } from '../utils/helper'
 import { COLORS, FONTS } from '../utils/constants/theme'
-
+import AntDesign from "react-native-vector-icons/AntDesign"
 import { TextInput } from '../components/TextInput'
 import { LoginFormData } from '../utils/types'
 import { LoginSchema } from '../utils/schemas'
 import { useFormik } from 'formik'
 import IconTextButton from '../components/IconTextButton'
 
-import { TouchableOpacity } from 'react-native-gesture-handler'
+
+
 
 const Login = ({navigation}: any) => {
 
@@ -35,7 +36,7 @@ const Login = ({navigation}: any) => {
 
   return (
     <View style={[GlobalStyle.container, styles.div]}>
-
+<AntDesign onPress={() => navigation.goBack()} name="arrowleft" style={styles.icon} size={hp(20)} color={COLORS.gray2} />
       <Text style={{...FONTS.h2}}>Log in</Text>
       <Text style={{...FONTS.body5, color: COLORS.gray}}>Let’s get you started right away</Text>
       <View style={styles.top}>
@@ -55,7 +56,7 @@ const Login = ({navigation}: any) => {
            onChangeText={handleChange('password')}
            errorMsg={touched.password ? errors.password : undefined}
          />
-  <Text style={{...FONTS.body4, textAlign: 'right', marginBottom: hp(15)}}>Forget Password ?</Text>
+   <TouchableOpacity onPress={() => navigation.navigate("ForgetPassword")}><Text style={{...FONTS.body4, textAlign: 'right', marginBottom: hp(15)}}>Forget Password ?</Text></TouchableOpacity>
         <IconTextButton label="Log in" onPress={handleSubmit} />
       </View>
      
@@ -72,11 +73,11 @@ export default Login
 
 const styles = StyleSheet.create({
   div: {
-    paddingVertical: hp(100),
+    paddingVertical: hp(70),
 
   },
   icon: {
-
+    marginVertical: hp(20)
   },
   img: {
     width: wp(40)
