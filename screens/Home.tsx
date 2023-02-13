@@ -12,6 +12,8 @@ const Home = () => {
    <MainLayout>
      <View style={GlobalStyle.container}>
       <Text>Home</Text>
+       <Text>Home</Text>
+        <Text>Home</Text>
     </View> 
    </MainLayout>
   )
