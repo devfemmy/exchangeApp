@@ -6,6 +6,7 @@ import Login from '../screens/Login';
 import CreateAccount from '../screens/CreateAccount';
 import ForgetPassword from '../screens/ForgetPassword';
 import ResetPassword from '../screens/ResetPassword';
+import EmailVerification from '../screens/EmailVerification';
 
 
 const Stack = createStackNavigator();
@@ -34,7 +35,12 @@ const NoAuthComponennt = () => {
          <Stack.Screen
             name="ResetPassword"
             component={ResetPassword}
-        />
+        /> 
+        <Stack.Screen
+        name="EmailVerification"
+        component={EmailVerification}
+    />
+
     </Stack.Navigator>
 </NavigationContainer>  
    
