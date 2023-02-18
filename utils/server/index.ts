@@ -1,3 +1,4 @@
+
 /* eslint-disable eol-last */
 /* eslint-disable comma-dangle */
 /* eslint-disable keyword-spacing */
@@ -11,32 +12,13 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 
-const Base_Url = "https://accounts.zendwallet.com"
 
 
-export const doPost = async (payload: Object, url: String, v?: String) => {
-    
-    var response = await axios.post(Base_Url + url, payload);
-
-    return response
-        
-};
-
-export const postAuthRequest = async (url: string, payload: any) => {
-  const token = await AsyncStorage.getItem("token");
-
-  var res = await axios.post(Base_Url + url, payload)
-    if(res?.status === 200){
-      return res
-    }
-}
-
-
-export const getRequest = async (url: String, v?: String) => {
+export const getRequest = async (url: string) => {
 
     const token = await AsyncStorage.getItem("token");
 
-    var response = await axios.get(Base_Url + url, {
+    var response = await axios.get(url, {
         headers: {
           authorization: `Bearer ${token}`,
         },
@@ -46,67 +28,18 @@ export const getRequest = async (url: String, v?: String) => {
       }
 }
 
+export const getRequestNoToken = async (url: string) => {
 
-export const specialGetRequest = async (url: String, v?: String) => {
-
-  const token = await AsyncStorage.getItem("token") as string;
-
-  var response = await axios.get(Base_Url + url, {
-      headers: {
-        "access-token": token,
-      },
-    })
+  var response = await axios.get(url)
     if(response?.status === 200){
       return response
     }
 }
 
-export const getRequestNoToken = (url: string) => {
-  try {
-    return axios.get(Base_Url + url)
-  }
-  catch(e){
-    console.log("err",{e})
-  }
-}
-
-
-// export const specialGetRequest = async (url: string) => {
-//   const token = await AsyncStorage.getItem("token");
-
-//   var res = await axios.get(Base_Url + url,
-//      {
-//        headers: {
-//          authorization: `Bearer ${token}`,
-//        },
-//      })
- 
-//      if(res?.status === 200){
-//        return res
-//      }
-    
-//  }
- 
-
-
-
-
-export const getProfileRequest = async (url: String, v?: String) => {
-
-    const token = await AsyncStorage.getItem("token");
-
-    var response = await axios.get(Base_Url + url, {
-        headers: {
-          authorization: `Bearer ${token}`,
-        },
-      })
-    return response
-}
-
 export const postRequest =  async (url: string, payload?: any) => {
   const token = await AsyncStorage.getItem("token");
-  console.log({token})
-  var res = await axios.post(Base_Url + url, payload, {
+
+  var res = await axios.post(url, payload, {
     headers: {
       authorization: `Bearer ${token}`,
     }
@@ -117,13 +50,12 @@ export const postRequest =  async (url: string, payload?: any) => {
   
 }
 
-export const specialPostRequest =  async (url: string, payload?: any) => {
-  const token = await AsyncStorage.getItem("token") as string;
- 
-  var res = await axios.post(Base_Url + url, payload, {
+export const updateRequest =  async (url: string, payload?: any) => {
+  const token = await AsyncStorage.getItem("token");
+
+  var res = await axios.put(url, payload, {
     headers: {
-      "access-token": token,
-      // authorization: `Bearer ${token}`,
+      authorization: `Bearer ${token}`,
     }
   })
   if(res?.status === 200){
@@ -132,13 +64,13 @@ export const specialPostRequest =  async (url: string, payload?: any) => {
   
 }
 
-export const deleteRequest = (url: string, payload: any) => {
-  return axios.delete(Base_Url + url, payload)
+export const deleteRequest = (url: string, payload?: any) => {
+  return axios.delete(url, payload)
 }
 
 export const deleteRequestNoPayload = async (url: string) => {
   const token = await AsyncStorage.getItem("token");
-  return axios.delete(Base_Url + url, {
+  return axios.delete(url, {
     headers: {
       authorization: `Bearer ${token}`,
     },
@@ -146,51 +78,6 @@ export const deleteRequestNoPayload = async (url: string) => {
 }
 
 
-// export const uploadImageFunc = async (payload: any) => {
-//   const token = await AsyncStorage.getItem("token");
-//   return axios.post(config.databaseUpload, payload, {
-//     headers: {
-//       authorization: `Bearer ${token}`,
-//     },
-//   })
-// }
-
-
-
 export const truncate = (info: string, num: number) => {
   return info?.length > num ? info?.substr(0, num - 1) + "..." : info 
 }
-
-
-
-export const sendPost = async ( url: String, payload: any, v?: String) => {
-    
-    const token = await AsyncStorage.getItem("token");
-
-    var response = await axios.post(Base_Url + url, payload, {
-        headers: {
-          authorization: `Bearer ${token}`,
-        },
-      });
-    return response
-        
-};
-
-export const sendDelete = async ( url: String, v?: String) => {
-    
-  const token = await AsyncStorage.getItem("token");
-
-  var response = await axios.delete(Base_Url + url, {
-      headers: {
-        authorization: `Bearer ${token}`,
-      },
-  });
-
-  return response
-      
-};
-
-
-  
- 
-export default {doPost}

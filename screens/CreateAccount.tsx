@@ -1,18 +1,23 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { View, Text, ScrollView, StyleSheet } from 'react-native'
-import React, { useState } from 'react'
-import GlobalStyle from '../utils/globalStyle'
-import { CreateAccountFormDataUi } from '../utils/types';
-import { useFormik } from 'formik';
-import { CreateAccountSchema } from '../utils/schemas';
-import { COLORS, FONTS } from '../utils/constants/theme';
-import { TextInput } from '../components/TextInput';
+import {View, Text, ScrollView, StyleSheet} from 'react-native';
+import React, {useState} from 'react';
+import GlobalStyle from '../utils/globalStyle';
+import {CreateAccountFormDataUi} from '../utils/types';
+import {useFormik} from 'formik';
+import {CreateAccountSchema} from '../utils/schemas';
+import {COLORS, FONTS} from '../utils/constants/theme';
+import {TextInput} from '../components/TextInput';
 import IconTextButton from '../components/IconTextButton';
-import { TouchableOpacity } from 'react-native-gesture-handler';
-import { hp, wp } from '../utils/helper';
+import {TouchableOpacity} from 'react-native-gesture-handler';
+import {hp, wp} from '../utils/helper';
+import {useAppDispatch} from '../app/hooks';
+import {createUser, verifyEmailSend} from '../slice/AuthSlice';
+import {Notifier, NotifierComponents} from 'react-native-notifier';
 
 const CreateAccount = ({navigation}: any) => {
- const [cookieSelected,setCookieSelected] = useState(false)
+  const [cookieSelected, setCookieSelected] = useState(false);
+  const [loader, setLoader] = useState(false);
+  const dispatch = useAppDispatch();
   const initialValues: CreateAccountFormDataUi = {
     email: '',
     username: '',
@@ -20,33 +25,68 @@ const CreateAccount = ({navigation}: any) => {
     lastName: '',
     // gender: '',
     password: '',
-    confirmPassword: ''
+    confirmPassword: '',
   };
 
-  const continueSubmit = (data: any) => {
+  const continueSubmit = async (data: any) => {
+    const payload = {
+      email: data?.email,
+      username: data?.username,
+      firstName: data?.firstName,
+      lastName: data?.lastName,
+      password: data?.password,
+      confirmPassword: data?.confirmPassword,
+    };
+    setLoader(true);
+    try {
+      var response = await dispatch(createUser(payload));
+      if (createUser.fulfilled.match(response)) {
+        setLoader(false);
+        dispatch(verifyEmailSend(data?.email)).then(() => {
+          return navigation.navigate('EmailVerification', {
+            params: {
+              emailAddress: data?.email,
+              newAccount: true
+            },
+          });
+        });
+      } else {
+        var errMsg = response?.payload as string;
+        setLoader(false);
+        Notifier.showNotification({
+          title: 'Error',
+          description: errMsg,
+          Component: NotifierComponents.Alert,
+          componentProps: {
+            alertType: 'error',
+          },
+        });
+      }
+    } catch (e) {
+      console.log({e});
+    }
+  };
 
-  }
-
-  const { values, errors, touched, handleChange, handleSubmit, handleBlur } =
+  const {values, errors, touched, handleChange, handleSubmit, handleBlur} =
     useFormik({
       initialValues,
       validationSchema: CreateAccountSchema,
       onSubmit: (data: CreateAccountFormDataUi) => continueSubmit(data),
-      enableReinitialize: true
+      enableReinitialize: true,
     });
-
-
 
   return (
     <View style={GlobalStyle.container}>
-         <ScrollView showsVerticalScrollIndicator={false}>
+      <ScrollView showsVerticalScrollIndicator={false}>
         <View>
           <View style={styles.rowBtw}>
-            <Text style={{...FONTS.h2}} >Create Account</Text>
+            <Text style={{...FONTS.h2}}>Create Account</Text>
             <View />
           </View>
-  
-          <Text style={{...FONTS.body5}} >kindly provide the information we need.</Text>
+
+          <Text style={{...FONTS.body5}}>
+            kindly provide the information we need.
+          </Text>
           <TextInput
             label={'Email'}
             value={values.email}
@@ -79,8 +119,6 @@ const CreateAccount = ({navigation}: any) => {
             errorMsg={touched.lastName ? errors.lastName : undefined}
           />
 
-
-
           <TextInput
             label={'Password'}
             isPassword
@@ -96,44 +134,56 @@ const CreateAccount = ({navigation}: any) => {
             value={values.confirmPassword}
             onBlur={handleBlur('confirmPassword')}
             onChangeText={handleChange('confirmPassword')}
-            errorMsg={touched.confirmPassword ? errors.confirmPassword : undefined}
+            errorMsg={
+              touched.confirmPassword ? errors.confirmPassword : undefined
+            }
           />
 
+          <View style={[styles.row, {marginVertical: hp(2)}]}>
+            {cookieSelected ? (
+              <TouchableOpacity onPress={() => setCookieSelected(false)}>
+                <View style={styles.coloredBox}></View>
+              </TouchableOpacity>
+            ) : (
+              <TouchableOpacity onPress={() => setCookieSelected(true)}>
+                <View style={styles.box}></View>
+              </TouchableOpacity>
+            )}
 
-         <View style={[styles.row, { marginVertical: hp(2) }]}>
-            {
-              cookieSelected ? <TouchableOpacity onPress={() => setCookieSelected(false)}><View style={styles.coloredBox}></View></TouchableOpacity> : <TouchableOpacity onPress={() => setCookieSelected(true)}><View style={styles.box}></View></TouchableOpacity>
-            }
-
-            <View style={{ flexDirection: 'row', alignItems: 'center', marginLeft: hp(10) }}>
-              <Text style={{...FONTS.body5}}>I agree to privacy policy </Text> 
-              <Text style={{...FONTS.body5, color: COLORS.primary}}>cookies policy </Text> 
+            <View
+              style={{
+                flexDirection: 'row',
+                alignItems: 'center',
+                marginLeft: hp(10),
+              }}>
+              <Text style={{...FONTS.body5}}>I agree to privacy policy </Text>
+              <Text style={{...FONTS.body5, color: COLORS.primary}}>
+                cookies policy{' '}
+              </Text>
               <Text style={{...FONTS.body5}}>and </Text>
-              <Text style={{...FONTS.body5, color: COLORS.primary}}>terms and conditions.</Text>
+              <Text style={{...FONTS.body5, color: COLORS.primary}}>
+                terms and conditions.
+              </Text>
             </View>
-          </View> 
-
-          <View style={styles.btnContainer}>
-            <IconTextButton label="Create Account" onPress={handleSubmit} />
           </View>
 
+          <View style={styles.btnContainer}>
+            <IconTextButton label="Create Account" onPress={handleSubmit} isLoading={loader} />
+          </View>
         </View>
-
 
         <TouchableOpacity onPress={() => navigation.navigate('Login')}>
           <View style={styles.span}>
             <Text style={{...FONTS.body5}}>Already have an account ?</Text>
             <Text style={{...FONTS.body5, marginLeft: 5}}>Log in</Text>
-
           </View>
         </TouchableOpacity>
-
       </ScrollView>
     </View>
-  )
-}
+  );
+};
 
-export default CreateAccount
+export default CreateAccount;
 
 const styles = StyleSheet.create({
   icon: {
@@ -142,31 +192,31 @@ const styles = StyleSheet.create({
   contain: {
     paddingHorizontal: wp(10),
     backgroundColor: 'white',
-    flex:1
+    flex: 1,
   },
   txt: {
-    marginTop: hp(5)
+    marginTop: hp(5),
   },
   txt2: {
     marginTop: hp(10),
-    marginBottom: hp(24)
+    marginBottom: hp(24),
   },
   btnContainer: {
     marginVertical: hp(15),
-    width: '100%'
+    width: '100%',
   },
   span: {
     flexDirection: 'row',
     justifyContent: 'center',
-    marginBottom: hp(20)
+    marginBottom: hp(20),
   },
   rangeDiv: {
-    marginBottom: hp(20)
+    marginBottom: hp(20),
   },
   coloredBox: {
     width: wp(20),
     height: hp(20),
-    backgroundColor: 'blue'
+    backgroundColor: 'blue',
   },
   row: {
     flexDirection: 'row',
@@ -176,13 +226,13 @@ const styles = StyleSheet.create({
   box: {
     width: wp(20),
     height: hp(20),
-    backgroundColor: '#E2E6FD'
+    backgroundColor: '#E2E6FD',
   },
   rowBtw: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
     paddingTop: hp(25),
-    paddingBottom: hp(10)
-  }
-})
+    paddingBottom: hp(10),
+  },
+});

@@ -1,5 +1,9 @@
+/* eslint-disable comma-dangle */
+/* eslint-disable keyword-spacing */
+/* eslint-disable quotes */
+/* eslint-disable semi */
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
-import React from 'react'
+import React, {useState} from 'react'
 import GlobalStyle from '../utils/globalStyle'
 import { hp, wp } from '../utils/helper'
 import { COLORS, FONTS } from '../utils/constants/theme'
@@ -9,11 +13,17 @@ import { LoginFormData } from '../utils/types'
 import { LoginSchema } from '../utils/schemas'
 import { useFormik } from 'formik'
 import IconTextButton from '../components/IconTextButton'
+import { useAppDispatch } from '../app/hooks'
+import { signInUser } from '../slice/AuthSlice'
+import { Notifier, NotifierComponents } from 'react-native-notifier';
+
 
 
 
 
 const Login = ({navigation}: any) => {
+ const dispatch = useAppDispatch()
+ const [loader, setLoader] = useState(false)
 
   const initialValues: LoginFormData = {
     emailAddress: '',
@@ -21,8 +31,30 @@ const Login = ({navigation}: any) => {
   };
 
 
-  const handleCredentialSubmit = (data: any) => {
-    console.log({data})  
+  const handleCredentialSubmit = async (data: any) => {
+    setLoader(true)
+    try {
+      var response = await dispatch(signInUser(data)) as any
+      if(signInUser.fulfilled.match(response)){
+        setLoader(false)
+      }
+      else {
+        var errMsg = response?.payload as string
+        setLoader(false)
+
+        Notifier.showNotification({
+          title: 'Error',
+          description: errMsg,
+          Component: NotifierComponents.Alert,
+          componentProps: {
+            alertType: 'error',
+          },
+        });
+      }
+    }
+    catch(e){
+
+    }
   }
 
   const { values, errors, touched, handleChange, handleSubmit, handleBlur } =
@@ -57,7 +89,7 @@ const Login = ({navigation}: any) => {
            errorMsg={touched.password ? errors.password : undefined}
          />
    <TouchableOpacity onPress={() => navigation.navigate("ForgetPassword")}><Text style={{...FONTS.body4, textAlign: 'right', marginBottom: hp(15)}}>Forget Password ?</Text></TouchableOpacity>
-        <IconTextButton label="Log in" onPress={handleSubmit} />
+        <IconTextButton label="Log in" onPress={handleSubmit} isLoading={loader} />
       </View>
      
      <TouchableOpacity onPress={() => navigation.navigate("CreateAccount")}>

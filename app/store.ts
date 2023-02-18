@@ -1,11 +1,12 @@
 /* eslint-disable eol-last */
 import { configureStore } from '@reduxjs/toolkit';
 import TradeReducer from '../slice/TradeSlice';
-
+import AuthReducer from "../slice/AuthSlice"
 
 export const store = configureStore({
   reducer: {
     trade: TradeReducer,
+    auth: AuthReducer
   },
 });
 
