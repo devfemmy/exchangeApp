@@ -42,6 +42,21 @@ const MainLayout = ({children}: any) => {
     <View style={{flex: 1}}>
      {children}
 
+     {/* Dim Background */}
+     {
+        tradeStatusInfo && 
+        <Animated.View style={{
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            backgroundColor: COLORS.transparentBlack,
+        }} 
+        opacity={modalAnimatedValue}
+        />
+     }
+
         {/* Modal */}
 
      <Animated.View

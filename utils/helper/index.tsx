@@ -58,6 +58,9 @@ import { Notifier, NotifierComponents } from 'react-native-notifier';
   };
   
 
+ export const format = (num: any )=> String(num).replace(/(?<!\..*)(\d)(?=(?:\d{3})+(?:\.|$))/g, '$1,')
+
+
   export const copyToClipboard = (value: string) => {
     Clipboard.setString(value)
     Notifier.showNotification({

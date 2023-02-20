@@ -112,7 +112,7 @@ const Tabs = () => {
                         return (
                             <TabIcon 
                                 focused={focused}
-                                icon={icons.trade}
+                                icon={tradeStatusInfo ? icons.close : icons.trade}
                                 isTrade={true}
                                 label="Trade"
                             />
