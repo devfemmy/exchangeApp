@@ -5,7 +5,7 @@ import { hp } from "../helper";
 
 const GlobalStyle = StyleSheet.create({
     container: {
-        paddingVertical: hp(50),
+        paddingTop: hp(50),
         paddingHorizontal: hp(10),
         flex: 1,
         backgroundColor: COLORS.white
