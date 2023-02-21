@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable space-infix-ops */
 import React, {memo, ComponentProps} from 'react';
 import {StyleProp, StyleSheet,Text, View, ViewStyle} from 'react-native';
@@ -73,7 +74,7 @@ export const TextInput = memo(
                 onPress={toggleEntry}
                 icon={'magnify'}
                 size={hp(25)}
-                style={{marginTop: iconMarginTop}}
+                style={{marginTop: hp(15)}}
               />
             ) : null
           }

@@ -25,7 +25,6 @@ const Home = ({navigation}: any) => {
 
   const getUserInfo = userStateInfo?.userData ? userStateInfo?.userData : userStateInfo
 
-console.log("====", {getUserInfo})
   useEffect(() => {
     const loadData = async () => {
       dispatch(getProfile())
