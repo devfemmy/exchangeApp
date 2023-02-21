@@ -8,13 +8,52 @@ import { COLORS, SIZES, } from '../utils/constants/theme'
 import { useAppSelector } from '../app/hooks'
 import { tradeStatus } from '../slice/TradeSlice'
 import IconTextButton from '../components/IconTextButton'
+import TradeCard from '../components/TradeCard'
 
 const MainLayout = ({children}: any) => {
  
     const tradeStatusInfo = useAppSelector(tradeStatus)
 
     const modalAnimatedValue = React.useRef(new Animated.Value(0)).current;
+    
 
+    const tradeAction = [
+        {
+            id: 1,
+            header: "Deposit",
+            title: "Deposit crypto to another wallet",
+            icon: 'arrowdown',
+            navigationScreen: "Deposit"
+        },
+        {
+            id: 2,
+            header: "Swap",
+            title: "Exchange for crypto",
+            icon: 'swap',
+            navigationScreen: "Swap"
+        },
+        {
+            id: 3,
+            header: "Withdraw",
+            title: "Withdraw your crypto",
+            icon: 'arrowup',
+            navigationScreen: "Withdraw"
+        },
+        {
+            id: 4,
+            header: "Xend Prepaid",
+            title: "Change your crypto to giftcard",
+            icon: 'sync',
+            navigationScreen: "Prepaid"
+        },
+        {
+            id: 5,
+            header: "Zend USD",
+            title: "make Usd payment to customers",
+            icon: 'arrowdown',
+            navigationScreen: "ZendUsd"
+        },
+    ]
 
     useEffect(() => {
         if(tradeStatusInfo){
@@ -70,45 +109,13 @@ const MainLayout = ({children}: any) => {
             backgroundColor: COLORS.white
         }}
      >
-        <IconTextButton 
-            label="Transfer"
-            onPress={() => console.log("Transfer")}
-        />
-         <IconTextButton 
-            label="Withdraw"
-            onPress={() => console.log("Withdraw")}
-            containerStyle={{
-                marginTop: SIZES.base
-            }}
-        />
-         <IconTextButton 
-            label="Withdraw"
-            onPress={() => console.log("Withdraw")}
-            containerStyle={{
-                marginTop: SIZES.base
-            }}
-        />
-         <IconTextButton 
-            label="Withdraw"
-            onPress={() => console.log("Withdraw")}
-            containerStyle={{
-                marginTop: SIZES.base
-            }}
-        />
-         <IconTextButton 
-            label="Withdraw"
-            onPress={() => console.log("Withdraw")}
-            containerStyle={{
-                marginTop: SIZES.base
-            }}
-        />
-         <IconTextButton 
-            label="Withdraw"
-            onPress={() => console.log("Withdraw")}
-            containerStyle={{
-                marginTop: SIZES.base
-            }}
-        />
+       
+       {
+        tradeAction?.map(data => {
+            return <TradeCard data={data} />
+        })
+       }
+       
      </Animated.View>
     </View>
   )
