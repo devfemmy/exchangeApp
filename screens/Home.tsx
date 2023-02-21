@@ -25,7 +25,7 @@ const Home = ({navigation}: any) => {
 
   const getUserInfo = userStateInfo?.userData ? userStateInfo?.userData : userStateInfo
 
-
+console.log("====", {getUserInfo})
   useEffect(() => {
     const loadData = async () => {
       dispatch(getProfile())
@@ -59,17 +59,17 @@ const Home = ({navigation}: any) => {
     {
       id: 1,
       name: "Set Transaction Pin",
-      status: "Pending"
+      status: getUserInfo?.hasSetPin ? "Done" : "Pending",
     },
     {
       id: 2,
       name: "Verify your identity",
-      status: "Pending"
+      status: getUserInfo?.isKycVerified ? "Done" : "Pending"
     },
     {
       id: 3,
       name: "Verify phone number",
-      status: "Pending"
+      status: getUserInfo?.hasVerifiedPhoneNumber ? "Done" : "Pending"
     }
   ]
 
@@ -117,7 +117,7 @@ const Home = ({navigation}: any) => {
         </View>
         <Text style={[{...FONTS.h4, marginVertical: hp(15)}]}>Pending Action</Text>
         {
-          actions?.map(data => {
+          actions?.filter(info => info?.status === "Pending").map(data => {
             return <View style={styles.actionCard}>
               <Text style={[{...FONTS.body5}]}>{data?.name}</Text>
               <Text style={[styles.tag, {...FONTS.body5}]}>{data?.status}</Text>
@@ -140,7 +140,7 @@ const Home = ({navigation}: any) => {
                     </View>
                  </View>
                  <View style={{justifyContent: 'flex-end', alignItems: 'flex-end'}}>
-                 <Text style={{...FONTS.body5, fontWeight: "bold"}}>{`$${format(data?.current_price)}`}</Text>
+                 <Text style={{...FONTS.body5, fontWeight: "bold"}}>{`$${format(data?.current_price.toFixed(2))}`}</Text>
                       <Text style={{...FONTS.body5, color: data?.price_change_percentage_24h === 0 ? COLORS.lightGray : data?.price_change_percentage_24h > 0 ? COLORS.darkGreen : COLORS.red}}>{`${data?.price_change_24h.toFixed(2) + " " + `(${data?.price_change_percentage_24h.toFixed(2)})`}`}</Text>
                  </View>
               </View>
