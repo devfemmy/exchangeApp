@@ -69,6 +69,7 @@ export const verifyEmail = createAsyncThunk(
     );
     if (response?.status === 200) {
       var profile = await AsyncStorage.getItem('keepInfo').then((req: any) => JSON.parse(req))
+      await AsyncStorage.setItem('userInfo', JSON.stringify(profile))
       return profile
      // return response?.data?.data;
     }
@@ -84,6 +85,7 @@ export const confirmEmail = createAsyncThunk(
 
     if (response?.status === 200) {
       var profile = await AsyncStorage.getItem('keepInfo').then((req: any) => JSON.parse(req))
+      await AsyncStorage.setItem('userInfo', JSON.stringify(profile))
       return profile
       //return response?.data?.data;
     }
