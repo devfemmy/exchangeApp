@@ -84,7 +84,7 @@ const Profile = ({navigation}: any) => {
     <View style={GlobalStyle.container}>
     <View style={styles.container}>
       <ScrollView showsVerticalScrollIndicator={false}>
-        <Text style={{...FONTS.h2, marginBottom: hp(25)}}>Account Settings</Text>
+        <Text style={{...FONTS.h2, marginBottom: hp(25)}}>Profile Changes</Text>
 
         <View>
           {
