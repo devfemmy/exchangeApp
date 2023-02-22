@@ -1,14 +1,14 @@
 import { View, StyleSheet, Image,Text } from 'react-native'
 import React from 'react'
-import { profileUser, scanner } from '../assets/images'
-import { hp } from '../utils/helper'
+import {  scanner } from '../assets/images'
+import { hp, wp } from '../utils/helper'
 import { COLORS, FONTS } from '../utils/constants/theme'
 
 const Header = ({info, note}: any) => {
     return (
         <View style={styles.row}>
             <View>
-                <Image source={profileUser} />
+                <Image source={{uri: info?.image}} resizeMode="cover" style={styles.image} />
             </View>
             <View style={styles.div}>
                 <View style={styles.rowDiv}>
@@ -61,5 +61,10 @@ const styles = StyleSheet.create({
     },
     txt3: {
 
+    },
+    image: {
+        width: wp(50),
+        height: hp(50),
+        borderRadius: 50
     }
 })
