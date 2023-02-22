@@ -2,11 +2,13 @@
 import { configureStore } from '@reduxjs/toolkit';
 import TradeReducer from '../slice/TradeSlice';
 import AuthReducer from "../slice/AuthSlice"
+import WalletReducer from '../slice/WalletSlice';
 
 export const store = configureStore({
   reducer: {
     trade: TradeReducer,
-    auth: AuthReducer
+    auth: AuthReducer,
+    wallet: WalletReducer
   },
 });
 

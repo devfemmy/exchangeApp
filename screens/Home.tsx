@@ -1,7 +1,7 @@
 /* eslint-disable eslint-comments/no-unlimited-disable */
 /* eslint-disable */
 
-import { View, Text,ScrollView, StyleSheet, Image, Pressable, TouchableOpacity } from 'react-native'
+import { View, Text,ScrollView, StyleSheet, Image, Pressable, TouchableOpacity, RefreshControl } from 'react-native'
 import React, {useState, useEffect} from 'react'
 
 import MainLayout from './mainLayout'
@@ -16,14 +16,48 @@ import Header from '../components/Header'
 import { COLORS, FONTS } from '../utils/constants/theme'
 import { tokenBalanceData } from '../utils/constants/tokenList'
 import { getMarketPrice, marketInfo } from '../slice/TradeSlice'
+import { getTradingAccount, tradingAccount } from '../slice/WalletSlice'
+import DepositModal from '../components/Modals/DepositModal'
+import WithdrawModal from '../components/Modals/WithdrawModal'
+import TransferModal from '../components/Modals/TransferModal'
 
 const Home = ({navigation}: any) => {
  const dispatch = useAppDispatch()
  const userStateInfo = useAppSelector(userState)
  const marketInfos = useAppSelector(marketInfo) as any
  const [show, setShow] = useState(false)
-
+ const tradingAccountInfo = useAppSelector(tradingAccount)
+ const [refreshing, setRefreshing] = useState(false);
   const getUserInfo = userStateInfo?.userData ? userStateInfo?.userData : userStateInfo
+const [depositModal, setDepositModal] = useState(false)
+const [transferModal, setTransferModal] = useState(false)
+const [withdrawModal, setWithdrawModal] = useState(false)
+
+const handleDepositOpen = () => {
+  setDepositModal(true)
+}
+
+const handleDepositClose = () => {
+  setDepositModal(false)
+}
+
+const handleWithdrawalOpen = () => {
+  setWithdrawModal(true)
+}
+
+const handleWithdrawalClose = () => {
+ setWithdrawModal(false)
+}
+
+const handleTransferOpen = () => {
+    setTransferModal(true)
+}
+
+const handleTransferClose = () => {
+  setTransferModal(false)
+}
+
+
 
   useEffect(() => {
     const loadData = async () => {
@@ -32,15 +66,29 @@ const Home = ({navigation}: any) => {
     loadData()
   }, [])
   const [currentCount, setCount] = useState(1);
+
   const getMarketData = async () => {
     await dispatch(getMarketPrice())
   }
 
+  const onRefresh = React.useCallback(() => {
+    setRefreshing(true);
+    getMarketData()
+    dispatch(getProfile())
+    setTimeout(() => {
+      setRefreshing(false);
+    }, 2000);
+  }, []);
+
   useEffect(() => {
     getMarketData()
-    const id = setInterval(timer, 200);
+    const id = setInterval(timer, 5000);
  return () => clearInterval(id);
   }, [currentCount])
+
+  // useEffect(() => {
+  //   dispatch(getTradingAccount()).then(gg => console.log("hhh==", {gg}))
+  // }, [])
 
   const timer = () => setCount(currentCount + 1);
 
@@ -79,7 +127,12 @@ const Home = ({navigation}: any) => {
      <View style={GlobalStyle.container}>
        <View style={styles.container}>
       <Header info={getUserInfo} note={greetUser()} />
-      <ScrollView showsVerticalScrollIndicator={false}>
+      <ScrollView 
+        showsVerticalScrollIndicator={false}
+        refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+        }
+        >
         <View style={styles.card}>
           <View style={styles.eyeDiv}>
             {
@@ -93,24 +146,30 @@ const Home = ({navigation}: any) => {
           <Text style={[styles.txt, {...FONTS.largeTitle, fontWeight: 'bold'}]}>{show ? '$0.00312' : '$-------'}</Text>
           <Text style={[styles.txt, {...FONTS.body5}]}>00312 btc</Text>
           <View style={styles.rowC}>
-            <View>
+           <TouchableOpacity onPress={handleDepositOpen}>
+           <View>
               <View style={styles.sub}>
                 <Image source={arrowDown} />
               </View>
               <Text style={[styles.txt, {...FONTS.body5}]}>Deposit</Text>
             </View>
+           </TouchableOpacity>
+           <TouchableOpacity onPress={handleTransferOpen}>
             <View>
               <View style={styles.sub}>
                 <Image source={swaps} />
               </View>
               <Text style={[styles.txt, {...FONTS.body5}]}>Transfer</Text>
             </View>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={handleWithdrawalOpen}>
             <View>
               <View style={styles.sub}>
                 <Image source={arrowUp} />
               </View>
               <Text style={[styles.txt, {...FONTS.body5}]}>Withdraw</Text>
             </View>
+            </TouchableOpacity>
 
           </View>
         </View>
@@ -140,7 +199,7 @@ const Home = ({navigation}: any) => {
                  </View>
                  <View style={{justifyContent: 'flex-end', alignItems: 'flex-end'}}>
                  <Text style={{...FONTS.body5, fontWeight: "bold"}}>{`$${format(data?.current_price.toFixed(2))}`}</Text>
-                      <Text style={{...FONTS.body5, color: data?.price_change_percentage_24h === 0 ? COLORS.lightGray : data?.price_change_percentage_24h > 0 ? COLORS.darkGreen : COLORS.red}}>{`${data?.price_change_24h.toFixed(2) + " " + `(${data?.price_change_percentage_24h.toFixed(2)})`}`}</Text>
+                      <Text style={{...FONTS.body5, color: data?.price_change_percentage_24h === 0 ? COLORS.lightGray : data?.price_change_percentage_24h > 0 ? COLORS.darkGreen : COLORS.red}}>{`${data?.price_change_24h.toFixed(2) + " " + `(${data?.price_change_percentage_24h.toFixed(2)})%`}`}</Text>
                  </View>
               </View>
                  </TouchableOpacity>
@@ -148,10 +207,16 @@ const Home = ({navigation}: any) => {
             
             })
            }
+
+<DepositModal modalVisible={depositModal} setModalVisible={() => handleDepositClose()} />
+<WithdrawModal modalVisible={withdrawModal} setModalVisible={() => handleWithdrawalClose()} />
+<TransferModal modalVisible={transferModal} setModalVisible={() => handleTransferClose()} />
       </ScrollView>
 
     </View>
+    
     </View> 
+
    </MainLayout>
   )
 }
