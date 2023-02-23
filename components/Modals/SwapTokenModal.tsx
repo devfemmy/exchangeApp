@@ -14,21 +14,19 @@ import {
   import {tokenBalanceData} from '../../utils/constants/tokenList';
   import GlobalStyle from '../../utils/globalStyle';
   import {ScrollView} from 'react-native-gesture-handler';
-
-
   
-  const WithdrawModal = ({modalVisible, setModalVisible}: any) => {
+  const SwapTokenModal = ({modalVisible, setModalVisible, selectedToken, setSelectedToken}: any) => {
     const [value, setValue] = useState("")
 
 
     const searchToken = tokenBalanceData?.filter(data => data?.currency?.toLowerCase().includes(value?.toLowerCase()) || data?.token?.toLowerCase().includes(value?.toLowerCase()))
 
-
+    console.log({selectedToken})
     const assets = () => {
       return searchToken?.map(info => {
         return (
-          <TouchableOpacity>
-            <View style={styles.actionCard2}>
+          <TouchableOpacity onPress={ selectedToken?.toLowerCase() === info?.currency?.toLowerCase() ? () => {} : () => setSelectedToken(info?.currency?.toUpperCase())}>
+            <View style={[styles.actionCard2, {backgroundColor: selectedToken?.toLowerCase() === info?.currency?.toLowerCase() ? COLORS.lightGray2 : COLORS.primary2}]}>
               <View style={GlobalStyle.rowStart}>
                 <Image
                   source={info?.icon}
@@ -73,14 +71,14 @@ import {
                 </View>
               </TouchableOpacity>
   
-              <Text style={{...FONTS.h2, textAlign: 'left'}}>Withdraw Token</Text>
+              <Text style={{...FONTS.h2, textAlign: 'left'}}>Swap Token</Text>
               <Text
                 style={{
                   ...FONTS.body4,
                   textAlign: 'left',
                   color: COLORS.lightGray3,
                 }}>
-                Select token you want to withdraw
+                Select assets you want to transfer
               </Text>
               <View style={styles.search}>
                 <TextInput label={'Search Assets'} value={value} onChangeText={(value) => setValue(value)} searchInput />
@@ -93,7 +91,7 @@ import {
     );
   };
   
-  export default WithdrawModal;
+  export default SwapTokenModal;
   
   const styles = StyleSheet.create({
     centeredView: {

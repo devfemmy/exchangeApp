@@ -13,15 +13,19 @@ import {TouchableOpacity} from 'react-native-gesture-handler';
 import { tokenBalanceData } from '../utils/constants/tokenList'
 import { getMarketPrice, marketInfo } from '../slice/TradeSlice'
 import { useAppSelector } from '../app/hooks';
+import TransferModal from '../components/Modals/TransferModal';
 
 
-const Assets = () => {
+const Assets = ({navigation}: any) => {
   const [type, setType] = useState('funding');
   const marketInfos = useAppSelector(marketInfo) as any
+  const [transferModal, setTransferModal] = useState(false)
 
   const showFundingAssets = () => {
     return tokenBalanceData?.map(info => {
-      return  <TouchableOpacity>
+      return  <TouchableOpacity onPress={() => navigation.navigate("AssetInfo", {
+        assets: info
+       })}>
           <View style={styles.actionCard2}>
         <View style={GlobalStyle.rowStart}>
          <Image source={info?.icon} resizeMode='cover' style={styles.icons} />
@@ -39,9 +43,19 @@ const Assets = () => {
      })
   }
 
+  const handleTransferOpen = () => {
+    setTransferModal(true)
+}
+
+const handleTransferClose = () => {
+  setTransferModal(false)
+}
+
   const showTradingAssets = () => {
     return tokenBalanceData?.map(info => {
-      return  <TouchableOpacity>
+      return  <TouchableOpacity onPress={() => navigation.navigate("AssetInfo", {
+        assets: info
+       })}>
           <View style={styles.actionCard2}>
         <View style={GlobalStyle.rowStart}>
          <Image source={info?.icon} resizeMode='cover' style={styles.icons} />
@@ -69,7 +83,7 @@ const Assets = () => {
               Buy, Sell and Swap all of the assets offered by our wallet
             </Text>
             <View style={styles.div}>
-              <IconTextButton label="Transfer" onPress={() => {}} />
+              <IconTextButton label="Transfer" onPress={() => handleTransferOpen()} />
             </View>
           </View>
           <View style={styles.search}>
@@ -129,6 +143,8 @@ const Assets = () => {
            {
             type === "trading" && showTradingAssets()
           }
+
+<TransferModal modalVisible={transferModal} setModalVisible={() => handleTransferClose()} />
         </ScrollView>
       </View>
     </MainLayout>

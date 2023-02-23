@@ -16,6 +16,7 @@ import {stroke} from '../../assets/images';
 import icons from '../../utils/constants/icons';
 import IconTextButton from '../IconTextButton';
 import { ScrollView } from 'react-native-gesture-handler';
+import SelectTokenModal from './SelectTokenModal';
 
 
 const TransferModal = ({modalVisible, setModalVisible}: any) => {
@@ -23,6 +24,15 @@ const TransferModal = ({modalVisible, setModalVisible}: any) => {
   const [to, setTo] = useState('Trading');
   const [selectedAssets, setSelectedAssets] = useState('USD');
   const [number, setNumber] = useState('');
+  const [openSelect, setOpenSelect] = useState(false)
+
+  const handleOpenSelectOpen = () => {
+    setOpenSelect(true)
+  }
+
+  const handleOpenSelectClose = () => {
+    setOpenSelect(false)
+  }
 
 
   const changeDirection = () => {
@@ -34,6 +44,12 @@ const TransferModal = ({modalVisible, setModalVisible}: any) => {
       setTo('Funding');
     }
   };
+
+  const handleSelection = (value: any) => {
+    setSelectedAssets(value)
+    handleOpenSelectClose()
+  }
+
   return (
     <View style={styles.centeredView}>
       <Modal
@@ -102,7 +118,8 @@ const TransferModal = ({modalVisible, setModalVisible}: any) => {
               </View>
             </View>
 
-            <View style={styles.card2}>
+           <TouchableOpacity onPress={() => handleOpenSelectOpen()}>
+           <View style={styles.card2}>
                 <View>
  <Text style={{...FONTS.body5, color: COLORS.lightGray3}}>Select Token</Text>
                 <Text style={{...FONTS.body3}}>{selectedAssets}</Text>
@@ -110,6 +127,7 @@ const TransferModal = ({modalVisible, setModalVisible}: any) => {
                 <AntDesign name="down" size={10} />
                
             </View>
+           </TouchableOpacity>
 
             <View style={styles.card2}>
                 <View>
@@ -127,7 +145,7 @@ const TransferModal = ({modalVisible, setModalVisible}: any) => {
                 </View>
               
             </View>
-            <Text style={{...FONTS.body4, marginVertical: hp(5), color: COLORS.lightGray3}}>{`Avail: 0${selectedAssets}`}</Text>
+            <Text style={{...FONTS.body4, marginVertical: hp(5), color: COLORS.lightGray3}}>{`Avail: 0 ${selectedAssets}`}</Text>
           
           <View style={{marginTop: hp(10)}}>
             <IconTextButton label="Transfer Token" />
@@ -135,9 +153,12 @@ const TransferModal = ({modalVisible, setModalVisible}: any) => {
           
           </View> 
           </ScrollView>
+          <SelectTokenModal modalVisible={openSelect} setSelectedToken={(value: any) => handleSelection(value)} setModalVisible={() => handleOpenSelectClose()} />
         </View>
        
       </Modal>
+
+    
     </View>
   );
 };
@@ -150,6 +171,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     marginTop: 12,
+    backgroundColor: COLORS.white
   },
   modalView: {
     margin: 20,

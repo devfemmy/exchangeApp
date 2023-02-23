@@ -6,7 +6,7 @@ import {
   TouchableOpacity,
   Image,
 } from 'react-native';
-import React from 'react';
+import React, { useState } from 'react';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import {COLORS, FONTS} from '../../utils/constants/theme';
 import {format, hp, wp} from '../../utils/helper';
@@ -16,8 +16,13 @@ import GlobalStyle from '../../utils/globalStyle';
 import {ScrollView} from 'react-native-gesture-handler';
 
 const DepositModal = ({modalVisible, setModalVisible}: any) => {
+  const [value, setValue] = useState("")
+
+
+    const searchToken = tokenBalanceData?.filter(data => data?.currency?.toLowerCase().includes(value?.toLowerCase()) || data?.token?.toLowerCase().includes(value?.toLowerCase()))
+
   const assets = () => {
-    return tokenBalanceData?.map(info => {
+    return searchToken?.map(info => {
       return (
         <TouchableOpacity>
           <View style={styles.actionCard2}>
@@ -75,7 +80,7 @@ const DepositModal = ({modalVisible, setModalVisible}: any) => {
               Select token you want to deposit
             </Text>
             <View style={styles.search}>
-              <TextInput label={'Search Assets'} value={''} searchInput />
+              <TextInput label={'Search Assets'} value={value} onChangeText={(value) => setValue(value)} searchInput />
             </View>
             <ScrollView>{assets()}</ScrollView>
           </View>
@@ -93,6 +98,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     marginTop: 12,
+    backgroundColor: COLORS.white
   },
   modalView: {
     margin: 20,
