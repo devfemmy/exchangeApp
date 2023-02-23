@@ -14,20 +14,17 @@ import {
   import {tokenBalanceData} from '../../utils/constants/tokenList';
   import GlobalStyle from '../../utils/globalStyle';
   import {ScrollView} from 'react-native-gesture-handler';
-
-
   
-  const WithdrawModal = ({modalVisible, setModalVisible}: any) => {
+  const SelectTokenModal = ({modalVisible, setModalVisible, setSelectedToken}: any) => {
     const [value, setValue] = useState("")
 
 
     const searchToken = tokenBalanceData?.filter(data => data?.currency?.toLowerCase().includes(value?.toLowerCase()) || data?.token?.toLowerCase().includes(value?.toLowerCase()))
 
-
     const assets = () => {
       return searchToken?.map(info => {
         return (
-          <TouchableOpacity>
+          <TouchableOpacity onPress={() => setSelectedToken(info?.currency?.toUpperCase())}>
             <View style={styles.actionCard2}>
               <View style={GlobalStyle.rowStart}>
                 <Image
@@ -73,14 +70,14 @@ import {
                 </View>
               </TouchableOpacity>
   
-              <Text style={{...FONTS.h2, textAlign: 'left'}}>Withdraw Token</Text>
+              <Text style={{...FONTS.h2, textAlign: 'left'}}>Select Token</Text>
               <Text
                 style={{
                   ...FONTS.body4,
                   textAlign: 'left',
                   color: COLORS.lightGray3,
                 }}>
-                Select token you want to withdraw
+                Select assets you want to transfer
               </Text>
               <View style={styles.search}>
                 <TextInput label={'Search Assets'} value={value} onChangeText={(value) => setValue(value)} searchInput />
@@ -93,7 +90,7 @@ import {
     );
   };
   
-  export default WithdrawModal;
+  export default SelectTokenModal;
   
   const styles = StyleSheet.create({
     centeredView: {

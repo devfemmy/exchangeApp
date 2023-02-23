@@ -42,7 +42,7 @@ const tokenBalanceData = [
     },
     {
       icon: solana,
-      token: "Solona",
+      token: "Solana",
       currency: "sol",
       pendingBalance: 0,
       availableBalance: 0,

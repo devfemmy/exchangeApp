@@ -7,6 +7,7 @@ import React from 'react'
 import { createStackNavigator } from "@react-navigation/stack";
 import { NavigationContainer } from '@react-navigation/native';
 import Tabs from "../navigation/tabs";
+import AssetInfo from '../screens/AssetInfo';
 
 const Stack = createStackNavigator();
 
@@ -23,6 +24,10 @@ const ContainerComponent = () => {
         <Stack.Screen
             name="MainLayout"
             component={Tabs}
+        />
+           <Stack.Screen
+            name="AssetInfo"
+            component={AssetInfo}
         />
     </Stack.Navigator>
 </NavigationContainer>

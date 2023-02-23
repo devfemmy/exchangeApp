@@ -146,6 +146,7 @@ const handleTransferClose = () => {
           <Text style={[styles.txt, {...FONTS.largeTitle, fontWeight: 'bold'}]}>{show ? '$0.00312' : '$-------'}</Text>
           <Text style={[styles.txt, {...FONTS.body5}]}>00312 btc</Text>
           <View style={styles.rowC}>
+          <View style={styles.rowC2}>
            <TouchableOpacity onPress={handleDepositOpen}>
            <View>
               <View style={styles.sub}>
@@ -172,6 +173,7 @@ const handleTransferClose = () => {
             </TouchableOpacity>
 
           </View>
+          </View>
         </View>
         <Text style={[{...FONTS.h4, marginVertical: hp(15)}]}>Pending Action</Text>
         {
@@ -188,7 +190,9 @@ const handleTransferClose = () => {
             marketInfos?.map((data: any) => {
              return tokenBalanceData?.map(info => {
                return info?.currency === data?.symbol &&
-                 <TouchableOpacity>
+                 <TouchableOpacity onPress={() => navigation.navigate("AssetInfo", {
+                  assets: info
+                 })}>
                    <View style={styles.actionCard2}>
                  <View style={GlobalStyle.rowStart}>
                   <Image source={info?.icon} resizeMode='cover' style={styles.icons} />
@@ -273,9 +277,16 @@ const styles = StyleSheet.create({
   },
   rowC: {
     flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: hp(20),
+
+  },
+  rowC2: {
+    flexDirection: 'row',
     justifyContent: 'space-around',
     alignItems: 'center',
-    marginTop: hp(20)
+    width: wp(200)
   },
   sub: {
     backgroundColor: "#A5B1F3",
