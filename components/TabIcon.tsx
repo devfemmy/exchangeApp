@@ -36,11 +36,11 @@ if(isTrade){
         style={{
             width: 25,
             height: 25,
-            tintColor: focused ? COLORS.primary : COLORS.gray,
+            tintColor: focused ? COLORS.primary : COLORS.lightPrimary,
             ...iconStyle,
         }}
       />
-      <Text style={[styles.text, {color: focused ? COLORS.primary : COLORS.gray, ...FONTS.h4}]}>{label}</Text>
+      <Text style={[styles.text, {color: focused ? COLORS.primary : COLORS.lightPrimary, ...FONTS.h5}]}>{label}</Text>
     </View>
   )
 }
@@ -54,6 +54,6 @@ const styles = StyleSheet.create({
         justifyContent: 'center'
     },
     text: {
-       
+       fontWeight: '700',
     }
 })
