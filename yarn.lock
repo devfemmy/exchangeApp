@@ -6254,7 +6254,7 @@ prompts@^2.0.1, prompts@^2.4.0:
     kleur "^3.0.3"
     sisteransi "^1.0.5"
 
-prop-types@*, prop-types@^15.7.2, prop-types@^15.8.1:
+prop-types@*, prop-types@^15.6.2, prop-types@^15.7.2, prop-types@^15.8.1:
   version "15.8.1"
   resolved "https://registry.npmjs.org/prop-types/-/prop-types-15.8.1.tgz"
   integrity sha512-oj87CgZICdulUohogVAR7AjlC0327U4el4L6eAvOqCeudMDVU0NThNaV+b9Df4dXgSP1gXMTnPdhfe/2qDH5cg==
@@ -6376,6 +6376,13 @@ react-native-notifier@^1.9.0:
   version "1.9.0"
   resolved "https://registry.npmjs.org/react-native-notifier/-/react-native-notifier-1.9.0.tgz"
   integrity sha512-p9NpDCCSNNpfiJTRSu2rtSGGxekejDWSh3mX5rvjMllGCPyoJS3d36x9O+roYcH8qSqLf4QDcmwCMSUuaGTgXg==
+
+react-native-otp-textinput@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/react-native-otp-textinput/-/react-native-otp-textinput-1.0.0.tgz#2f50be01e17b0acf5c69736b2f1adb6adb8bf055"
+  integrity sha512-S3KGfgZm+Hgpb7btOCUgNdIwsWs9ouRQDigEu4y57u7L3Ws9QkncIvbJ1BLDBJftLuwnM6+93qlO1QeSHF3qAA==
+  dependencies:
+    prop-types "^15.6.2"
 
 react-native-paper@^5.2.0:
   version "5.2.0"

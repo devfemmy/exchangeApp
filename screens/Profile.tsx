@@ -43,12 +43,6 @@ const Profile = ({navigation}: any) => {
 
     const Info = [
     {
-      id: 1,
-      name: "General",
-      icon: "user",
-      route: 'GeneralScreen'
-    },
-    {
       id: 2,
       name: "Security",
       icon: "security",
@@ -100,7 +94,7 @@ const Profile = ({navigation}: any) => {
             <TextIconIndicator icon={<CheckIcon width={15} height={15} />} bg="#DEF8E9" color="#219653" text="Verified" />
           </View>
           </View>
-          <TouchableOpacity style={{width: '10%', alignItems: 'flex-end'}}>
+          <TouchableOpacity onPress={() => navigation.navigate('EditProfile')} style={{width: '10%', alignItems: 'flex-end'}}>
             <EditIcon width={30} height={30} />
           </TouchableOpacity>
         </View>
