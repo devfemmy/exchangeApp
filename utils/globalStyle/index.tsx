@@ -1,6 +1,6 @@
 import { StyleSheet } from "react-native";
 import { COLORS } from "../constants/theme";
-import { hp } from "../helper";
+import { hp, wp } from "../helper";
 
 
 const GlobalStyle = StyleSheet.create({
@@ -32,7 +32,24 @@ const GlobalStyle = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'flex-start',
         alignItems: 'center',
-      }
-})
+      },
+      profileCircle: {
+        backgroundColor: COLORS.primary2,
+        height: hp(70),
+        width: hp(70),
+        borderRadius: hp(35),
+        justifyContent: 'center',
+        alignItems: 'center',
+      },
+      level: {
+        minWidth: wp(80),
+        height: hp(32),
+        borderRadius: 8,
+        backgroundColor: COLORS.primary2,
+        justifyContent: 'center',
+        alignItems: 'center',
+        paddingHorizontal: 5,
+      },
+});
 
-export default GlobalStyle
+export default GlobalStyle;
