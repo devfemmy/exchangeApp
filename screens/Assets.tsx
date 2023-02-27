@@ -20,7 +20,7 @@ import {TouchableOpacity} from 'react-native-gesture-handler';
 import {tokenBalanceData} from '../utils/constants/tokenList';
 import {getMarketPrice, marketInfo} from '../slice/TradeSlice';
 import {useAppDispatch, useAppSelector} from '../app/hooks';
-import TransferModal from '../components/Modals/TransferModal';
+
 import {getFundingAccount, getTradingAccount} from '../slice/WalletSlice';
 import MarketComponent from '../components/MarketComponent';
 
@@ -31,6 +31,7 @@ const Assets = ({navigation}: any) => {
   const [tradingAccountInfo, setTradingAccountInfo] = useState<any>();
   const [fundingAccountInfo, setFundingAccountInfo] = useState<any>();
   const dispatch = useAppDispatch();
+  const [value, setValue] = useState<any>()
 
 
   const fundingAssets = (data: any) => {
@@ -364,9 +365,10 @@ const Assets = ({navigation}: any) => {
  return () => clearInterval(id);
   }, [currentCount])
 
+  const searchData = !value ? tokenBalanceData : tokenBalanceData?.filter(data => data?.currency?.toLowerCase().includes(value?.toLowerCase()) ||  data?.token?.toLowerCase().includes(value?.toLowerCase()))
   const showFundingAssets = () => {
     return marketInfos?.map((data: any) => {
-    return tokenBalanceData?.map(info => {
+    return searchData?.map(info => {
       return info?.currency === data?.symbol && <MarketComponent info={info} type="funding" marketData={data} navigation={navigation} action={(data: any) => fundingAssets(data)} />
     });
   })
@@ -383,9 +385,10 @@ const Assets = ({navigation}: any) => {
   }, []);
 
 
+
   const showTradingAssets = () => {
     return marketInfos?.map((data: any) => {
-      return tokenBalanceData?.map(info => {
+      return searchData?.map(info => {
         return info?.currency === data?.symbol && <MarketComponent info={info} type="trading" navigation={navigation} marketData={data} action={(data: any) => tradingAssets(data)} />
       });
     })
@@ -403,7 +406,7 @@ const Assets = ({navigation}: any) => {
 
           </View>
           <View style={styles.search}>
-            <TextInput label={'Search Assets'} value={''} searchInput />
+            <TextInput label={'Search Assets'} value={value} onChangeText={(value) => setValue(value)} searchInput />
           </View>
           <View style={GlobalStyle.rowStart}>
             <View

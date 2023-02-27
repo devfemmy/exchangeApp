@@ -14,11 +14,7 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 import {COLORS, FONTS} from '../utils/constants/theme';
 import {format, hp, wp} from '../utils/helper';
 import {TouchableOpacity} from 'react-native-gesture-handler';
-import {TextInput} from '../components/TextInput';
 
-import DepositModal from '../components/Modals/DepositModal';
-import WithdrawModal from '../components/Modals/WithdrawModal';
-import SwapModal from '../components/Modals/SwapModal';
 import {useAppDispatch} from '../app/hooks';
 import {
   getAssetTransaction,
@@ -27,6 +23,8 @@ import {
 } from '../slice/WalletSlice';
 import EmptyScreen from '../components/EmptyScreen';
 import HistoryCard from '../components/HistoryCard';
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import { arrowDown, arrowUp, eye, swaps } from '../assets/images';
 
 const AssetInfo = (props: any) => {
   const [assetData, setAssetData] = useState<any>();
@@ -34,18 +32,14 @@ const AssetInfo = (props: any) => {
   const asset = props.route?.params?.currency;
   const assetType = props.route?.params?.assetType;
   const iconData = props.route?.params?.icon;
+  const [show, setShow] = useState(false)
   const [type, setType] = useState('all');
-  const [value, setValue] = useState('');
-  const [depositModal, setDepositModal] = useState(false);
-  const [withdrawModal, setWithdrawModal] = useState(false);
-  const [swapModal, setSwapModal] = useState(false);
+
+
   const dispatch = useAppDispatch();
   const [assetTransactions, setAssetTransaction] = useState<any>();
 
   useEffect(() => {
-    const payload = {
-      currency: asset,
-    };
     if (assetType === 'funding') {
       dispatch(getFundingAccountByCurrency(asset)).then(dd =>
         setAssetData(dd?.payload),
@@ -55,100 +49,70 @@ const AssetInfo = (props: any) => {
         setAssetData(dd?.payload),
       );
     }
-    dispatch(getAssetTransaction(payload)).then(dd => setAssetTransaction(dd?.payload));
+  
   }, [asset]);
 
+ 
+  useEffect(() => {
+    const payload = {
+      currency: asset,
+      type: type
+    };
+
+    dispatch(getAssetTransaction(payload)).then(dd =>
+      setAssetTransaction(dd?.payload),
+    )
+  }, [asset, type])
 
 
-  const handleDepositOpen = () => {
-    setDepositModal(true);
-  };
-
-  const handleDepositClose = () => {
-    setDepositModal(false);
-  };
-
-  const handleSwapOpen = () => {
-    setSwapModal(true);
-  };
-
-  const handleSwapClose = () => {
-    setSwapModal(false);
-  };
-
-  const handleWithdrawalOpen = () => {
-    setWithdrawModal(true);
-  };
-
-  const handleWithdrawalClose = () => {
-    setWithdrawModal(false);
-  };
-
-  console.log("kkk==", assetTransactions)
 
   return (
     <View style={GlobalStyle.container}>
-      <View style={GlobalStyle.rowStart}>
-        <TouchableOpacity onPress={() => props.navigation.goBack()}>
-          <Text style={{...FONTS.h3, color: COLORS.lightGray3}}>Assets</Text>
-        </TouchableOpacity>
-        <AntDesign name="right" size={10} style={styles.icon} />
-        <Text style={{...FONTS.h3, color: COLORS.primary}}>{assetName}</Text>
-      </View>
-      <View style={[GlobalStyle.rowStart, {marginTop: hp(25)}]}>
-        <Image source={iconData} resizeMode="cover" style={styles.icons} />
-        <Text style={{...FONTS.h2, textTransform: 'capitalize'}}>
-          {assetName}
-        </Text>
-        <Text style={{...FONTS.h2}}> ({asset.toUpperCase()})</Text>
+      <View style={GlobalStyle.rowBetween}>
+        <AntDesign
+          name="arrowleft"
+          size={25}
+          onPress={() => props.navigation.goBack()}
+        />
+        <Text style={{...FONTS.h2}}>{assetName}</Text>
+        <Image source={iconData} style={styles.icon} />
       </View>
 
-      <View style={styles.card}>
-        <Text
-          style={{
-            textAlign: 'center',
-            color: COLORS.lightGray3,
-            ...FONTS.body5,
-          }}>
-          Total Balance
-        </Text>
-        <Text style={{textAlign: 'center', ...FONTS.body5}}>
-          {assetData &&
-            `$${format(
-              parseFloat(assetData[asset?.toUpperCase()]?.balance).toFixed(4),
-            )}`}
-        </Text>
-        <View style={GlobalStyle.rowStart}>
-          <View style={styles.body}>
+      <View style={styles.cards}>
+        <View style={GlobalStyle.rowAround}>
+          <View>
             <Text
               style={{
-                textAlign: 'center',
-                color: COLORS.darkGreen,
+                color: COLORS.white,
                 ...FONTS.body5,
               }}>
               Available
             </Text>
-            <Text style={{textAlign: 'center', ...FONTS.body5}}>
+            <Text style={{...FONTS.body5, color: COLORS.white}}>
               {assetData &&
-                `$${format(
+                `${format(
                   parseFloat(assetData[asset?.toUpperCase()]?.availBal).toFixed(
                     4,
                   ),
-                )}`}
+                )} ${asset} `}
             </Text>
           </View>
-          <View style={styles.body}>
+          <View>
             <Text
               style={{
-                textAlign: 'center',
-                color: COLORS.orange,
+                color: COLORS.white,
                 ...FONTS.body5,
               }}>
               Pending
             </Text>
-            <Text style={{textAlign: 'center', ...FONTS.body5}}>
+            <Text
+              style={{
+                color: COLORS.white,
+                textAlign: 'center',
+                ...FONTS.body5,
+              }}>
               {assetData &&
-                `$${format(
+                `${format(
                   parseFloat(
                     assetData[asset?.toUpperCase()]?.pendingBal,
                   ).toFixed(4),
@@ -156,71 +120,80 @@ const AssetInfo = (props: any) => {
             </Text>
           </View>
         </View>
-      </View>
-
-      <View style={GlobalStyle.rowBetween}>
-        <View style={[styles.btn, {backgroundColor: COLORS.primary}]}>
-          <TouchableOpacity onPress={() => handleDepositOpen()}>
-            <View style={{flexDirection: 'row', alignItems: 'center'}}>
-              <AntDesign name="arrowdown" color={COLORS.white} />
-              <Text
-                style={{
-                  ...FONTS.body5,
-                  color: COLORS.white,
-                  marginLeft: hp(5),
-                }}>
-                Deposit
-              </Text>
-            </View>
-          </TouchableOpacity>
+        <View style={[GlobalStyle.rowBetween, {marginTop: hp(10)}]}>
+              <View></View>
+              <View>
+          <Text
+            style={{
+              textAlign: 'center',
+              color: COLORS.white,
+              ...FONTS.body5,
+            }}>
+            Total Balance
+          </Text>
+          <Text style={{textAlign: 'center', color: COLORS.white, ...FONTS.h1}}>
+          {show ? `${assetData &&
+              `$${format(
+                parseFloat(assetData[asset?.toUpperCase()]?.balance).toFixed(4),
+              )}`}` : '$-------'}
+           
+          </Text>
         </View>
-        <View
-          style={[
-            styles.btn,
+        <View style={styles.eyeDiv}>
             {
-              backgroundColor: COLORS.primary2,
-              borderColor: COLORS.primary,
-              borderWidth: 1,
-            },
-          ]}>
-          <TouchableOpacity onPress={() => handleSwapOpen()}>
-            <View style={{flexDirection: 'row', alignItems: 'center'}}>
-              <AntDesign name="swap" color={COLORS.primary} />
-              <Text
-                style={{
-                  ...FONTS.body5,
-                  color: COLORS.primary,
-                  marginLeft: hp(5),
-                }}>
-                Swap
-              </Text>
-            </View>
-          </TouchableOpacity>
+              show ? <Ionicons name='eye-off-outline' onPress={() => setShow(!show)} color={'white'} size={22} /> :
+                <Pressable onPress={() => setShow(!show)}>
+                  <Image source={eye}  />
+                </Pressable>
+            }
+          </View>
         </View>
-        <View style={[styles.btn, {backgroundColor: COLORS.primary}]}>
-          <TouchableOpacity onPress={() => handleWithdrawalOpen()}>
-            <View style={{flexDirection: 'row', alignItems: 'center'}}>
-              <AntDesign name="arrowup" color={COLORS.white} />
-              <Text
-                style={{
-                  ...FONTS.body5,
-                  color: COLORS.white,
-                  marginLeft: hp(5),
-                }}>
-                Withdraw
-              </Text>
-            </View>
-          </TouchableOpacity>
-        </View>
+        <View style={styles.rowC}>
+                <View style={styles.rowC2}>
+                  <TouchableOpacity onPress={() => props.navigation.navigate("Deposit")}>
+                    <View>
+                      <View style={styles.sub}>
+                        <Image source={arrowDown} />
+                      </View>
+                      <Text style={[styles.txt, {...FONTS.body5}]}>
+                        Deposit
+                      </Text>
+                    </View>
+                  </TouchableOpacity>
+                  <TouchableOpacity onPress={() => props.navigation.navigate("Swap")}>
+                    <View>
+                      <View style={styles.sub}>
+                        <Image source={swaps} />
+                      </View>
+                      <Text style={[styles.txt, {...FONTS.body5}]}>
+                        Swap
+                      </Text>
+                    </View>
+                  </TouchableOpacity>
+                  <TouchableOpacity onPress={() => props.navigation.navigate("Withdraw")}>
+                    <View>
+                      <View style={styles.sub}>
+                        <Image source={arrowUp} />
+                      </View>
+                      <Text style={[styles.txt, {...FONTS.body5}]}>
+                        Withdraw
+                      </Text>
+                    </View>
+                  </TouchableOpacity>
+                </View>
+              </View>
       </View>
 
-      <View style={[GlobalStyle.rowStart, {marginTop: hp(30)}]}>
+      <View style={[GlobalStyle.rowStart, {marginTop: hp(30), marginBottom: hp(20)}]}>
         <ScrollView horizontal showsHorizontalScrollIndicator={false}>
           <View
             style={{
               width: wp(50),
-              borderBottomColor: type === 'all' ? COLORS.primary : COLORS.gray2,
-              borderBottomWidth: 1,
+              backgroundColor: type === 'all' ? COLORS.primary : COLORS.white,
+              borderColor: COLORS.primary,
+              borderWidth: 1,
+              borderRadius: hp(15),
+              marginRight: hp(10),
               paddingBottom: hp(5),
             }}>
             <Pressable onPress={() => setType('all')}>
@@ -228,7 +201,7 @@ const AssetInfo = (props: any) => {
                 style={{
                   ...FONTS.h3,
                   textAlign: 'center',
-                  color: type === 'all' ? COLORS.primary : COLORS.gray2,
+                  color: type === 'all' ? COLORS.white : COLORS.primary,
                 }}>
                 All
               </Text>
@@ -237,9 +210,12 @@ const AssetInfo = (props: any) => {
           <View
             style={{
               width: wp(100),
-              borderBottomColor:
-                type === 'withdraw' ? COLORS.primary : COLORS.lightGray3,
-              borderBottomWidth: 1,
+              backgroundColor:
+                type === 'withdraw' ? COLORS.primary : COLORS.white,
+               borderColor: COLORS.primary,
+              borderWidth: 1,
+              borderRadius: hp(15),
+                marginRight: hp(10),
               paddingBottom: hp(5),
             }}>
             <Pressable onPress={() => setType('withdraw')}>
@@ -248,7 +224,7 @@ const AssetInfo = (props: any) => {
                   ...FONTS.h3,
                   textAlign: 'center',
                   color:
-                    type === 'withdraw' ? COLORS.primary : COLORS.lightGray3,
+                    type === 'withdraw' ? COLORS.white : COLORS.primary,
                 }}>
                 Withdraw
               </Text>
@@ -257,9 +233,12 @@ const AssetInfo = (props: any) => {
           <View
             style={{
               width: wp(100),
-              borderBottomColor:
-                type === 'deposit' ? COLORS.primary : COLORS.lightGray3,
-              borderBottomWidth: 1,
+              backgroundColor:
+                type === 'deposit' ? COLORS.primary : COLORS.white,
+               borderColor: COLORS.primary,
+              borderWidth: 1,
+              borderRadius: hp(15),
+                marginRight: hp(10),
               paddingBottom: hp(5),
             }}>
             <Pressable onPress={() => setType('deposit')}>
@@ -268,7 +247,7 @@ const AssetInfo = (props: any) => {
                   ...FONTS.h3,
                   textAlign: 'center',
                   color:
-                    type === 'deposit' ? COLORS.primary : COLORS.lightGray3,
+                    type === 'deposit' ? COLORS.white : COLORS.primary,
                 }}>
                 Deposit
               </Text>
@@ -277,9 +256,12 @@ const AssetInfo = (props: any) => {
           <View
             style={{
               width: wp(100),
-              borderBottomColor:
-                type === 'successful' ? COLORS.primary : COLORS.lightGray3,
-              borderBottomWidth: 1,
+              backgroundColor:
+                type === 'successful' ? COLORS.primary : COLORS.white,
+               borderColor: COLORS.primary,
+              borderWidth: 1,
+              borderRadius: hp(15),
+                marginRight: hp(10),
               paddingBottom: hp(5),
             }}>
             <Pressable onPress={() => setType('successful')}>
@@ -288,7 +270,7 @@ const AssetInfo = (props: any) => {
                   ...FONTS.h3,
                   textAlign: 'center',
                   color:
-                    type === 'successful' ? COLORS.primary : COLORS.lightGray3,
+                    type === 'successful' ? COLORS.white : COLORS.primary,
                 }}>
                 Successful
               </Text>
@@ -297,9 +279,12 @@ const AssetInfo = (props: any) => {
           <View
             style={{
               width: wp(100),
-              borderBottomColor:
-                type === 'incoming' ? COLORS.primary : COLORS.lightGray3,
-              borderBottomWidth: 1,
+              backgroundColor:
+                type === 'incoming' ? COLORS.primary : COLORS.white,
+               borderColor: COLORS.primary,
+              borderWidth: 1,
+                marginRight: hp(10),
+              borderRadius: hp(15),
               paddingBottom: hp(5),
             }}>
             <Pressable onPress={() => setType('incoming')}>
@@ -308,7 +293,7 @@ const AssetInfo = (props: any) => {
                   ...FONTS.h3,
                   textAlign: 'center',
                   color:
-                    type === 'incoming' ? COLORS.primary : COLORS.lightGray3,
+                    type === 'incoming' ? COLORS.white : COLORS.primary,
                 }}>
                 Incoming
               </Text>
@@ -317,9 +302,12 @@ const AssetInfo = (props: any) => {
           <View
             style={{
               width: wp(100),
-              borderBottomColor:
-                type === 'pending' ? COLORS.primary : COLORS.lightGray3,
-              borderBottomWidth: 1,
+              backgroundColor:
+                type === 'pending' ? COLORS.primary : COLORS.white,
+               borderColor: COLORS.primary,
+              borderWidth: 1,
+                marginRight: hp(10),
+              borderRadius: hp(15),
               paddingBottom: hp(5),
             }}>
             <Pressable onPress={() => setType('pending')}>
@@ -328,7 +316,7 @@ const AssetInfo = (props: any) => {
                   ...FONTS.h3,
                   textAlign: 'center',
                   color:
-                    type === 'pending' ? COLORS.primary : COLORS.lightGray3,
+                    type === 'pending' ? COLORS.white : COLORS.primary,
                 }}>
                 Pending
               </Text>
@@ -337,9 +325,12 @@ const AssetInfo = (props: any) => {
           <View
             style={{
               width: wp(100),
-              borderBottomColor:
-                type === 'failed' ? COLORS.primary : COLORS.lightGray3,
-              borderBottomWidth: 1,
+              backgroundColor:
+                type === 'failed' ? COLORS.primary : COLORS.white,
+               borderColor: COLORS.primary,
+              borderWidth: 1,
+              borderRadius: hp(15),
+                marginRight: hp(10),
               paddingBottom: hp(5),
             }}>
             <Pressable onPress={() => setType('failed')}>
@@ -347,7 +338,7 @@ const AssetInfo = (props: any) => {
                 style={{
                   ...FONTS.h3,
                   textAlign: 'center',
-                  color: type === 'failed' ? COLORS.primary : COLORS.lightGray3,
+                  color: type === 'failed' ? COLORS.white : COLORS.primary,
                 }}>
                 Failed
               </Text>
@@ -356,15 +347,6 @@ const AssetInfo = (props: any) => {
         </ScrollView>
       </View>
 
-      <View style={styles.search}>
-        <TextInput
-          label={'Search Transaction id'}
-          value={value}
-          onChangeText={value => setValue(value)}
-          searchInput
-        />
-      </View>
-      
       {
         assetTransactions?.transactions?.length < 1 && <EmptyScreen />
       }
@@ -373,6 +355,7 @@ const AssetInfo = (props: any) => {
         assetTransactions?.transactions?.length > 1 && 
         <FlatList 
          keyExtractor={(item) => item?.id}
+         showsVerticalScrollIndicator={false}
          data={assetTransactions?.transactions}
          renderItem={(item) => {
           return <HistoryCard data={item?.item} />
@@ -380,18 +363,7 @@ const AssetInfo = (props: any) => {
         />
       }
 
-      <DepositModal
-        modalVisible={depositModal}
-        setModalVisible={() => handleDepositClose()}
-      />
-      <WithdrawModal
-        modalVisible={withdrawModal}
-        setModalVisible={() => handleWithdrawalClose()}
-      />
-      <SwapModal
-        modalVisible={swapModal}
-        setModalVisible={() => handleSwapClose()}
-      />
+
     </View>
   );
 };
@@ -399,34 +371,44 @@ const AssetInfo = (props: any) => {
 export default AssetInfo;
 
 const styles = StyleSheet.create({
-  row: {},
   icon: {
-    marginHorizontal: hp(5),
-  },
-  icons: {
-    width: wp(20),
-    height: hp(20),
+    width: wp(30),
+    height: hp(30),
     marginRight: hp(10),
   },
-  card: {
-    backgroundColor: COLORS.lightGray2,
-    padding: hp(15),
-    borderRadius: 10,
+  cards: {
+    backgroundColor: COLORS.primary,
+    padding: hp(25),
+    borderRadius: 30,
     marginVertical: hp(20),
   },
-
-  body: {
-    width: '50%',
+  eyeDiv: {
+    justifyContent: 'flex-end',
+    alignItems: 'flex-end'
   },
-  btn: {
-    width: '30%',
-    borderRadius: 5,
+  rowC: {
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-    height: hp(40),
+    marginTop: hp(20),
   },
-  search: {
-    marginVertical: hp(15),
+  rowC2: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    alignItems: 'center',
+    width: wp(200),
+  },
+  sub: {
+    backgroundColor: '#A5B1F3',
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: hp(10),
+    width: wp(50),
+    height: hp(50),
+    borderRadius: 50,
+  },
+  txt: {
+    textAlign: 'center',
+    color: COLORS.white,
   },
 });

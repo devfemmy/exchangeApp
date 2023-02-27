@@ -1,26 +1,26 @@
+/* eslint-disable react-native/no-inline-styles */
 import { View, Text, StyleSheet, Pressable, Image } from 'react-native';
 import React from 'react';
 import { hp } from '../utils/helper';
-import AntDesign from 'react-native-vector-icons/AntDesign';
 import { stroke } from '../assets/images';
-import { COLORS, FONTS } from '../utils/constants/theme';
-import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import { FONTS } from '../utils/constants/theme';
+import { Switch } from 'react-native-paper';
 
-const ListCard = ({ data, id, handlePress, logOut}: any) => {
+const ListCardItem = ({ data, id, handlePress, icon, isSwitchOn, onToggleSwitch }: any) => {
 
   return (
     <View key={id} style={styles.container}>
-    <Pressable onPress={data?.name === 'Sign Out' ? logOut : handlePress}>
+    <Pressable onPress={data?.name !== 'Allow Biometrics' ? handlePress : null}>
         <View style={styles.rowBtw}>
             <View style={styles.row}>
-                {
-                    data?.icon === 'addusergroup' || data?.icon === 'user' ? <AntDesign name={data?.icon} style={styles.img} size={20} /> : <MaterialIcons name={data?.icon} color={data?.icon === 'logout' ? '#FF0000' : COLORS.gray} size={20} style={styles.img} />
-                }
-                <Text style={{...FONTS.body3, marginLeft: hp(5), color: COLORS.lightGray3}}>{data?.name}</Text>
+                <View>{icon}</View>
+                <Text style={{...FONTS.body3, marginLeft: hp(15), color: '#4F4F4F'}}>{data?.name}</Text>
             </View>
-             {
-                (data?.name !== 'Sign Out' && !data?.type) && <Image source={stroke} style={styles.img} />
+            <View>
+            {
+                data?.name !== 'Allow Biometrics' ? <Image source={stroke} style={styles.img} /> : <Switch value={isSwitchOn} onValueChange={onToggleSwitch} />
             }
+            </View>
 
         </View>
     </Pressable>
@@ -29,7 +29,7 @@ const ListCard = ({ data, id, handlePress, logOut}: any) => {
   );
 };
 
-export default ListCard;
+export default ListCardItem;
 
 const styles = StyleSheet.create({
     container: {

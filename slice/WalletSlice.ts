@@ -67,9 +67,9 @@ export const getFundingAccountByCurrency = createAsyncThunk(
 
 export const getAssetTransaction = createAsyncThunk(
     'wallet/getAssetTransaction',
-    async (payload: {currency: string}) => {
-        var response = await getRequest(config.wallet_base_url + `/api/transaction/history?page=1&limit=10&currency=${payload?.currency}`)
-    
+    async (payload: {currency: string, type: string}) => {
+        var response = await getRequest(config.wallet_base_url + `/api/transaction/history?page=1&limit=10&currency=${payload?.currency}&transactionType=${payload?.type === "all" ? "" : payload?.type}`)
+       
         if (response?.status === 200) {
             return response?.data
           }

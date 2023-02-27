@@ -21,12 +21,16 @@ import {
 
     const searchToken = tokenBalanceData?.filter(data => data?.currency?.toLowerCase().includes(value?.toLowerCase()) || data?.token?.toLowerCase().includes(value?.toLowerCase()))
 
-    console.log({selectedToken})
+  
+    const selectType = (data: any) => {
+        setSelectedToken(data)
+    }
+
     const assets = () => {
       return searchToken?.map(info => {
         return (
-          <TouchableOpacity onPress={ selectedToken?.toLowerCase() === info?.currency?.toLowerCase() ? () => {} : () => setSelectedToken(info?.currency?.toUpperCase())}>
-            <View style={[styles.actionCard2, {backgroundColor: selectedToken?.toLowerCase() === info?.currency?.toLowerCase() ? COLORS.lightGray2 : COLORS.primary2}]}>
+          <TouchableOpacity onPress={ selectedToken?.toLowerCase() === info?.currency?.toLowerCase() ? () => {} : () => selectType(info)}>
+            <View style={[styles.actionCard2, {backgroundColor: selectedToken?.toLowerCase() === info?.currency?.toLowerCase() ? COLORS.lightGray2 : COLORS.white}]}>
               <View style={GlobalStyle.rowStart}>
                 <Image
                   source={info?.icon}
@@ -71,15 +75,7 @@ import {
                 </View>
               </TouchableOpacity>
   
-              <Text style={{...FONTS.h2, textAlign: 'left'}}>Swap Token</Text>
-              <Text
-                style={{
-                  ...FONTS.body4,
-                  textAlign: 'left',
-                  color: COLORS.lightGray3,
-                }}>
-                Select assets you want to transfer
-              </Text>
+              <Text style={{...FONTS.h2, textAlign: 'center'}}>Select Token</Text>
               <View style={styles.search}>
                 <TextInput label={'Search Assets'} value={value} onChangeText={(value) => setValue(value)} searchInput />
               </View>
@@ -99,7 +95,7 @@ import {
       justifyContent: 'center',
       alignItems: 'center',
       marginTop: 12,
-      backgroundColor: COLORS.white
+      backgroundColor: "transparent"
     },
     modalView: {
       margin: 20,
@@ -135,11 +131,7 @@ import {
       alignItems: 'center',
       marginBottom: hp(10),
       paddingBottom: hp(10),
-      backgroundColor: COLORS.primary2,
       padding: 10,
-      borderColor: COLORS.primary,
-      borderWidth: 1,
       borderRadius: 10,
     },
   });
-  

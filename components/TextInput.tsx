@@ -48,9 +48,10 @@ export const TextInput = memo(
           disabled={disabled}
           textColor={"black"}
           style={{ height: 60}}
-          outlineColor={searchInput ? "transparent" : COLORS.gray}
+          outlineStyle={{borderWidth: 0.3, borderColor: '#485FE6'}}
+          outlineColor={searchInput ? "transparent" : '#485FE6'}
           theme={{
-            roundness: 7,
+            roundness: 5,
             colors: {
               primary: COLORS.primary,
               background: searchInput ? COLORS.primary2 : COLORS.primary2,
