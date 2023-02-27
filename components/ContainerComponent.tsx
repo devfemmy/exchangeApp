@@ -12,6 +12,11 @@ import EditProfile from '../screens/EditProfile';
 import Security from '../screens/Security/Security';
 import ChangeTransactionPin from '../screens/Security/TransactionPinChange';
 import ChangePassword from '../screens/Security/ChangePassword';
+import Deposit from '../screens/Security/Deposit';
+import Withdrawal from '../screens/Withdrawal';
+import Swap from '../screens/Swap';
+import WithdrawalCard from '../screens/WithdrawalCard';
+import SwapCard from '../screens/SwapCard';
 
 const Stack = createStackNavigator();
 
@@ -32,6 +37,26 @@ const ContainerComponent = () => {
         <Stack.Screen
             name="AssetInfo"
             component={AssetInfo}
+        />
+           <Stack.Screen
+            name="Deposit"
+            component={Deposit}
+        />
+         <Stack.Screen
+            name="Swap"
+            component={Swap}
+        />
+         <Stack.Screen
+            name="Withdraw"
+            component={Withdrawal}
+        />
+          <Stack.Screen
+            name="WithdrawalCard"
+            component={WithdrawalCard}
+        />
+         <Stack.Screen
+            name="SwapCard"
+            component={SwapCard}
         />
         <Stack.Screen
             name="EditProfile"

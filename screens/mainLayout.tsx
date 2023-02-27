@@ -3,47 +3,21 @@
 /* eslint-disable quotes */
 /* eslint-disable react-native/no-inline-styles */
 import { View, Animated } from 'react-native'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import { COLORS, SIZES, } from '../utils/constants/theme'
 import { useAppSelector } from '../app/hooks'
 import { tradeStatus } from '../slice/TradeSlice'
 
 import TradeCard from '../components/TradeCard'
-import DepositModal from '../components/Modals/DepositModal'
-import WithdrawModal from '../components/Modals/WithdrawModal'
-import SwapModal from '../components/Modals/SwapModal'
+
 
 const MainLayout = ({children}: any) => {
-    const [depositModal, setDepositModal] = useState(false)
+
     const tradeStatusInfo = useAppSelector(tradeStatus)
-    const [withdrawModal, setWithdrawModal] = useState(false)
-    const [swapModal, setSwapModal] = useState(false)
+
 
     const modalAnimatedValue = React.useRef(new Animated.Value(0)).current;
 
-    const handleDepositOpen = () => {
-        setDepositModal(true)
-      }
-      
-      const handleDepositClose = () => {
-        setDepositModal(false)
-      }
-      const handleWithdrawalOpen = () => {
-        setWithdrawModal(true)
-      }
-
-      const handleSwapOpen = () => {
-        setSwapModal(true)
-      }
-      
-      const handleSwapClose = () => {
-        setSwapModal(false)
-      }
-      
-      const handleWithdrawalClose = () => {
-       setWithdrawModal(false)
-      }
-    
 
     const tradeAction = [
         {
@@ -51,21 +25,21 @@ const MainLayout = ({children}: any) => {
             header: "Deposit",
             title: "Deposit crypto to another wallet",
             icon: 'arrowdown',
-            navigationScreen: handleDepositOpen
+            navigationScreen: () => {},
         },
         {
             id: 2,
             header: "Swap",
             title: "Exchange for crypto",
             icon: 'swap',
-            navigationScreen: handleSwapOpen
+            navigationScreen: () => {},
         },
         {
             id: 3,
             header: "Withdraw",
             title: "Withdraw your crypto",
             icon: 'arrowup',
-            navigationScreen: handleWithdrawalOpen
+            navigationScreen: () => {},
         },
         {
             id: 4,
@@ -139,16 +113,11 @@ const MainLayout = ({children}: any) => {
             backgroundColor: COLORS.white
         }}
      >
-       
        {
         tradeAction?.map(data => {
             return <TradeCard data={data} />
         })
        }
-       
-<WithdrawModal modalVisible={withdrawModal} setModalVisible={() => handleWithdrawalClose()} />
-       <DepositModal modalVisible={depositModal} setModalVisible={() => handleDepositClose()} />
-       <SwapModal modalVisible={swapModal} setModalVisible={() => handleSwapClose()} />
      </Animated.View>
     </View>
   )

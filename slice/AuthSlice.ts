@@ -26,10 +26,6 @@ export const createUser = createAsyncThunk(
   async (payload: CreateAccountFormDataUi, {rejectWithValue}) => {
     const data = {
       emailAddress: payload?.email,
-      username: payload?.username,
-      firstName: payload?.firstName,
-      lastName: payload?.lastName,
-      password: payload?.password,
     };
     try {
       const response = await postRequest(
