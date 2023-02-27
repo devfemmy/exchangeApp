@@ -15,7 +15,10 @@ import { hp, wp } from '../utils/helper'
 import { bigM } from '../assets/images'
 import AntDesign from 'react-native-vector-icons/AntDesign'
 import ListCard from '../components/ListCard'
-import { FONTS } from '../utils/constants/theme'
+import { COLORS, FONTS } from '../utils/constants/theme'
+import EditIcon from '../assets/svg/edit.svg'
+import TextIconIndicator from '../components/TextIcon'
+import CheckIcon from '../assets/svg/check.svg'
 
 const Profile = ({navigation}: any) => {
 
@@ -39,12 +42,6 @@ const Profile = ({navigation}: any) => {
   }, [])
 
     const Info = [
-    {
-      id: 1,
-      name: "General",
-      icon: "user",
-      route: 'GeneralScreen'
-    },
     {
       id: 2,
       name: "Security",
@@ -86,6 +83,35 @@ const Profile = ({navigation}: any) => {
       <ScrollView showsVerticalScrollIndicator={false}>
         <Text style={{...FONTS.h2, marginBottom: hp(25), fontWeight: '600'}}>Account Settings</Text>
 
+        <View style={[GlobalStyle.rowBetween, styles.settings]}>
+          <View style={GlobalStyle.profileCircle}>
+            <Image source={require('../assets/images/profile1.png')} />
+          </View>
+          <View style={styles.textContainer}>
+            <Text style={{...FONTS.h3, fontSize: hp(18), fontWeight: '600', color: COLORS.primary}}>Olatunji Monsurat</Text>
+          <View style={styles.lowerContainer}>
+            <Text style={{...FONTS.h4, fontSize: hp(16), fontWeight: '600', color: COLORS.black}}>@Techbabby</Text>
+            <TextIconIndicator icon={<CheckIcon width={15} height={15} />} bg="#DEF8E9" color="#219653" text="Verified" />
+          </View>
+          </View>
+          <TouchableOpacity onPress={() => navigation.navigate('EditProfile')} style={{width: '10%', alignItems: 'flex-end'}}>
+            <EditIcon width={30} height={30} />
+          </TouchableOpacity>
+        </View>
+        <View>
+        <Text style={{...FONTS.h3, marginBottom: hp(15), color: '#4F4F4F', fontWeight: '600'}}>User Level</Text>
+        <View style={[GlobalStyle.rowBetween, styles.levelContainer]}>
+          <View style={GlobalStyle.level}>
+            <Text style={{...FONTS.h4, color: '#4F4F4F', fontWeight: '500'}}>Beginner</Text>
+          </View>
+          <View>
+            <Text style={styles.textStyle}>
+              Progress 50%
+            </Text>
+          </View>
+        </View>
+        </View>
+
         <View>
           {
             Info?.map((data, i) => {
@@ -109,8 +135,15 @@ const styles = StyleSheet.create({
     padding: hp(10),
     borderRadius: 50,
   },
+  lowerContainer: {
+    justifyContent: 'space-between',
+    marginTop: hp(5),
+    flexDirection: 'row',
+    
+  },
   txt: {
-    marginTop: hp(35)
+    marginTop: hp(35),
+    alignItems: 'center',
   },
   container: {
     paddingHorizontal: wp(10),
@@ -128,13 +161,26 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginBottom: hp(20)
   },
+  levelContainer: {
+    marginBottom: hp(20),
+  },
   rowDiv: {
     flexDirection: 'row',
     alignItems: 'center'
   },
+  textStyle: {
+    color: '#4F4F4F',
+    fontWeight: '400',
+  },
   div: {
     width: '50%',
     marginHorizontal: hp(20)
+  },
+  settings: {
+    marginBottom: hp(25),
+  },
+  textContainer: {
+    width: '55%'
   },
   img: {
 
