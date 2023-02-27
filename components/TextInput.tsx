@@ -1,3 +1,4 @@
+/* eslint-disable react-native/no-inline-styles */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable space-infix-ops */
 import React, {memo, ComponentProps} from 'react';
