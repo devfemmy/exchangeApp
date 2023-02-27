@@ -16,7 +16,7 @@ import Header from '../components/Header'
 import { COLORS, FONTS } from '../utils/constants/theme'
 import { tokenBalanceData } from '../utils/constants/tokenList'
 import { getMarketPrice, marketInfo } from '../slice/TradeSlice'
-import { getTradingAccount, tradingAccount } from '../slice/WalletSlice'
+import { fundingAccount, getFundingAccount, getTradingAccount, tradingAccount } from '../slice/WalletSlice'
 import DepositModal from '../components/Modals/DepositModal'
 import WithdrawModal from '../components/Modals/WithdrawModal'
 import TransferModal from '../components/Modals/TransferModal'
@@ -26,12 +26,15 @@ const Home = ({navigation}: any) => {
  const userStateInfo = useAppSelector(userState)
  const marketInfos = useAppSelector(marketInfo) as any
  const [show, setShow] = useState(false)
- const tradingAccountInfo = useAppSelector(tradingAccount)
+ const [tradingAccountInfo, setTradingAccountInfo] = useState<any>()
+ const [fundingAccountInfo, setFundingAccountInfo] = useState<any>()
  const [refreshing, setRefreshing] = useState(false);
   const getUserInfo = userStateInfo?.userData ? userStateInfo?.userData : userStateInfo
 const [depositModal, setDepositModal] = useState(false)
 const [transferModal, setTransferModal] = useState(false)
 const [withdrawModal, setWithdrawModal] = useState(false)
+
+
 
 const handleDepositOpen = () => {
   setDepositModal(true)
@@ -86,9 +89,15 @@ const handleTransferClose = () => {
  return () => clearInterval(id);
   }, [currentCount])
 
-  // useEffect(() => {
-  //   dispatch(getTradingAccount()).then(gg => console.log("hhh==", {gg}))
-  // }, [])
+  useEffect(() => {
+    dispatch(getTradingAccount()).then(gg => setTradingAccountInfo(gg?.payload))
+    dispatch(getFundingAccount()).then(gg => setFundingAccountInfo(gg?.payload))
+  }, [])
+
+
+
+  const totalAssetBalanceUsd = !tradingAccountInfo && !fundingAccountInfo ? 0 : parseFloat(tradingAccountInfo?.totalUsd) + parseFloat(fundingAccountInfo?.totalUsd)
+  const totalAssetBalanceBtc = !tradingAccountInfo && !fundingAccountInfo ? 0 : parseFloat(tradingAccountInfo?.totalBtc) + parseFloat(fundingAccountInfo?.totalBtc)
 
   const timer = () => setCount(currentCount + 1);
 
@@ -143,8 +152,8 @@ const handleTransferClose = () => {
             }
           </View>
           <Text style={[styles.txt, {...FONTS.body5}]}>Total Assets Balance</Text>
-          <Text style={[styles.txt, {...FONTS.largeTitle, fontWeight: 'bold'}]}>{show ? '$0.00312' : '$-------'}</Text>
-          <Text style={[styles.txt, {...FONTS.body5}]}>00312 btc</Text>
+          <Text style={[styles.txt, {...FONTS.largeTitle, fontWeight: 'bold'}]}>{show ? `$${totalAssetBalanceUsd?.toFixed(2)}` : '$-------'}</Text>
+          <Text style={[styles.txt, {...FONTS.body5}]}>{totalAssetBalanceBtc?.toFixed(5)} btc</Text>
           <View style={styles.rowC}>
           <View style={styles.rowC2}>
            <TouchableOpacity onPress={handleDepositOpen}>
@@ -175,6 +184,9 @@ const handleTransferClose = () => {
           </View>
           </View>
         </View>
+        {
+          !getUserInfo?.hasSetPin || !getUserInfo?.isKycVerified || !getUserInfo?.hasVerifiedPhoneNumber
+        }
         <Text style={[{...FONTS.h4, marginVertical: hp(15)}]}>Pending Action</Text>
         {
           actions?.filter(info => info?.status === "Pending").map(data => {
@@ -191,7 +203,10 @@ const handleTransferClose = () => {
              return tokenBalanceData?.map(info => {
                return info?.currency === data?.symbol &&
                  <TouchableOpacity onPress={() => navigation.navigate("AssetInfo", {
-                  assets: info
+                  currency: info?.currency,
+                  assetType: "funding",
+                  icon: info?.icon,
+                  name: info?.token
                  })}>
                    <View style={styles.actionCard2}>
                  <View style={GlobalStyle.rowStart}>

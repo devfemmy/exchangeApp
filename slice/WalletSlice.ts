@@ -32,6 +32,51 @@ export const getTradingAccount = createAsyncThunk(
     }
 )
 
+export const getTradingAccountByCurrency = createAsyncThunk(
+    'wallet/getTradingAccountBycurrency',
+    async (payload: string) => {
+        var response = await getRequest(config.wallet_base_url + `/api/balance/trading?currency=${payload}`)
+    
+        if (response?.status === 200) {
+            return response?.data
+          }
+    }
+)
+
+export const getFundingAccount = createAsyncThunk(
+    'wallet/getFundingAccount',
+    async () => {
+        var response = await getRequest(config.wallet_base_url + '/api/balance/funding')
+    
+        if (response?.status === 200) {
+            return response?.data
+          }
+    }
+)
+
+export const getFundingAccountByCurrency = createAsyncThunk(
+    'wallet/getFundingAccountbycurrency',
+    async (payload: string) => {
+        var response = await getRequest(config.wallet_base_url + `/api/balance/funding?currency=${payload}`)
+    
+        if (response?.status === 200) {
+            return response?.data
+          }
+    }
+)
+
+export const getAssetTransaction = createAsyncThunk(
+    'wallet/getAssetTransaction',
+    async (payload: {currency: string}) => {
+        var response = await getRequest(config.wallet_base_url + `/api/transaction/history?page=1&limit=10&currency=${payload?.currency}`)
+    
+        if (response?.status === 200) {
+            return response?.data
+          }
+    }
+)
+
+
 export const walletSlice = createSlice({
     name: 'wallet',
     initialState,    
@@ -47,6 +92,46 @@ export const walletSlice = createSlice({
         builder.addCase(getTradingAccount.rejected, (state) => {
             state.loading = false
         })
+
+        builder.addCase(getFundingAccount.pending, (state) => {
+            state.loading = true;
+        }),
+            builder.addCase(getFundingAccount.fulfilled, (state, action) => {
+                state.loading = false
+                state.fundingAccount = action?.payload
+            });
+        builder.addCase(getFundingAccount.rejected, (state) => {
+            state.loading = false
+        })
+        builder.addCase(getFundingAccountByCurrency.pending, (state) => {
+            state.loading = true;
+        }),
+            builder.addCase(getFundingAccountByCurrency.fulfilled, (state, action) => {
+                state.loading = false
+            });
+        builder.addCase(getFundingAccountByCurrency.rejected, (state) => {
+            state.loading = false
+        })
+        builder.addCase(getTradingAccountByCurrency.pending, (state) => {
+            state.loading = true;
+        }),
+            builder.addCase(getTradingAccountByCurrency.fulfilled, (state, action) => {
+                state.loading = false
+            });
+        builder.addCase(getTradingAccountByCurrency.rejected, (state) => {
+            state.loading = false
+        })
+        builder.addCase(getAssetTransaction.pending, (state) => {
+            state.loading = true;
+        }),
+            builder.addCase(getAssetTransaction.fulfilled, (state, action) => {
+                state.loading = false
+            });
+        builder.addCase(getAssetTransaction.rejected, (state) => {
+            state.loading = false
+        })
+
+
 
     },
 
