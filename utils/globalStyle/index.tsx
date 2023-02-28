@@ -61,6 +61,10 @@ const GlobalStyle = StyleSheet.create({
         alignItems: 'center',
         paddingHorizontal: 5,
       },
+      subTitle: {
+        marginVertical: hp(10),
+        color: '#808080',
+      },
 });
 
 export default GlobalStyle;

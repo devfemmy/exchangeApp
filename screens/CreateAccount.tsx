@@ -1,3 +1,4 @@
+/* eslint-disable react-native/no-inline-styles */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import {View, Text, ScrollView, StyleSheet} from 'react-native';
 import React, {useState} from 'react';
@@ -79,14 +80,10 @@ const CreateAccount = ({navigation}: any) => {
     <View style={GlobalStyle.container}>
       <ScrollView showsVerticalScrollIndicator={false}>
         <View>
-          <View style={styles.rowBtw}>
+          <View style={{marginVertical: hp(15)}}>
             <Text style={{...FONTS.h2}}>Create Account</Text>
-            <View />
+            <Text style={[GlobalStyle.subTitle, {marginBottom: hp(5)}]}> Kindly provide the information we need.</Text>
           </View>
-
-          <Text style={{...FONTS.body5}}>
-            kindly provide the information we need.
-          </Text>
           <TextInput
             label={'Email'}
             value={values.email}
@@ -139,7 +136,7 @@ const CreateAccount = ({navigation}: any) => {
             }
           />
 
-          <View style={[styles.row, {marginVertical: hp(2)}]}>
+          {/* <View style={[styles.row, {marginVertical: hp(2),}]}>
             {cookieSelected ? (
               <TouchableOpacity onPress={() => setCookieSelected(false)}>
                 <View style={styles.coloredBox}></View>
@@ -152,8 +149,9 @@ const CreateAccount = ({navigation}: any) => {
 
             <View
               style={{
-                flexDirection: 'row',
-                alignItems: 'center',
+                // flexDirection: 'row',
+                // alignItems: 'center',
+                backgroundColor: 'red',
                 marginLeft: hp(10),
               }}>
               <Text style={{...FONTS.body5}}>I agree to privacy policy </Text>
@@ -165,7 +163,7 @@ const CreateAccount = ({navigation}: any) => {
                 terms and conditions.
               </Text>
             </View>
-          </View>
+          </View> */}
 
           <View style={styles.btnContainer}>
             <IconTextButton label="Create Account" onPress={handleSubmit} isLoading={loader} />
@@ -174,8 +172,7 @@ const CreateAccount = ({navigation}: any) => {
 
         <TouchableOpacity onPress={() => navigation.navigate('Login')}>
           <View style={styles.span}>
-            <Text style={{...FONTS.body5}}>Already have an account ?</Text>
-            <Text style={{...FONTS.body5, marginLeft: 5}}>Log in</Text>
+            <Text style={{...FONTS.body4, textAlign: 'center', color: '#808080'}}>Don’t have an account ? Login</Text>
           </View>
         </TouchableOpacity>
       </ScrollView>

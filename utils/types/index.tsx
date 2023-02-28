@@ -72,6 +72,10 @@ export type ForgetPasswordFormData = {
     emailAddress: string
 }
 
+export type PhoneNumberData = {
+    phone: string
+}
+
 
 export type ProfileFormData = {
     email: string,

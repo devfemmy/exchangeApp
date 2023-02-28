@@ -16,7 +16,7 @@ const  HeaderComponent = ({onPress}: any) => {
 
 const styles = StyleSheet.create({
   header: {
-    flex: 1
+    // flex: 1
   },
   icon: {
     marginVertical: hp(20),

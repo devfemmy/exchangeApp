@@ -2,6 +2,7 @@
 /* eslint-disable prettier/prettier */
 /* eslint-disable quotes */
 import { Dimensions } from "react-native";
+import { hp } from "../helper";
 const { width, height } = Dimensions.get("window");
 
 export const COLORS = {
@@ -16,7 +17,7 @@ export const COLORS = {
     lightOrange: "rgb(255, 241, 204)",
     red: "#FF0000",
     black: "#000000",
-    gray: "#4F4F4F",
+    gray: "#828282",
     gray1: "#5B5959",
     gray2: "#808080",
     lightGray: "#3B3B3B",
@@ -36,7 +37,7 @@ export const SIZES = {
     // font sizes
     largeTitle: 40,
     h1: 30,
-    h2: 22,
+    h2: hp(24),
     h3: 16,
     h4: 14,
     h5: 12,
@@ -53,7 +54,7 @@ export const SIZES = {
 export const FONTS = {
     largeTitle: { fontFamily: "Roboto-Black", fontSize: SIZES.largeTitle },
     h1: { fontFamily: "Roboto-Black", fontSize: SIZES.h1, lineHeight: 36 },
-    h2: { fontFamily: "Roboto-Bold", fontSize: SIZES.h2, lineHeight: 30 },
+    h2: { fontFamily: "Roboto-Bold", fontSize: SIZES.h2, lineHeight: 30, letterSpacing: hp(1) },
     h3: { fontFamily: "Roboto-Bold", fontSize: SIZES.h3, lineHeight: 22 },
     h4: { fontFamily: "Roboto-Bold", fontSize: SIZES.h4, lineHeight: 22 },
     h5: { fontFamily: "Roboto-Bold", fontSize: SIZES.h5, lineHeight: 22 },
