@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { View, Text, StyleSheet } from 'react-native'
-import React from 'react'
-import GlobalStyle from '../utils/globalStyle'
+import { View, Text, StyleSheet } from 'react-native';
+import React from 'react';
+import GlobalStyle from '../utils/globalStyle';
 import { ForgetPasswordFormData } from '../utils/types';
 import { useFormik } from 'formik';
 import { ForgetPasswordSchema } from '../utils/schemas';
@@ -19,7 +19,7 @@ const ForgetPassword = ({navigation}: any) => {
 
   const handleCredentialSubmit = (data: any) => {
 
-  }
+  };
 
   const { values, errors, touched, handleChange, handleSubmit, handleBlur } =
     useFormik({
@@ -35,7 +35,7 @@ const ForgetPassword = ({navigation}: any) => {
 
         <Text style={{...FONTS.h2}}>Forget Password</Text>
 
-        <Text style={{...FONTS.body5, color: COLORS.gray}}>Please Enter the email address you used in creating this account</Text>
+        <Text style={[GlobalStyle.subTitle, {marginBottom: hp(5)}]}>Please Enter the email address you used in creating this account</Text>
 
        <View style={styles.top2}>
        <TextInput
@@ -48,23 +48,22 @@ const ForgetPassword = ({navigation}: any) => {
        </View>
 
         <View style={styles.btnContainer}>
-          <IconTextButton label='Send Recovery Link' handlePress={handleSubmit}/>
+          <IconTextButton label="Send Recovery Link" handlePress={handleSubmit}/>
         </View>
       </View>
 
       <View style={styles.bottom}>
         <TouchableOpacity onPress={() => navigation.navigate('CreateAccount')}>
           <View style={styles.span}>
-            <Text>Don’t have an account ?  </Text>
-            <Text>Create Account</Text>
+            <Text style={{...FONTS.body4, textAlign: 'center', color: '#808080'}}>Don’t have an account ? Create Account</Text>
           </View>
         </TouchableOpacity>
       </View>
     </View>
-  )
-}
+  );
+};
 
-export default ForgetPassword
+export default ForgetPassword;
 
 
 const styles = StyleSheet.create({
@@ -73,41 +72,41 @@ const styles = StyleSheet.create({
 
   },
   icon: {
-    marginVertical: hp(20)
+    marginVertical: hp(20),
   },
   top2: {
-    marginTop: hp(20)
+    marginTop: hp(20),
   },
   contain: {
     paddingHorizontal: wp(10),
     flex: 1,
-    backgroundColor: 'white'
+    backgroundColor: 'white',
   },
   txt: {
-    marginTop: hp(35)
+    marginTop: hp(35),
   },
   txt2: {
     marginTop: hp(10),
-    marginBottom: hp(24)
+    marginBottom: hp(24),
   },
   btnContainer: {
     marginVertical: hp(15),
-    width: '100%'
+    width: '100%',
   },
   span: {
     flexDirection: 'row',
     justifyContent: 'center',
-    marginBottom: hp(20)
+    marginBottom: hp(20),
   },
   fg: {
     justifyContent: 'flex-end',
-    alignItems: 'flex-end'
+    alignItems: 'flex-end',
   },
   top: {
-    flex: 5
+    flex: 5,
   },
   bottom: {
     flex: 2,
-    justifyContent: 'flex-end'
-  }
-})
+    justifyContent: 'flex-end',
+  },
+});

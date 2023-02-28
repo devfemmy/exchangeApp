@@ -7,14 +7,15 @@ import AntDesign from 'react-native-vector-icons/AntDesign'
 import GlobalStyle from '../utils/globalStyle'
 import { COLORS, FONTS } from '../utils/constants/theme'
 import { hp } from '../utils/helper'
+import { useNavigation } from '@react-navigation/native'
 
 const TradeCard = ( {data}: any) => {
-  
+    const navigation = useNavigation() as any
     const {icon, header, title, navigationScreen, comingSoon} = data
 
   return (
    <View style={styles.row}>
-    <TouchableOpacity onPress={comingSoon ? () => {} : () => navigationScreen()}>
+    <TouchableOpacity onPress={comingSoon ? () => {} : () => navigation?.navigate(navigationScreen)}>
      <View style={GlobalStyle.rowStart}>
         <View style={styles.view} >
            <View style={styles.img}>

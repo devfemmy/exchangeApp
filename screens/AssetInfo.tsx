@@ -25,6 +25,7 @@ import EmptyScreen from '../components/EmptyScreen';
 import HistoryCard from '../components/HistoryCard';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { arrowDown, arrowUp, eye, swaps } from '../assets/images';
+import TransactionDetailModal from '../components/Modals/TransactionDetail';
 
 const AssetInfo = (props: any) => {
   const [assetData, setAssetData] = useState<any>();
@@ -34,6 +35,18 @@ const AssetInfo = (props: any) => {
   const iconData = props.route?.params?.icon;
   const [show, setShow] = useState(false)
   const [type, setType] = useState('all');
+  const [modalVisible, setModalVisible] = useState(false)
+  const [details, setDetails] = useState<any>()
+  
+  const handleModalClose = () => {
+    setModalVisible(false)
+    setDetails(null)
+  }
+
+  const handleModalOpen = (data: any) => {
+    setModalVisible(true)
+    setDetails(data)
+  }
 
 
   const dispatch = useAppDispatch();
@@ -188,13 +201,15 @@ const AssetInfo = (props: any) => {
         <ScrollView horizontal showsHorizontalScrollIndicator={false}>
           <View
             style={{
-              width: wp(50),
+              width: wp(70),
               backgroundColor: type === 'all' ? COLORS.primary : COLORS.white,
               borderColor: COLORS.primary,
               borderWidth: 1,
-              borderRadius: hp(15),
+              borderRadius: hp(20),
               marginRight: hp(10),
-              paddingBottom: hp(5),
+              padding: hp(10),
+              justifyContent: 'center',
+              alignItems: 'center'
             }}>
             <Pressable onPress={() => setType('all')}>
               <Text
@@ -214,9 +229,11 @@ const AssetInfo = (props: any) => {
                 type === 'withdraw' ? COLORS.primary : COLORS.white,
                borderColor: COLORS.primary,
               borderWidth: 1,
-              borderRadius: hp(15),
+              borderRadius: hp(20),
                 marginRight: hp(10),
-              paddingBottom: hp(5),
+                padding: hp(10),
+                justifyContent: 'center',
+                alignItems: 'center'
             }}>
             <Pressable onPress={() => setType('withdraw')}>
               <Text
@@ -237,9 +254,11 @@ const AssetInfo = (props: any) => {
                 type === 'deposit' ? COLORS.primary : COLORS.white,
                borderColor: COLORS.primary,
               borderWidth: 1,
-              borderRadius: hp(15),
+              borderRadius: hp(20),
                 marginRight: hp(10),
-              paddingBottom: hp(5),
+                padding: hp(10),
+                justifyContent: 'center',
+                alignItems: 'center'
             }}>
             <Pressable onPress={() => setType('deposit')}>
               <Text
@@ -260,9 +279,11 @@ const AssetInfo = (props: any) => {
                 type === 'successful' ? COLORS.primary : COLORS.white,
                borderColor: COLORS.primary,
               borderWidth: 1,
-              borderRadius: hp(15),
+              borderRadius: hp(20),
                 marginRight: hp(10),
-              paddingBottom: hp(5),
+                padding: hp(10),
+                justifyContent: 'center',
+                alignItems: 'center'
             }}>
             <Pressable onPress={() => setType('successful')}>
               <Text
@@ -284,8 +305,10 @@ const AssetInfo = (props: any) => {
                borderColor: COLORS.primary,
               borderWidth: 1,
                 marginRight: hp(10),
-              borderRadius: hp(15),
-              paddingBottom: hp(5),
+              borderRadius: hp(20),
+              padding: hp(10),
+              justifyContent: 'center',
+              alignItems: 'center'
             }}>
             <Pressable onPress={() => setType('incoming')}>
               <Text
@@ -307,8 +330,10 @@ const AssetInfo = (props: any) => {
                borderColor: COLORS.primary,
               borderWidth: 1,
                 marginRight: hp(10),
-              borderRadius: hp(15),
-              paddingBottom: hp(5),
+              borderRadius: hp(20),
+              padding: hp(10),
+              justifyContent: 'center',
+              alignItems: 'center'
             }}>
             <Pressable onPress={() => setType('pending')}>
               <Text
@@ -329,9 +354,11 @@ const AssetInfo = (props: any) => {
                 type === 'failed' ? COLORS.primary : COLORS.white,
                borderColor: COLORS.primary,
               borderWidth: 1,
-              borderRadius: hp(15),
+              borderRadius: hp(20),
                 marginRight: hp(10),
-              paddingBottom: hp(5),
+                padding: hp(10),
+                justifyContent: 'center',
+                alignItems: 'center'
             }}>
             <Pressable onPress={() => setType('failed')}>
               <Text
@@ -358,12 +385,13 @@ const AssetInfo = (props: any) => {
          showsVerticalScrollIndicator={false}
          data={assetTransactions?.transactions}
          renderItem={(item) => {
-          return <HistoryCard data={item?.item} />
+          return <HistoryCard data={item?.item} handleClick={(data: any) => handleModalOpen(data)} />
          }}
         />
       }
 
 
+<TransactionDetailModal modalVisible={modalVisible} setModalVisible={() => handleModalClose()} data={details} />
     </View>
   );
 };

@@ -3,18 +3,25 @@
 import {View, Text, StyleSheet, TouchableOpacity, Image} from 'react-native';
 import React, {useState, useEffect} from 'react';
 import AntDesign from 'react-native-vector-icons/AntDesign';
-import {COLORS, FONTS} from '../../utils/constants/theme';
-import {format, hp, wp} from '../../utils/helper';
-import {TextInput} from '../../components/TextInput';
-import {tokenBalanceData} from '../../utils/constants/tokenList';
-import GlobalStyle from '../../utils/globalStyle';
+import {COLORS, FONTS} from '../utils/constants/theme';
+import {format, hp, wp} from '../utils/helper';
+import {TextInput} from '../components/TextInput';
+import {tokenBalanceData} from '../utils/constants/tokenList';
+import GlobalStyle from '../utils/globalStyle';
 import {ScrollView} from 'react-native-gesture-handler';
-import {useAppDispatch, useAppSelector} from '../../app/hooks';
-import {getMarketPrice, marketInfo} from '../../slice/TradeSlice';
+import {useAppDispatch, useAppSelector} from '../app/hooks';
+import {getMarketPrice, marketInfo} from '../slice/TradeSlice';
+import DepositModal from '../components/Modals/DepositModal';
+import { getWalletNetwork } from '../slice/WalletSlice';
+import { isNullOrUndefined } from 'util';
 
 const Deposit = ({navigation}: any) => {
   const [value, setValue] = useState('');
   const marketInfos = useAppSelector(marketInfo) as any;
+  const [openModal, setOpenModal] = useState(false)
+  const [networks, setNetworks] = useState<any>()
+  const dispatch = useAppDispatch()
+  const [otherInfo, setOtherInfo] = useState<any>()
 
 
   const searchToken = !value
@@ -25,12 +32,25 @@ const Deposit = ({navigation}: any) => {
           data?.token?.toLowerCase().includes(value?.toLowerCase()),
       );
 
+      const handleModalClose = () => {
+        setOpenModal(false)
+        setNetworks(null)
+      }
+
+      const handleModalOpen = (data: any) => {
+        setOpenModal(true)
+        dispatch(getWalletNetwork(data?.currency)).then(pp => setNetworks(pp?.payload?.[data?.currency?.toUpperCase()]))
+        setOtherInfo(data)
+      }
+
+
+
   const assets = () => {
     return marketInfos?.map((data: any) => {
       return searchToken?.map((info: any) => {
         return (
           info?.currency === data?.symbol && (
-            <TouchableOpacity>
+            <TouchableOpacity onPress={() => handleModalOpen(info)}>
               <View style={styles.actionCard2}>
                 <View style={GlobalStyle.rowStart}>
                   <Image
@@ -47,6 +67,7 @@ const Deposit = ({navigation}: any) => {
                         style={{
                           ...FONTS.body5,
                           fontWeight: 'bold',
+                          color: COLORS.lightGray3,
                         }}>{`$${format(data?.current_price.toFixed(2))}`}</Text>
                       <Text
                         style={{
@@ -107,6 +128,13 @@ const Deposit = ({navigation}: any) => {
               />
             </View>
             <ScrollView>{assets()}</ScrollView>
+
+            <DepositModal 
+                  modalVisible={openModal}
+                  setModalVisible={() => handleModalClose()}
+                  networks={networks}
+                  otherInfo={otherInfo}
+            />
           </View>
         </View>
       </View>

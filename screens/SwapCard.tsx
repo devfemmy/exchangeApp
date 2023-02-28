@@ -15,6 +15,7 @@ import IconTextButton from '../components/IconTextButton';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import SwapTokenModal from '../components/Modals/SwapTokenModal';
 import { tether } from '../assets/images';
+import { tradingAccount } from '../slice/WalletSlice';
 
 const SwapCard = (props: any) => {
   const assetName = props.route?.params?.info?.token;
@@ -22,8 +23,12 @@ const SwapCard = (props: any) => {
   const currencyName = props.route?.params?.info?.currency;
   const [max, setMax] = useState('');
   const [openSelectTo, setOpenSelectTo] = useState(false);
-  const [selectedAssetsTo, setSelectedAssetsTo] = useState('USDT');
-  const [selectedIcon, setSelectedIcon] = useState(tether )
+  const [selectedAssetsTo, setSelectedAssetsTo] = useState('Not selected');
+  const [selectedIcon, setSelectedIcon] = useState<any>()
+  const [selectedBalance, setSelectedBalance] = useState<any>(0)
+  const tradingAccountInfo: any = useAppSelector(tradingAccount)
+
+
 
   const handleOpenSelectToOpen = () => {
     setOpenSelectTo(true);
@@ -53,8 +58,10 @@ const SwapCard = (props: any) => {
   ];
 
   const handleSelectionTo = (value: any) => {
+    const selectedBalance = tradingAccountInfo?.[value?.currency?.toUpperCase()]?.availBal
     setSelectedAssetsTo(value?.currency?.toUpperCase());
     setSelectedIcon(value?.icon)
+    setSelectedBalance(selectedBalance)
     handleOpenSelectToClose();
   };
 
@@ -156,7 +163,7 @@ const SwapCard = (props: any) => {
                   </TouchableOpacity>
 
                   <Text style={{...FONTS.body5, marginTop: hp(10)}}>
-                    Balance: $100
+                    Balance: {parseFloat(selectedBalance).toFixed(4)}
                   </Text>
                 </View>
               </View>

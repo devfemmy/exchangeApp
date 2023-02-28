@@ -1,3 +1,4 @@
+/* eslint-disable no-unreachable */
 /* eslint-disable @typescript-eslint/no-shadow */
 /* eslint-disable @typescript-eslint/no-unsafe-return */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
@@ -36,7 +37,6 @@ import { tradingAccount } from '../../slice/WalletSlice';
     }
 
     const tradingAssets = (data: any) => {
-   
       switch (data) {
         case 'USDT':
           return  <View style={styles.sub}>
@@ -215,12 +215,8 @@ import { tradingAccount } from '../../slice/WalletSlice';
                   </Text>
                 </View>
               </View>
-              <View style={{justifyContent: 'flex-end', alignItems: 'flex-end'}}>
-                <Text style={{...FONTS.body5, fontWeight: 'bold'}}>{`$${format(
-                  0,
-                )}`}</Text>
-                <Text style={{...FONTS.body5}}>0</Text>
-              </View>
+              {tradingAssets(info?.currency?.toUpperCase())}
+              
             </View>
           </TouchableOpacity>
         );
@@ -244,7 +240,7 @@ import { tradingAccount } from '../../slice/WalletSlice';
                 </View>
               </TouchableOpacity>
   
-              <Text style={{...FONTS.h2, textAlign: 'center'}}>Select Token</Text>
+              <Text style={{...FONTS.h3, textAlign: 'center'}}>Select Token</Text>
               <View style={styles.search}>
                 <TextInput label={'Search Assets'} value={value} onChangeText={(value) => setValue(value)} searchInput />
               </View>
@@ -268,7 +264,7 @@ import { tradingAccount } from '../../slice/WalletSlice';
     },
     modalView: {
       margin: 20,
-      height: hp(500),
+      height: hp(600),
       backgroundColor: 'white',
       borderRadius: 20,
       padding: 25,

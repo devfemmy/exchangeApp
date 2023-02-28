@@ -6,7 +6,7 @@ import { hp, wp } from "../helper";
 const GlobalStyle = StyleSheet.create({
     container: {
         paddingTop: hp(50),
-        paddingHorizontal: hp(10),
+        paddingHorizontal: hp(20),
         flex: 1,
         backgroundColor: COLORS.white
     },
@@ -60,6 +60,10 @@ const GlobalStyle = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         paddingHorizontal: 5,
+      },
+      subTitle: {
+        marginVertical: hp(10),
+        color: '#808080',
       },
 });
 
