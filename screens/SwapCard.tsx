@@ -14,6 +14,7 @@ import {getMarketPrice, marketInfo} from '../slice/TradeSlice';
 import IconTextButton from '../components/IconTextButton';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import SwapTokenModal from '../components/Modals/SwapTokenModal';
+import { tether } from '../assets/images';
 
 const SwapCard = (props: any) => {
   const assetName = props.route?.params?.info?.token;
@@ -22,7 +23,7 @@ const SwapCard = (props: any) => {
   const [max, setMax] = useState('');
   const [openSelectTo, setOpenSelectTo] = useState(false);
   const [selectedAssetsTo, setSelectedAssetsTo] = useState('USDT');
-  const [selectedIcon, setSelectedIcon] = useState("")
+  const [selectedIcon, setSelectedIcon] = useState(tether )
 
   const handleOpenSelectToOpen = () => {
     setOpenSelectTo(true);
@@ -265,7 +266,7 @@ const styles = StyleSheet.create({
     borderColor: COLORS.primary,
     backgroundColor: '#FAFBFF',
     borderWidth: 1,
-    borderRadius: 10,
+    borderRadius: 15,
   },
   carddiv: {
     marginVertical: hp(20),
@@ -285,7 +286,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderWidth: 1,
     borderColor: COLORS.lightGray3,
-    borderRadius: 4,
+    borderRadius: 10,
     paddingHorizontal: hp(10),
     paddingVertical: hp(5),
   },
