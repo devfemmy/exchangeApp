@@ -42,12 +42,6 @@ export type ResetPasswordData = {
 
 export type CreateAccountFormDataUi = {
     email: string,
-    username: string,
-    firstName: string,
-    lastName: string,
-    // gender: string,
-    password: string,
-    confirmPassword: string,
 }
 
 export type HomeAddress = {

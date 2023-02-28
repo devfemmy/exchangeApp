@@ -48,16 +48,7 @@ export const resetPasswordSchema = yup.object().shape({
 
 
 export const CreateAccountSchema = yup.object().shape({
-  firstName: yup.string().required('First name is required'),
-  lastName: yup.string().required('Last name is required'),
-  username: yup.string().required('Username is required'),
-  // gender: yup.string().required('Gender is required'),
   email: yup.string().email().required('Email is required'),
-  password: yup
-    .string()
-    .min(6, ({min}) => `Password must be at least ${min} characters`)
-    .required('password is required'),
- confirmPassword: yup.string().oneOf([yup.ref('password'), null], 'Passwords must match').required('Confirm password is required'),
 });
 
 export const ProfileAccountSchema = yup.object().shape({
