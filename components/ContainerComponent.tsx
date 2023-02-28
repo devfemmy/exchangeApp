@@ -12,6 +12,8 @@ import EditProfile from '../screens/EditProfile';
 import Security from '../screens/Security/Security';
 import ChangeTransactionPin from '../screens/Security/TransactionPinChange';
 import ChangePassword from '../screens/Security/ChangePassword';
+import VerifyPhone from '../screens/Security/VerifyPhone';
+import VerifyPhonePin from '../screens/Security/VerifyPhonePin';
 import Deposit from '../screens/Security/Deposit';
 import Withdrawal from '../screens/Withdrawal';
 import Swap from '../screens/Swap';
@@ -73,6 +75,14 @@ const ContainerComponent = () => {
         <Stack.Screen
             name="ChangePassword"
             component={ChangePassword}
+        />
+        <Stack.Screen
+            name="VerifyPhone"
+            component={VerifyPhone}
+        />
+        <Stack.Screen
+            name="VerifyPhonePin"
+            component={VerifyPhonePin}
         />
     </Stack.Navigator>
 </NavigationContainer>

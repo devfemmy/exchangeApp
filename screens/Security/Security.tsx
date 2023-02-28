@@ -36,7 +36,7 @@ export default function Security({navigation}: any) {
       id: 4,
       name: 'Verfify Phone Number',
       icon: <PassswordIcon width={25} height={25} />,
-      route: 'KycScreen',
+      route: 'VerifyPhone',
     },
     {
       id: 5,

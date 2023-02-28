@@ -9,6 +9,12 @@ export const LoginSchema = yup.object().shape({
     .min(6, ({min}) => `Password must be at least ${min} characters`)
     .required('Password is required'),
 });
+export const PhoneSchema = yup.object().shape({
+  phone: yup
+    .string()
+    .min(11, ({min}) => `Phone Number must be at least ${min} characters`)
+    .required('Phone Number is required'),
+});
 
 export const ForgetPasswordSchema = yup.object().shape({
   emailAddress: yup.string().email().required('Email is required'),
