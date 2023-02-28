@@ -14,11 +14,14 @@ import ChangeTransactionPin from '../screens/Security/TransactionPinChange';
 import ChangePassword from '../screens/Security/ChangePassword';
 import VerifyPhone from '../screens/Security/VerifyPhone';
 import VerifyPhonePin from '../screens/Security/VerifyPhonePin';
-import Deposit from '../screens/Security/Deposit';
+import Deposit from '../screens/Deposit';
 import Withdrawal from '../screens/Withdrawal';
 import Swap from '../screens/Swap';
 import WithdrawalCard from '../screens/WithdrawalCard';
 import SwapCard from '../screens/SwapCard';
+import DepositAddress from '../screens/DepositAddress';
+import SwapHistory from '../screens/SwapHistory';
+import TokenHistory from '../screens/TokenHistory';
 
 const Stack = createStackNavigator();
 
@@ -43,6 +46,18 @@ const ContainerComponent = () => {
            <Stack.Screen
             name="Deposit"
             component={Deposit}
+        />
+        <Stack.Screen
+            name="DepositAddress"
+            component={DepositAddress}
+        />
+         <Stack.Screen
+            name="SwapHistory"
+            component={SwapHistory}
+        />
+         <Stack.Screen
+            name="TokenHistory"
+            component={TokenHistory}
         />
          <Stack.Screen
             name="Swap"

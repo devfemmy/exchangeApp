@@ -76,6 +76,17 @@ export const getAssetTransaction = createAsyncThunk(
     }
 )
 
+export const getWalletNetwork = createAsyncThunk(
+    'wallet/getWalletNetwork',
+    async (payload: string) => {
+        var response = await getRequest(config.wallet_base_url + `/api/deposit/address?currency=${payload}`)
+       
+        if (response?.status === 200) {
+            return response?.data
+          }
+    }
+)
+
 
 export const walletSlice = createSlice({
     name: 'wallet',
@@ -128,6 +139,15 @@ export const walletSlice = createSlice({
                 state.loading = false
             });
         builder.addCase(getAssetTransaction.rejected, (state) => {
+            state.loading = false
+        })
+        builder.addCase(getWalletNetwork.pending, (state) => {
+            state.loading = true;
+        }),
+            builder.addCase(getWalletNetwork.fulfilled, (state, action) => {
+                state.loading = false
+            });
+        builder.addCase(getWalletNetwork.rejected, (state) => {
             state.loading = false
         })
 

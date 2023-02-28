@@ -4,14 +4,15 @@ import GlobalStyle from '../utils/globalStyle'
 import AntDesign from 'react-native-vector-icons/AntDesign'
 import { COLORS, FONTS } from '../utils/constants/theme'
 import { format, hp } from '../utils/helper'
+import { TouchableOpacity } from 'react-native-gesture-handler'
 
-const HistoryCard = ({data}: any) => {
+const HistoryCard = ({data, handleClick}: any) => {
     const {transactionType,currency, timeStamp, amount, status} = data;
-
   
 
   return (
-    <View style={[GlobalStyle.rowBetween, styles.card]}>
+   <TouchableOpacity onPress={() => handleClick(data)}>
+     <View style={[GlobalStyle.rowBetween, styles.card]}>
       <View style={[GlobalStyle.rowStart, {padding: hp(10)}]}>
         <View style={{padding: hp(5),marginRight: hp(10), borderRadius: 50, backgroundColor: status === "success" ? COLORS.lightGreen : status === "submitted" ? COLORS.orange : COLORS.red}}>
             <AntDesign name="arrowdown" size={15} color={status === "success" ? COLORS.darkGreen : status === "submitted" ? COLORS.orange : COLORS.red} />
@@ -23,10 +24,14 @@ const HistoryCard = ({data}: any) => {
       </View>
 
       <View>
-            <Text  style={{fontWeight: "bold", ...FONTS.body4}}>{format(parseFloat(amount).toFixed(2))} {currency}</Text>
+            <Text  style={{fontWeight: "bold", ...FONTS.body4}}>{format(parseFloat(amount).toFixed(3))} {currency}</Text>
             <Text style={{textAlign: 'right',...FONTS.body5, color: status === "success" ? COLORS.darkGreen : status === "submitted" ? COLORS.orange : COLORS.red}}>{status}</Text>
         </View>
+
+
+   
     </View>
+   </TouchableOpacity>
   )
 }
 
