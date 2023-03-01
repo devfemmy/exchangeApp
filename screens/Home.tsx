@@ -154,7 +154,7 @@ const Home = ({navigation}: any) => {
               </Text>
               <Text
                 style={[styles.txt, {...FONTS.largeTitle, fontWeight: 'bold'}]}>
-                {show ? `$${totalAssetBalanceUsd?.toFixed(2)}` : '$-------'}
+                {show ? `$${format(totalAssetBalanceUsd?.toFixed(2))}` : '$-------'}
               </Text>
               <Text style={[styles.txt, {...FONTS.body5}]}>
                 {totalAssetBalanceBtc?.toFixed(5)} btc

@@ -111,11 +111,11 @@ const CreateAccount = ({navigation}: any) => {
               marginLeft: hp(10),
             }}>
             <Text>
-              <Text style={{...FONTS.body4, color: COLORS.lightGray3}}>I Certify that i am</Text>
+              <Text style={{...FONTS.body4, color: COLORS.gray}}>I Certify that i am</Text>
               <Text style={{...FONTS.body4, color: COLORS.primary}}>
                 18 years{' '}
               </Text>
-              <Text style={{...FONTS.body4, color: COLORS.lightGray3}}>of age or older </Text>
+              <Text style={{...FONTS.body4, color: COLORS.gray}}>of age or older </Text>
             </Text>
           </View>
         </View>
@@ -139,7 +139,7 @@ const CreateAccount = ({navigation}: any) => {
               width: wp(400),
             }}>
             <Text>
-              <Text style={{...FONTS.body4, color: COLORS.lightGray3}}>I agree to privacy policy </Text>
+              <Text style={{...FONTS.body4, color: COLORS.gray}}>I agree to privacy policy </Text>
               <Text style={{...FONTS.body4, color: COLORS.primary}}>
                 cookies policy {'\n'} and terms and conditions.
               </Text>
