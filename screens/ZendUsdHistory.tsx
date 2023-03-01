@@ -7,14 +7,14 @@ import HeaderComponent from '../components/HeaderComponent'
 import TranHistoryCard from '../components/TranHistoryCard'
 
 
-const TokenHistory = ({navigation}: any) => {
+const ZendUsdHistory = ({navigation}: any) => {
     const [type, setType] = useState('all');
 
   return (
     <View style={GlobalStyle.container}>
               <View style={styles.margin} />
               <HeaderComponent onPress={() => navigation.goBack()} /> 
-      <Text style={{...FONTS.h3, fontWeight: 'bold'}}>Token Transactions</Text>
+      <Text style={{...FONTS.h3, fontWeight: 'bold'}}>Zend Usd History</Text>
       <View style={[GlobalStyle.rowStart, {marginTop: hp(30), marginBottom: hp(20)}]}>
         <ScrollView horizontal showsHorizontalScrollIndicator={false}>
           <View
@@ -194,13 +194,13 @@ const TokenHistory = ({navigation}: any) => {
      <View style={styles.hr}></View>
 
      <View>
-     <TranHistoryCard header="Deposit" />
+     <TranHistoryCard header="Sold usd" />
      </View>
     </View>
   )
 }
 
-export default TokenHistory
+export default ZendUsdHistory
 
 const styles = StyleSheet.create({
     margin: {

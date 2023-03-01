@@ -137,16 +137,16 @@ const Home = ({navigation}: any) => {
             <View style={styles.card}>
               <View style={styles.eyeDiv}>
                 {show ? (
-                  <Ionicons
-                    name="eye-off-outline"
-                    onPress={() => setShow(!show)}
-                    color={'white'}
-                    size={22}
-                  />
+                   <Pressable onPress={() => setShow(!show)}>
+                   <Image source={eye} />
+                 </Pressable>
                 ) : (
-                  <Pressable onPress={() => setShow(!show)}>
-                    <Image source={eye} />
-                  </Pressable>
+                  <Ionicons
+                  name="eye-off-outline"
+                  onPress={() => setShow(!show)}
+                  color={'white'}
+                  size={22}
+                />
                 )}
               </View>
               <Text style={[styles.txt, {...FONTS.body5}]}>
@@ -212,7 +212,7 @@ const Home = ({navigation}: any) => {
                   </View>
                 );
               })}
-            <Text style={[{...FONTS.h4, marginVertical: hp(15)}]}>
+            <Text style={[{...FONTS.h3, fontWeight: "bold", marginVertical: hp(15)}]}>
               My Assets
             </Text>
 
@@ -237,12 +237,12 @@ const Home = ({navigation}: any) => {
                             style={styles.icons}
                           />
                           <View style={{marginLeft: hp(10)}}>
-                            <Text style={{...FONTS.body3, fontWeight: 'bold'}}>
+                            <Text style={{...FONTS.h3, color: COLORS.lightBlack, fontWeight:"bold"}}>
                               {data?.name}
                             </Text>
                             <Text
                               style={{
-                                ...FONTS.body5,
+                                ...FONTS.h5, color: COLORS.lightBlack,
                                 textTransform: 'uppercase',
                               }}>
                               {info?.currency}
@@ -255,10 +255,7 @@ const Home = ({navigation}: any) => {
                             alignItems: 'flex-end',
                           }}>
                           <Text
-                            style={{
-                              ...FONTS.body5,
-                              fontWeight: 'bold',
-                            }}>{`$${format(
+                            style={{...FONTS.h3, color: COLORS.lightBlack, fontWeight:"bold"}}>{`$${format(
                             data?.current_price.toFixed(2),
                           )}`}</Text>
                           <Text
@@ -313,7 +310,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginBottom: hp(10),
     paddingBottom: hp(10),
-    borderBottomColor: COLORS.gray2,
+    borderBottomColor: COLORS.lightGray3,
     borderBottomWidth: 1,
   },
   tag: {
@@ -323,8 +320,8 @@ const styles = StyleSheet.create({
     paddingHorizontal: hp(5),
   },
   icons: {
-    width: wp(20),
-    height: hp(20),
+    width: wp(30),
+    height: hp(30),
   },
   container: {
     flex: 1,

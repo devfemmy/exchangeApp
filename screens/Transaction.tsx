@@ -34,7 +34,7 @@ const Transaction = () => {
         header: "Zend USD History",
         title: "View all your usd transactions",
         icon: 'pay-circle1',
-        navigationScreen: "ZendUsd",
+        navigationScreen: "ZendUsdHistory",
         color: COLORS.primary2,
     },
     {
@@ -42,7 +42,7 @@ const Transaction = () => {
         header: "Zend Prepaid History",
         title: "View all your prepaid transactions",
         icon: 'sync',
-        navigationScreen: "Prepaid",
+        navigationScreen: "ZendPrepaidHistory",
         color: COLORS.primary2,
     },
    
@@ -53,8 +53,8 @@ const Transaction = () => {
     <MainLayout>
     <View style={GlobalStyle.container}>
     <ScrollView showsVerticalScrollIndicator={false}>
-          <Text style={{...FONTS.h2, marginBottom: hp(5)}}>Transactions</Text>
-          <Text style={{...FONTS.body5, color: COLORS.lightGray3, marginBottom: hp(30), width: wp(200)}}>
+          <Text style={{...FONTS.h2, fontWeight: 'bold', marginBottom: hp(5)}}>Transactions</Text>
+          <Text style={{...FONTS.body5, color: COLORS.gray, marginBottom: hp(30), width: wp(200)}}>
           Kindly select the transaction category you are looking for
             </Text>
             {

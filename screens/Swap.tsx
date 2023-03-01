@@ -12,6 +12,8 @@ import {ScrollView} from 'react-native-gesture-handler';
 import {useAppDispatch, useAppSelector} from '../app/hooks';
 import {getMarketPrice, marketInfo} from '../slice/TradeSlice';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import AssetsComponent from '../components/AssetsComponent';
+import SwapHeader from '../components/SwapHeader';
 
 const Swap = ({navigation}: any) => {
   const [value, setValue] = useState('');
@@ -30,51 +32,11 @@ const Swap = ({navigation}: any) => {
       return searchToken?.map((info: any) => {
         return (
           info?.currency === data?.symbol && (
-            <TouchableOpacity onPress={() => navigation.navigate("SwapCard", {
+            <AssetsComponent info={info} data={data} handleClick={(info: any, data: any) => navigation.navigate("SwapCard", {
               info: info,
               data: data
-            })}>
-              <View style={styles.actionCard2}>
-                <View style={GlobalStyle.rowStart}>
-                  <Image
-                    source={info?.icon}
-                    resizeMode="cover"
-                    style={styles.icons}
-                  />
-                  <View style={{marginLeft: hp(10)}}>
-                    <Text style={{...FONTS.body3, fontWeight: 'bold'}}>
-                      {info?.token}
-                    </Text>
-                    <View style={{flexDirection: 'row'}}>
-                      <Text
-                        style={{
-                          ...FONTS.body5,
-                          fontWeight: 'bold',
-                        }}>{`$${format(data?.current_price.toFixed(2))}`}</Text>
-                      <Text
-                        style={{
-                          ...FONTS.body5,
-                          marginLeft: hp(4),
-                          color:
-                            data?.price_change_percentage_24h === 0
-                              ? COLORS.lightGray
-                              : data?.price_change_percentage_24h > 0
-                              ? COLORS.darkGreen
-                              : COLORS.red,
-                        }}>{`${
-                        data?.price_change_24h.toFixed(2) +
-                        ' ' +
-                        `(${data?.price_change_percentage_24h.toFixed(2)})%`
-                      }`}</Text>
-                    </View>
-                  </View>
-                </View>
-                <View
-                  style={{justifyContent: 'flex-end', alignItems: 'flex-end'}}>
-                  <AntDesign name="right" />
-                </View>
-              </View>
-            </TouchableOpacity>
+            })} />
+
           )
         );
       });
@@ -86,26 +48,14 @@ const Swap = ({navigation}: any) => {
       <View style={styles.centeredView}>
         <View style={styles.centeredView}>
           <View style={styles.modalView}>
-            <View style={[GlobalStyle.rowBetween, {marginBottom: hp(20)}]}>
-              <AntDesign
-                name="arrowleft"
-                size={30}
-                onPress={() => navigation.goBack()}
-              />
-              <TouchableOpacity>
-                <View style={styles.swap}>
-                  <Text style={{marginRight: hp(5)}}>Swap History</Text>
-                  <MaterialIcons name="history" size={20} />
-                </View>
-              </TouchableOpacity>
-            </View>
+          <SwapHeader />
 
-            <Text style={{...FONTS.h2, textAlign: 'left'}}>Swap Token</Text>
+            <Text style={{...FONTS.h2, fontWeight: 'bold', textAlign: 'left'}}>Swap</Text>
             <Text
               style={{
                 ...FONTS.body4,
                 textAlign: 'left',
-                color: COLORS.lightGray3,
+                color: COLORS.gray,
               }}>
               Select token you want to swap
             </Text>
@@ -157,13 +107,5 @@ const styles = StyleSheet.create({
     padding: 10,
     borderRadius: 10,
   },
-  swap: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    borderWidth: 1,
-    borderColor: COLORS.lightGray3,
-    borderRadius: 4,
-    paddingHorizontal: hp(10),
-    paddingVertical: hp(5),
-  },
+
 });

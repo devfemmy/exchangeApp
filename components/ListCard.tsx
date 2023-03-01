@@ -16,7 +16,7 @@ const ListCard = ({ data, id, handlePress, logOut}: any) => {
                 {
                     data?.icon === 'addusergroup' || data?.icon === 'user' ? <AntDesign name={data?.icon} style={styles.img} size={20} /> : <MaterialIcons name={data?.icon} color={data?.icon === 'logout' ? '#FF0000' : COLORS.gray} size={20} style={styles.img} />
                 }
-                <Text style={{...FONTS.body3, marginLeft: hp(5), color: COLORS.lightGray3}}>{data?.name}</Text>
+                <Text style={{...FONTS.body3, marginLeft: hp(5), color: COLORS.gray}}>{data?.name}</Text>
             </View>
              {
                 (data?.name !== 'Sign Out' && !data?.type) && <Image source={stroke} style={styles.img} />

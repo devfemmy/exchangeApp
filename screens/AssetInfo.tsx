@@ -84,10 +84,10 @@ const AssetInfo = (props: any) => {
       <View style={GlobalStyle.rowBetween}>
         <AntDesign
           name="arrowleft"
-          size={25}
+          size={hp(25)}
           onPress={() => props.navigation.goBack()}
         />
-        <Text style={{...FONTS.h2}}>{assetName}</Text>
+        <Text style={{...FONTS.h2, fontWeight: 'bold'}}>{assetName}</Text>
         <Image source={iconData} style={styles.icon} />
       </View>
 
@@ -107,7 +107,7 @@ const AssetInfo = (props: any) => {
                   parseFloat(assetData[asset?.toUpperCase()]?.availBal).toFixed(
                     4,
                   ),
-                )} ${asset} `}
+                )} ${asset?.toUpperCase()} `}
             </Text>
           </View>
           <View>
@@ -144,7 +144,7 @@ const AssetInfo = (props: any) => {
             }}>
             Total Balance
           </Text>
-          <Text style={{textAlign: 'center', color: COLORS.white, ...FONTS.h1}}>
+          <Text style={{textAlign: 'center', fontWeight: 'bold', color: COLORS.white, ...FONTS.h1}}>
           {show ? `${assetData &&
               `$${format(
                 parseFloat(assetData[asset?.toUpperCase()]?.balance).toFixed(4),

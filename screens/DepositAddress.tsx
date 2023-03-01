@@ -23,7 +23,7 @@ const DepositAddress = (props: any) => {
           size={30}
           onPress={() => props?.navigation.goBack()}
         />
-        <Text style={{...FONTS.h3}}>Deposit {token}</Text>
+        <Text style={{...FONTS.h3, fontWeight: 'bold'}}>Deposit {token}</Text>
         <View></View>
       </View>
 
@@ -32,19 +32,16 @@ const DepositAddress = (props: any) => {
           <View style={styles.barCode}>
             <BarcodeCreatorViewManager
               value={address}
-              background={'#000000'}
-              foregroundColor={'#FFFFFF'}
               format={BarcodeFormat.QR}
-              style={styles.box}
-            />
+              style={styles.box} background={''} foregroundColor={''}            />
           </View>
           <View>
             <View style={styles.service}>
-              <Text style={{...FONTS.body4, color: COLORS.lightGray3}}>
+              <Text style={{...FONTS.body4, color: COLORS.gray}}>
                 Wallet Address
               </Text>
               <View style={GlobalStyle.rowStart}>
-                <Text style={{...FONTS.h4, marginRight: hp(20)}}>
+                <Text style={{...FONTS.h4,fontWeight: 'bold', marginRight: hp(20)}}>
                   {address.substr(0, 15)}
                 </Text>
                 <Feather
@@ -55,25 +52,25 @@ const DepositAddress = (props: any) => {
               </View>
             </View>
             <View style={styles.service}>
-              <Text style={{...FONTS.body4, color: COLORS.lightGray3}}>
+              <Text style={{...FONTS.body4, color: COLORS.gray}}>
                 Network
               </Text>
               <View style={GlobalStyle.rowStart}>
-                <Text style={{...FONTS.h4, marginRight: hp(20)}}>{chain}</Text>
+                <Text style={{...FONTS.h4,fontWeight: 'bold', marginRight: hp(20)}}>{chain}</Text>
               </View>
             </View>
             <View style={styles.card}>
-              <Text style={{...FONTS.h4}}>Important Information</Text>
+              <Text style={{...FONTS.h4, fontWeight: 'bold'}}>Important Information</Text>
               <View style={styles.strt}>
                 <Text style={{fontSize: hp(20)}}>{'\u2022'}</Text>
-                <Text style={{...FONTS.body4, color: COLORS.lightGray3}}>
+                <Text style={{...FONTS.body4, color: COLORS.gray}}>
                   {' '}
                   Send only {currency} to this address
                 </Text>
               </View>
               <View style={styles.strt}>
                 <Text style={{fontSize: hp(20)}}>{'\u2022'}</Text>
-                <Text style={{...FONTS.body4, color: COLORS.lightGray3}}>
+                <Text style={{...FONTS.body4, color: COLORS.gray}}>
                   {' '}
                   Sending coin or token other than {currency} ({chain}) to this
                   address will result to lose of your crypto asset
@@ -106,13 +103,13 @@ export default DepositAddress;
 
 const styles = StyleSheet.create({
   box: {
-    width: wp(300),
-    height: hp(300),
+    width: wp(250),
+    height: hp(250),
   },
   barCode: {
     justifyContent: 'center',
     alignItems: 'center',
-    marginTop: hp(30),
+    marginTop: hp(40),
     marginBottom: hp(50),
   },
   service: {

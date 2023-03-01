@@ -35,320 +35,39 @@ const Assets = ({navigation}: any) => {
 
 
   const fundingAssets = (data: any) => {
-   
     switch (data) {
-      case 'USDT':
+      case data?.toUpperCase():
         return  <View style={styles.sub}>
           <Text style={{...FONTS.body5}}>{`${format(
-          fundingAccountInfo?.USDT?.availBal ?   `${parseFloat(fundingAccountInfo?.USDT?.availBal).toFixed(4)} ${data}` : 0     
+          fundingAccountInfo?.[data?.toUpperCase()]?.availBal ?   `${parseFloat(fundingAccountInfo?.[data?.toUpperCase()]?.availBal).toFixed(2)}` : 0     
         )}`}</Text>
         <Text style={{...FONTS.body5, fontWeight: 'bold'}}>{`$${format(
-          fundingAccountInfo?.USDT?.availBal ?   parseFloat(fundingAccountInfo?.USDT?.availBal).toFixed(2) : 0     
+          fundingAccountInfo?.[data?.toUpperCase()]?.availBal ?   parseFloat(fundingAccountInfo?.[data?.toUpperCase()]?.availBal).toFixed(2) : 0     
         )}`}</Text>    
       </View>
         break;
-        case 'USDC':
-          return  <View style={styles.sub}>
-            <Text style={{...FONTS.body5}}>{`${format(
-            fundingAccountInfo?.USDC?.availBal ?   `${parseFloat(fundingAccountInfo?.USDC?.availBal).toFixed(4)} ${data}` : 0     
-          )}`}</Text>
-          <Text style={{...FONTS.body5, fontWeight: 'bold'}}>{`$${format(
-            fundingAccountInfo?.USDC?.usd ?   parseFloat(fundingAccountInfo?.USDC?.usd).toFixed(2) : 0     
-          )}`}</Text>    
-        </View>
+        default: 
           break;
-          case 'TRX':
-            return  <View style={styles.sub}>
-              <Text style={{...FONTS.body5}}>{`${
-              format(fundingAccountInfo?.TRX?.availBal ?   `${parseFloat(fundingAccountInfo?.TRX?.availBal).toFixed(4)} ${data}` : 0     
-            )}`}</Text>
-            <Text style={{...FONTS.body5, fontWeight: 'bold'}}>{`$${
-             format(fundingAccountInfo?.TRX?.usd ?   parseFloat(fundingAccountInfo?.TRX?.usd).toFixed(2) : 0     
-            )}`}</Text>    
-          </View>
-            break;
-            case 'BTC':
-              return  <View style={styles.sub}>
-                <Text style={{...FONTS.body5}}>{`${
-                format(fundingAccountInfo?.BTC?.availBal ?   `${parseFloat(fundingAccountInfo?.BTC?.availBal).toFixed(4)} ${data}` : 0     
-              )}`}</Text>
-              <Text style={{...FONTS.body5, fontWeight: 'bold'}}>{`$${
-                format(fundingAccountInfo?.BTC?.usd ?   parseFloat(fundingAccountInfo?.BTC?.usd).toFixed(2) : 0     
-              )}`}</Text>    
-            </View>
-              break;
-              case 'ETH':
-                return  <View style={styles.sub}>
-                  <Text style={{...FONTS.body5}}>{`${
-                  format(fundingAccountInfo?.ETH?.availBal ?   `${parseFloat(fundingAccountInfo?.ETH?.availBal).toFixed(4)} ${data}` : 0     
-                )}`}</Text>
-                <Text style={{...FONTS.body5, fontWeight: 'bold'}}>{`$${
-                  format(fundingAccountInfo?.ETH?.usd ?   parseFloat(fundingAccountInfo?.ETH?.usd).toFixed(2) : 0     
-                )}`}</Text>    
-              </View>
-                break;
-                case 'SOL':
-                  return  <View style={styles.sub}>
-                    <Text style={{...FONTS.body5}}>{`${
-                    format(fundingAccountInfo?.SOL?.availBal ?   `${parseFloat(fundingAccountInfo?.SOL?.availBal).toFixed(4)} ${data}` : 0     
-                  )}`}</Text>
-                  <Text style={{...FONTS.body5, fontWeight: 'bold'}}>{`$${
-                    format(fundingAccountInfo?.SOL?.usd ?   parseFloat(fundingAccountInfo?.SOL?.usd).toFixed(2) : 0     
-                  )}`}</Text>    
-                </View>
-                  break;
-                  case 'ALGO':
-                    return  <View style={styles.sub}>
-                      <Text style={{...FONTS.body5}}>{`${
-                      format(fundingAccountInfo?.ALGO?.availBal ?   `${parseFloat(fundingAccountInfo?.ALGO?.availBal).toFixed(4)} ${data}` : 0     
-                    )}`}</Text>
-                    <Text style={{...FONTS.body5, fontWeight: 'bold'}}>{`$${
-                      format(fundingAccountInfo?.ALGO?.usd ?   parseFloat(fundingAccountInfo?.ALGO?.usd).toFixed(2) : 0     
-                    )}`}</Text>    
-                  </View>
-                    break;
-                    case 'XRP':
-                      return  <View style={styles.sub}>
-                        <Text style={{...FONTS.body5}}>{`${
-                        format(fundingAccountInfo?.XRP?.availBal ?   `${parseFloat(fundingAccountInfo?.XRP?.availBal).toFixed(4)} ${data}` : 0     
-                      )}`}</Text>
-                      <Text style={{...FONTS.body5, fontWeight: 'bold'}}>{`$${
-                        format(fundingAccountInfo?.XRP?.usd ?   parseFloat(fundingAccountInfo?.XRP?.usd).toFixed(2) : 0     
-                      )}`}</Text>    
-                    </View>
-                      break;
-                      case 'BCH':
-                        return  <View style={styles.sub}>
-                          <Text style={{...FONTS.body5}}>{`${
-                          format(fundingAccountInfo?.BCH?.availBal ?   `${parseFloat(fundingAccountInfo?.BCH?.availBal).toFixed(4)} ${data}` : 0     
-                        )}`}</Text>
-                        <Text style={{...FONTS.body5, fontWeight: 'bold'}}>{`$${
-                          format(fundingAccountInfo?.BCH?.usd ?   parseFloat(fundingAccountInfo?.BCH?.usd).toFixed(2) : 0     
-                        )}`}</Text>    
-                      </View>
-                        break;
-                        case 'MATIC':
-                          return  <View style={styles.sub}>
-                            <Text style={{...FONTS.body5}}>{`${
-                            format(fundingAccountInfo?.MATIC?.availBal ?  `${parseFloat(fundingAccountInfo?.MATIC?.availBal).toFixed(4)} ${data}` : 0     
-                          )}`}</Text>
-                          <Text style={{...FONTS.body5, fontWeight: 'bold'}}>{`$${
-                            format(fundingAccountInfo?.MATIC?.usd ?   parseFloat(fundingAccountInfo?.MATIC?.usd).toFixed(2) : 0     
-                          )}`}</Text>    
-                        </View>
-                          break;
-                          case 'AVAX':
-                            return  <View style={styles.sub}>
-                              <Text style={{...FONTS.body5}}>{`${
-                              format(fundingAccountInfo?.AVAX?.availBal ? `${parseFloat(fundingAccountInfo?.AVAX?.availBal).toFixed(4)} ${data}` : 0     
-                            )}`}</Text>
-                            <Text style={{...FONTS.body5, fontWeight: 'bold'}}>{`$${
-                              format(fundingAccountInfo?.AVAX?.usd ?   parseFloat(fundingAccountInfo?.AVAX?.usd).toFixed(2) : 0     
-                            )}`}</Text>    
-                          </View>
-                            break;
-                            case 'XLM':
-                              return  <View style={styles.sub}>
-                                <Text style={{...FONTS.body5}}>{`${
-                                format(fundingAccountInfo?.XLM?.availBal ?  `${parseFloat(fundingAccountInfo?.XLM?.availBal).toFixed(4)} ${data}` : 0     
-                              )}`}</Text>
-                              <Text style={{...FONTS.body5, fontWeight: 'bold'}}>{`$${
-                                format(fundingAccountInfo?.XLM?.usd ?   parseFloat(fundingAccountInfo?.XLM?.usd).toFixed(2) : 0     
-                              )}`}</Text>    
-                            </View>
-                              break;
-                              case 'LTC':
-                                return  <View style={styles.sub}>
-                                  <Text style={{...FONTS.body5}}>{`${
-                                  format(fundingAccountInfo?.LTC?.availBal ?   `${parseFloat(fundingAccountInfo?.LTC?.availBal).toFixed(4)} ${data}` : 0     
-                                )}`}</Text>
-                                <Text style={{...FONTS.body5, fontWeight: 'bold'}}>{`$${
-                                  format(fundingAccountInfo?.LTC?.usd ?   parseFloat(fundingAccountInfo?.LTC?.usd).toFixed(2) : 0     
-                                )}`}</Text>    
-                              </View>
-                                break;
-                                case 'DOGE':
-                                  return  <View style={styles.sub}>
-                                    <Text style={{...FONTS.body5}}>{`${
-                                    format(fundingAccountInfo?.DOGE?.availBal ?   `${parseFloat(fundingAccountInfo?.DOGE?.availBal).toFixed(4)} ${data}` : 0     
-                                  )}`}</Text>
-                                  <Text style={{...FONTS.body5, fontWeight: 'bold'}}>{`$${
-                                    format(fundingAccountInfo?.DOGE?.usd ?   parseFloat(fundingAccountInfo?.DOGE?.usd).toFixed(2) : 0     
-                                  )}`}</Text>    
-                                </View>
-                                  break;
-                                  case 'OKB':
-                                    return  <View style={styles.sub}>
-                                      <Text style={{...FONTS.body5}}>{`${
-                                      format(fundingAccountInfo?.OKB?.availBal ?   `${parseFloat(fundingAccountInfo?.OKB?.availBal).toFixed(4)} ${data}` : 0     
-                                    )}`}</Text>
-                                    <Text style={{...FONTS.body5, fontWeight: 'bold'}}>{`$${
-                                      format(fundingAccountInfo?.OKB?.usd ?   parseFloat(fundingAccountInfo?.OKB?.usd).toFixed(2) : 0     
-                                    )}`}</Text>    
-                                  </View>
-                                    break;
-      default:
-        
-    }
+        }
     
   }
 
   const tradingAssets = (data: any) => {
    
     switch (data) {
-      case 'USDT':
+      case data?.toUpperCase():
         return  <View style={styles.sub}>
           <Text style={{...FONTS.body5}}>{`${format(
-          tradingAccountInfo?.USDT?.availBal ?   `${parseFloat(tradingAccountInfo?.USDT?.availBal).toFixed(4)} ${data}` : 0     
+          tradingAccountInfo?.[data?.toUpperCase()]?.availBal ?   `${parseFloat(tradingAccountInfo?.[data?.toUpperCase()]?.availBal).toFixed(2)}` : 0     
         )}`}</Text>
         <Text style={{...FONTS.body5, fontWeight: 'bold'}}>{`$${format(
-          tradingAccountInfo?.USDT?.availBal ?   parseFloat(tradingAccountInfo?.USDT?.availBal).toFixed(2) : 0     
+          tradingAccountInfo?.[data?.toUpperCase()]?.availBal ?   parseFloat(tradingAccountInfo?.[data?.toUpperCase()]?.availBal).toFixed(2) : 0     
         )}`}</Text>    
       </View>
         break;
-        case 'USDC':
-          return  <View style={styles.sub}>
-            <Text style={{...FONTS.body5}}>{`${format(
-            tradingAccountInfo?.USDC?.availBal ?   `${parseFloat(tradingAccountInfo?.USDC?.availBal).toFixed(4)} ${data}` : 0     
-          )}`}</Text>
-          <Text style={{...FONTS.body5, fontWeight: 'bold'}}>{`$${format(
-            tradingAccountInfo?.USDC?.usd ?   parseFloat(tradingAccountInfo?.USDC?.usd).toFixed(2) : 0     
-          )}`}</Text>    
-        </View>
+        default: 
           break;
-          case 'TRX':
-            return  <View style={styles.sub}>
-              <Text style={{...FONTS.body5}}>{`${
-              format(tradingAccountInfo?.TRX?.availBal ?   `${parseFloat(tradingAccountInfo?.TRX?.availBal).toFixed(4)} ${data}` : 0     
-            )}`}</Text>
-            <Text style={{...FONTS.body5, fontWeight: 'bold'}}>{`$${
-             format(tradingAccountInfo?.TRX?.usd ?   parseFloat(tradingAccountInfo?.TRX?.usd).toFixed(2) : 0     
-            )}`}</Text>    
-          </View>
-            break;
-            case 'BTC':
-              return  <View style={styles.sub}>
-                <Text style={{...FONTS.body5}}>{`${
-                format(tradingAccountInfo?.BTC?.availBal ?   `${parseFloat(tradingAccountInfo?.BTC?.availBal).toFixed(4)} ${data}` : 0     
-              )}`}</Text>
-              <Text style={{...FONTS.body5, fontWeight: 'bold'}}>{`$${
-                format(tradingAccountInfo?.BTC?.usd ?   parseFloat(tradingAccountInfo?.BTC?.usd).toFixed(2) : 0     
-              )}`}</Text>    
-            </View>
-              break;
-              case 'ETH':
-                return  <View style={styles.sub}>
-                  <Text style={{...FONTS.body5}}>{`${
-                  format(tradingAccountInfo?.ETH?.availBal ?   `${parseFloat(tradingAccountInfo?.ETH?.availBal).toFixed(4)} ${data}` : 0     
-                )}`}</Text>
-                <Text style={{...FONTS.body5, fontWeight: 'bold'}}>{`$${
-                  format(tradingAccountInfo?.ETH?.usd ?   parseFloat(tradingAccountInfo?.ETH?.usd).toFixed(2) : 0     
-                )}`}</Text>    
-              </View>
-                break;
-                case 'SOL':
-                  return  <View style={styles.sub}>
-                    <Text style={{...FONTS.body5}}>{`${
-                    format(tradingAccountInfo?.SOL?.availBal ?   `${parseFloat(tradingAccountInfo?.SOL?.availBal).toFixed(4)} ${data}` : 0     
-                  )}`}</Text>
-                  <Text style={{...FONTS.body5, fontWeight: 'bold'}}>{`$${
-                    format(tradingAccountInfo?.SOL?.usd ?   parseFloat(tradingAccountInfo?.SOL?.usd).toFixed(2) : 0     
-                  )}`}</Text>    
-                </View>
-                  break;
-                  case 'ALGO':
-                    return  <View style={styles.sub}>
-                      <Text style={{...FONTS.body5}}>{`${
-                      format(tradingAccountInfo?.ALGO?.availBal ?   `${parseFloat(tradingAccountInfo?.ALGO?.availBal).toFixed(4)} ${data}` : 0     
-                    )}`}</Text>
-                    <Text style={{...FONTS.body5, fontWeight: 'bold'}}>{`$${
-                      format(tradingAccountInfo?.ALGO?.usd ?   parseFloat(tradingAccountInfo?.ALGO?.usd).toFixed(2) : 0     
-                    )}`}</Text>    
-                  </View>
-                    break;
-                    case 'XRP':
-                      return  <View style={styles.sub}>
-                        <Text style={{...FONTS.body5}}>{`${
-                        format(tradingAccountInfo?.XRP?.availBal ?   `${parseFloat(tradingAccountInfo?.XRP?.availBal).toFixed(4)} ${data}` : 0     
-                      )}`}</Text>
-                      <Text style={{...FONTS.body5, fontWeight: 'bold'}}>{`$${
-                        format(tradingAccountInfo?.XRP?.usd ?   parseFloat(tradingAccountInfo?.XRP?.usd).toFixed(2) : 0     
-                      )}`}</Text>    
-                    </View>
-                      break;
-                      case 'BCH':
-                        return  <View style={styles.sub}>
-                          <Text style={{...FONTS.body5}}>{`${
-                          format(tradingAccountInfo?.BCH?.availBal ?   `${parseFloat(tradingAccountInfo?.BCH?.availBal).toFixed(4)} ${data}` : 0     
-                        )}`}</Text>
-                        <Text style={{...FONTS.body5, fontWeight: 'bold'}}>{`$${
-                          format(tradingAccountInfo?.BCH?.usd ?   parseFloat(tradingAccountInfo?.BCH?.usd).toFixed(2) : 0     
-                        )}`}</Text>    
-                      </View>
-                        break;
-                        case 'MATIC':
-                          return  <View style={styles.sub}>
-                            <Text style={{...FONTS.body5}}>{`${
-                            format(tradingAccountInfo?.MATIC?.availBal ?   `${parseFloat(tradingAccountInfo?.MATIC?.availBal).toFixed(4)} ${data}` : 0     
-                          )}`}</Text>
-                          <Text style={{...FONTS.body5, fontWeight: 'bold'}}>{`$${
-                            format(tradingAccountInfo?.MATIC?.usd ?   parseFloat(tradingAccountInfo?.MATIC?.usd).toFixed(2) : 0     
-                          )}`}</Text>    
-                        </View>
-                          break;
-                          case 'AVAX':
-                            return  <View style={styles.sub}>
-                              <Text style={{...FONTS.body5}}>{`${
-                              format(tradingAccountInfo?.AVAX?.availBal ?   `${parseFloat(tradingAccountInfo?.AVAX?.availBal).toFixed(4)} ${data}` : 0     
-                            )}`}</Text>
-                            <Text style={{...FONTS.body5, fontWeight: 'bold'}}>{`$${
-                              format(tradingAccountInfo?.AVAX?.usd ?   parseFloat(tradingAccountInfo?.AVAX?.usd).toFixed(2) : 0     
-                            )}`}</Text>    
-                          </View>
-                            break;
-                            case 'XLM':
-                              return  <View style={styles.sub}>
-                                <Text style={{...FONTS.body5}}>{`${
-                                format(tradingAccountInfo?.XLM?.availBal ?   `${parseFloat(tradingAccountInfo?.XLM?.availBal).toFixed(4)} ${data}` : 0     
-                              )}`}</Text>
-                              <Text style={{...FONTS.body5, fontWeight: 'bold'}}>{`$${
-                                format(tradingAccountInfo?.XLM?.usd ?   parseFloat(tradingAccountInfo?.XLM?.usd).toFixed(2) : 0     
-                              )}`}</Text>    
-                            </View>
-                              break;
-                              case 'LTC':
-                                return  <View style={styles.sub}>
-                                  <Text style={{...FONTS.body5}}>{`${
-                                  format(tradingAccountInfo?.LTC?.availBal ?  `${parseFloat(tradingAccountInfo?.LTC?.availBal).toFixed(4)} ${data}` : 0     
-                                )}`}</Text>
-                                <Text style={{...FONTS.body5, fontWeight: 'bold'}}>{`$${
-                                  format(tradingAccountInfo?.LTC?.usd ?   parseFloat(tradingAccountInfo?.LTC?.usd).toFixed(2) : 0     
-                                )}`}</Text>    
-                              </View>
-                                break;
-                                case 'DOGE':
-                                  return  <View style={styles.sub}>
-                                    <Text style={{...FONTS.body5}}>{`${
-                                    format(tradingAccountInfo?.DOGE?.availBal ?   `${parseFloat(tradingAccountInfo?.DOGE?.availBal).toFixed(4)} ${data}` : 0     
-                                  )}`}</Text>
-                                  <Text style={{...FONTS.body5, fontWeight: 'bold'}}>{`$${
-                                    format(tradingAccountInfo?.DOGE?.usd ?   parseFloat(tradingAccountInfo?.DOGE?.usd).toFixed(2) : 0     
-                                  )}`}</Text>    
-                                </View>
-                                  break;
-                                  case 'OKB':
-                                    return  <View style={styles.sub}>
-                                      <Text style={{...FONTS.body5}}>{`${
-                                      format(tradingAccountInfo?.OKB?.availBal ?   `${parseFloat(tradingAccountInfo?.OKB?.availBal).toFixed(4)} ${data}` : 0     
-                                    )}`}</Text>
-                                    <Text style={{...FONTS.body5, fontWeight: 'bold'}}>{`$${
-                                      format(tradingAccountInfo?.OKB?.usd ?   parseFloat(tradingAccountInfo?.OKB?.usd).toFixed(2) : 0     
-                                    )}`}</Text>    
-                                  </View>
-                                    break;
-      default:
-        
-    }
+        }
     
   }
 
@@ -432,7 +151,7 @@ const Assets = ({navigation}: any) => {
               style={{
                 width: '50%',
                 borderBottomColor:
-                  type === 'trading' ? COLORS.primary : COLORS.lightGray3,
+                  type === 'trading' ? COLORS.primary : COLORS.gray2,
                 borderBottomWidth: 1,
                 paddingBottom: hp(5),
               }}>
@@ -442,7 +161,7 @@ const Assets = ({navigation}: any) => {
                     ...FONTS.h3,
                     textAlign: 'center',
                     color:
-                      type === 'trading' ? COLORS.primary : COLORS.lightGray3,
+                      type === 'trading' ? COLORS.primary : COLORS.gray2,
                   }}>
                   Trading Balance
                 </Text>
@@ -450,13 +169,13 @@ const Assets = ({navigation}: any) => {
             </View>
           </View>
           <View style={[GlobalStyle.rowBetween, {marginVertical: hp(25)}]}>
-            <Text style={{...FONTS.body4, color: COLORS.lightGray3, width: "30%"}}>
+            <Text style={{...FONTS.body4, color: COLORS.gray, width: "30%"}}>
               Tokens
             </Text>
-            <Text style={{...FONTS.body4, color: COLORS.lightGray3, textAlign: 'right', width: "30%"}}>
+            <Text style={{...FONTS.body4, color: COLORS.gray, textAlign: 'right', width: "30%"}}>
               Assets
             </Text>
-            <Text style={{...FONTS.body4, color: COLORS.lightGray3, textAlign: 'right', width: "30%"}}>
+            <Text style={{...FONTS.body4, color: COLORS.gray, textAlign: 'right', width: "30%"}}>
             Market Price
             </Text>
           </View>
