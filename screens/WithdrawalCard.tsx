@@ -12,11 +12,33 @@ import {ScrollView} from 'react-native-gesture-handler';
 import {useAppDispatch, useAppSelector} from '../app/hooks';
 import {getMarketPrice, marketInfo} from '../slice/TradeSlice';
 import IconTextButton from '../components/IconTextButton';
+import { SelectInput } from '../components/SelectInput';
+import { getTradingAccount, getWalletNetwork } from '../slice/WalletSlice';
 
 const WithdrawalCard = (props: any) => {
   const assetName = props.route?.params?.info?.token;
   const currencyIcon = props.route?.params?.info?.icon;
   const currencyName = props.route?.params?.info?.currency;
+  
+  const [walletType, setWalletType] = useState("")
+  const [walletNetwork, setWalletNetwork] = useState("")
+  const [assetData, setAssetData] = useState<any>();
+  const dispatch = useAppDispatch()
+  const [networks, setNetworks] = useState<any>()
+
+useEffect(() => {
+  const loadData = async () => {
+     await dispatch(getTradingAccount()).then(gg => {
+       setAssetData(gg?.payload?.[currencyName?.toUpperCase()])
+     })
+
+     await dispatch(getWalletNetwork(currencyName)).then((pp: any) => setNetworks(pp?.payload?.[currencyName?.toUpperCase()]))
+  } 
+  loadData()
+ }, [currencyName])
+
+
+ const networksList = networks?.map((data: any) => data?.chain)
 
   return (
     <View style={GlobalStyle.container}>
@@ -30,7 +52,7 @@ const WithdrawalCard = (props: any) => {
             </TouchableOpacity>
 
             <Text style={{...FONTS.h2, textAlign: 'left'}}>Withdraw</Text>
-            <Text style={{...FONTS.body5, textAlign: 'left'}}>=</Text>
+
 
             <View style={[GlobalStyle.rowBetween, {marginTop: hp(20)}]}>
               <View style={GlobalStyle.rowStart}>
@@ -41,16 +63,38 @@ const WithdrawalCard = (props: any) => {
               </View>
 
               <View>
-                <Text style={{textTransform: 'capitalize', ...FONTS.body3}}>
-                  Balance: 100 {currencyName}
+                <Text style={{ ...FONTS.body3}}>
+                  Balance: {assetData?.availBal ? format(parseFloat(assetData?.availBal)?.toFixed(2)) : 0} {currencyName?.toUpperCase()}
                 </Text>
               </View>
             </View>
 
             <View style={styles.form}>
-                <TextInput value="" label="Enter Amount" />
-                <TextInput value="" label="Select wallet" />
-                <TextInput value="" label="Select Network" />
+              <ScrollView>
+              <TextInput value="" label="Enter Amount" />
+                <SelectInput 
+                  value={walletType}
+                  items={["Internal Wallet", "External Wallet"]}
+                   setState={(value: any) => setWalletType(value)}
+                   placeholder="Wallet Type"
+                   errorMsg={undefined}
+                  />
+                  {
+                    walletType?.length > 0 &&   <TextInput value="" label="Zend Username" />
+                  }
+                  {
+                    walletType?.length > 0 &&   <TextInput value="" label="Transaction Fee" />
+                  }
+                <TextInput value="" label="Enter Wallet ID" />
+                <SelectInput 
+                  value={walletNetwork}
+                  items={networksList}
+                   setState={(value: any) => setWalletNetwork(value)}
+                   placeholder="Select Withdrawal Network"
+                   errorMsg={undefined}
+                  />
+              </ScrollView>
+              
             </View>
           </View>
           <View style={styles.bottom}>
@@ -100,12 +144,14 @@ const styles = StyleSheet.create({
     marginRight: hp(10),
   },
   form: {
-    marginVertical: hp(20)
+    marginVertical: hp(20),
+    marginBottom: hp(10)
   },
   top: {
-    flex: 4,
+    flex: 5,
   },
   bottom: {
-    flex: 1
+    flex: 1,
+    paddingTop: hp(20)
   }
 });

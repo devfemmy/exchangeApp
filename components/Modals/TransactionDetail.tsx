@@ -17,7 +17,8 @@ const TransactionDetailModal = ({modalVisible, setModalVisible, data}: any) => {
 
 
   return (
-    <View style={styles.centeredView}>
+   <View>
+     <View style={styles.centeredView}>
       <Modal
         animationType="slide"
         transparent={true}
@@ -68,7 +69,7 @@ const TransactionDetailModal = ({modalVisible, setModalVisible, data}: any) => {
                   <Text style={{textTransform: 'capitalize', ...FONTS.body4}}>
                     {data?.transactionType}
                   </Text>
-                  <Text style={{...FONTS.body3, color: COLORS.lightGray3}}>
+                  <Text style={{...FONTS.body3, color: COLORS.gray}}>
                     {data?.chain} {data?.currency} 
                   </Text>
                 </View>
@@ -78,7 +79,7 @@ const TransactionDetailModal = ({modalVisible, setModalVisible, data}: any) => {
                 <Text
                   style={{
                     textTransform: 'capitalize',
-                    color: COLORS.lightGray3,
+                    color: COLORS.gray,
                     ...FONTS.body4,
                   }}>
                   Order ID:
@@ -93,7 +94,7 @@ const TransactionDetailModal = ({modalVisible, setModalVisible, data}: any) => {
                 <Text
                   style={{
                     textTransform: 'capitalize',
-                    color: COLORS.lightGray3,
+                    color: COLORS.gray,
                     ...FONTS.body4,
                   }}>
                   Withdraw Type:
@@ -107,7 +108,7 @@ const TransactionDetailModal = ({modalVisible, setModalVisible, data}: any) => {
                 <Text
                   style={{
                     textTransform: 'capitalize',
-                    color: COLORS.lightGray3,
+                    color: COLORS.gray,
                     ...FONTS.body4,
                   }}>
                   From:
@@ -121,7 +122,7 @@ const TransactionDetailModal = ({modalVisible, setModalVisible, data}: any) => {
                 <Text
                   style={{
                     textTransform: 'capitalize',
-                    color: COLORS.lightGray3,
+                    color: COLORS.gray,
                     ...FONTS.body4,
                   }}>
                 Token:
@@ -135,7 +136,7 @@ const TransactionDetailModal = ({modalVisible, setModalVisible, data}: any) => {
                 <Text
                   style={{
                     textTransform: 'capitalize',
-                    color: COLORS.lightGray3,
+                    color: COLORS.gray,
                     ...FONTS.body4,
                   }}>
                   Amount:
@@ -149,7 +150,7 @@ const TransactionDetailModal = ({modalVisible, setModalVisible, data}: any) => {
                 <Text
                   style={{
                     textTransform: 'capitalize',
-                    color: COLORS.lightGray3,
+                    color: COLORS.gray,
                     ...FONTS.body4,
                   }}>
                   Date:
@@ -163,7 +164,7 @@ const TransactionDetailModal = ({modalVisible, setModalVisible, data}: any) => {
                 <Text
                   style={{
                     textTransform: 'capitalize',
-                    color: COLORS.lightGray3,
+                    color: COLORS.gray,
                     ...FONTS.body4,
                   }}>
                   Transaction Status:
@@ -178,6 +179,7 @@ const TransactionDetailModal = ({modalVisible, setModalVisible, data}: any) => {
         </View>
       </Modal>
     </View>
+   </View>
   );
 };
 
@@ -188,7 +190,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'transparent',
+    backgroundColor: COLORS.transparentBlack
   },
   modalView: {
     margin: 20,

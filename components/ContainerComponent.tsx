@@ -22,6 +22,8 @@ import SwapCard from '../screens/SwapCard';
 import DepositAddress from '../screens/DepositAddress';
 import SwapHistory from '../screens/SwapHistory';
 import TokenHistory from '../screens/TokenHistory';
+import ZendUsdHistory from '../screens/ZendUsdHistory';
+import ZendPrepaidHistory from '../screens/ZendPrepaidHistory';
 
 const Stack = createStackNavigator();
 
@@ -74,6 +76,14 @@ const ContainerComponent = () => {
          <Stack.Screen
             name="SwapCard"
             component={SwapCard}
+        />
+          <Stack.Screen
+            name="ZendUsdHistory"
+            component={ZendUsdHistory}
+        />
+          <Stack.Screen
+            name="ZendPrepaidHistory"
+            component={ZendPrepaidHistory}
         />
         <Stack.Screen
             name="EditProfile"

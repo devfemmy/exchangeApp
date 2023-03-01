@@ -15,7 +15,8 @@ import IconTextButton from '../components/IconTextButton';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import SwapTokenModal from '../components/Modals/SwapTokenModal';
 import { tether } from '../assets/images';
-import { tradingAccount } from '../slice/WalletSlice';
+import { getTradingAccount, tradingAccount } from '../slice/WalletSlice';
+import SwapHeader from '../components/SwapHeader';
 
 const SwapCard = (props: any) => {
   const assetName = props.route?.params?.info?.token;
@@ -27,8 +28,8 @@ const SwapCard = (props: any) => {
   const [selectedIcon, setSelectedIcon] = useState<any>()
   const [selectedBalance, setSelectedBalance] = useState<any>(0)
   const tradingAccountInfo: any = useAppSelector(tradingAccount)
-
-
+  const [assetData, setAssetData] = useState<any>();
+  const dispatch = useAppDispatch()
 
   const handleOpenSelectToOpen = () => {
     setOpenSelectTo(true);
@@ -37,6 +38,17 @@ const SwapCard = (props: any) => {
   const handleOpenSelectToClose = () => {
     setOpenSelectTo(false);
   };
+
+  useEffect(() => {
+   const loadData = async () => {
+      await dispatch(getTradingAccount()).then(gg => {
+        setAssetData(gg?.payload?.[currencyName?.toUpperCase()])
+      })
+   } 
+   loadData()
+  }, [currencyName])
+
+
 
   const range = [
     {
@@ -61,7 +73,7 @@ const SwapCard = (props: any) => {
     const selectedBalance = tradingAccountInfo?.[value?.currency?.toUpperCase()]?.availBal
     setSelectedAssetsTo(value?.currency?.toUpperCase());
     setSelectedIcon(value?.icon)
-    setSelectedBalance(selectedBalance)
+    setSelectedBalance(selectedBalance ? selectedBalance : 0)
     handleOpenSelectToClose();
   };
 
@@ -70,19 +82,7 @@ const SwapCard = (props: any) => {
       <View style={styles.centeredView}>
         <View style={styles.centeredView}>
           <View style={[styles.modalView, styles.top]}>
-            <View style={[GlobalStyle.rowBetween, {marginBottom: hp(20)}]}>
-              <AntDesign
-                name="arrowleft"
-                size={30}
-                onPress={() => props.navigation.goBack()}
-              />
-              <TouchableOpacity>
-                <View style={styles.swaps}>
-                  <Text style={{marginRight: hp(5)}}>Swap History</Text>
-                  <MaterialIcons name="history" size={20} />
-                </View>
-              </TouchableOpacity>
-            </View>
+          <SwapHeader />
 
             <Text style={{...FONTS.h2, textAlign: 'left'}}>Swap</Text>
             <Text style={{...FONTS.body5, textAlign: 'left'}}>
@@ -115,7 +115,7 @@ const SwapCard = (props: any) => {
                   <Text style={{...FONTS.body5, marginTop: hp(10)}}>From</Text>
                 </View>
                 <View>
-                  <View style={GlobalStyle.rowStart}>
+                  <View style={{flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'center'}}>
                     <Image source={currencyIcon} style={styles.icons} />
                     <Text
                       style={{
@@ -126,8 +126,8 @@ const SwapCard = (props: any) => {
                     </Text>
                     <AntDesign name="down" />
                   </View>
-                  <Text style={{...FONTS.body5, marginTop: hp(10)}}>
-                    Balance: $100
+                  <Text style={{...FONTS.body5,textAlign: 'right', marginTop: hp(10)}}>
+                    Balance: {assetData?.availBal ? format(parseFloat(assetData?.availBal)?.toFixed(2)) : 0}
                   </Text>
                 </View>
               </View>
@@ -149,7 +149,7 @@ const SwapCard = (props: any) => {
                 </View>
                 <View>
                   <TouchableOpacity onPress={() => handleOpenSelectToOpen()}>
-                    <View style={GlobalStyle.rowStart}>
+                    <View style={{flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'center'}}>
                       <Image source={selectedIcon} style={styles.icons} />
                       <Text
                         style={{
@@ -162,8 +162,8 @@ const SwapCard = (props: any) => {
                     </View>
                   </TouchableOpacity>
 
-                  <Text style={{...FONTS.body5, marginTop: hp(10)}}>
-                    Balance: {parseFloat(selectedBalance).toFixed(4)}
+                  <Text style={{...FONTS.body5, marginTop: hp(10), textAlign: 'right'}}>
+                    Balance: {selectedBalance ? format(parseFloat(selectedBalance)?.toFixed(2)) : 0}
                   </Text>
                 </View>
               </View>

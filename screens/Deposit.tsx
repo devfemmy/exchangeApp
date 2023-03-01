@@ -13,7 +13,9 @@ import {useAppDispatch, useAppSelector} from '../app/hooks';
 import {getMarketPrice, marketInfo} from '../slice/TradeSlice';
 import DepositModal from '../components/Modals/DepositModal';
 import { getWalletNetwork } from '../slice/WalletSlice';
-import { isNullOrUndefined } from 'util';
+import AssetsComponent from '../components/AssetsComponent';
+import HeaderComponent from '../components/HeaderComponent';
+
 
 const Deposit = ({navigation}: any) => {
   const [value, setValue] = useState('');
@@ -50,49 +52,7 @@ const Deposit = ({navigation}: any) => {
       return searchToken?.map((info: any) => {
         return (
           info?.currency === data?.symbol && (
-            <TouchableOpacity onPress={() => handleModalOpen(info)}>
-              <View style={styles.actionCard2}>
-                <View style={GlobalStyle.rowStart}>
-                  <Image
-                    source={info?.icon}
-                    resizeMode="cover"
-                    style={styles.icons}
-                  />
-                  <View style={{marginLeft: hp(10)}}>
-                    <Text style={{...FONTS.body3, fontWeight: 'bold'}}>
-                      {info?.token}
-                    </Text>
-                    <View style={{flexDirection: 'row'}}>
-                      <Text
-                        style={{
-                          ...FONTS.body5,
-                          fontWeight: 'bold',
-                          color: COLORS.lightGray3,
-                        }}>{`$${format(data?.current_price.toFixed(2))}`}</Text>
-                      <Text
-                        style={{
-                          ...FONTS.body5,
-                          marginLeft: hp(4),
-                          color:
-                            data?.price_change_percentage_24h === 0
-                              ? COLORS.lightGray
-                              : data?.price_change_percentage_24h > 0
-                              ? COLORS.darkGreen
-                              : COLORS.red,
-                        }}>{`${
-                        data?.price_change_24h.toFixed(2) +
-                        ' ' +
-                        `(${data?.price_change_percentage_24h.toFixed(2)})%`
-                      }`}</Text>
-                    </View>
-                  </View>
-                </View>
-                <View
-                  style={{justifyContent: 'flex-end', alignItems: 'flex-end'}}>
-                  <AntDesign name="right" />
-                </View>
-              </View>
-            </TouchableOpacity>
+            <AssetsComponent info={info} data={data} handleClick={(info: any, data: any) => handleModalOpen(info)} />
           )
         );
       });
@@ -104,18 +64,14 @@ const Deposit = ({navigation}: any) => {
       <View style={styles.centeredView}>
         <View style={styles.centeredView}>
           <View style={styles.modalView}>
-            <TouchableOpacity onPress={() => navigation.goBack()}>
-              <View style={styles.end}>
-                <AntDesign name="arrowleft" size={30} />
-              </View>
-            </TouchableOpacity>
+          <HeaderComponent onPress={() => navigation.goBack()} />
 
-            <Text style={{...FONTS.h2, textAlign: 'left'}}>Deposit Token</Text>
+            <Text style={{...FONTS.h2, fontWeight: 'bold', textAlign: 'left'}}>Deposit</Text>
             <Text
               style={{
                 ...FONTS.body4,
                 textAlign: 'left',
-                color: COLORS.lightGray3,
+                color: COLORS.gray,
               }}>
               Select token you want to deposit
             </Text>
@@ -162,8 +118,8 @@ const styles = StyleSheet.create({
     marginVertical: hp(15),
   },
   icons: {
-    width: wp(20),
-    height: hp(20),
+    width: wp(30),
+    height: hp(30),
   },
   actionCard2: {
     flexDirection: 'row',
@@ -173,5 +129,7 @@ const styles = StyleSheet.create({
     paddingBottom: hp(10),
     padding: 10,
     borderRadius: 10,
+    borderBottomColor: COLORS.lightGray3,
+    borderBottomWidth: 1,
   },
 });

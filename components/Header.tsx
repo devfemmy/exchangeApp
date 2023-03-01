@@ -12,7 +12,7 @@ const Header = ({info, note}: any) => {
             </View>
             <View style={styles.div}>
                 <View style={styles.rowDiv}>
-                    <Text style={{...FONTS.body3, fontWeight: "bold"}} >{info?.firstName + " " + info?.lastName}</Text>
+                    <Text style={{...FONTS.body3, fontWeight: "bold", textTransform: 'capitalize'}} >{info?.firstName + " " + info?.lastName}</Text>
                     <Text style={[styles.txt, {...FONTS.body5}]}>{info?.status}</Text>
                 </View>
                 <Text style={{...FONTS.body5}}>{note}</Text>

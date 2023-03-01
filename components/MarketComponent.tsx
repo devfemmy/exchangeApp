@@ -24,10 +24,10 @@ const MarketComponent = ({info, navigation,type, action, marketData}: any) => {
           style={styles.icons}
         />
         <View style={{marginLeft: hp(10)}}>
-          <Text style={{...FONTS.body3, fontWeight: 'bold'}}>
+          <Text style={{...FONTS.body3, color: COLORS.lightBlack, fontWeight: 'bold'}}>
             {info?.token}
           </Text>
-          <Text style={{...FONTS.body5, textTransform: 'uppercase'}}>
+          <Text style={{...FONTS.body5, color: COLORS.lightBlack, textTransform: 'uppercase'}}>
             {info?.currency}
           </Text>
         </View>
@@ -35,7 +35,7 @@ const MarketComponent = ({info, navigation,type, action, marketData}: any) => {
       </View>
      {action(info?.currency?.toUpperCase())}
      <View style={{justifyContent: 'flex-end', alignItems: 'flex-end', width: "30%"}}>
-                 <Text style={{...FONTS.body5, fontWeight: "bold"}}>{`$${format(marketData?.current_price.toFixed(2))}`}</Text>
+                 <Text style={{...FONTS.h3,color: COLORS.lightBlack, fontWeight: "bold"}}>{`$${format(marketData?.current_price.toFixed(2))}`}</Text>
                       <Text style={{...FONTS.body5, color: marketData?.price_change_percentage_24h === 0 ? COLORS.lightGray : marketData?.price_change_percentage_24h > 0 ? COLORS.darkGreen : COLORS.red}}>{`${marketData?.price_change_24h.toFixed(2) + " " + `(${marketData?.price_change_percentage_24h.toFixed(2)})%`}`}</Text>
                  </View>
     </View>
@@ -53,11 +53,11 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         marginBottom: hp(10),
         paddingBottom: hp(10),
-        borderBottomColor: COLORS.gray2,
+        borderBottomColor: COLORS.lightGray3,
         borderBottomWidth: 1,
       },
       icons: {
-        width: wp(20),
-        height: hp(20),
+        width: wp(30),
+        height: hp(30),
       },
 })
