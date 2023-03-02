@@ -7,7 +7,7 @@ import { hp } from '../utils/helper'
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
 import { useNavigation } from '@react-navigation/native'
 
-const SwapHeader = () => {
+const SwapHeader = ({header, handlePress}: any) => {
     const navigation = useNavigation() as any
 
   return (
@@ -17,9 +17,9 @@ const SwapHeader = () => {
                 size={hp(20)}
                 onPress={() => navigation.goBack()}
               />
-              <TouchableOpacity onPress={() => navigation.navigate("SwapHistory")}>
+              <TouchableOpacity onPress={() => handlePress()}>
                 <View style={styles.swap}>
-                  <Text style={{marginRight: hp(5)}}>Swap History</Text>
+                  <Text style={{marginRight: hp(5)}}>{header}</Text>
                   <MaterialIcons name="history" size={20} />
                 </View>
               </TouchableOpacity>

@@ -154,10 +154,10 @@ const Home = ({navigation}: any) => {
               </Text>
               <Text
                 style={[styles.txt, {...FONTS.largeTitle, fontWeight: 'bold'}]}>
-                {show ? `$${format(totalAssetBalanceUsd?.toFixed(2))}` : '$-------'}
+                {show ? `$${format(totalAssetBalanceUsd ? totalAssetBalanceUsd?.toFixed(2) : 0)}` : '$-------'}
               </Text>
               <Text style={[styles.txt, {...FONTS.body5}]}>
-                {totalAssetBalanceBtc?.toFixed(5)} btc
+                {totalAssetBalanceBtc ? totalAssetBalanceBtc?.toFixed(5) : 0} btc
               </Text>
               <View style={styles.rowC}>
                 <View style={styles.rowC2}>
