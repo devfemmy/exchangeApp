@@ -14,6 +14,7 @@ import { Text } from "react-native"
 import SelectDropdown from 'react-native-select-dropdown'
 import GlobalStyle from '../utils/globalStyle';
 import { COLORS, FONTS } from '../utils/constants/theme';
+import Entypo from 'react-native-vector-icons/Entypo';
 
 
 
@@ -55,6 +56,9 @@ const { items, setState,value, placeholder, errorMsg } = props;
         borderColor: COLORS.primary,
         borderWidth: 0.3,
         borderRadius: 10,
+    }}
+    renderDropdownIcon={() => {
+      return <Entypo name="chevron-thin-down" size={20} color={COLORS.primary} />
     }}
     buttonTextStyle={{
         textAlign: 'left',

@@ -46,8 +46,7 @@ const MainLayout = ({children}: any) => {
             header: "Xend Prepaid",
             title: "Change your crypto to giftcard",
             icon: 'sync',
-            navigationScreen: "Prepaid",
-            comingSoon: true
+            navigationScreen: "ZendPrepaid",
         },
         {
             id: 5,
@@ -55,7 +54,6 @@ const MainLayout = ({children}: any) => {
             title: "make Usd payment to customers",
             icon: 'arrowdown',
             navigationScreen: "ZendUsd",
-            comingSoon: true
         },
     ]
 

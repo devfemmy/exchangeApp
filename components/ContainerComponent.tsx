@@ -24,6 +24,11 @@ import SwapHistory from '../screens/SwapHistory';
 import TokenHistory from '../screens/TokenHistory';
 import ZendUsdHistory from '../screens/ZendUsdHistory';
 import ZendPrepaidHistory from '../screens/ZendPrepaidHistory';
+import ZendUsd from '../screens/ZendUsd';
+import ZendPrepaid from '../screens/ZendPrepaid';
+import CacUploadSuccess from './CacUploadSuccess';
+import ZendUsdForm from '../screens/ZendUsdForm';
+import PaymentDetails from '../screens/PaymentDetails';
 
 const Stack = createStackNavigator();
 
@@ -81,9 +86,29 @@ const ContainerComponent = () => {
             name="ZendUsdHistory"
             component={ZendUsdHistory}
         />
+         <Stack.Screen
+            name="ZendUsdForm"
+            component={ZendUsdForm}
+        />
+        <Stack.Screen 
+            name="PaymentDetails"
+            component={PaymentDetails}
+        />
           <Stack.Screen
             name="ZendPrepaidHistory"
             component={ZendPrepaidHistory}
+        />
+         <Stack.Screen
+            name="CacUploadSuccess"
+            component={CacUploadSuccess}
+        />
+         <Stack.Screen
+            name="ZendUsd"
+            component={ZendUsd}
+        />
+          <Stack.Screen
+            name="ZendPrepaid"
+            component={ZendPrepaid}
         />
         <Stack.Screen
             name="EditProfile"
