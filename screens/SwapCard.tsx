@@ -82,7 +82,7 @@ const SwapCard = (props: any) => {
       <View style={styles.centeredView}>
         <View style={styles.centeredView}>
           <View style={[styles.modalView, styles.top]}>
-          <SwapHeader />
+          <SwapHeader header="Swap History" handlePress={() => props?.navigation.navigate("SwapHistory")} />
 
             <Text style={{...FONTS.h2, textAlign: 'left'}}>Swap</Text>
             <Text style={{...FONTS.body5, textAlign: 'left'}}>
