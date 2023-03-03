@@ -13,6 +13,7 @@ import {hp, wp} from '../../utils/helper';
 import IconTextButton from '../IconTextButton';
 import GlobalStyle from '../../utils/globalStyle';
 import { useNavigation } from '@react-navigation/native';
+import UploadCard from '../UploadCard';
 
 const InvoiceUploadModal = ({modalVisible, setModalVisible}: any) => {
   const navigation = useNavigation() as any
@@ -59,12 +60,7 @@ const InvoiceUploadModal = ({modalVisible, setModalVisible}: any) => {
                 }}>
                 To complete your transaction, Kindly upload your payment invoice
               </Text>
-              <View style={styles.div}>
-                <AntDesign name="addfolder" size={20} color={COLORS.primary} />
-                <Text style={{...FONTS.body5, color: COLORS.primary}}>
-                  Upload CAC Document
-                </Text>
-              </View>
+             <UploadCard header="Upload CAC Document" />
 
               <View style={GlobalStyle.rowBetween}>
                 <TouchableOpacity

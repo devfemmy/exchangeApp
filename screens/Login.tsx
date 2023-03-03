@@ -7,7 +7,7 @@ import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
 import React, {useState} from 'react'
 import GlobalStyle from '../utils/globalStyle'
 import { hp, wp } from '../utils/helper'
-import { COLORS, FONTS } from '../utils/constants/theme'
+import { FONTS } from '../utils/constants/theme'
 import { TextInput } from '../components/TextInput'
 import { LoginFormData } from '../utils/types'
 import { LoginSchema } from '../utils/schemas'
@@ -16,7 +16,6 @@ import IconTextButton from '../components/IconTextButton'
 import { useAppDispatch} from '../app/hooks'
 import { signInUser } from '../slice/AuthSlice'
 import { Notifier, NotifierComponents } from 'react-native-notifier';
-import HeaderComponent from '../components/HeaderComponent'
 
 
 
@@ -39,6 +38,14 @@ const Login = ({navigation}: any) => {
       var response = await dispatch(signInUser(data)) as any
       if(signInUser.fulfilled.match(response)){
         setLoader(false)
+        if(response?.payload?.data?.requiresConfirmation) {
+            return navigation?.navigate("RequireConfirmation", {
+              params: {
+                emailAddress: data?.emailAddress,
+                newAccount: true,
+              },
+            })
+        }
       }
       else {
         var errMsg = response?.payload as string

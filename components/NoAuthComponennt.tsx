@@ -7,6 +7,7 @@ import CreateAccount from '../screens/CreateAccount';
 import ForgetPassword from '../screens/ForgetPassword';
 import ResetPassword from '../screens/ResetPassword';
 import EmailVerification from '../screens/EmailVerification';
+import RequireConfirmation from '../screens/RequireConfirmation';
 
 
 const Stack = createStackNavigator();
@@ -39,6 +40,11 @@ const NoAuthComponennt = () => {
         <Stack.Screen
         name="EmailVerification"
         component={EmailVerification}
+    />
+
+<Stack.Screen
+        name="RequireConfirmation"
+        component={RequireConfirmation}
     />
 
     </Stack.Navigator>
