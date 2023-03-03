@@ -65,7 +65,7 @@ const Profile = ({navigation}: any) => {
       id: 5,
       name: "Refer & Earn",
       icon: "notifications-none",
-      route: 'NotificationScreen'
+      route: 'ReferAndEarn'
     },
     {
       id: 6,
@@ -75,7 +75,6 @@ const Profile = ({navigation}: any) => {
     }
   ]
 
-  console.log({getUserInfo})
 
 
 
