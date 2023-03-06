@@ -119,10 +119,14 @@ const Assets = ({navigation}: any) => {
         <ScrollView showsVerticalScrollIndicator={false}>
           <Text style={{...FONTS.h2, marginBottom: hp(5)}}>Assets</Text>
           <View style={GlobalStyle.rowBetween}>
-            <Text style={{...FONTS.body5}}>
+            <Text style={{...FONTS.body5, width: wp(200)}}>
               Buy, Sell and Swap all of the assets offered by our wallet
             </Text>
-
+            <View style={{backgroundColor: COLORS.primary,borderRadius: hp(10), paddingVertical: hp(10), paddingHorizontal: hp(20)}}>
+              <TouchableOpacity onPress={() => navigation.navigate("Transfer")}>
+                <Text style={{...FONTS.body4, color: COLORS.white}}>Transfer</Text>
+              </TouchableOpacity>
+            </View>
           </View>
           <View style={styles.search}>
             <TextInput label={'Search Assets'} value={value} onChangeText={(value) => setValue(value)} searchInput />
@@ -175,14 +179,11 @@ const Assets = ({navigation}: any) => {
             <Text style={{...FONTS.body4, color: COLORS.gray, textAlign: 'right', width: "30%"}}>
               Assets
             </Text>
-            <Text style={{...FONTS.body4, color: COLORS.gray, textAlign: 'right', width: "30%"}}>
-            Market Price
-            </Text>
           </View>
           {type === 'funding' && showFundingAssets()}
           {type === 'trading' && showTradingAssets()}
 
-        
+                  
         </ScrollView>
       </View>
     </MainLayout>

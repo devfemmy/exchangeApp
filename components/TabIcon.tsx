@@ -40,7 +40,7 @@ if(isTrade){
             ...iconStyle,
         }}
       />
-      <Text style={[styles.text, {color: focused ? COLORS.primary : COLORS.lightPrimary, ...FONTS.h5}]}>{label}</Text>
+      <Text style={[styles.text, { ...FONTS.h5, color: focused ? COLORS.primary : COLORS.lightPrimary}]}>{label}</Text>
     </View>
   )
 }

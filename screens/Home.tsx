@@ -31,6 +31,7 @@ import {
   getTradingAccount,
   tradingAccount,
 } from '../slice/WalletSlice';
+import AntDesign from 'react-native-vector-icons/AntDesign';
 
 
 const Home = ({navigation}: any) => {
@@ -124,6 +125,7 @@ const Home = ({navigation}: any) => {
     },
   ];
 
+
   return (
     <MainLayout>
       <View style={GlobalStyle.container}>
@@ -149,14 +151,14 @@ const Home = ({navigation}: any) => {
                 />
                 )}
               </View>
-              <Text style={[styles.txt, {...FONTS.body5}]}>
+              <Text style={[styles.txt, {...FONTS.h5,fontWeight: 'bold', marginTop: hp(10), color: COLORS.white}]}>
                 Total Assets Balance
               </Text>
               <Text
-                style={[styles.txt, {...FONTS.largeTitle, fontWeight: 'bold'}]}>
+                style={[styles.txt, {...FONTS.largeTitle, fontWeight: 'bold',color: COLORS.white}]}>
                 {show ? `$${format(totalAssetBalanceUsd ? totalAssetBalanceUsd?.toFixed(2) : 0)}` : '$-------'}
               </Text>
-              <Text style={[styles.txt, {...FONTS.body5}]}>
+              <Text style={[styles.txt, {...FONTS.body5, color: COLORS.white}]}>
                 {totalAssetBalanceBtc ? totalAssetBalanceBtc?.toFixed(5) : 0} btc
               </Text>
               <View style={styles.rowC}>
@@ -164,9 +166,9 @@ const Home = ({navigation}: any) => {
                   <TouchableOpacity onPress={() => navigation.navigate("Deposit")}>
                     <View>
                       <View style={styles.sub}>
-                        <Image source={arrowDown} />
+                        <AntDesign  name="arrowdown" size={30} color={COLORS.white} />
                       </View>
-                      <Text style={[styles.txt, {...FONTS.body5}]}>
+                      <Text style={[styles.txt, {...FONTS.body5, color: COLORS.white}]}>
                         Deposit
                       </Text>
                     </View>
@@ -174,9 +176,9 @@ const Home = ({navigation}: any) => {
                   <TouchableOpacity onPress={() => navigation.navigate("Swap")}>
                     <View>
                       <View style={styles.sub}>
-                        <Image source={swaps} />
+                      <AntDesign  name="swap" size={30} color={COLORS.white} />
                       </View>
-                      <Text style={[styles.txt, {...FONTS.body5}]}>
+                      <Text style={[styles.txt, {...FONTS.body5, color:COLORS.white}]}>
                         Swap
                       </Text>
                     </View>
@@ -184,9 +186,9 @@ const Home = ({navigation}: any) => {
                   <TouchableOpacity onPress={() => navigation.navigate("Withdraw")}>
                     <View>
                       <View style={styles.sub}>
-                        <Image source={arrowUp} />
+                      <AntDesign  name="arrowup" size={30} color={COLORS.white} />
                       </View>
-                      <Text style={[styles.txt, {...FONTS.body5}]}>
+                      <Text style={[styles.txt, {...FONTS.body5, color:COLORS.white}]}>
                         Withdraw
                       </Text>
                     </View>
@@ -194,10 +196,10 @@ const Home = ({navigation}: any) => {
                 </View>
               </View>
             </View>
-            {!getUserInfo?.hasSetPin ||
+            {(!getUserInfo?.hasSetPin ||
               !getUserInfo?.isKycVerified ||
-              !getUserInfo?.hasVerifiedPhoneNumber &&
-            <Text style={[{...FONTS.h4, marginVertical: hp(15)}]}>
+              !getUserInfo?.hasVerifiedPhoneNumber) &&
+            <Text style={[{...FONTS.h4, fontWeight: 'bold', marginVertical: hp(15)}]}>
               Pending Action
             </Text>
             }
@@ -206,8 +208,8 @@ const Home = ({navigation}: any) => {
               .map(data => {
                 return (
                   <View style={styles.actionCard}>
-                    <Text style={[{...FONTS.body5}]}>{data?.name}</Text>
-                    <Text style={[styles.tag, {...FONTS.body5}]}>
+                    <Text style={[{...FONTS.body5, fontWeight: 'bold'}]}>{data?.name}</Text>
+                    <Text style={[styles.tag, {...FONTS.body5, color: COLORS.white}]}>
                       {data?.status}
                     </Text>
                   </View>
@@ -331,8 +333,8 @@ const styles = StyleSheet.create({
     backgroundColor: '#485FE6',
     paddingVertical: hp(20),
     paddingHorizontal: hp(30),
-    borderRadius: 33,
-    height: hp(250),
+    borderRadius: 13,
+    height: hp(280),
     marginTop: hp(10),
   },
   eyeDiv: {
@@ -358,6 +360,6 @@ const styles = StyleSheet.create({
     padding: hp(10),
     width: wp(50),
     height: hp(50),
-    borderRadius: 50,
+    borderRadius: 10,
   },
 });

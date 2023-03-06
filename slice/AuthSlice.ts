@@ -79,12 +79,11 @@ export const verifySignin = createAsyncThunk(
     const response = await getRequest(
       `${config.api_base_url}/auth/sign-in/confirmation-token/verify?emailAddress=${payload?.email}&confirmationToken=${payload.token}&role=user&clientType=mobile`,
     );
-    console.log("validate===", response)
     if (response?.status === 200) {
       // var profile = await AsyncStorage.getItem('keepInfo').then((req: any) => JSON.parse(req))
-      // await AsyncStorage.setItem('userInfo', JSON.stringify(profile))
-      // return profile
-     // return response?.data?.data;
+      await AsyncStorage.setItem('userInfo', JSON.stringify(response?.data?.data))
+     // return profile
+     return response?.data?.data;
     }
   },
 );

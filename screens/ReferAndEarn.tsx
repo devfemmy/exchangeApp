@@ -12,7 +12,7 @@ import Feather from 'react-native-vector-icons/Feather'
 const ReferAndEarn = ({navigation}: any) => {
   return (
     <View style={GlobalStyle.container}>
-     <HeaderComponent handlePress={() => navigation?.goBack()} />
+     <HeaderComponent onPress={() => navigation?.goBack()} />
     
         <View style={GlobalStyle.rowBetween}>
         <Text style={{...FONTS.h2,fontWeight:"700" }}>Refer a Friend</Text>
@@ -24,6 +24,7 @@ const ReferAndEarn = ({navigation}: any) => {
     description={<Text style={{...FONTS.body4, color: COLORS.gray}}>share with friends</Text>}
     left={(props:any )=> <View style={styles.circle}><Text style={{...FONTS.body3, color: COLORS.white}}>1</Text></View>}
   />
+  
    <List.Item
     title={<Text style={{...FONTS.body3, color: COLORS.gray}}>Friends register with your</Text>}
     description={<Text style={{...FONTS.body4, color: COLORS.gray}}>referral code</Text>}
