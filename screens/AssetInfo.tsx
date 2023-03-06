@@ -96,8 +96,8 @@ const AssetInfo = (props: any) => {
           <View>
             <Text
               style={{
-                color: COLORS.white,
                 ...FONTS.body5,
+                color: COLORS.white,
               }}>
               Available
             </Text>
@@ -113,16 +113,16 @@ const AssetInfo = (props: any) => {
           <View>
             <Text
               style={{
-                color: COLORS.white,
                 ...FONTS.body5,
+                color: COLORS.white,
               }}>
               Pending
             </Text>
             <Text
               style={{
-                color: COLORS.white,
                 textAlign: 'center',
                 ...FONTS.body5,
+                color: COLORS.white,
               }}>
               {assetData &&
                 `${format(
@@ -139,12 +139,12 @@ const AssetInfo = (props: any) => {
           <Text
             style={{
               textAlign: 'center',
-              color: COLORS.white,
               ...FONTS.body5,
+              color: COLORS.white,
             }}>
             Total Balance
           </Text>
-          <Text style={{textAlign: 'center', fontWeight: 'bold', color: COLORS.white, ...FONTS.h1}}>
+          <Text style={{textAlign: 'center', fontWeight: 'bold', ...FONTS.h1, color: COLORS.white,}}>
           {show ? `${assetData &&
               `$${format(
                 parseFloat(assetData[asset?.toUpperCase()]?.balance).toFixed(4),
@@ -154,7 +154,7 @@ const AssetInfo = (props: any) => {
         </View>
         <View style={styles.eyeDiv}>
             {
-              show ? <Ionicons name='eye-off-outline' onPress={() => setShow(!show)} color={'white'} size={22} /> :
+              !show ? <Ionicons name='eye-off-outline' onPress={() => setShow(!show)} color={'white'} size={22} /> :
                 <Pressable onPress={() => setShow(!show)}>
                   <Image source={eye}  />
                 </Pressable>
@@ -168,7 +168,7 @@ const AssetInfo = (props: any) => {
                       <View style={styles.sub}>
                         <Image source={arrowDown} />
                       </View>
-                      <Text style={[styles.txt, {...FONTS.body5}]}>
+                      <Text style={[styles.txt, {...FONTS.body5, color: COLORS.white}]}>
                         Deposit
                       </Text>
                     </View>
@@ -178,7 +178,7 @@ const AssetInfo = (props: any) => {
                       <View style={styles.sub}>
                         <Image source={swaps} />
                       </View>
-                      <Text style={[styles.txt, {...FONTS.body5}]}>
+                      <Text style={[styles.txt, {...FONTS.body5,  color: COLORS.white}]}>
                         Swap
                       </Text>
                     </View>
@@ -188,7 +188,7 @@ const AssetInfo = (props: any) => {
                       <View style={styles.sub}>
                         <Image source={arrowUp} />
                       </View>
-                      <Text style={[styles.txt, {...FONTS.body5}]}>
+                      <Text style={[styles.txt, {...FONTS.body5, color: COLORS.white,}]}>
                         Withdraw
                       </Text>
                     </View>

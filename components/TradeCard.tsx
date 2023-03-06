@@ -22,8 +22,8 @@ const TradeCard = ( {data}: any) => {
            <AntDesign name={icon} color={COLORS.primary} />
            </View>
             <View>
-                <Text style={{...FONTS.body3}}>{header}</Text>
-                <Text style={{...FONTS.body5}}>{title}</Text>
+                <Text style={{...FONTS.body3, color: COLORS.black}}>{header}</Text>
+                <Text style={{...FONTS.body5, color: COLORS.black}}>{title}</Text>
             </View>
         </View>
         <View>

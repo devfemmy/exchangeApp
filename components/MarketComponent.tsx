@@ -1,10 +1,10 @@
 import { View, Text, TouchableOpacity, Image, StyleSheet } from 'react-native'
 import React from 'react'
 import GlobalStyle from '../utils/globalStyle'
-import { format, hp, wp } from '../utils/helper'
+import { hp, wp } from '../utils/helper'
 import { COLORS, FONTS } from '../utils/constants/theme'
 
-const MarketComponent = ({info, navigation,type, action, marketData}: any) => {
+const MarketComponent = ({info, navigation,type, action}: any) => {
   return (
     <TouchableOpacity
     onPress={type === "funding" ? () =>
@@ -34,10 +34,10 @@ const MarketComponent = ({info, navigation,type, action, marketData}: any) => {
         
       </View>
      {action(info?.currency?.toUpperCase())}
-     <View style={{justifyContent: 'flex-end', alignItems: 'flex-end', width: "30%"}}>
+     {/* <View style={{justifyContent: 'flex-end', alignItems: 'flex-end', width: "30%"}}>
                  <Text style={{...FONTS.h3,color: COLORS.lightBlack, fontWeight: "bold"}}>{`$${format(marketData?.current_price.toFixed(2))}`}</Text>
                       <Text style={{...FONTS.body5, color: marketData?.price_change_percentage_24h === 0 ? COLORS.lightGray : marketData?.price_change_percentage_24h > 0 ? COLORS.darkGreen : COLORS.red}}>{`${marketData?.price_change_24h.toFixed(2) + " " + `(${marketData?.price_change_percentage_24h.toFixed(2)})%`}`}</Text>
-                 </View>
+                 </View> */}
     </View>
   </TouchableOpacity>
   )

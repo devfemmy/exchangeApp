@@ -54,17 +54,17 @@ export const SIZES = {
     height
 };
 export const FONTS = {
-    largeTitle: { fontFamily: "NunitoSans-Regular", fontSize: SIZES.largeTitle },
-    h1: { fontFamily: "NunitoSans-Regular", fontSize: SIZES.h1, lineHeight: 36 },
-    h2: { fontFamily: "NunitoSans-Regular", fontSize: SIZES.h2, lineHeight: 30, letterSpacing: hp(1) },
-    h3: { fontFamily: "NunitoSans-Regular", fontSize: SIZES.h3, lineHeight: 22 },
-    h4: { fontFamily: "NunitoSans-Regular", fontSize: SIZES.h4, lineHeight: 22 },
-    h5: { fontFamily: "NunitoSans-Regular", fontSize: SIZES.h5, lineHeight: 22 },
-    body1: { fontFamily: "NunitoSans-Regular", fontSize: SIZES.body1, lineHeight: 36 },
-    body2: { fontFamily: "NunitoSans-Regular", fontSize: SIZES.body2, lineHeight: 30 },
-    body3: { fontFamily: "NunitoSans-Regular", fontSize: SIZES.body3, lineHeight: 22 },
-    body4: { fontFamily: "NunitoSans-Regular", fontSize: SIZES.body4, lineHeight: 22 },
-    body5: { fontFamily: "NunitoSans-Regular", fontSize: SIZES.body5, lineHeight: 22 },
+    largeTitle: { fontFamily: "NunitoSans-Regular", fontSize: SIZES.largeTitle, color: COLORS.black },
+    h1: { fontFamily: "NunitoSans-Regular", fontSize: SIZES.h1, lineHeight: 36, color: COLORS.black },
+    h2: { fontFamily: "NunitoSans-Regular", fontSize: SIZES.h2, lineHeight: 30, color: COLORS.black , letterSpacing: hp(1) },
+    h3: { fontFamily: "NunitoSans-Regular", fontSize: SIZES.h3, lineHeight: 22, color: COLORS.black },
+    h4: { fontFamily: "NunitoSans-Regular", fontSize: SIZES.h4, lineHeight: 22, color: COLORS.black },
+    h5: { fontFamily: "NunitoSans-Regular", fontSize: SIZES.h5, lineHeight: 22, color: COLORS.black },
+    body1: { fontFamily: "NunitoSans-Regular", fontSize: SIZES.body1, lineHeight: 36, color: COLORS.black },
+    body2: { fontFamily: "NunitoSans-Regular", fontSize: SIZES.body2, lineHeight: 30, color: COLORS.black },
+    body3: { fontFamily: "NunitoSans-Regular", fontSize: SIZES.body3, lineHeight: 22, color: COLORS.black },
+    body4: { fontFamily: "NunitoSans-Regular", fontSize: SIZES.body4, lineHeight: 22, color: COLORS.black },
+    body5: { fontFamily: "NunitoSans-Regular", fontSize: SIZES.body5, lineHeight: 22, color: COLORS.black },
 };
 
 const appTheme = { COLORS, SIZES, FONTS };

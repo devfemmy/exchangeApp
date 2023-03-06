@@ -10,6 +10,7 @@ const EmptyScreen = () => {
     <Text
       style={{
         ...FONTS.h3,
+        fontWeight: 'bold',
         textAlign: 'center',
         textTransform: 'uppercase',
       }}>

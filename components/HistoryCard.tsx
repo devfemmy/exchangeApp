@@ -14,8 +14,8 @@ const HistoryCard = ({data, handleClick}: any) => {
    <TouchableOpacity onPress={() => handleClick(data)}>
      <View style={[GlobalStyle.rowBetween, styles.card]}>
       <View style={[GlobalStyle.rowStart, {padding: hp(10)}]}>
-        <View style={{padding: hp(5),marginRight: hp(10), borderRadius: 50, backgroundColor: status === "success" ? COLORS.lightGreen : status === "submitted" ? COLORS.orange : COLORS.red}}>
-            <AntDesign name="arrowdown" size={15} color={status === "success" ? COLORS.darkGreen : status === "submitted" ? COLORS.orange : COLORS.red} />
+        <View style={{padding: hp(5),marginRight: hp(10), borderRadius: 50, backgroundColor: transactionType === "deposit" ? COLORS.lightGreen : transactionType === "withdraw" ? "#FFCCCB" : transactionType === "incoming" ? "#FFD580" : ""}}>
+            <AntDesign name={transactionType === "withdraw" ? "arrowdown" : "arrowup"} size={15} color={transactionType === "deposit" ? COLORS.darkGreen : transactionType === "withdraw" ? COLORS.red : transactionType === "incoming" ? COLORS.orange : ""} />
         </View>
         <View>
             <Text style={{textTransform: 'capitalize', ...FONTS.body4}}>{transactionType}</Text>
