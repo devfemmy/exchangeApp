@@ -3,9 +3,7 @@ import React from 'react';
 import GlobalStyle from '../utils/globalStyle';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import {COLORS, FONTS} from '../utils/constants/theme';
-import BarcodeCreatorViewManager, {
-  BarcodeFormat,
-} from 'react-native-barcode-creator';
+import QRCode from 'react-native-qrcode-svg';
 import {copyToClipboard, hp, wp} from '../utils/helper';
 import Feather from 'react-native-vector-icons/Feather';
 import IconTextButton from '../components/IconTextButton';
@@ -13,7 +11,8 @@ import {TouchableOpacity} from 'react-native-gesture-handler';
 
 const DepositAddress = (props: any) => {
   const {chain, address} = props?.route?.params?.data;
-  const {token, currency} = props?.route?.params?.otherInfo;
+  const {token, icon, currency} = props?.route?.params?.otherInfo;
+
 
   return (
     <View style={GlobalStyle.container}>
@@ -30,10 +29,13 @@ const DepositAddress = (props: any) => {
       <View style={styles.top}>
         <ScrollView showsVerticalScrollIndicator={false}>
           <View style={styles.barCode}>
-            <BarcodeCreatorViewManager
-              value={address}
-              format={BarcodeFormat.QR}
-              style={styles.box} background={''} foregroundColor={''}            />
+               <QRCode
+                value={address}
+                size={200}
+                logo={icon}
+      logoSize={50}
+      logoBackgroundColor='transparent'
+              />
           </View>
           <View>
             <View style={styles.service}>
