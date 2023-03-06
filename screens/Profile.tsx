@@ -28,6 +28,7 @@ const Profile = ({navigation}: any) => {
 
   const getUserInfo = userStateInfo?.userData ? userStateInfo?.userData : userStateInfo
 
+
   const logOut = async () => {
     dispatch(signOutUser()).then(() => {
       AsyncStorage.clear()
@@ -64,7 +65,7 @@ const Profile = ({navigation}: any) => {
       id: 5,
       name: "Refer & Earn",
       icon: "notifications-none",
-      route: 'NotificationScreen'
+      route: 'ReferAndEarn'
     },
     {
       id: 6,
@@ -73,6 +74,7 @@ const Profile = ({navigation}: any) => {
       route: 'SignOut'
     }
   ]
+
 
 
 
@@ -85,13 +87,13 @@ const Profile = ({navigation}: any) => {
 
         <View style={[GlobalStyle.rowBetween, styles.settings]}>
           <View style={GlobalStyle.profileCircle}>
-            <Image source={require('../assets/images/profile1.png')} />
+            <Image source={{uri: getUserInfo?.image}}  style={styles.imgs} />
           </View>
           <View style={styles.textContainer}>
-            <Text style={{...FONTS.h3, fontSize: hp(18), fontWeight: '600', color: COLORS.primary}}>Olatunji Monsurat</Text>
+            <Text style={{...FONTS.h3, fontSize: hp(18), fontWeight: '600', color: COLORS.primary, textTransform: 'capitalize'}}>{getUserInfo?.firstName + " " + getUserInfo?.lastName }</Text>
           <View style={styles.lowerContainer}>
-            <Text style={{...FONTS.h4, fontSize: hp(16), fontWeight: '600', color: COLORS.black}}>@Techbabby</Text>
-            <TextIconIndicator icon={<CheckIcon width={15} height={15} />} bg="#DEF8E9" color="#219653" text="Verified" />
+            <Text style={{...FONTS.h4, fontSize: hp(16), fontWeight: '600', color: COLORS.black}}>@{getUserInfo?.username}</Text>
+            <TextIconIndicator icon={<CheckIcon width={15} height={15} color={getUserInfo?.isVerified ? "#219653" : COLORS.white} />} bg={getUserInfo?.isVerified ? "#DEF8E9" : COLORS.red } color={getUserInfo?.isVerified ? "#219653" : COLORS.white} text={getUserInfo?.isVerified ? "Verified" : "Not verified"} />
           </View>
           </View>
           <TouchableOpacity onPress={() => navigation.navigate('EditProfile')} style={{width: '10%', alignItems: 'flex-end'}}>
@@ -208,5 +210,10 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     padding: hp(10),
     width: wp(110)
+  },
+  imgs: {
+    width: "100%", 
+    height: "100%",
+    borderRadius: 50
   }
 })

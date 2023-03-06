@@ -13,8 +13,15 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import { hp, wp } from '../utils/helper';
 import { COLORS, FONTS } from '../utils/constants/theme';
 import { Image } from 'react-native';
+import { useAppSelector } from '../app/hooks';
+import { userState } from '../slice/AuthSlice';
 
 const EditProfile = ({navigation}: any) => {
+  const userStateInfo = useAppSelector(userState)
+
+  const getUserInfo = userStateInfo?.userData ? userStateInfo?.userData : userStateInfo
+
+
   const initialValues: ProfileFormData = {
     firstName: '',
     lastName: '',
@@ -48,7 +55,7 @@ const EditProfile = ({navigation}: any) => {
             <Text style={{...FONTS.h4, color: '#4F4F4F', fontWeight: '500'}}>Beginner</Text>
           </View>
           <View style={GlobalStyle.profileCircle2}>
-            <Image source={require('../assets/images/profile1.png')} />
+            <Image source={{uri: getUserInfo?.image}} style={styles.icons} />
           </View>
           <View>
             <Text style={{...FONTS.h3, fontSize: hp(18), fontWeight: '600', color: COLORS.primary, textAlign: 'center'}}>Olatunji Monsurat</Text>
@@ -109,6 +116,11 @@ const styles = StyleSheet.create({
   div: {
     paddingVertical: hp(70),
 
+  },
+  icons: {
+    width: "100%", 
+    height: "100%",
+    borderRadius: 50
   },
   icon: {
     marginVertical: hp(20),

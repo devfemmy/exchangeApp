@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/func-call-spacing */
 /* eslint-disable quotes */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable no-unreachable */
@@ -72,6 +73,35 @@ export const verifyEmail = createAsyncThunk(
   },
 );
 
+export const verifySignin = createAsyncThunk(
+  'auth/verifySignin',
+  async (payload: {token: string; email: string}) => {
+    const response = await getRequest(
+      `${config.api_base_url}/auth/sign-in/confirmation-token/verify?emailAddress=${payload?.email}&confirmationToken=${payload.token}&role=user&clientType=mobile`,
+    );
+    console.log("validate===", response)
+    if (response?.status === 200) {
+      // var profile = await AsyncStorage.getItem('keepInfo').then((req: any) => JSON.parse(req))
+      // await AsyncStorage.setItem('userInfo', JSON.stringify(profile))
+      // return profile
+     // return response?.data?.data;
+    }
+  },
+);
+
+export const generateSigninToken = createAsyncThunk(
+  'auth/generateSigninToken',
+  async (payload: {email: string}) => {
+    const response = await getRequest(
+      `${config.api_base_url}/auth/sign-in/confirmation-token/generate?emailAddress=${payload?.email}`,
+    );
+    if (response?.status === 200) {
+     
+     // return response?.data?.data;
+    }
+  },
+);
+
 export const confirmEmail = createAsyncThunk(
   'auth/confirmEmail',
   async (payload: {token: string; email: string}) => {
@@ -135,7 +165,7 @@ export const signInUser = createAsyncThunk(
         `${config.api_base_url}/auth/sign-in/user?clientType=mobile`,
         payload,
       );
-
+  
       if (response?.status === 200) {
         return response?.data;
       }
@@ -221,9 +251,12 @@ export const AuthSlice = createSlice({
       builder.addCase(
         signInUser.fulfilled,
         (state, action: PayloadAction<any>) => {
-          (state.loading = false),
+          (state.loading = false);
+          if(!action?.payload?.data?.requiresConfirmation) {
             (state.userInfo = action.payload?.data);
             AsyncStorage.setItem("userInfo", JSON.stringify(action.payload?.data))
+          }
+            
         },
       );
     builder.addCase(signInUser.rejected, (state, action) => {
@@ -354,6 +387,32 @@ export const AuthSlice = createSlice({
         },
       );
     builder.addCase(changePassword.rejected, (state, action) => {
+      (state.loading = false), (state.error = action.error.message);
+    });
+    builder.addCase(generateSigninToken.pending, (state, action) => {
+      state.loading = true;
+    }),
+      builder.addCase(
+        generateSigninToken.fulfilled,
+        (state, action: PayloadAction<any>) => {
+          state.loading = false;
+        },
+      );
+    builder.addCase(generateSigninToken.rejected, (state, action) => {
+      (state.loading = false), (state.error = action.error.message);
+    });
+    builder.addCase(verifySignin.pending, (state, action) => {
+      state.loading = true;
+    }),
+      builder.addCase(
+        verifySignin.fulfilled,
+        (state, action: PayloadAction<any>) => {
+          state.loading = false;
+          (state.userInfo = action.payload?.data);
+          AsyncStorage.setItem("userInfo", JSON.stringify(action.payload?.data))
+        },
+      );
+    builder.addCase(verifySignin.rejected, (state, action) => {
       (state.loading = false), (state.error = action.error.message);
     });
   },

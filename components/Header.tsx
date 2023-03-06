@@ -1,15 +1,19 @@
-import { View, StyleSheet, Image,Text } from 'react-native'
+import { View, StyleSheet, Image,Text, TouchableOpacity } from 'react-native'
 import React from 'react'
 import {  scanner } from '../assets/images'
 import { hp, wp } from '../utils/helper'
 import { COLORS, FONTS } from '../utils/constants/theme'
+import { useNavigation } from '@react-navigation/native'
 
 const Header = ({info, note}: any) => {
+    const navigation = useNavigation() as any
     return (
         <View style={styles.row}>
-            <View>
+           <TouchableOpacity onPress={() => navigation?.navigate("Profile")}>
+           <View>
                 <Image source={{uri: info?.image}} resizeMode="cover" style={styles.image} />
             </View>
+           </TouchableOpacity>
             <View style={styles.div}>
                 <View style={styles.rowDiv}>
                     <Text style={{...FONTS.body3, fontWeight: "bold", textTransform: 'capitalize'}} >{info?.firstName + " " + info?.lastName}</Text>

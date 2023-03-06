@@ -196,10 +196,11 @@ const Home = ({navigation}: any) => {
             </View>
             {!getUserInfo?.hasSetPin ||
               !getUserInfo?.isKycVerified ||
-              !getUserInfo?.hasVerifiedPhoneNumber}
+              !getUserInfo?.hasVerifiedPhoneNumber &&
             <Text style={[{...FONTS.h4, marginVertical: hp(15)}]}>
               Pending Action
             </Text>
+            }
             {actions
               ?.filter(info => info?.status === 'Pending')
               .map(data => {

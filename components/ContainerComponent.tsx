@@ -29,6 +29,10 @@ import ZendPrepaid from '../screens/ZendPrepaid';
 import CacUploadSuccess from './CacUploadSuccess';
 import ZendUsdForm from '../screens/ZendUsdForm';
 import PaymentDetails from '../screens/PaymentDetails';
+import TransferAsset from '../screens/TransferAsset';
+import GiftCard from '../screens/GiftCard';
+import ReferAndEarn from '../screens/ReferAndEarn';
+import KycScreen from '../screens/KycScreen';
 
 const Stack = createStackNavigator();
 
@@ -117,6 +121,22 @@ const ContainerComponent = () => {
         <Stack.Screen
             name="SecurityScreen"
             component={Security}
+        />
+        <Stack.Screen
+            name="ReferAndEarn"
+            component={ReferAndEarn}
+        />
+             <Stack.Screen
+            name="KycScreen"
+            component={KycScreen}
+        />
+          <Stack.Screen
+            name="TransferAsset"
+            component={TransferAsset}
+        />
+          <Stack.Screen
+            name="GiftCard"
+            component={GiftCard}
         />
         <Stack.Screen
             name="ChangePin"
