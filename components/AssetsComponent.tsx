@@ -1,20 +1,25 @@
-import { View, Text, TouchableOpacity, StyleSheet, Image } from 'react-native'
-import React from 'react'
-import AntDesign from 'react-native-vector-icons/AntDesign'
-import { COLORS, FONTS } from '../utils/constants/theme'
-import { format, hp, wp } from '../utils/helper'
-import GlobalStyle from '../utils/globalStyle'
+import { View, Text, TouchableOpacity, StyleSheet, Image } from 'react-native';
+import React from 'react';
+import AntDesign from 'react-native-vector-icons/AntDesign';
+import { COLORS, FONTS } from '../utils/constants/theme';
+import { format, hp, wp } from '../utils/helper';
+import GlobalStyle from '../utils/globalStyle';
+import FastImage from 'react-native-fast-image';
 
 const AssetsComponent = ({info, data, handleClick}: any) => {
   return (
     <TouchableOpacity onPress={() => handleClick(info, data)}>
     <View style={styles.actionCard2}>
       <View style={GlobalStyle.rowStart}>
-        <Image
-          source={info?.icon}
-          resizeMode="cover"
-          style={styles.icons}
-        />
+      <FastImage
+        style={styles.icons}
+        defaultSource={info?.icon}
+        source={{
+            uri: '',
+            priority: FastImage.priority.normal,
+        }}
+        resizeMode={FastImage.resizeMode.cover}
+    />
         <View style={{marginLeft: hp(10)}}>
           <Text style={{...FONTS.h3}}>
             {info?.token}
@@ -49,10 +54,10 @@ const AssetsComponent = ({info, data, handleClick}: any) => {
       </View>
     </View>
   </TouchableOpacity>
-  )
-}
+  );
+};
 
-export default AssetsComponent
+export default AssetsComponent;
 
 
 const styles = StyleSheet.create({
@@ -71,4 +76,4 @@ const styles = StyleSheet.create({
         borderBottomColor: COLORS.lightGray3,
         borderBottomWidth: 1,
       },
-})
+});
