@@ -48,7 +48,7 @@ const GlobalStyle = StyleSheet.create({
         borderRadius: hp(45),
         justifyContent: 'center',
         alignItems: 'center',
-        marginVertical: 15,
+        marginVertical: 5,
         borderWidth: 0.228,
         borderColor: '#808080',
       },

@@ -48,12 +48,12 @@ const EditProfile = ({navigation}: any) => {
         <ScrollView showsVerticalScrollIndicator={false} style={styles.top}>
         <AntDesign onPress={() => navigation.goBack()} name="arrowleft" style={styles.icon} size={hp(20)} color={COLORS.gray2} />
 
-        <Text style={{...FONTS.h2}}>Edit Profile</Text>
+        <Text style={{...FONTS.h2, fontWeight: '700'}}>Edit Profile</Text>
 
         <View style={styles.container}>
-          <View style={GlobalStyle.level}>
+          {/* <View style={GlobalStyle.level}>
             <Text style={{...FONTS.h4, color: '#4F4F4F', fontWeight: '500'}}>Beginner</Text>
-          </View>
+          </View> */}
           <View style={GlobalStyle.profileCircle2}>
             <Image source={{uri: getUserInfo?.image}} style={styles.icons} />
           </View>
