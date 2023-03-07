@@ -1,10 +1,12 @@
-import { View, Text, TouchableOpacity, Image, StyleSheet } from 'react-native'
+import { View, Text, TouchableOpacity, StyleSheet } from 'react-native'
 import React from 'react'
 import GlobalStyle from '../utils/globalStyle'
+import FastImage from 'react-native-fast-image'
 import { hp, wp } from '../utils/helper'
 import { COLORS, FONTS } from '../utils/constants/theme'
 
 const MarketComponent = ({info, navigation,type, action}: any) => {
+  console.log('info', info.icon)
   return (
     <TouchableOpacity
     onPress={type === "funding" ? () =>
@@ -18,11 +20,15 @@ const MarketComponent = ({info, navigation,type, action}: any) => {
     }>
     <View style={styles.actionCard2}>
       <View style={[GlobalStyle.rowStart, {width: "30%"}]}>
-        <Image
-          source={info?.icon}
-          resizeMode="cover"
-          style={styles.icons}
-        />
+        <FastImage
+        style={styles.icons}
+        defaultSource={info?.icon}
+        source={{
+            uri: '',
+            priority: FastImage.priority.normal,
+        }}
+        resizeMode={FastImage.resizeMode.cover}
+    />
         <View style={{marginLeft: hp(10)}}>
           <Text style={{...FONTS.body3, color: COLORS.lightBlack, fontWeight: 'bold'}}>
             {info?.token}
@@ -31,7 +37,7 @@ const MarketComponent = ({info, navigation,type, action}: any) => {
             {info?.currency}
           </Text>
         </View>
-        
+
       </View>
      {action(info?.currency?.toUpperCase())}
      {/* <View style={{justifyContent: 'flex-end', alignItems: 'flex-end', width: "30%"}}>
