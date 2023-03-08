@@ -43,6 +43,18 @@ const Profile = ({navigation}: any) => {
   }, [])
 
     const Info = [
+      {
+        id: 1,
+        name: "General",
+        icon: "user",
+        route: 'EditProfile'
+      },
+      {
+        id: 4,
+        name: "KYC",
+        icon: "addusergroup",
+        route: 'KycScreen'
+      },
     {
       id: 2,
       name: "Security",
@@ -56,15 +68,9 @@ const Profile = ({navigation}: any) => {
       route: 'SupportScreen'
     },
     {
-      id: 4,
-      name: "KYC",
-      icon: "addusergroup",
-      route: 'KycScreen'
-    },
-    {
       id: 5,
       name: "Refer & Earn",
-      icon: "notifications-none",
+      icon: "user",
       route: 'ReferAndEarn'
     },
     {
@@ -85,7 +91,7 @@ const Profile = ({navigation}: any) => {
       <ScrollView showsVerticalScrollIndicator={false}>
         <Text style={{...FONTS.h2, marginBottom: hp(25), fontWeight: '600'}}>Account Settings</Text>
 
-        <View style={[GlobalStyle.rowBetween, styles.settings]}>
+        {/* <View style={[GlobalStyle.rowBetween, styles.settings]}>
           <View style={GlobalStyle.profileCircle}>
             <Image source={{uri: getUserInfo?.image}}  style={styles.imgs} />
           </View>
@@ -112,7 +118,7 @@ const Profile = ({navigation}: any) => {
             </Text>
           </View>
         </View>
-        </View>
+        </View> */}
 
         <View>
           {
@@ -151,6 +157,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: wp(10),
     backgroundColor: 'white',
     flex: 1,
+    paddingTop: hp(10),
   },
   row: {
     flexDirection: 'row',
