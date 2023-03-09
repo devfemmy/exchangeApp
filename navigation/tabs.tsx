@@ -13,6 +13,8 @@ import { COLORS} from "../utils/constants/theme"
 import icons from "../utils/constants/icons";
 import { useAppDispatch, useAppSelector } from "../app/hooks";
 import { getTradeStatus, tradeStatus } from "../slice/TradeSlice";
+import ArrowIcon from '../assets/svg/arrow1.svg';
+import { hp } from "../utils/helper";
 
 
 const Tab = createBottomTabNavigator()
@@ -22,13 +24,18 @@ const TabBarCustomButton = ({children, onPress}: any) => {
   return (
     <TouchableOpacity
         style={{
-            flex: 1,
             justifyContent: 'center',
-            alignItems: 'center'
+            alignItems: 'center',
+            backgroundColor: COLORS.primary,
+            width: hp(60),
+            height: hp(60),
+            borderRadius: hp(30),
+            marginTop: hp(10)
         }}
         onPress={onPress}
     >
-{children}
+{/* {children} */}
+<ArrowIcon width={24} height={24} />
     </TouchableOpacity>
   )
 }
@@ -59,7 +66,7 @@ const Tabs = () => {
                 component={Home} 
                 options={{
                 tabBarIcon: ({focused}) => {
-                    if(!tradeStatusInfo) {
+                    // if(!tradeStatusInfo) {
                       return (
                         <TabIcon 
                             focused={focused}
@@ -67,7 +74,7 @@ const Tabs = () => {
                             label="Home"
                         />
                     )  
-                    }
+                    // }
                 }
                 
             }} 
@@ -84,7 +91,7 @@ const Tabs = () => {
                 component={Assets} 
                 options={{
                     tabBarIcon: ({focused}) => {
-                        if(!tradeStatusInfo){
+                        // if(!tradeStatusInfo){
                             return (
                             <TabIcon 
                                 focused={focused}
@@ -92,7 +99,7 @@ const Tabs = () => {
                                 label="Assets"
                             />
                         )
-                        }
+                        // }
                         
                     }
                 }}
@@ -112,7 +119,7 @@ const Tabs = () => {
                         return (
                             <TabIcon 
                                 focused={focused}
-                                icon={tradeStatusInfo ? icons.close : icons.trade}
+                                icon={tradeStatusInfo ? icons.trade : icons.trade}
                                 isTrade={true}
                                 label="Trade"
                             />
@@ -131,7 +138,7 @@ const Tabs = () => {
                 component={Transaction} 
                 options={{
                     tabBarIcon: ({focused}) => {
-                        if(!tradeStatusInfo){
+                        // if(!tradeStatusInfo){
                             return (
                             <TabIcon 
                                 focused={focused}
@@ -139,7 +146,7 @@ const Tabs = () => {
                                 label="Transaction"
                             />
                         )
-                        }
+                        // }
                         
                     }
                 }}
@@ -156,7 +163,7 @@ const Tabs = () => {
                 component={Profile} 
                 options={{
                     tabBarIcon: ({focused}) => {
-                        if(!tradeStatusInfo){
+                        // if(!tradeStatusInfo){
                             return (
                             <TabIcon 
                                 focused={focused}
@@ -164,7 +171,7 @@ const Tabs = () => {
                                 label="Profile"
                             />
                         ) 
-                        }
+                        // }
                        
                     }
                 }}
