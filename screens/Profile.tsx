@@ -3,7 +3,7 @@
 
 
 
-import { View, Text, StyleSheet,ScrollView,Image, Pressable, TouchableOpacity } from 'react-native'
+import { View, Text, StyleSheet,ScrollView, Linking, Pressable, TouchableOpacity } from 'react-native'
 import React, {useState, useEffect} from 'react'
 import MainLayout from './mainLayout'
 import GlobalStyle from '../utils/globalStyle'
@@ -123,7 +123,7 @@ const Profile = ({navigation}: any) => {
         <View>
           {
             Info?.map((data, i) => {
-              return <ListCard id={i} data={data} handlePress={() => navigation.navigate(data?.route)} logOut={logOut} />
+              return <ListCard id={i} data={data} handlePress={() => data?.route === 'SupportScreen' ? Linking.openURL('mailto:support@zendwallet.com') : navigation.navigate(data?.route)} logOut={logOut} />
             })
           }
         </View>

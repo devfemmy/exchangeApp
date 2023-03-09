@@ -2,6 +2,7 @@ import {View, Text, ScrollView, StyleSheet, Image} from 'react-native';
 import React, { useState } from 'react';
 import GlobalStyle from '../utils/globalStyle';
 import AntDesign from 'react-native-vector-icons/AntDesign';
+import CountryPicker from 'react-native-country-picker-modal';
 import {COLORS, FONTS} from '../utils/constants/theme';
 import {hp, wp} from '../utils/helper';
 import {useAppSelector} from '../app/hooks';
@@ -10,11 +11,32 @@ import {SelectInput} from '../components/SelectInput';
 import {TextInput} from '../components/TextInput';
 import IconTextButton from '../components/IconTextButton';
 import UploadCard from '../components/UploadCard';
+import { PhoneNumberData } from '../utils/types';
+import { useFormik } from 'formik';
+import { PhoneSchema } from '../utils/schemas';
 
 
 const KycScreen = ({navigation}: any) => {
   const [type, setType] = useState(1)
   const userStateInfo = useAppSelector(userState);
+  const [countryCode, setCountryCode] = useState('NG');
+  const [, setCountry] = useState(null);
+  const initialValues: PhoneNumberData = {
+    phone: '',
+  };
+  const handleCredentialSubmit = (data: any) => {
+    console.log('HandleSubmit');
+  };
+  const { values, errors, touched, handleChange, handleSubmit, handleBlur } =
+    useFormik({
+      initialValues,
+      validationSchema: PhoneSchema,
+      onSubmit: (data: PhoneNumberData) => handleCredentialSubmit(data),
+    });
+  const onSelect = (country: any) => {
+    setCountryCode(country.cca2);
+    setCountry(country);
+  };
   const getUserInfo = userStateInfo?.userData
     ? userStateInfo?.userData
     : userStateInfo;
@@ -24,7 +46,7 @@ const KycScreen = ({navigation}: any) => {
         return (
             <View>
                  <View style={styles.container}>
-            <View style={GlobalStyle.profileCircle2}>
+            {/* <View style={GlobalStyle.profileCircle2}>
               <Image source={{uri: getUserInfo?.image}} style={styles.icons} />
             </View>
             <View
@@ -36,17 +58,38 @@ const KycScreen = ({navigation}: any) => {
               <Text style={{...FONTS.body4, color: COLORS.primary}}>
                 Upload a Selfie
               </Text>
-            </View>
+            </View> */}
           </View>
+          <View style={GlobalStyle.rowBetweenNoCenter}>
+            <View style={styles.countryPicker}>
+              <CountryPicker
+                withCallingCode
+                withFlag
+                withFilter
+                countryCode={countryCode}
+                onSelect={onSelect}
+                visible={false}
+              />
+            </View>
+            <View style={{width: '89%',}}>
+              <TextInput
+              label={'Phone Number'}
+              value={values.phone}
+              onBlur={handleBlur('phone')}
+              onChangeText={handleChange('phone')}
+              errorMsg={touched.phone ? errors.phone : undefined}
+            />
+            </View>
+        </View>
 
-          <View style={styles.form}>
+          {/* <View style={styles.form}>
             <SelectInput placeholder="Date of Birth" />
             <SelectInput placeholder="Nationality" />
             <TextInput label="State" />
             <TextInput label="Street Name" />
             <SelectInput placeholder="Gender" />
             <SelectInput placeholder="Marital Status" />
-          </View>
+          </View> */}
             </View>
         )
     }
@@ -80,13 +123,13 @@ const KycScreen = ({navigation}: any) => {
           />
 
           <Text style={{...FONTS.h2, fontWeight: '700'}}>KYC Verification</Text>
-          <Text style={{...FONTS.body5, color: COLORS.gray, width: wp(250)}}>
+          <Text style={{...FONTS.body4, color: COLORS.gray, width: wp(250)}}>
             Complete your kyc process to increase your transaction limit
           </Text>
 
           <View style={[GlobalStyle.rowStart, {marginVertical: hp(15)}]}>
             <View style={{width: type === 1 ? "50%" : "100%", borderBottomWidth: 1,paddingBottom: hp(10), borderBottomColor: COLORS.primary}}>
-                <Text style={{...FONTS.body5}}>{type === 1 ? "1/2" : "2/2"}</Text>
+                <Text style={{...FONTS.body4}}>{type === 1 ? "1/2" : "2/2"}</Text>
             </View>
           </View>
 
@@ -122,6 +165,11 @@ const styles = StyleSheet.create({
     paddingHorizontal: wp(10),
     flex: 1,
     backgroundColor: 'white',
+  },
+  countryPicker: {
+    // backgroundColor: 'red',
+    height: hp(70),
+    justifyContent: 'center',
   },
   txt: {
     marginTop: hp(35),
