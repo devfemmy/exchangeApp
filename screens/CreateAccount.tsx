@@ -14,7 +14,7 @@ import {hp, wp} from '../utils/helper';
 import {useAppDispatch} from '../app/hooks';
 import {createUser, verifyEmailSend} from '../slice/AuthSlice';
 import {Notifier, NotifierComponents} from 'react-native-notifier';
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 const CreateAccount = ({navigation}: any) => {
   const [cookieSelected, setCookieSelected] = useState(false);
@@ -48,7 +48,7 @@ const CreateAccount = ({navigation}: any) => {
           return navigation.navigate('EmailVerification', {
             params: {
               emailAddress: data?.email,
-              newAccount: true
+              newAccount: true,
             },
           });
         });
@@ -79,7 +79,7 @@ const CreateAccount = ({navigation}: any) => {
 
   return (
     <View style={GlobalStyle.container}>
-      <KeyboardAwareScrollView>
+      <KeyboardAwareScrollView showsHorizontalScrollIndicator={false}>
 
       <ScrollView showsVerticalScrollIndicator={false}>
         <View>
