@@ -15,6 +15,7 @@ import { useFormik } from 'formik'
 import IconTextButton from '../components/IconTextButton'
 import { useAppDispatch} from '../app/hooks'
 import { signInUser } from '../slice/AuthSlice'
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { Notifier, NotifierComponents } from 'react-native-notifier';
 
 
@@ -25,7 +26,7 @@ const Login = ({navigation}: any) => {
  const dispatch = useAppDispatch()
  const [loader, setLoader] = useState(false)
 
- 
+
   const initialValues: LoginFormData = {
     emailAddress: '',
     password: '',
@@ -76,7 +77,8 @@ const Login = ({navigation}: any) => {
 
 
   return (
-    <View style={[GlobalStyle.container, styles.div]}>
+  <KeyboardAwareScrollView style={[GlobalStyle.container, styles.div]}>
+    <View>
       {/* <HeaderComponent onPress={() => navigation.goBack()} /> */}
       <View style={styles.margin} />
       <Text style={{...FONTS.h2}}>Log in</Text>
@@ -101,13 +103,14 @@ const Login = ({navigation}: any) => {
    <TouchableOpacity onPress={() => navigation.navigate("ForgetPassword")}><Text style={{...FONTS.body4, textAlign: 'right', marginBottom: hp(15), color: '#808080'}}>Forget Password ?</Text></TouchableOpacity>
         <IconTextButton label="Login" onPress={handleSubmit} isLoading={loader} />
       </View>
-     
+
      <TouchableOpacity onPress={() => navigation.navigate("CreateAccount")}>
      <View style={styles.bottom}>
           <Text style={{...FONTS.body4, textAlign: 'center', color: '#808080'}}>Don’t have an account ? Create Account</Text>
       </View>
      </TouchableOpacity>
     </View>
+    </KeyboardAwareScrollView>
   )
 }
 
@@ -132,7 +135,7 @@ const styles = StyleSheet.create({
     marginVertical: 20,
   },
   bottom: {
-
+    marginVertical: hp(10)
   }
 })
 

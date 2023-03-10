@@ -180,7 +180,8 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     color: COLORS.primary,
     borderWidth: 0,
-    width: hp(40),
-    height: hp(40),
+    minWidth: hp(40),
+    minHeight: hp(40),
+    paddingHorizontal: hp(2)
   },
 });
