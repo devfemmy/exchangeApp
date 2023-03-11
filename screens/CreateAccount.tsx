@@ -1,10 +1,6 @@
 /* eslint-disable react-native/no-inline-styles */
-/* eslint-disable @typescript-eslint/no-unused-vars */
-<<<<<<< HEAD
-import {View, Text, ScrollView, StyleSheet} from 'react-native';
-=======
+
 import {View, Text, StyleSheet, ScrollView} from 'react-native';
->>>>>>> b6f19277d74b123ccd79c60227f455da6d227558
 import React, {useState} from 'react';
 import GlobalStyle from '../utils/globalStyle';
 import {CreateAccountFormDataUi} from '../utils/types';
@@ -46,7 +42,7 @@ const CreateAccount = ({navigation}: any) => {
       confirmPassword: data?.confirmPassword,
     };
 
-    
+
     setLoader(true);
     try {
       var response = await dispatch(createUser(payload));
@@ -86,17 +82,6 @@ const CreateAccount = ({navigation}: any) => {
     });
 
   return (
-<<<<<<< HEAD
-    <View style={GlobalStyle.container}>
-      <KeyboardAwareScrollView showsHorizontalScrollIndicator={false}>
-
-      <ScrollView showsVerticalScrollIndicator={false}>
-        <View>
-          <View style={{marginVertical: hp(15)}}>
-            <Text style={{...FONTS.h2}}>Create Account</Text>
-            <Text style={[GlobalStyle.subTitle, {marginBottom: hp(5)}]}> Kindly provide the information we need.</Text>
-          </View>
-=======
     // <View style={[GlobalStyle.container, styles.div]}>
     //   <View style={styles.top}>
     //     <AntDesign
@@ -195,6 +180,7 @@ const CreateAccount = ({navigation}: any) => {
     //   </View>
     // </View>
       <View style={GlobalStyle.container}>
+      <KeyboardAwareScrollView >
       <ScrollView showsVerticalScrollIndicator={false}>
         <View>
           <View style={styles.rowBtw}>
@@ -205,7 +191,6 @@ const CreateAccount = ({navigation}: any) => {
           <Text style={{...FONTS.body5}}>
             kindly provide the information we need.
           </Text>
->>>>>>> b6f19277d74b123ccd79c60227f455da6d227558
           <TextInput
             label={'Email'}
             value={values.email}
@@ -258,31 +243,21 @@ const CreateAccount = ({navigation}: any) => {
             }
           />
 
-<<<<<<< HEAD
-          {/* <View style={[styles.row, {marginVertical: hp(2),}]}>
-=======
           <View style={[styles.row, {marginVertical: hp(2)}]}>
->>>>>>> b6f19277d74b123ccd79c60227f455da6d227558
             {cookieSelected ? (
               <TouchableOpacity onPress={() => setCookieSelected(false)}>
-                <View style={styles.coloredBox}></View>
+                <View style={styles.coloredBox} />
               </TouchableOpacity>
             ) : (
               <TouchableOpacity onPress={() => setCookieSelected(true)}>
-                <View style={styles.box}></View>
+                <View style={styles.box} />
               </TouchableOpacity>
             )}
 
             <View
               style={{
-<<<<<<< HEAD
-                // flexDirection: 'row',
-                // alignItems: 'center',
-                backgroundColor: 'red',
-=======
                 flexDirection: 'row',
                 alignItems: 'center',
->>>>>>> b6f19277d74b123ccd79c60227f455da6d227558
                 marginLeft: hp(10),
               }}>
               <Text style={{...FONTS.body5}}>I agree to privacy policy </Text>
@@ -294,11 +269,7 @@ const CreateAccount = ({navigation}: any) => {
                 terms and conditions.
               </Text>
             </View>
-<<<<<<< HEAD
-          </View> */}
-=======
           </View>
->>>>>>> b6f19277d74b123ccd79c60227f455da6d227558
 
           <View style={styles.btnContainer}>
             <IconTextButton label="Create Account" onPress={handleSubmit} isLoading={loader} />
@@ -307,22 +278,15 @@ const CreateAccount = ({navigation}: any) => {
 
         <TouchableOpacity onPress={() => navigation.navigate('Login')}>
           <View style={styles.span}>
-<<<<<<< HEAD
-            <Text style={{...FONTS.body4, textAlign: 'center', color: '#808080'}}>Don’t have an account ? Login</Text>
-          </View>
-        </TouchableOpacity>
-      </ScrollView>
-      </KeyboardAwareScrollView>
-=======
             <Text style={{...FONTS.body4, textAlign: 'center', color: '#808080'}}>
                   <Text>Already have an account ?</Text>
                   <Text> Log in</Text>
             </Text>
-            
+
           </View>
         </TouchableOpacity>
       </ScrollView>
->>>>>>> b6f19277d74b123ccd79c60227f455da6d227558
+      </KeyboardAwareScrollView>
     </View>
   );
 };
