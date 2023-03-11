@@ -1,4 +1,5 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable react-native/no-inline-styles */
+
 import {View, Text, StyleSheet, ScrollView} from 'react-native';
 import React, {useState} from 'react';
 import GlobalStyle from '../utils/globalStyle';
@@ -13,7 +14,7 @@ import {hp, wp} from '../utils/helper';
 import {useAppDispatch} from '../app/hooks';
 import {createUser, verifyEmailSend} from '../slice/AuthSlice';
 import {Notifier, NotifierComponents} from 'react-native-notifier';
-import AntDesign from 'react-native-vector-icons/AntDesign';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 const CreateAccount = ({navigation}: any) => {
   const [cookieSelected, setCookieSelected] = useState(false);
@@ -41,7 +42,7 @@ const CreateAccount = ({navigation}: any) => {
       confirmPassword: data?.confirmPassword,
     };
 
-    
+
     setLoader(true);
     try {
       var response = await dispatch(createUser(payload));
@@ -179,6 +180,7 @@ const CreateAccount = ({navigation}: any) => {
     //   </View>
     // </View>
       <View style={GlobalStyle.container}>
+      <KeyboardAwareScrollView >
       <ScrollView showsVerticalScrollIndicator={false}>
         <View>
           <View style={styles.rowBtw}>
@@ -244,11 +246,11 @@ const CreateAccount = ({navigation}: any) => {
           <View style={[styles.row, {marginVertical: hp(2)}]}>
             {cookieSelected ? (
               <TouchableOpacity onPress={() => setCookieSelected(false)}>
-                <View style={styles.coloredBox}></View>
+                <View style={styles.coloredBox} />
               </TouchableOpacity>
             ) : (
               <TouchableOpacity onPress={() => setCookieSelected(true)}>
-                <View style={styles.box}></View>
+                <View style={styles.box} />
               </TouchableOpacity>
             )}
 
@@ -280,10 +282,11 @@ const CreateAccount = ({navigation}: any) => {
                   <Text>Already have an account ?</Text>
                   <Text> Log in</Text>
             </Text>
-            
+
           </View>
         </TouchableOpacity>
       </ScrollView>
+      </KeyboardAwareScrollView>
     </View>
   );
 };
@@ -291,11 +294,8 @@ const CreateAccount = ({navigation}: any) => {
 export default CreateAccount;
 
 const styles = StyleSheet.create({
-  div: {
-    paddingVertical: hp(70),
-  },
   icon: {
-    marginVertical: hp(20),
+    // marginTop: hp(20)
   },
   contain: {
     paddingHorizontal: wp(10),
@@ -343,9 +343,4 @@ const styles = StyleSheet.create({
     paddingTop: hp(25),
     paddingBottom: hp(10),
   },
-  top: {
-    flex: 5,
-    marginTop: hp(20),
-  },
-  bottom: {},
 });

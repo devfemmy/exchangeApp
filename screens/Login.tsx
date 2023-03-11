@@ -22,6 +22,7 @@ import IconTextButton from '../components/IconTextButton';
 import {useAppDispatch} from '../app/hooks';
 import {signInUser} from '../slice/AuthSlice';
 import {Notifier, NotifierComponents} from 'react-native-notifier';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 const Login = ({navigation}: any) => {
   const dispatch = useAppDispatch();
@@ -70,7 +71,8 @@ const Login = ({navigation}: any) => {
     });
 
   return (
-    <View style={[GlobalStyle.container, styles.div]}>
+  <KeyboardAwareScrollView style={[GlobalStyle.container, styles.div]}>
+    <View>
       {/* <HeaderComponent onPress={() => navigation.goBack()} /> */}
       <View style={styles.margin} />
       <Text style={{...FONTS.h2}}>Log in</Text>
@@ -123,6 +125,7 @@ const Login = ({navigation}: any) => {
         </View>
       </TouchableOpacity>
     </View>
+    </KeyboardAwareScrollView>
   );
 };
 
@@ -145,5 +148,7 @@ const styles = StyleSheet.create({
   margin: {
     marginVertical: 20,
   },
-  bottom: {},
+  bottom: {
+    marginVertical: 10,
+  },
 });
