@@ -1,6 +1,10 @@
 /* eslint-disable react-native/no-inline-styles */
 /* eslint-disable @typescript-eslint/no-unused-vars */
+<<<<<<< HEAD
 import {View, Text, ScrollView, StyleSheet} from 'react-native';
+=======
+import {View, Text, StyleSheet, ScrollView} from 'react-native';
+>>>>>>> b6f19277d74b123ccd79c60227f455da6d227558
 import React, {useState} from 'react';
 import GlobalStyle from '../utils/globalStyle';
 import {CreateAccountFormDataUi} from '../utils/types';
@@ -20,6 +24,8 @@ const CreateAccount = ({navigation}: any) => {
   const [cookieSelected, setCookieSelected] = useState(false);
   const [loader, setLoader] = useState(false);
   const dispatch = useAppDispatch();
+
+
   const initialValues: CreateAccountFormDataUi = {
     email: '',
     username: '',
@@ -39,6 +45,8 @@ const CreateAccount = ({navigation}: any) => {
       password: data?.password,
       confirmPassword: data?.confirmPassword,
     };
+
+    
     setLoader(true);
     try {
       var response = await dispatch(createUser(payload));
@@ -78,6 +86,7 @@ const CreateAccount = ({navigation}: any) => {
     });
 
   return (
+<<<<<<< HEAD
     <View style={GlobalStyle.container}>
       <KeyboardAwareScrollView showsHorizontalScrollIndicator={false}>
 
@@ -87,6 +96,116 @@ const CreateAccount = ({navigation}: any) => {
             <Text style={{...FONTS.h2}}>Create Account</Text>
             <Text style={[GlobalStyle.subTitle, {marginBottom: hp(5)}]}> Kindly provide the information we need.</Text>
           </View>
+=======
+    // <View style={[GlobalStyle.container, styles.div]}>
+    //   <View style={styles.top}>
+    //     <AntDesign
+    //       onPress={() => navigation.goBack()}
+    //       name="arrowleft"
+    //       style={styles.icon}
+    //       size={hp(20)}
+    //       color={COLORS.gray2}
+    //     />
+    //     <Text style={{...FONTS.h2}}>Welcome Zend Wallet</Text>
+    //     <Text style={{...FONTS.h3, marginVertical: hp(15)}}>
+    //       Create Account
+    //     </Text>
+    //     <Text
+    //       style={{...FONTS.body5, color: COLORS.gray, marginBottom: hp(15)}}>
+    //       Your account creation will be fast and swift. Kindly provide your
+    //       email address
+    //     </Text>
+
+    //     <TextInput
+    //       label={'Email'}
+    //       value={values.email}
+    //       onBlur={handleBlur('email')}
+    //       onChangeText={handleChange('email')}
+    //       errorMsg={touched.email ? errors.email : undefined}
+    //     />
+
+    //     <View style={[styles.row, {marginVertical: hp(15)}]}>
+    //       {cookieSelected ? (
+    //         <TouchableOpacity onPress={() => setCookieSelected(false)}>
+    //           <View style={styles.coloredBox}></View>
+    //         </TouchableOpacity>
+    //       ) : (
+    //         <TouchableOpacity onPress={() => setCookieSelected(true)}>
+    //           <View style={styles.box}></View>
+    //         </TouchableOpacity>
+    //       )}
+
+    //       <View
+    //         style={{
+    //           flexDirection: 'row',
+    //           alignItems: 'center',
+    //           marginLeft: hp(10),
+    //         }}>
+    //         <Text>
+    //           <Text style={{...FONTS.body4, color: COLORS.gray}}>I Certify that i am</Text>
+    //           <Text style={{...FONTS.body4, color: COLORS.primary}}>
+    //             18 years{' '}
+    //           </Text>
+    //           <Text style={{...FONTS.body4, color: COLORS.gray}}>of age or older </Text>
+    //         </Text>
+    //       </View>
+    //     </View>
+
+    //     <View style={[styles.row, {marginVertical: hp(2)}]}>
+    //       {cookieSelected ? (
+    //         <TouchableOpacity onPress={() => setCookieSelected(false)}>
+    //           <View style={styles.coloredBox}></View>
+    //         </TouchableOpacity>
+    //       ) : (
+    //         <TouchableOpacity onPress={() => setCookieSelected(true)}>
+    //           <View style={styles.box}></View>
+    //         </TouchableOpacity>
+    //       )}
+
+    //       <View
+    //         style={{
+    //           flexDirection: 'row',
+    //           alignItems: 'center',
+    //           marginLeft: hp(10),
+    //           width: wp(400),
+    //         }}>
+    //         <Text>
+    //           <Text style={{...FONTS.body4, color: COLORS.gray}}>I agree to privacy policy </Text>
+    //           <Text style={{...FONTS.body4, color: COLORS.primary}}>
+    //             cookies policy {'\n'} and terms and conditions.
+    //           </Text>
+    //         </Text>
+    //       </View>
+    //     </View>
+    //   </View>
+    //   <View style={styles.bottom}>
+    //     <View style={styles.btnContainer}>
+    //       <IconTextButton
+    //         label="Create Account"
+    //         onPress={handleSubmit}
+    //         isLoading={loader}
+    //       />
+    //     </View>
+    //     <TouchableOpacity onPress={() => navigation.navigate('Login')}>
+    //       <View style={[styles.span]}>
+    //         <Text style={{...FONTS.body5}}>Already have an account ?</Text>
+    //         <Text style={{...FONTS.body5, marginLeft: 5}}>Log in</Text>
+    //       </View>
+    //     </TouchableOpacity>
+    //   </View>
+    // </View>
+      <View style={GlobalStyle.container}>
+      <ScrollView showsVerticalScrollIndicator={false}>
+        <View>
+          <View style={styles.rowBtw}>
+            <Text style={{...FONTS.h2}}>Create Account</Text>
+            <View />
+          </View>
+
+          <Text style={{...FONTS.body5}}>
+            kindly provide the information we need.
+          </Text>
+>>>>>>> b6f19277d74b123ccd79c60227f455da6d227558
           <TextInput
             label={'Email'}
             value={values.email}
@@ -139,7 +258,11 @@ const CreateAccount = ({navigation}: any) => {
             }
           />
 
+<<<<<<< HEAD
           {/* <View style={[styles.row, {marginVertical: hp(2),}]}>
+=======
+          <View style={[styles.row, {marginVertical: hp(2)}]}>
+>>>>>>> b6f19277d74b123ccd79c60227f455da6d227558
             {cookieSelected ? (
               <TouchableOpacity onPress={() => setCookieSelected(false)}>
                 <View style={styles.coloredBox}></View>
@@ -152,9 +275,14 @@ const CreateAccount = ({navigation}: any) => {
 
             <View
               style={{
+<<<<<<< HEAD
                 // flexDirection: 'row',
                 // alignItems: 'center',
                 backgroundColor: 'red',
+=======
+                flexDirection: 'row',
+                alignItems: 'center',
+>>>>>>> b6f19277d74b123ccd79c60227f455da6d227558
                 marginLeft: hp(10),
               }}>
               <Text style={{...FONTS.body5}}>I agree to privacy policy </Text>
@@ -166,7 +294,11 @@ const CreateAccount = ({navigation}: any) => {
                 terms and conditions.
               </Text>
             </View>
+<<<<<<< HEAD
           </View> */}
+=======
+          </View>
+>>>>>>> b6f19277d74b123ccd79c60227f455da6d227558
 
           <View style={styles.btnContainer}>
             <IconTextButton label="Create Account" onPress={handleSubmit} isLoading={loader} />
@@ -175,11 +307,22 @@ const CreateAccount = ({navigation}: any) => {
 
         <TouchableOpacity onPress={() => navigation.navigate('Login')}>
           <View style={styles.span}>
+<<<<<<< HEAD
             <Text style={{...FONTS.body4, textAlign: 'center', color: '#808080'}}>Don’t have an account ? Login</Text>
           </View>
         </TouchableOpacity>
       </ScrollView>
       </KeyboardAwareScrollView>
+=======
+            <Text style={{...FONTS.body4, textAlign: 'center', color: '#808080'}}>
+                  <Text>Already have an account ?</Text>
+                  <Text> Log in</Text>
+            </Text>
+            
+          </View>
+        </TouchableOpacity>
+      </ScrollView>
+>>>>>>> b6f19277d74b123ccd79c60227f455da6d227558
     </View>
   );
 };

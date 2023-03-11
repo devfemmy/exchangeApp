@@ -81,9 +81,9 @@ export const verifySignin = createAsyncThunk(
     );
     if (response?.status === 200) {
       // var profile = await AsyncStorage.getItem('keepInfo').then((req: any) => JSON.parse(req))
-      await AsyncStorage.setItem('userInfo', JSON.stringify(response?.data?.data))
+      await AsyncStorage.setItem('userInfo', JSON.stringify(response?.data))
      // return profile
-     return response?.data?.data;
+     return response?.data;
     }
   },
 );
