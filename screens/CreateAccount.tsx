@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import {View, Text, StyleSheet} from 'react-native';
+import {View, Text, StyleSheet, ScrollView} from 'react-native';
 import React, {useState} from 'react';
 import GlobalStyle from '../utils/globalStyle';
 import {CreateAccountFormDataUi} from '../utils/types';
@@ -19,14 +19,29 @@ const CreateAccount = ({navigation}: any) => {
   const [cookieSelected, setCookieSelected] = useState(false);
   const [loader, setLoader] = useState(false);
   const dispatch = useAppDispatch();
+
+
   const initialValues: CreateAccountFormDataUi = {
     email: '',
+    username: '',
+    firstName: '',
+    lastName: '',
+    // gender: '',
+    password: '',
+    confirmPassword: '',
   };
 
   const continueSubmit = async (data: any) => {
     const payload = {
       email: data?.email,
+      username: data?.username,
+      firstName: data?.firstName,
+      lastName: data?.lastName,
+      password: data?.password,
+      confirmPassword: data?.confirmPassword,
     };
+
+    
     setLoader(true);
     try {
       var response = await dispatch(createUser(payload));
@@ -66,102 +81,209 @@ const CreateAccount = ({navigation}: any) => {
     });
 
   return (
-    <View style={[GlobalStyle.container, styles.div]}>
-      <View style={styles.top}>
-        <AntDesign
-          onPress={() => navigation.goBack()}
-          name="arrowleft"
-          style={styles.icon}
-          size={hp(20)}
-          color={COLORS.gray2}
-        />
-        <Text style={{...FONTS.h2}}>Welcome Zend Wallet</Text>
-        <Text style={{...FONTS.h3, marginVertical: hp(15)}}>
-          Create Account
-        </Text>
-        <Text
-          style={{...FONTS.body5, color: COLORS.gray, marginBottom: hp(15)}}>
-          Your account creation will be fast and swift. Kindly provide your
-          email address
-        </Text>
+    // <View style={[GlobalStyle.container, styles.div]}>
+    //   <View style={styles.top}>
+    //     <AntDesign
+    //       onPress={() => navigation.goBack()}
+    //       name="arrowleft"
+    //       style={styles.icon}
+    //       size={hp(20)}
+    //       color={COLORS.gray2}
+    //     />
+    //     <Text style={{...FONTS.h2}}>Welcome Zend Wallet</Text>
+    //     <Text style={{...FONTS.h3, marginVertical: hp(15)}}>
+    //       Create Account
+    //     </Text>
+    //     <Text
+    //       style={{...FONTS.body5, color: COLORS.gray, marginBottom: hp(15)}}>
+    //       Your account creation will be fast and swift. Kindly provide your
+    //       email address
+    //     </Text>
 
-        <TextInput
-          label={'Email'}
-          value={values.email}
-          onBlur={handleBlur('email')}
-          onChangeText={handleChange('email')}
-          errorMsg={touched.email ? errors.email : undefined}
-        />
+    //     <TextInput
+    //       label={'Email'}
+    //       value={values.email}
+    //       onBlur={handleBlur('email')}
+    //       onChangeText={handleChange('email')}
+    //       errorMsg={touched.email ? errors.email : undefined}
+    //     />
 
-        <View style={[styles.row, {marginVertical: hp(15)}]}>
-          {cookieSelected ? (
-            <TouchableOpacity onPress={() => setCookieSelected(false)}>
-              <View style={styles.coloredBox}></View>
-            </TouchableOpacity>
-          ) : (
-            <TouchableOpacity onPress={() => setCookieSelected(true)}>
-              <View style={styles.box}></View>
-            </TouchableOpacity>
-          )}
+    //     <View style={[styles.row, {marginVertical: hp(15)}]}>
+    //       {cookieSelected ? (
+    //         <TouchableOpacity onPress={() => setCookieSelected(false)}>
+    //           <View style={styles.coloredBox}></View>
+    //         </TouchableOpacity>
+    //       ) : (
+    //         <TouchableOpacity onPress={() => setCookieSelected(true)}>
+    //           <View style={styles.box}></View>
+    //         </TouchableOpacity>
+    //       )}
 
-          <View
-            style={{
-              flexDirection: 'row',
-              alignItems: 'center',
-              marginLeft: hp(10),
-            }}>
-            <Text>
-              <Text style={{...FONTS.body4, color: COLORS.gray}}>I Certify that i am</Text>
-              <Text style={{...FONTS.body4, color: COLORS.primary}}>
-                18 years{' '}
-              </Text>
-              <Text style={{...FONTS.body4, color: COLORS.gray}}>of age or older </Text>
-            </Text>
+    //       <View
+    //         style={{
+    //           flexDirection: 'row',
+    //           alignItems: 'center',
+    //           marginLeft: hp(10),
+    //         }}>
+    //         <Text>
+    //           <Text style={{...FONTS.body4, color: COLORS.gray}}>I Certify that i am</Text>
+    //           <Text style={{...FONTS.body4, color: COLORS.primary}}>
+    //             18 years{' '}
+    //           </Text>
+    //           <Text style={{...FONTS.body4, color: COLORS.gray}}>of age or older </Text>
+    //         </Text>
+    //       </View>
+    //     </View>
+
+    //     <View style={[styles.row, {marginVertical: hp(2)}]}>
+    //       {cookieSelected ? (
+    //         <TouchableOpacity onPress={() => setCookieSelected(false)}>
+    //           <View style={styles.coloredBox}></View>
+    //         </TouchableOpacity>
+    //       ) : (
+    //         <TouchableOpacity onPress={() => setCookieSelected(true)}>
+    //           <View style={styles.box}></View>
+    //         </TouchableOpacity>
+    //       )}
+
+    //       <View
+    //         style={{
+    //           flexDirection: 'row',
+    //           alignItems: 'center',
+    //           marginLeft: hp(10),
+    //           width: wp(400),
+    //         }}>
+    //         <Text>
+    //           <Text style={{...FONTS.body4, color: COLORS.gray}}>I agree to privacy policy </Text>
+    //           <Text style={{...FONTS.body4, color: COLORS.primary}}>
+    //             cookies policy {'\n'} and terms and conditions.
+    //           </Text>
+    //         </Text>
+    //       </View>
+    //     </View>
+    //   </View>
+    //   <View style={styles.bottom}>
+    //     <View style={styles.btnContainer}>
+    //       <IconTextButton
+    //         label="Create Account"
+    //         onPress={handleSubmit}
+    //         isLoading={loader}
+    //       />
+    //     </View>
+    //     <TouchableOpacity onPress={() => navigation.navigate('Login')}>
+    //       <View style={[styles.span]}>
+    //         <Text style={{...FONTS.body5}}>Already have an account ?</Text>
+    //         <Text style={{...FONTS.body5, marginLeft: 5}}>Log in</Text>
+    //       </View>
+    //     </TouchableOpacity>
+    //   </View>
+    // </View>
+      <View style={GlobalStyle.container}>
+      <ScrollView showsVerticalScrollIndicator={false}>
+        <View>
+          <View style={styles.rowBtw}>
+            <Text style={{...FONTS.h2}}>Create Account</Text>
+            <View />
           </View>
-        </View>
 
-        <View style={[styles.row, {marginVertical: hp(2)}]}>
-          {cookieSelected ? (
-            <TouchableOpacity onPress={() => setCookieSelected(false)}>
-              <View style={styles.coloredBox}></View>
-            </TouchableOpacity>
-          ) : (
-            <TouchableOpacity onPress={() => setCookieSelected(true)}>
-              <View style={styles.box}></View>
-            </TouchableOpacity>
-          )}
-
-          <View
-            style={{
-              flexDirection: 'row',
-              alignItems: 'center',
-              marginLeft: hp(10),
-              width: wp(400),
-            }}>
-            <Text>
-              <Text style={{...FONTS.body4, color: COLORS.gray}}>I agree to privacy policy </Text>
-              <Text style={{...FONTS.body4, color: COLORS.primary}}>
-                cookies policy {'\n'} and terms and conditions.
-              </Text>
-            </Text>
-          </View>
-        </View>
-      </View>
-      <View style={styles.bottom}>
-        <View style={styles.btnContainer}>
-          <IconTextButton
-            label="Create Account"
-            onPress={handleSubmit}
-            isLoading={loader}
+          <Text style={{...FONTS.body5}}>
+            kindly provide the information we need.
+          </Text>
+          <TextInput
+            label={'Email'}
+            value={values.email}
+            onBlur={handleBlur('email')}
+            onChangeText={handleChange('email')}
+            errorMsg={touched.email ? errors.email : undefined}
           />
+
+          <TextInput
+            label={'Username'}
+            value={values.username}
+            onBlur={handleBlur('username')}
+            onChangeText={handleChange('username')}
+            errorMsg={touched.username ? errors.username : undefined}
+          />
+
+          <TextInput
+            label={'First Name'}
+            value={values.firstName}
+            onBlur={handleBlur('firstName')}
+            onChangeText={handleChange('firstName')}
+            errorMsg={touched.firstName ? errors.firstName : undefined}
+          />
+
+          <TextInput
+            label={'Last Name'}
+            value={values.lastName}
+            onBlur={handleBlur('lastName')}
+            onChangeText={handleChange('lastName')}
+            errorMsg={touched.lastName ? errors.lastName : undefined}
+          />
+
+          <TextInput
+            label={'Password'}
+            isPassword
+            value={values.password}
+            onBlur={handleBlur('password')}
+            onChangeText={handleChange('password')}
+            errorMsg={touched.password ? errors.password : undefined}
+          />
+
+          <TextInput
+            label={'Confirm Password'}
+            isPassword
+            value={values.confirmPassword}
+            onBlur={handleBlur('confirmPassword')}
+            onChangeText={handleChange('confirmPassword')}
+            errorMsg={
+              touched.confirmPassword ? errors.confirmPassword : undefined
+            }
+          />
+
+          <View style={[styles.row, {marginVertical: hp(2)}]}>
+            {cookieSelected ? (
+              <TouchableOpacity onPress={() => setCookieSelected(false)}>
+                <View style={styles.coloredBox}></View>
+              </TouchableOpacity>
+            ) : (
+              <TouchableOpacity onPress={() => setCookieSelected(true)}>
+                <View style={styles.box}></View>
+              </TouchableOpacity>
+            )}
+
+            <View
+              style={{
+                flexDirection: 'row',
+                alignItems: 'center',
+                marginLeft: hp(10),
+              }}>
+              <Text style={{...FONTS.body5}}>I agree to privacy policy </Text>
+              <Text style={{...FONTS.body5, color: COLORS.primary}}>
+                cookies policy{' '}
+              </Text>
+              <Text style={{...FONTS.body5}}>and </Text>
+              <Text style={{...FONTS.body5, color: COLORS.primary}}>
+                terms and conditions.
+              </Text>
+            </View>
+          </View>
+
+          <View style={styles.btnContainer}>
+            <IconTextButton label="Create Account" onPress={handleSubmit} isLoading={loader} />
+          </View>
         </View>
+
         <TouchableOpacity onPress={() => navigation.navigate('Login')}>
-          <View style={[styles.span]}>
-            <Text style={{...FONTS.body5}}>Already have an account ?</Text>
-            <Text style={{...FONTS.body5, marginLeft: 5}}>Log in</Text>
+          <View style={styles.span}>
+            <Text style={{...FONTS.body4, textAlign: 'center', color: '#808080'}}>
+                  <Text>Already have an account ?</Text>
+                  <Text> Log in</Text>
+            </Text>
+            
           </View>
         </TouchableOpacity>
-      </View>
+      </ScrollView>
     </View>
   );
 };
