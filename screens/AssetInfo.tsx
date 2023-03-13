@@ -79,6 +79,7 @@ const AssetInfo = (props: any) => {
 
 
 
+
   return (
     <View style={GlobalStyle.container}>
       <View style={GlobalStyle.rowBetween}>
@@ -104,7 +105,7 @@ const AssetInfo = (props: any) => {
             <Text style={{...FONTS.body5, color: COLORS.white}}>
               {assetData &&
                 `${format(
-                  parseFloat(assetData[asset?.toUpperCase()]?.availBal).toFixed(
+                  parseFloat(assetData[asset?.toUpperCase()]?.availBal || 0).toFixed(
                     4,
                   ),
                 )} ${asset?.toUpperCase()} `}
@@ -127,7 +128,7 @@ const AssetInfo = (props: any) => {
               {assetData &&
                 `${format(
                   parseFloat(
-                    assetData[asset?.toUpperCase()]?.pendingBal,
+                    assetData[asset?.toUpperCase()]?.pendingBal || 0
                   ).toFixed(4),
                 )}`}
             </Text>
@@ -147,7 +148,7 @@ const AssetInfo = (props: any) => {
           <Text style={{textAlign: 'center', fontWeight: 'bold', ...FONTS.h1, color: COLORS.white,}}>
           {show ? `${assetData &&
               `$${format(
-                parseFloat(assetData[asset?.toUpperCase()]?.balance).toFixed(4),
+                parseFloat(assetData[asset?.toUpperCase()]?.balance || 0).toFixed(4),
               )}`}` : '$-------'}
            
           </Text>

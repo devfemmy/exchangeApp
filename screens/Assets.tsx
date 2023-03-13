@@ -35,11 +35,12 @@ const Assets = ({navigation}: any) => {
 
 
   const fundingAssets = (data: any) => {
+   
     switch (data) {
       case data?.toUpperCase():
         return  <View style={styles.sub}>
           <Text style={{...FONTS.body5}}>{`${format(
-          fundingAccountInfo?.[data?.toUpperCase()]?.availBal ?   `${parseFloat(fundingAccountInfo?.[data?.toUpperCase()]?.availBal).toFixed(2)}` : 0     
+          fundingAccountInfo?.[data?.toUpperCase()]?.availBal ? `${parseFloat(fundingAccountInfo?.[data?.toUpperCase()]?.availBal).toFixed(2)}` : 0     
         )}`}</Text>
         <Text style={{...FONTS.body5, fontWeight: 'bold'}}>{`$${format(
           fundingAccountInfo?.[data?.toUpperCase()]?.availBal ?   parseFloat(fundingAccountInfo?.[data?.toUpperCase()]?.availBal).toFixed(2) : 0     
@@ -85,6 +86,7 @@ const Assets = ({navigation}: any) => {
   }, [currentCount])
 
   const searchData = !value ? tokenBalanceData : tokenBalanceData?.filter(data => data?.currency?.toLowerCase().includes(value?.toLowerCase()) ||  data?.token?.toLowerCase().includes(value?.toLowerCase()))
+  
   const showFundingAssets = () => {
     return marketInfos?.map((data: any) => {
     return searchData?.map(info => {
@@ -95,11 +97,13 @@ const Assets = ({navigation}: any) => {
 
 
   useEffect(() => {
-    dispatch(getTradingAccount()).then(gg =>
-      setTradingAccountInfo(gg?.payload),
+    dispatch(getTradingAccount()).then((gg: any) => {
+      setTradingAccountInfo(gg?.payload)
+    }
     );
-    dispatch(getFundingAccount()).then(gg =>
-      setFundingAccountInfo(gg?.payload),
+    dispatch(getFundingAccount()).then((gg: any)  => {
+      setFundingAccountInfo(gg?.payload)
+    }
     );
   }, []);
 

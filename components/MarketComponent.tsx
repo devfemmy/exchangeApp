@@ -6,6 +6,7 @@ import { hp, wp } from '../utils/helper'
 import { COLORS, FONTS } from '../utils/constants/theme'
 
 const MarketComponent = ({info, navigation,type, action}: any) => {
+
   return (
     <TouchableOpacity
     onPress={type === "funding" ? () =>
