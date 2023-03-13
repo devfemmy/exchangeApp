@@ -173,13 +173,13 @@ const Home = ({navigation}: any) => {
                       </Text>
                     </View>
                   </TouchableOpacity>
-                  <TouchableOpacity onPress={() => navigation.navigate("Swap")}>
+                  <TouchableOpacity onPress={() => navigation.navigate("Transfer")}>
                     <View>
                       <View style={styles.sub}>
                       <AntDesign  name="swap" size={30} color={COLORS.white} />
                       </View>
                       <Text style={[styles.txt, {...FONTS.body5, color:COLORS.white}]}>
-                        Swap
+                        Transfer
                       </Text>
                     </View>
                   </TouchableOpacity>

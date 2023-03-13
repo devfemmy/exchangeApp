@@ -32,7 +32,7 @@ const TokenHistory = ({navigation}: any) => {
             <Pressable onPress={() => setType('all')}>
               <Text
                 style={{
-                  ...FONTS.h3,
+                  ...FONTS.h5,
                   textAlign: 'center',
                   color: type === 'all' ? COLORS.white : COLORS.primary,
                 }}>
@@ -56,7 +56,7 @@ const TokenHistory = ({navigation}: any) => {
             <Pressable onPress={() => setType('withdraw')}>
               <Text
                 style={{
-                  ...FONTS.h3,
+                  ...FONTS.h5,
                   textAlign: 'center',
                   color:
                     type === 'withdraw' ? COLORS.white : COLORS.primary,
@@ -81,7 +81,7 @@ const TokenHistory = ({navigation}: any) => {
             <Pressable onPress={() => setType('deposit')}>
               <Text
                 style={{
-                  ...FONTS.h3,
+                  ...FONTS.h5,
                   textAlign: 'center',
                   color:
                     type === 'deposit' ? COLORS.white : COLORS.primary,
@@ -106,7 +106,7 @@ const TokenHistory = ({navigation}: any) => {
             <Pressable onPress={() => setType('successful')}>
               <Text
                 style={{
-                  ...FONTS.h3,
+                  ...FONTS.h5,
                   textAlign: 'center',
                   color:
                     type === 'successful' ? COLORS.white : COLORS.primary,
@@ -131,7 +131,7 @@ const TokenHistory = ({navigation}: any) => {
             <Pressable onPress={() => setType('incoming')}>
               <Text
                 style={{
-                  ...FONTS.h3,
+                  ...FONTS.h5,
                   textAlign: 'center',
                   color:
                     type === 'incoming' ? COLORS.white : COLORS.primary,
@@ -156,7 +156,7 @@ const TokenHistory = ({navigation}: any) => {
             <Pressable onPress={() => setType('pending')}>
               <Text
                 style={{
-                  ...FONTS.h3,
+                  ...FONTS.h5,
                   textAlign: 'center',
                   color:
                     type === 'pending' ? COLORS.white : COLORS.primary,
@@ -181,7 +181,7 @@ const TokenHistory = ({navigation}: any) => {
             <Pressable onPress={() => setType('failed')}>
               <Text
                 style={{
-                  ...FONTS.h3,
+                  ...FONTS.h5,
                   textAlign: 'center',
                   color: type === 'failed' ? COLORS.white : COLORS.primary,
                 }}>

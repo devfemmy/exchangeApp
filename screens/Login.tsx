@@ -13,7 +13,7 @@ import {
 import React, {useState} from 'react';
 import GlobalStyle from '../utils/globalStyle';
 import {hp, wp} from '../utils/helper';
-import {FONTS} from '../utils/constants/theme';
+import {COLORS, FONTS} from '../utils/constants/theme';
 import {TextInput} from '../components/TextInput';
 import {LoginFormData} from '../utils/types';
 import {LoginSchema} from '../utils/schemas';
@@ -104,7 +104,7 @@ const Login = ({navigation}: any) => {
                 ...FONTS.body4,
                 textAlign: 'right',
                 marginBottom: hp(15),
-                color: '#808080',
+                color: COLORS.primary,
               }}>
               Forget Password ?
             </Text>
@@ -119,8 +119,13 @@ const Login = ({navigation}: any) => {
 
       <TouchableOpacity onPress={() => navigation.navigate('CreateAccount')}>
         <View style={styles.bottom}>
+          <Text>
           <Text style={{...FONTS.body4, textAlign: 'center', color: '#808080'}}>
-            Don’t have an account ? Create Account
+            Don’t have an account? 
+          </Text>
+          <Text style={{...FONTS.body4,color: COLORS.primary, marginLeft: hp(3)}}>
+ Create Account
+          </Text>
           </Text>
         </View>
       </TouchableOpacity>
