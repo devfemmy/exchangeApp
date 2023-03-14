@@ -69,11 +69,13 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
-        marginBottom: hp(10),
+        marginBottom: hp(15),
         paddingBottom: hp(10),
         padding: 10,
         borderRadius: 10,
-        borderBottomColor: COLORS.lightGray3,
-        borderBottomWidth: 1,
+        borderColor: COLORS.lightPrimary,
+        backgroundColor: '#f1f3fe',
+        borderWidth: 1,
+        paddingVertical: hp(15)
       },
 });

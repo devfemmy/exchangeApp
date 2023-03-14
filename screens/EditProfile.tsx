@@ -1,9 +1,10 @@
 /* eslint-disable react-native/no-inline-styles */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { View, Text, StyleSheet, ScrollView } from 'react-native'
-import React from 'react'
+import React, { useState } from 'react'
 import GlobalStyle from '../utils/globalStyle'
 import { ForgetPasswordFormData, ProfileFormData } from '../utils/types';
+import CountryPicker from 'react-native-country-picker-modal';
 import { useFormik } from 'formik';
 import { ForgetPasswordSchema, ProfileAccountSchema } from '../utils/schemas';
 import AntDesign from 'react-native-vector-icons/AntDesign';
@@ -17,7 +18,9 @@ import { useAppSelector } from '../app/hooks';
 import { userState } from '../slice/AuthSlice';
 
 const EditProfile = ({navigation}: any) => {
-  const userStateInfo = useAppSelector(userState)
+  const userStateInfo = useAppSelector(userState);
+  const [countryCode, setCountryCode] = useState('NG');
+  const [, setCountry] = useState(null);
 
   const getUserInfo = userStateInfo?.userData ? userStateInfo?.userData : userStateInfo
 
@@ -30,6 +33,8 @@ const EditProfile = ({navigation}: any) => {
     country: '',
     streetName: '',
     gender: '',
+    phone: '',
+    dob: '',
   };
 
   const handleCredentialSubmit = (data: any) => {
@@ -42,6 +47,11 @@ const EditProfile = ({navigation}: any) => {
       validationSchema: ProfileAccountSchema,
       onSubmit: (data: ProfileFormData) => handleCredentialSubmit(data),
     });
+
+    const onSelect = (country: any) => {
+      setCountryCode(country.cca2);
+      setCountry(country);
+    };
 
   return (
     <View style={[GlobalStyle.container, styles.div]}>
@@ -99,6 +109,27 @@ const EditProfile = ({navigation}: any) => {
               onChangeText={handleChange('streetName')}
               errorMsg={touched.streetName ? errors.streetName : undefined}
             />
+            <View style={GlobalStyle.rowBetweenNoCenter}>
+            <View style={styles.countryPicker}>
+              <CountryPicker
+                withCallingCode
+                withFlag
+                withFilter
+                countryCode={countryCode}
+                onSelect={onSelect}
+                visible={false}
+              />
+            </View>
+            <View style={{width: '89%',}}>
+              <TextInput
+              label={'Phone Number'}
+              value={values.phone}
+              onBlur={handleBlur('phone')}
+              onChangeText={handleChange('phone')}
+              errorMsg={touched.phone ? errors.phone : undefined}
+            />
+            </View>
+        </View>
        </View>
 
         <View style={styles.btnContainer}>
@@ -132,6 +163,11 @@ const styles = StyleSheet.create({
     paddingHorizontal: wp(10),
     flex: 1,
     backgroundColor: 'white',
+  },
+  countryPicker: {
+    // backgroundColor: 'red',
+    height: hp(70),
+    justifyContent: 'center',
   },
   txt: {
     marginTop: hp(35),

@@ -1,25 +1,25 @@
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native'
-import React from 'react'
-import GlobalStyle from '../utils/globalStyle'
-import FastImage from 'react-native-fast-image'
-import { hp, wp } from '../utils/helper'
-import { COLORS, FONTS } from '../utils/constants/theme'
+import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import React from 'react';
+import GlobalStyle from '../utils/globalStyle';
+import FastImage from 'react-native-fast-image';
+import { hp, wp } from '../utils/helper';
+import { COLORS, FONTS } from '../utils/constants/theme';
 
 const MarketComponent = ({info, navigation,type, action}: any) => {
 
   return (
     <TouchableOpacity
-    onPress={type === "funding" ? () =>
+    onPress={type === 'funding' ? () =>
       navigation.navigate('AssetInfo', {
         currency: info?.currency,
         assetType: type,
         icon: info?.icon,
-        name: info?.token
+        name: info?.token,
       })
-      : () => {} 
+      : () => {}
     }>
     <View style={styles.actionCard2}>
-      <View style={[GlobalStyle.rowStart, {width: "30%"}]}>
+      <View style={[GlobalStyle.rowStart, {width: '30%'}]}>
         <FastImage
         style={styles.icons}
         defaultSource={info?.icon}
@@ -33,7 +33,7 @@ const MarketComponent = ({info, navigation,type, action}: any) => {
           <Text style={{...FONTS.body3, color: COLORS.lightBlack, fontWeight: '600'}}>
             {info?.token}
           </Text>
-          <Text style={{...FONTS.body5, color: COLORS.lightBlack, textTransform: 'uppercase'}}>
+          <Text style={{...FONTS.body4, color: COLORS.lightBlack, textTransform: 'uppercase'}}>
             {info?.currency}
           </Text>
         </View>
@@ -46,10 +46,10 @@ const MarketComponent = ({info, navigation,type, action}: any) => {
                  </View> */}
     </View>
   </TouchableOpacity>
-  )
-}
+  );
+};
 
-export default MarketComponent
+export default MarketComponent;
 
 
 const styles = StyleSheet.create({
@@ -57,13 +57,15 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
-        marginBottom: hp(10),
-        paddingBottom: hp(10),
-        borderBottomColor: COLORS.lightGray3,
-        borderBottomWidth: 1,
+        marginBottom: hp(15),
+        borderColor: COLORS.primary2,
+        borderWidth: 1,
+        paddingHorizontal: hp(10),
+        paddingVertical: hp(15),
+        borderRadius: 5,
       },
       icons: {
-        width: wp(30),
-        height: hp(30),
+        width: wp(35),
+        height: hp(35),
       },
-})
+});

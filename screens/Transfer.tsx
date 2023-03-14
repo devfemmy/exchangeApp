@@ -1,3 +1,4 @@
+/* eslint-disable react-native/no-inline-styles */
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import {
@@ -38,23 +39,23 @@ const Transfer = ({navigation}: any) => {
   const dispatch = useAppDispatch();
   const [assetDataFund, setAssetDataFund] = useState<any>();
   const [assetDataTrad, setAssetDataTrad] = useState<any>();
-  const [loader, setLoader] = useState(false)
+  const [loader, setLoader] = useState(false);
 
   useEffect(() => {
-    if (selectedAssets !== "N/A") {
+    if (selectedAssets !== 'N/A') {
       dispatch(getFundingAccountByCurrency(selectedAssets.toLowerCase())).then(
-        dd =>{ 
-          var head = dd?.payload[selectedAssets]
-          setAssetDataFund(head)
+        dd =>{
+          var head = dd?.payload[selectedAssets];
+          setAssetDataFund(head);
         }
       );
       dispatch(getTradingAccountByCurrency(selectedAssets.toLowerCase())).then(
         dd => {
-          var head = dd?.payload[selectedAssets]
-          setAssetDataTrad(head)
+          var head = dd?.payload[selectedAssets];
+          setAssetDataTrad(head);
         }
       );
-    } 
+    }
 
   }, [selectedAssets]);
 
@@ -82,58 +83,58 @@ const Transfer = ({navigation}: any) => {
   };
 
   const handleMax = () => {
-    var choose = from === "funding" ? assetDataFund?.availBal : assetDataTrad?.availBal
-    setNumber(choose)
-  }
+    var choose = from === 'funding' ? assetDataFund?.availBal : assetDataTrad?.availBal;
+    setNumber(choose);
+  };
 
   const handleTokenTransfer = async () => {
     const payload = {
       fromAcct : from,
     toAcct : to,
     currency : selectedAssets?.toLowerCase(),
-    amount : number
-    }
-    if(number > assetDataFund?.availBal && from === "funding") {
+    amount : number,
+    };
+    if (number > assetDataFund?.availBal && from === 'funding') {
       return  Notifier.showNotification({
         title: 'Error',
-        description: "Insufficient fund",
+        description: 'Insufficient fund',
         Component: NotifierComponents.Alert,
         componentProps: {
           alertType: 'error',
         },
       });
     }
-    if(number > assetDataTrad?.availBal && from === "trading") {
+    if (number > assetDataTrad?.availBal && from === 'trading') {
       return  Notifier.showNotification({
         title: 'Error',
-        description: "Insufficient fund",
+        description: 'Insufficient fund',
         Component: NotifierComponents.Alert,
         componentProps: {
           alertType: 'error',
         },
       });
     }
-    setLoader(true)
+    setLoader(true);
     try {
-      var response = await dispatch(transferToken(payload))
-     
-      if(transferToken.fulfilled.match(response)){
-        setLoader(false)
+      var response = await dispatch(transferToken(payload));
+
+      if (transferToken.fulfilled.match(response)){
+        setLoader(false);
         dispatch(getFundingAccountByCurrency(selectedAssets.toLowerCase())).then(
-          dd =>{ 
-            var head = dd?.payload[selectedAssets]
-            setAssetDataFund(head)
+          dd =>{
+            var head = dd?.payload[selectedAssets];
+            setAssetDataFund(head);
           }
         );
         dispatch(getTradingAccountByCurrency(selectedAssets.toLowerCase())).then(
           dd => {
-            var head = dd?.payload[selectedAssets]
-            setAssetDataTrad(head)
+            var head = dd?.payload[selectedAssets];
+            setAssetDataTrad(head);
           }
         );
         Notifier.showNotification({
           title: 'Success',
-          description: "Success",
+          description: 'Success',
           Component: NotifierComponents.Alert,
           componentProps: {
             alertType: 'success',
@@ -141,8 +142,8 @@ const Transfer = ({navigation}: any) => {
         });
       }
       else {
-        setLoader(false)
-        var errMsg = response?.payload as string
+        setLoader(false);
+        var errMsg = response?.payload as string;
         Notifier.showNotification({
           title: 'Error',
           description: errMsg,
@@ -153,10 +154,10 @@ const Transfer = ({navigation}: any) => {
         });
       }
     }
-    catch(e){
-      setLoader(false)
+    catch (e){
+      setLoader(false);
     }
-  }
+  };
 
   return (
     <View style={GlobalStyle.container}>
@@ -181,28 +182,28 @@ const Transfer = ({navigation}: any) => {
               <View style={styles.card}>
                 <View style={styles.row}>
                   <View style={styles.rowDiv}>
-                    <Text style={{...FONTS.body5, color: COLORS.gray}}>
-                      From
+                    <Text style={{...FONTS.body4, color: COLORS.gray}}>
+                      From:
                     </Text>
                   </View>
                   <View style={styles.cardDiv}>
-                    <Text style={{...FONTS.body5, color: COLORS.gray}}>
+                    <Text style={{...FONTS.body4, color: COLORS.gray, fontWeight: '600', textTransform: 'capitalize'}}>
                       {from}
                     </Text>
                     <Image source={stroke} />
                   </View>
                 </View>
                 <View style={styles.row}>
-                  <View style={styles.nd}></View>
-                  <View style={styles.nd1}></View>
+                  <View style={styles.nd} />
+                  <View style={styles.nd1} />
                   <TouchableOpacity onPress={() => changeDirection()}>
                     <View style={styles.icon}>
                       <Image
                         source={icons?.trade}
                         resizeMode="contain"
                         style={{
-                          width: 20,
-                          height: 20,
+                          width: 25,
+                          height: 25,
                         }}
                       />
                     </View>
@@ -210,10 +211,10 @@ const Transfer = ({navigation}: any) => {
                 </View>
                 <View style={styles.row}>
                   <View style={styles.rowDiv}>
-                    <Text style={{...FONTS.body5, color: COLORS.gray}}>To</Text>
+                    <Text style={{...FONTS.body4, color: COLORS.gray}}>To:</Text>
                   </View>
                   <View style={styles.cardDiv}>
-                    <Text style={{...FONTS.body5, color: COLORS.gray}}>
+                    <Text style={{...FONTS.body4, color: COLORS.gray, fontWeight: '600', textTransform: 'capitalize'}}>
                       {to}
                     </Text>
                     <Image source={stroke} />
@@ -234,7 +235,7 @@ const Transfer = ({navigation}: any) => {
               </TouchableOpacity>
 
               <View style={styles.card2}>
-                <View>
+                <View style={{width: '78%'}}>
                   <Text style={{...FONTS.body5, color: COLORS.gray}}>
                     Enter Amount you want to Transfer
                   </Text>
@@ -250,7 +251,8 @@ const Transfer = ({navigation}: any) => {
                <View
                   style={{
                     backgroundColor: COLORS.primary,
-                    paddingHorizontal: hp(5),
+                    paddingHorizontal: hp(15),
+                    paddingVertical: hp(3),
                     borderRadius: 5,
                   }}>
                   <Text style={{...FONTS.body4, color: COLORS.white}}>Max</Text>
@@ -262,12 +264,12 @@ const Transfer = ({navigation}: any) => {
                   ...FONTS.body4,
                   marginVertical: hp(5),
                   color: COLORS.gray,
-                }}>{`Avail: ${from === "funding" ? 
+                }}>{`Avail: ${from === 'funding' ?
                 `${format(
                   parseFloat(
                     assetDataFund?.availBal || 0
                   ).toFixed(4),
-                )}` : from === "trading" ?  `${format(
+                )}` : from === 'trading' ?  `${format(
                   parseFloat(
                     assetDataTrad?.availBal || 0
                   ).toFixed(4),
@@ -320,7 +322,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginVertical: hp(5),
+    marginVertical: hp(15),
     backgroundColor: COLORS.primary2,
     paddingHorizontal: hp(25),
     paddingVertical: hp(10),
@@ -341,10 +343,10 @@ const styles = StyleSheet.create({
   },
   icon: {
     backgroundColor: COLORS.primary,
-    borderRadius: 50,
+    borderRadius: 18,
     padding: hp(10),
-    width: wp(30),
-    height: hp(30),
+    width: wp(35),
+    height: hp(35),
     justifyContent: 'center',
     alignItems: 'center',
     marginLeft: hp(20),
@@ -352,7 +354,9 @@ const styles = StyleSheet.create({
   nd1: {
     width: '60%',
     height: hp(1),
-    backgroundColor: COLORS.gray,
+    borderBottomColor: 'rgb(51, 51, 51)',
+    borderBottomWidth: 0.2,
+    // backgroundColor: COLORS.gray,
   },
   nd: {
     width: '20%',

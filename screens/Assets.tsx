@@ -39,10 +39,10 @@ const Assets = ({navigation}: any) => {
     switch (data) {
       case data?.toUpperCase():
         return  <View style={styles.sub}>
-          <Text style={{...FONTS.body5}}>{`${format(
+          <Text style={{...FONTS.body4}}>{`${format(
           fundingAccountInfo?.[data?.toUpperCase()]?.availBal ? `${parseFloat(fundingAccountInfo?.[data?.toUpperCase()]?.availBal).toFixed(2)}` : 0     
         )}`}</Text>
-        <Text style={{...FONTS.body5, fontWeight: '600'}}>{`$${format(
+        <Text style={{...FONTS.body4, fontWeight: '600'}}>{`$${format(
           fundingAccountInfo?.[data?.toUpperCase()]?.availBal ?   parseFloat(fundingAccountInfo?.[data?.toUpperCase()]?.availBal).toFixed(2) : 0     
         )}`}</Text>    
       </View>
@@ -58,10 +58,10 @@ const Assets = ({navigation}: any) => {
     switch (data) {
       case data?.toUpperCase():
         return  <View style={styles.sub}>
-          <Text style={{...FONTS.body5}}>{`${format(
+          <Text style={{...FONTS.body4}}>{`${format(
           tradingAccountInfo?.[data?.toUpperCase()]?.availBal ?   `${parseFloat(tradingAccountInfo?.[data?.toUpperCase()]?.availBal).toFixed(2)}` : 0     
         )}`}</Text>
-        <Text style={{...FONTS.body5, fontWeight: '600'}}>{`$${format(
+        <Text style={{...FONTS.body4, fontWeight: '600'}}>{`$${format(
           tradingAccountInfo?.[data?.toUpperCase()]?.availBal ?   parseFloat(tradingAccountInfo?.[data?.toUpperCase()]?.availBal).toFixed(2) : 0     
         )}`}</Text>    
       </View>
@@ -121,12 +121,14 @@ const Assets = ({navigation}: any) => {
     <MainLayout>
       <View style={GlobalStyle.container}>
         <ScrollView showsVerticalScrollIndicator={false}>
-          <Text style={{...FONTS.h2, marginBottom: hp(5)}}>Assets</Text>
+          <Text style={{...FONTS.h2, marginBottom: hp(5), fontWeight: '600'}}>Assets</Text>
           <View style={GlobalStyle.rowBetween}>
-            <Text style={{...FONTS.body5, width: wp(200)}}>
-              Buy, Sell and Swap all of the assets offered by our wallet
-            </Text>
-            <View style={{backgroundColor: COLORS.primary,borderRadius: hp(10), paddingVertical: hp(10), paddingHorizontal: hp(20)}}>
+            <View style={{width: '60%'}}>
+              <Text style={{...FONTS.body4, opacity: 0.7}}>
+                Buy, Sell and Swap all of the assets offered by our wallet
+              </Text>
+            </View>
+            <View style={{backgroundColor: COLORS.primary,borderRadius: hp(10), width: '30%', paddingVertical: hp(10), paddingHorizontal: hp(20), justifyContent: 'center'}}>
               <TouchableOpacity onPress={() => navigation.navigate("Transfer")}>
                 <Text style={{...FONTS.body4, color: COLORS.white}}>Transfer</Text>
               </TouchableOpacity>
@@ -141,7 +143,7 @@ const Assets = ({navigation}: any) => {
                 width: '50%',
                 borderBottomColor:
                   type === 'funding' ? COLORS.primary : COLORS.gray2,
-                borderBottomWidth: 1,
+                borderBottomWidth: type === 'funding' ? 3 : 1,
                 paddingBottom: hp(5),
               }}>
               <Pressable onPress={() => setType('funding')}>
@@ -160,7 +162,7 @@ const Assets = ({navigation}: any) => {
                 width: '50%',
                 borderBottomColor:
                   type === 'trading' ? COLORS.primary : COLORS.gray2,
-                borderBottomWidth: 1,
+                borderBottomWidth: type === 'trading' ? 3 : 1,
                 paddingBottom: hp(5),
               }}>
               <Pressable onPress={() => setType('trading')}>
@@ -177,10 +179,10 @@ const Assets = ({navigation}: any) => {
             </View>
           </View>
           <View style={[GlobalStyle.rowBetween, {marginVertical: hp(25)}]}>
-            <Text style={{...FONTS.body4, color: COLORS.gray, width: "30%"}}>
+            <Text style={{...FONTS.body3, color: COLORS.gray, width: "30%"}}>
               Tokens
             </Text>
-            <Text style={{...FONTS.body4, color: COLORS.gray, textAlign: 'right', width: "30%"}}>
+            <Text style={{...FONTS.body3, color: COLORS.gray, textAlign: 'right', width: "30%"}}>
               Assets
             </Text>
           </View>
