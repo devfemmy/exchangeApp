@@ -42,7 +42,7 @@ const Assets = ({navigation}: any) => {
           <Text style={{...FONTS.body5}}>{`${format(
           fundingAccountInfo?.[data?.toUpperCase()]?.availBal ? `${parseFloat(fundingAccountInfo?.[data?.toUpperCase()]?.availBal).toFixed(2)}` : 0     
         )}`}</Text>
-        <Text style={{...FONTS.body5, fontWeight: 'bold'}}>{`$${format(
+        <Text style={{...FONTS.body5, fontWeight: '600'}}>{`$${format(
           fundingAccountInfo?.[data?.toUpperCase()]?.availBal ?   parseFloat(fundingAccountInfo?.[data?.toUpperCase()]?.availBal).toFixed(2) : 0     
         )}`}</Text>    
       </View>
@@ -64,7 +64,7 @@ const Assets = ({navigation}: any) => {
           <Text style={{...FONTS.body5}}>{`${format(
           tradingAccountInfo?.[data?.toUpperCase()]?.availBal ?   `${parseFloat(tradingAccountInfo?.[data?.toUpperCase()]?.availBal).toFixed(2)}` : 0     
         )}`}</Text>
-        <Text style={{...FONTS.body5, fontWeight: 'bold'}}>{`$${format(
+        <Text style={{...FONTS.body5, fontWeight: '600'}}>{`$${format(
           tradingAccountInfo?.[data?.toUpperCase()]?.availBal ?   parseFloat(tradingAccountInfo?.[data?.toUpperCase()]?.availBal).toFixed(2) : 0     
         )}`}</Text>    
       </View>

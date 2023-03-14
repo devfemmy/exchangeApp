@@ -22,7 +22,7 @@ const DepositAddress = (props: any) => {
           size={30}
           onPress={() => props?.navigation.goBack()}
         />
-        <Text style={{...FONTS.h3, fontWeight: 'bold'}}>Deposit {token}</Text>
+        <Text style={{...FONTS.h3, fontWeight: '600'}}>Deposit {token}</Text>
         <View></View>
       </View>
 
@@ -43,7 +43,7 @@ const DepositAddress = (props: any) => {
                 Wallet Address
               </Text>
               <View style={GlobalStyle.rowStart}>
-                <Text style={{...FONTS.h4,fontWeight: 'bold', marginRight: hp(20)}}>
+                <Text style={{...FONTS.h4,fontWeight: '600', marginRight: hp(20)}}>
                   {address.substr(0, 15)}
                 </Text>
                 <Feather
@@ -58,11 +58,11 @@ const DepositAddress = (props: any) => {
                 Network
               </Text>
               <View style={GlobalStyle.rowStart}>
-                <Text style={{...FONTS.h4,fontWeight: 'bold', marginRight: hp(20)}}>{chain}</Text>
+                <Text style={{...FONTS.h4,fontWeight: '600', marginRight: hp(20)}}>{chain}</Text>
               </View>
             </View>
             <View style={styles.card}>
-              <Text style={{...FONTS.h4, fontWeight: 'bold'}}>Important Information</Text>
+              <Text style={{...FONTS.h4, fontWeight: '600'}}>Important Information</Text>
               <View style={styles.strt}>
                 <Text style={{fontSize: hp(20)}}>{'\u2022'}</Text>
                 <Text style={{...FONTS.body4, color: COLORS.gray}}>

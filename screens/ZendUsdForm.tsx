@@ -31,7 +31,7 @@ const ZendUsdForm = ({navigation}: any) => {
             <Text
               style={{
                 ...FONTS.body4,
-                fontWeight: 'bold',
+                fontWeight: '600',
                 color: COLORS.grayBlack,
               }}>
               Tether
@@ -39,7 +39,7 @@ const ZendUsdForm = ({navigation}: any) => {
           </View>
           <View style={GlobalStyle.rowStart}>
             <Text style={{...FONTS.body4, color: COLORS.gray}}>Balance: </Text>
-            <Text style={{...FONTS.body4, fontWeight: 'bold'}}>10000 USDT</Text>
+            <Text style={{...FONTS.body4, fontWeight: '600'}}>10000 USDT</Text>
           </View>
         </View>
 
@@ -128,7 +128,7 @@ const ZendUsdForm = ({navigation}: any) => {
         <View style={GlobalStyle.rowBetween}>
           <View>
             <Text
-              style={{...FONTS.h3, fontWeight: 'bold', marginBottom: hp(10)}}>
+              style={{...FONTS.h3, fontWeight: '600', marginBottom: hp(10)}}>
               Zend USD
             </Text>
             <Text style={{...FONTS.body5, color: COLORS.gray}}>

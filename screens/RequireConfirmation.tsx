@@ -99,7 +99,7 @@ const RequireConfirmation = (props: any) => {
         color={COLORS.gray2}
       />
 
-      <Text style={{...FONTS.h2, fontWeight: 'bold'}}>Verify New Device</Text>
+      <Text style={{...FONTS.h2, fontWeight: '600'}}>Verify New Device</Text>
 
       <Text
         style={{
@@ -169,19 +169,20 @@ const styles = StyleSheet.create({
   otp: {
     width: '100%',
     marginTop: hp(40),
-    marginHorizontal: hp(5),
-    flex: 3,
+    // flex: 3,
   },
   bottom: {
     flex: 1,
+    marginTop: hp(20)
   },
   textInputContainer: {
     backgroundColor: COLORS.primary2,
     borderRadius: 5,
     color: COLORS.primary,
     borderWidth: 0,
-    minWidth: hp(40),
-    minHeight: hp(40),
-    paddingHorizontal: hp(2)
+    width: hp(43),
+    height: hp(43),
+    paddingHorizontal: hp(2),
+    fontSize: hp(14),
   },
 });

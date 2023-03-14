@@ -19,7 +19,7 @@ const TransactionCard = ({data}: any) => {
         <Text
         style={{
           ...FONTS.h3,
-          fontWeight: 'bold',
+          fontWeight: '600',
           color: COLORS.black,
         }}>
         {header}

@@ -11,7 +11,7 @@ const ZendUsd = ({navigation}: any) => {
   return (
     <View style={GlobalStyle.container}>
       <HeaderComponent onPress={() => navigation.goBack()} />
-      <Text style={{...FONTS.h3, fontWeight: 'bold'}}>Welcome to Zend USD</Text> 
+      <Text style={{...FONTS.h3, fontWeight: '600'}}>Welcome to Zend USD</Text> 
       <Text style={{...FONTS.body4, marginTop: hp(20), color: COLORS.gray}}>Welcome to zend USD, before you can carry out any transactions you have to upload your company CAC Document</Text> 
     
         <View style={styles.div}>

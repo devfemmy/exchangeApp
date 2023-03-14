@@ -32,6 +32,7 @@ import {
   tradingAccount,
 } from '../slice/WalletSlice';
 import AntDesign from 'react-native-vector-icons/AntDesign';
+import EvilIcons from 'react-native-vector-icons/EvilIcons';
 
 
 const Home = ({navigation}: any) => {
@@ -151,11 +152,11 @@ const Home = ({navigation}: any) => {
                 />
                 )}
               </View>
-              <Text style={[styles.txt, {...FONTS.h5,fontWeight: 'bold', marginTop: hp(10), color: COLORS.white}]}>
+              <Text style={[styles.txt, {...FONTS.h5,fontWeight: '600', marginTop: hp(10), color: COLORS.white}]}>
                 Total Assets Balance
               </Text>
               <Text
-                style={[styles.txt, {...FONTS.largeTitle, fontWeight: 'bold',color: COLORS.white}]}>
+                style={[styles.txt, {...FONTS.largeTitle, fontWeight: '600',color: COLORS.white}]}>
                 {show ? `$${format(totalAssetBalanceUsd ? totalAssetBalanceUsd?.toFixed(2) : 0)}` : '$-------'}
               </Text>
               <Text style={[styles.txt, {...FONTS.body5, color: COLORS.white}]}>
@@ -175,8 +176,8 @@ const Home = ({navigation}: any) => {
                   </TouchableOpacity>
                   <TouchableOpacity onPress={() => navigation.navigate("Transfer")}>
                     <View>
-                      <View style={styles.sub}>
-                      <AntDesign  name="swap" size={30} color={COLORS.white} />
+                      <View style={styles.externalLink}>
+                      <EvilIcons  name="external-link" size={40} color={COLORS.white} />
                       </View>
                       <Text style={[styles.txt, {...FONTS.body5, color:COLORS.white}]}>
                         Transfer
@@ -199,7 +200,7 @@ const Home = ({navigation}: any) => {
             {(!getUserInfo?.hasSetPin ||
               !getUserInfo?.isKycVerified ||
               !getUserInfo?.hasVerifiedPhoneNumber) &&
-            <Text style={[{...FONTS.h4, fontWeight: 'bold', marginVertical: hp(15)}]}>
+            <Text style={[{...FONTS.h4, fontWeight: '600', marginVertical: hp(15)}]}>
               Pending Action
             </Text>
             }
@@ -208,14 +209,14 @@ const Home = ({navigation}: any) => {
               .map(data => {
                 return (
                   <View style={styles.actionCard}>
-                    <Text style={[{...FONTS.body5, fontWeight: 'bold'}]}>{data?.name}</Text>
+                    <Text style={[{...FONTS.body5, fontWeight: '600'}]}>{data?.name}</Text>
                     <Text style={[styles.tag, {...FONTS.body5, color: COLORS.white}]}>
                       {data?.status}
                     </Text>
                   </View>
                 );
               })}
-            <Text style={[{...FONTS.h3, fontWeight: "bold", marginVertical: hp(15)}]}>
+            <Text style={[{...FONTS.h3, fontWeight: "600", marginTop: hp(25), marginBottom: hp(5)}]}>
               My Assets
             </Text>
 
@@ -240,7 +241,7 @@ const Home = ({navigation}: any) => {
                             style={styles.icons}
                           />
                           <View style={{marginLeft: hp(10)}}>
-                            <Text style={{...FONTS.h3, color: COLORS.lightBlack, fontWeight:"bold"}}>
+                            <Text style={{...FONTS.h3, color: COLORS.lightBlack, fontWeight:"500"}}>
                               {data?.name}
                             </Text>
                             <Text
@@ -258,7 +259,7 @@ const Home = ({navigation}: any) => {
                             alignItems: 'flex-end',
                           }}>
                           <Text
-                            style={{...FONTS.h3, color: COLORS.lightBlack, fontWeight:"bold"}}>{`$${format(
+                            style={{...FONTS.h3, color: COLORS.lightBlack, fontWeight:"500"}}>{`$${format(
                             data?.current_price.toFixed(2),
                           )}`}</Text>
                           <Text
@@ -311,10 +312,10 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginBottom: hp(10),
-    paddingBottom: hp(10),
+    // marginBottom: hp(10),
     borderBottomColor: COLORS.lightGray3,
-    borderBottomWidth: 1,
+    borderBottomWidth: 0.2,
+    paddingVertical: hp(15)
   },
   tag: {
     backgroundColor: COLORS.orange,
@@ -362,4 +363,13 @@ const styles = StyleSheet.create({
     height: hp(50),
     borderRadius: 10,
   },
+  externalLink: {
+    backgroundColor: '#A5B1F3',
+    justifyContent: 'center',
+    alignItems: 'center',
+    // padding: hp(10),
+    width: wp(50),
+    height: hp(50),
+    borderRadius: 10,
+  }
 });

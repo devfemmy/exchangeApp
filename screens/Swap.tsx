@@ -50,7 +50,7 @@ const Swap = ({navigation}: any) => {
           <View style={styles.modalView}>
           <SwapHeader header="Swap History" handlePress={() => navigation.navigate("SwapHistory")} />
 
-            <Text style={{...FONTS.h2, fontWeight: 'bold', textAlign: 'left'}}>Swap</Text>
+            <Text style={{...FONTS.h2, fontWeight: '600', textAlign: 'left'}}>Swap</Text>
             <Text
               style={{
                 ...FONTS.body4,

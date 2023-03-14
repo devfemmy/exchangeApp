@@ -21,7 +21,7 @@ const ReferAndEarn = ({navigation}: any) => {
       <View style={[GlobalStyle.rowBetween, styles.card]}>
         <View>
         <Text style={{...FONTS.body5, textAlign: 'left', color: COLORS.gray}}>Referral Code</Text>
-          <Text style={{...FONTS.h2, fontWeight: 'bold', marginRight: hp(20)}}>{referralCode}</Text>
+          <Text style={{...FONTS.h2, fontWeight: '600', marginRight: hp(20)}}>{referralCode}</Text>
         </View>
         <TouchableOpacity onPress={() => copyToClipboard(referralCode)}>
           <Feather name="copy" color={COLORS.primary} size={20} />

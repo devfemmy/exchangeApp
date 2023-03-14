@@ -12,7 +12,7 @@ const SwapHistory = ({navigation}: any) => {
     <View style={GlobalStyle.container}>
               <View style={styles.margin} />
               <HeaderComponent onPress={() => navigation.goBack()} /> 
-      <Text style={{...FONTS.h2, fontWeight: 'bold'}}>Swap History</Text>
+      <Text style={{...FONTS.h2, fontWeight: '600'}}>Swap History</Text>
      
      <View style={styles.hr}></View>
 

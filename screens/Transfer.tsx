@@ -168,7 +168,7 @@ const Transfer = ({navigation}: any) => {
             <View style={styles.modalView}>
               <HeaderComponent onPress={() => navigation.goBack()} />
               <Text
-                style={{...FONTS.h2, fontWeight: 'bold', textAlign: 'left'}}>
+                style={{...FONTS.h2, fontWeight: '600', textAlign: 'left'}}>
                 Transfer Assets
               </Text>
               <Text

@@ -45,7 +45,7 @@ const InvoiceUploadModal = ({modalVisible, setModalVisible}: any) => {
               <Text
                 style={{
                   ...FONTS.h3,
-                  fontWeight: 'bold',
+                  fontWeight: '600',
                   textAlign: 'center',
                   marginBottom: hp(20),
                 }}>

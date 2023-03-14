@@ -53,7 +53,7 @@ const Transaction = () => {
     <MainLayout>
     <View style={GlobalStyle.container}>
     <ScrollView showsVerticalScrollIndicator={false}>
-          <Text style={{...FONTS.h2, fontWeight: 'bold', marginBottom: hp(5)}}>Transactions</Text>
+          <Text style={{...FONTS.h2, fontWeight: '600', marginBottom: hp(5)}}>Transactions</Text>
           <Text style={{...FONTS.body5, color: COLORS.gray, marginBottom: hp(30), width: wp(200)}}>
           Kindly select the transaction category you are looking for
             </Text>
