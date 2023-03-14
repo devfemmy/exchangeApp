@@ -280,7 +280,7 @@ const CreateAccount = ({navigation}: any) => {
           <View style={styles.span}>
             <Text style={{...FONTS.body4, textAlign: 'center', color: '#808080'}}>
                   <Text>Already have an account ?</Text>
-                  <Text> Log in</Text>
+                  <Text style={{color: COLORS.primary}}> Log in</Text>
             </Text>
 
           </View>

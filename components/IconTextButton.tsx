@@ -12,7 +12,7 @@ import { hp } from '../utils/helper'
 const IconTextButton = ({label, containerStyle, isLoading, onPress}: any) => {
   return (
     <TouchableOpacity style={[styles.container, {borderRadius: SIZES.radius, backgroundColor: COLORS.primary, ...containerStyle}]} onPress={onPress}>
-      {isLoading ? <ActivityIndicator color={COLORS.white} />  : <Text style={{...FONTS.h3, color: COLORS.white, fontSize: hp(17)}} >{label}</Text>}
+      {isLoading ? <ActivityIndicator color={COLORS.white} />  : <Text style={{...FONTS.h5, color: COLORS.white, fontSize: hp(15)}} >{label}</Text>}
     </TouchableOpacity>
   )
 }

@@ -8,6 +8,7 @@ import FastImage from 'react-native-fast-image';
 
 const Header = ({info, note}: any) => {
     const navigation = useNavigation() as any;
+
     return (
         <View style={styles.row}>
            <TouchableOpacity onPress={() => navigation?.navigate('Profile')}>

@@ -55,7 +55,14 @@ const ForgetPassword = ({navigation}: any) => {
       <View style={styles.bottom}>
         <TouchableOpacity onPress={() => navigation.navigate('CreateAccount')}>
           <View style={styles.span}>
-            <Text style={{...FONTS.body4, textAlign: 'center', color: '#808080'}}>Don’t have an account ? Create Account</Text>
+          <Text>
+          <Text style={{...FONTS.body4, textAlign: 'center', color: '#808080'}}>
+            Don’t have an account? 
+          </Text>
+          <Text style={{...FONTS.body4,color: COLORS.primary, marginLeft: hp(3)}}>
+ Create Account
+          </Text>
+          </Text>
           </View>
         </TouchableOpacity>
       </View>

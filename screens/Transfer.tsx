@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import {
   View,
@@ -8,10 +9,10 @@ import {
   Image,
   TextInput,
 } from 'react-native';
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import {COLORS, FONTS} from '../utils/constants/theme';
-import {hp, wp} from '../utils/helper';
+import {format, hp, wp} from '../utils/helper';
 import {stroke} from '../assets/images';
 import icons from '../utils/constants/icons';
 import IconTextButton from '../components/IconTextButton';
@@ -19,14 +20,43 @@ import {ScrollView} from 'react-native-gesture-handler';
 import GlobalStyle from '../utils/globalStyle';
 import HeaderComponent from '../components/HeaderComponent';
 import SwapTokenModal from '../components/Modals/SwapTokenModal';
+import {useAppDispatch} from '../app/hooks';
+import {
+  getFundingAccountByCurrency,
+  getTradingAccountByCurrency,
+} from '../slice/WalletSlice';
+import { transferToken } from '../slice/TradeSlice';
+import { Notifier, NotifierComponents } from 'react-native-notifier';
 // import SelectTokenModal from './SelectTokenModal';
 
 const Transfer = ({navigation}: any) => {
-  const [from, setFrom] = useState('Funding');
-  const [to, setTo] = useState('Trading');
-  const [selectedAssets, setSelectedAssets] = useState('USD');
+  const [from, setFrom] = useState('funding');
+  const [to, setTo] = useState('trading');
+  const [selectedAssets, setSelectedAssets] = useState('N/A');
   const [number, setNumber] = useState('');
   const [openSelect, setOpenSelect] = useState(false);
+  const dispatch = useAppDispatch();
+  const [assetDataFund, setAssetDataFund] = useState<any>();
+  const [assetDataTrad, setAssetDataTrad] = useState<any>();
+  const [loader, setLoader] = useState(false)
+
+  useEffect(() => {
+    if (selectedAssets !== "N/A") {
+      dispatch(getFundingAccountByCurrency(selectedAssets.toLowerCase())).then(
+        dd =>{ 
+          var head = dd?.payload[selectedAssets]
+          setAssetDataFund(head)
+        }
+      );
+      dispatch(getTradingAccountByCurrency(selectedAssets.toLowerCase())).then(
+        dd => {
+          var head = dd?.payload[selectedAssets]
+          setAssetDataTrad(head)
+        }
+      );
+    } 
+
+  }, [selectedAssets]);
 
   const handleOpenSelectOpen = () => {
     setOpenSelect(true);
@@ -37,12 +67,12 @@ const Transfer = ({navigation}: any) => {
   };
 
   const changeDirection = () => {
-    if (from === 'Trading') {
-      setFrom('Funding');
-      setTo('Trading');
+    if (from === 'trading') {
+      setFrom('funding');
+      setTo('trading');
     } else {
-      setFrom('Trading');
-      setTo('Funding');
+      setFrom('trading');
+      setTo('funding');
     }
   };
 
@@ -51,14 +81,94 @@ const Transfer = ({navigation}: any) => {
     handleOpenSelectClose();
   };
 
+  const handleMax = () => {
+    var choose = from === "funding" ? assetDataFund?.availBal : assetDataTrad?.availBal
+    setNumber(choose)
+  }
+
+  const handleTokenTransfer = async () => {
+    const payload = {
+      fromAcct : from,
+    toAcct : to,
+    currency : selectedAssets?.toLowerCase(),
+    amount : number
+    }
+    if(number > assetDataFund?.availBal && from === "funding") {
+      return  Notifier.showNotification({
+        title: 'Error',
+        description: "Insufficient fund",
+        Component: NotifierComponents.Alert,
+        componentProps: {
+          alertType: 'error',
+        },
+      });
+    }
+    if(number > assetDataTrad?.availBal && from === "trading") {
+      return  Notifier.showNotification({
+        title: 'Error',
+        description: "Insufficient fund",
+        Component: NotifierComponents.Alert,
+        componentProps: {
+          alertType: 'error',
+        },
+      });
+    }
+    setLoader(true)
+    try {
+      var response = await dispatch(transferToken(payload))
+     
+      if(transferToken.fulfilled.match(response)){
+        setLoader(false)
+        dispatch(getFundingAccountByCurrency(selectedAssets.toLowerCase())).then(
+          dd =>{ 
+            var head = dd?.payload[selectedAssets]
+            setAssetDataFund(head)
+          }
+        );
+        dispatch(getTradingAccountByCurrency(selectedAssets.toLowerCase())).then(
+          dd => {
+            var head = dd?.payload[selectedAssets]
+            setAssetDataTrad(head)
+          }
+        );
+        Notifier.showNotification({
+          title: 'Success',
+          description: "Success",
+          Component: NotifierComponents.Alert,
+          componentProps: {
+            alertType: 'success',
+          },
+        });
+      }
+      else {
+        setLoader(false)
+        var errMsg = response?.payload as string
+        Notifier.showNotification({
+          title: 'Error',
+          description: errMsg,
+          Component: NotifierComponents.Alert,
+          componentProps: {
+            alertType: 'error',
+          },
+        });
+      }
+    }
+    catch(e){
+      setLoader(false)
+    }
+  }
+
   return (
     <View style={GlobalStyle.container}>
       <View style={styles.centeredView}>
         <View style={styles.centeredView}>
           <ScrollView>
             <View style={styles.modalView}>
-            <HeaderComponent onPress={() => navigation.goBack()} />
-            <Text style={{...FONTS.h2,fontWeight: 'bold', textAlign: 'left'}}>Transfer Assets</Text>
+              <HeaderComponent onPress={() => navigation.goBack()} />
+              <Text
+                style={{...FONTS.h2, fontWeight: 'bold', textAlign: 'left'}}>
+                Transfer Assets
+              </Text>
               <Text
                 style={{
                   ...FONTS.body4,
@@ -100,9 +210,7 @@ const Transfer = ({navigation}: any) => {
                 </View>
                 <View style={styles.row}>
                   <View style={styles.rowDiv}>
-                    <Text style={{...FONTS.body5, color: COLORS.gray}}>
-                      To
-                    </Text>
+                    <Text style={{...FONTS.body5, color: COLORS.gray}}>To</Text>
                   </View>
                   <View style={styles.cardDiv}>
                     <Text style={{...FONTS.body5, color: COLORS.gray}}>
@@ -138,7 +246,8 @@ const Transfer = ({navigation}: any) => {
                     keyboardType="numeric"
                   />
                 </View>
-                <View
+               <TouchableOpacity onPress={() => handleMax()}>
+               <View
                   style={{
                     backgroundColor: COLORS.primary,
                     paddingHorizontal: hp(5),
@@ -146,16 +255,26 @@ const Transfer = ({navigation}: any) => {
                   }}>
                   <Text style={{...FONTS.body4, color: COLORS.white}}>Max</Text>
                 </View>
+               </TouchableOpacity>
               </View>
               <Text
                 style={{
                   ...FONTS.body4,
                   marginVertical: hp(5),
                   color: COLORS.gray,
-                }}>{`Avail: 0 ${selectedAssets}`}</Text>
+                }}>{`Avail: ${from === "funding" ? 
+                `${format(
+                  parseFloat(
+                    assetDataFund?.availBal || 0
+                  ).toFixed(4),
+                )}` : from === "trading" ?  `${format(
+                  parseFloat(
+                    assetDataTrad?.availBal || 0
+                  ).toFixed(4),
+                )}` : 0} ${selectedAssets}`}</Text>
 
               <View style={{marginTop: hp(10)}}>
-                <IconTextButton label="Transfer Token" />
+                <IconTextButton label="Transfer Token" isLoading={loader} onPress={handleTokenTransfer} />
               </View>
             </View>
           </ScrollView>
@@ -164,12 +283,12 @@ const Transfer = ({navigation}: any) => {
               setSelectedToken={(value: any) => handleSelection(value)}
               setModalVisible={() => handleOpenSelectClose()}
             /> */}
-              <SwapTokenModal
-        modalVisible={openSelect}
-        setSelectedToken={(value: any) => handleSelection(value)}
-        setModalVisible={() => handleOpenSelectClose()}
-        selectedToken={null}
-      />
+          <SwapTokenModal
+            modalVisible={openSelect}
+            setSelectedToken={(value: any) => handleSelection(value)}
+            setModalVisible={() => handleOpenSelectClose()}
+            selectedToken={null}
+          />
         </View>
       </View>
     </View>

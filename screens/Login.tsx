@@ -1,3 +1,4 @@
+/* eslint-disable no-trailing-spaces */
 /* eslint-disable react-native/no-inline-styles */
 /* eslint-disable comma-dangle */
 /* eslint-disable keyword-spacing */
@@ -13,7 +14,7 @@ import {
 import React, {useState} from 'react';
 import GlobalStyle from '../utils/globalStyle';
 import {hp, wp} from '../utils/helper';
-import {FONTS} from '../utils/constants/theme';
+import {COLORS, FONTS} from '../utils/constants/theme';
 import {TextInput} from '../components/TextInput';
 import {LoginFormData} from '../utils/types';
 import {LoginSchema} from '../utils/schemas';
@@ -22,7 +23,7 @@ import IconTextButton from '../components/IconTextButton';
 import {useAppDispatch} from '../app/hooks';
 import {signInUser} from '../slice/AuthSlice';
 import {Notifier, NotifierComponents} from 'react-native-notifier';
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 
 const Login = ({navigation}: any) => {
   const dispatch = useAppDispatch();
@@ -71,60 +72,76 @@ const Login = ({navigation}: any) => {
     });
 
   return (
-  <KeyboardAwareScrollView style={[GlobalStyle.container, styles.div]}>
-    <View>
-      {/* <HeaderComponent onPress={() => navigation.goBack()} /> */}
-      <View style={styles.margin} />
-      <Text style={{...FONTS.h2}}>Log in</Text>
-      <Text style={[GlobalStyle.subTitle, {marginBottom: hp(5)}]}>
-        Let’s get you started right away
-      </Text>
-      <ScrollView>
-        <View style={styles.top}>
-          <TextInput
-            label={'Email'}
-            value={values.emailAddress}
-            onBlur={handleBlur('emailAddress')}
-            onChangeText={handleChange('emailAddress')}
-            errorMsg={touched.emailAddress ? errors.emailAddress : undefined}
-          />
+    <KeyboardAwareScrollView style={[GlobalStyle.container, styles.div]}>
+      <View>
+        {/* <HeaderComponent onPress={() => navigation.goBack()} /> */}
+        <View style={styles.margin} />
+        <Text style={{...FONTS.h2}}>Log in</Text>
+        <Text style={[GlobalStyle.subTitle, {marginBottom: hp(5)}]}>
+          Let’s get you started right away
+        </Text>
+        <ScrollView>
+          <View style={styles.top}>
+            <TextInput
+              label={'Email'}
+              value={values.emailAddress}
+              onBlur={handleBlur('emailAddress')}
+              onChangeText={handleChange('emailAddress')}
+              errorMsg={touched.emailAddress ? errors.emailAddress : undefined}
+            />
 
-          <TextInput
-            label={'Password'}
-            isPassword
-            value={values.password}
-            onBlur={handleBlur('password')}
-            onChangeText={handleChange('password')}
-            errorMsg={touched.password ? errors.password : undefined}
-          />
-          <TouchableOpacity
-            onPress={() => navigation.navigate('ForgetPassword')}>
-            <Text
-              style={{
-                ...FONTS.body4,
-                textAlign: 'right',
-                marginBottom: hp(15),
-                color: '#808080',
-              }}>
-              Forget Password ?
+            <TextInput
+              label={'Password'}
+              isPassword
+              value={values.password}
+              onBlur={handleBlur('password')}
+              onChangeText={handleChange('password')}
+              errorMsg={touched.password ? errors.password : undefined}
+            />
+            <TouchableOpacity
+              onPress={() => navigation.navigate('ForgetPassword')}>
+              <Text
+                style={{
+                  ...FONTS.body4,
+                  textAlign: 'right',
+                  marginBottom: hp(15),
+                  color: COLORS.primary,
+                }}>
+                Forget Password ?
+              </Text>
+            </TouchableOpacity>
+            <IconTextButton
+              label="Login"
+              onPress={handleSubmit}
+              isLoading={loader}
+            />
+          </View>
+        </ScrollView>
+
+        <TouchableOpacity onPress={() => navigation.navigate('CreateAccount')}>
+          <View style={styles.bottom}>
+            <Text>
+              <Text
+                style={{
+                  ...FONTS.body4,
+                  textAlign: 'center',
+                  marginRight: hp(5),
+                  color: '#808080',
+                }}>
+                Don’t have an account?   
+              </Text>
+              <Text
+                style={{
+                  ...FONTS.body4,
+                  color: COLORS.primary,
+                  marginLeft: hp(3),
+                }}>
+                Create Account
+              </Text>
             </Text>
-          </TouchableOpacity>
-          <IconTextButton
-            label="Login"
-            onPress={handleSubmit}
-            isLoading={loader}
-          />
-        </View>
-      </ScrollView>
-
-      <TouchableOpacity onPress={() => navigation.navigate('CreateAccount')}>
-        <View style={styles.bottom}>
-          <Text style={{...FONTS.body4, textAlign: 'center', color: '#808080'}}>
-            Don’t have an account ? Create Account
-          </Text>
-        </View>
-      </TouchableOpacity>
-    </View>
+          </View>
+        </TouchableOpacity>
+      </View>
     </KeyboardAwareScrollView>
   );
 };

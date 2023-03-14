@@ -79,6 +79,7 @@ const AssetInfo = (props: any) => {
 
 
 
+
   return (
     <View style={GlobalStyle.container}>
       <View style={GlobalStyle.rowBetween}>
@@ -104,7 +105,7 @@ const AssetInfo = (props: any) => {
             <Text style={{...FONTS.body5, color: COLORS.white}}>
               {assetData &&
                 `${format(
-                  parseFloat(assetData[asset?.toUpperCase()]?.availBal).toFixed(
+                  parseFloat(assetData[asset?.toUpperCase()]?.availBal || 0).toFixed(
                     4,
                   ),
                 )} ${asset?.toUpperCase()} `}
@@ -127,7 +128,7 @@ const AssetInfo = (props: any) => {
               {assetData &&
                 `${format(
                   parseFloat(
-                    assetData[asset?.toUpperCase()]?.pendingBal,
+                    assetData[asset?.toUpperCase()]?.pendingBal || 0
                   ).toFixed(4),
                 )}`}
             </Text>
@@ -147,7 +148,7 @@ const AssetInfo = (props: any) => {
           <Text style={{textAlign: 'center', fontWeight: 'bold', ...FONTS.h1, color: COLORS.white,}}>
           {show ? `${assetData &&
               `$${format(
-                parseFloat(assetData[asset?.toUpperCase()]?.balance).toFixed(4),
+                parseFloat(assetData[asset?.toUpperCase()]?.balance || 0).toFixed(4),
               )}`}` : '$-------'}
            
           </Text>
@@ -214,7 +215,7 @@ const AssetInfo = (props: any) => {
             <Pressable onPress={() => setType('all')}>
               <Text
                 style={{
-                  ...FONTS.h3,
+                  ...FONTS.h5,
                   textAlign: 'center',
                   color: type === 'all' ? COLORS.white : COLORS.primary,
                 }}>
@@ -238,7 +239,7 @@ const AssetInfo = (props: any) => {
             <Pressable onPress={() => setType('withdraw')}>
               <Text
                 style={{
-                  ...FONTS.h3,
+                  ...FONTS.h5,
                   textAlign: 'center',
                   color:
                     type === 'withdraw' ? COLORS.white : COLORS.primary,
@@ -263,7 +264,7 @@ const AssetInfo = (props: any) => {
             <Pressable onPress={() => setType('deposit')}>
               <Text
                 style={{
-                  ...FONTS.h3,
+                  ...FONTS.h5,
                   textAlign: 'center',
                   color:
                     type === 'deposit' ? COLORS.white : COLORS.primary,
@@ -288,7 +289,7 @@ const AssetInfo = (props: any) => {
             <Pressable onPress={() => setType('successful')}>
               <Text
                 style={{
-                  ...FONTS.h3,
+                  ...FONTS.h5,
                   textAlign: 'center',
                   color:
                     type === 'successful' ? COLORS.white : COLORS.primary,
@@ -313,7 +314,7 @@ const AssetInfo = (props: any) => {
             <Pressable onPress={() => setType('incoming')}>
               <Text
                 style={{
-                  ...FONTS.h3,
+                  ...FONTS.h5,
                   textAlign: 'center',
                   color:
                     type === 'incoming' ? COLORS.white : COLORS.primary,
@@ -338,7 +339,7 @@ const AssetInfo = (props: any) => {
             <Pressable onPress={() => setType('pending')}>
               <Text
                 style={{
-                  ...FONTS.h3,
+                  ...FONTS.h5,
                   textAlign: 'center',
                   color:
                     type === 'pending' ? COLORS.white : COLORS.primary,
@@ -363,7 +364,7 @@ const AssetInfo = (props: any) => {
             <Pressable onPress={() => setType('failed')}>
               <Text
                 style={{
-                  ...FONTS.h3,
+                  ...FONTS.h5,
                   textAlign: 'center',
                   color: type === 'failed' ? COLORS.white : COLORS.primary,
                 }}>

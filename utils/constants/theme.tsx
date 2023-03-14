@@ -54,17 +54,17 @@ export const SIZES = {
     height
 };
 export const FONTS = {
-    largeTitle: { fontFamily: "NunitoSans-Regular", fontSize: SIZES.largeTitle, color: COLORS.black },
-    h1: { fontFamily: "NunitoSans-Regular", fontSize: SIZES.h1, lineHeight: 36, color: COLORS.black },
-    h2: { fontFamily: "NunitoSans-Regular", fontSize: SIZES.h2, lineHeight: 30, color: COLORS.black , letterSpacing: hp(1) },
-    h3: { fontFamily: "NunitoSans-Regular", fontSize: SIZES.h3, lineHeight: 22, color: COLORS.black },
-    h4: { fontFamily: "NunitoSans-Regular", fontSize: SIZES.h4, lineHeight: 22, color: COLORS.black },
-    h5: { fontFamily: "NunitoSans-Regular", fontSize: SIZES.h5, lineHeight: 22, color: COLORS.black },
-    body1: { fontFamily: "NunitoSans-Regular", fontSize: SIZES.body1, lineHeight: 36, color: COLORS.black },
-    body2: { fontFamily: "NunitoSans-Regular", fontSize: SIZES.body2, lineHeight: 30, color: COLORS.black },
-    body3: { fontFamily: "NunitoSans-Regular", fontSize: SIZES.body3, lineHeight: 22, color: COLORS.black },
-    body4: { fontFamily: "NunitoSans-Regular", fontSize: SIZES.body4, lineHeight: 22, color: COLORS.black },
-    body5: { fontFamily: "NunitoSans-Regular", fontSize: SIZES.body5, lineHeight: 22, color: COLORS.black },
+    largeTitle: { fontFamily: "Poppins-Bold", fontSize: SIZES.largeTitle, color: COLORS.black },
+    h1: { fontFamily: "Poppins-Bold", fontSize: SIZES.h1, lineHeight: 36, color: COLORS.black },
+    h2: { fontFamily: "Poppins-Bold", fontSize: SIZES.h2, lineHeight: 30, color: COLORS.black , letterSpacing: hp(1) },
+    h3: { fontFamily: "Poppins-Bold", fontSize: SIZES.h3, lineHeight: 22, color: COLORS.black },
+    h4: { fontFamily: "Poppins-Bold", fontSize: SIZES.h4, lineHeight: 22, color: COLORS.black },
+    h5: { fontFamily: "Poppins-Bold", fontSize: SIZES.h5, lineHeight: 22, color: COLORS.black },
+    body1: { fontFamily: "Poppins-Regular", fontSize: SIZES.body1, lineHeight: 36, color: COLORS.black },
+    body2: { fontFamily: "Poppins-Regular", fontSize: SIZES.body2, lineHeight: 30, color: COLORS.black },
+    body3: { fontFamily: "Poppins-Regular", fontSize: SIZES.body3, lineHeight: 22, color: COLORS.black },
+    body4: { fontFamily: "Poppins-Regular", fontSize: SIZES.body4, lineHeight: 22, color: COLORS.black },
+    body5: { fontFamily: "Poppins-Regular", fontSize: SIZES.body5, lineHeight: 22, color: COLORS.black },
 };
 
 const appTheme = { COLORS, SIZES, FONTS };

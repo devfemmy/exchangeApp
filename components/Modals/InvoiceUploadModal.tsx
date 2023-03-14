@@ -60,7 +60,7 @@ const InvoiceUploadModal = ({modalVisible, setModalVisible}: any) => {
                 }}>
                 To complete your transaction, Kindly upload your payment invoice
               </Text>
-             <UploadCard header="Upload CAC Document" />
+             <UploadCard header="Upload Invoice Document" />
 
               <View style={GlobalStyle.rowBetween}>
                 <TouchableOpacity
