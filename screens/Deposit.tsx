@@ -77,13 +77,13 @@ const Deposit = ({navigation}: any) => {
             </Text>
             <View style={styles.search}>
               <TextInput
-                label={'Search Assets'}
+                label={'Search Tokens'}
                 value={value}
                 onChangeText={(value: any) => setValue(value)}
                 searchInput
               />
             </View>
-            <ScrollView>{assets()}</ScrollView>
+            <ScrollView showsVerticalScrollIndicator={false}>{assets()}</ScrollView>
 
             <DepositModal 
                   modalVisible={openModal}
