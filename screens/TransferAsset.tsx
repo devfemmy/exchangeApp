@@ -12,7 +12,7 @@ const TransferAsset = ({navigation}: any) => {
     <View style={GlobalStyle.container}>
       <View style={GlobalStyle.rowBetween}>
         <AntDesign name="arrowleft" size={hp(25)} onPress={() => navigation?.goBack()} />
-        <Text style={{...FONTS.h3, fontWeight: 'bold'}}>Transfer Asset</Text>
+        <Text style={{...FONTS.h3, fontWeight: '600'}}>Transfer Asset</Text>
         <View />
       </View>
 
@@ -31,14 +31,14 @@ const TransferAsset = ({navigation}: any) => {
         <View style={{width: "100%", height: hp(2), backgroundColor: COLORS.lightGray2, marginVertical: hp(30)}} />
     
         <View style={styles.card}>
-            <Text style={{...FONTS.largeTitle, fontWeight: 'bold'}}>$1,000</Text>
+            <Text style={{...FONTS.largeTitle, fontWeight: '600'}}>$1,000</Text>
             <Text style={{...FONTS.body4, color: COLORS.gray}}>10 USDT</Text>
         </View>
 
         <View style={[GlobalStyle.rowBetween, {marginVertical: hp(40)}]}>
             <View>
                 <Text style={{...FONTS.body5, color: COLORS.gray}}>Available Balance</Text>
-                <Text style={{...FONTS.body3, fontWeight: 'bold'}}>$200</Text>
+                <Text style={{...FONTS.body3, fontWeight: '600'}}>$200</Text>
             </View>
 
             <View style={styles.box}>

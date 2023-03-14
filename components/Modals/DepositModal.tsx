@@ -50,14 +50,14 @@ import { useNavigation } from '@react-navigation/native';
                 </View>
               </TouchableOpacity>
   
-              <Text style={{...FONTS.h3, color: COLORS.primary, fontWeight: 'bold', textAlign: 'center', marginBottom: hp(20)}}>Select Network</Text>
+              <Text style={{...FONTS.h3, color: COLORS.primary, fontWeight: '600', textAlign: 'center', marginBottom: hp(20)}}>Select Network</Text>
              
              <ScrollView>
              {
                 networks?.map((data: any) => {
                     return <TouchableOpacity onPress={() => handleAction(data)}>
                        <View style={styles.net}>
-                       <Text style={{...FONTS.h4, color: COLORS.primary,fontWeight: 'bold', textAlign: 'center'}}>{data?.chain}</Text>
+                       <Text style={{...FONTS.h4, color: COLORS.primary,fontWeight: '600', textAlign: 'center'}}>{data?.chain}</Text>
                        </View>
                     </TouchableOpacity>
                 })

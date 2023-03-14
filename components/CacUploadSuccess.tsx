@@ -9,7 +9,7 @@ const CacUploadSuccess = ({navigation}: any) => {
   return (
     <View style={[GlobalStyle.container, {flex: 1}]}>
       <View style={styles.div}>
-        <Text style={{...FONTS.h2, textAlign: 'center', color: COLORS.darkGreen, fontWeight: 'bold'}}>Your CAC Document has been uploaded</Text>
+        <Text style={{...FONTS.h2, textAlign: 'center', color: COLORS.darkGreen, fontWeight: '600'}}>Your CAC Document has been uploaded</Text>
         <Text style={{...FONTS.body4, textAlign: 'center', color: COLORS.gray, marginVertical: hp(30)}}>Your CAC Document uploaded and verified, you now have access to Zend USD</Text>
       </View> 
      <View style={styles.div2}>

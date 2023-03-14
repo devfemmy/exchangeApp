@@ -14,7 +14,7 @@ const TokenHistory = ({navigation}: any) => {
     <View style={GlobalStyle.container}>
               <View style={styles.margin} />
               <HeaderComponent onPress={() => navigation.goBack()} /> 
-      <Text style={{...FONTS.h3, fontWeight: 'bold'}}>Token Transactions</Text>
+      <Text style={{...FONTS.h3, fontWeight: '600'}}>Token Transactions</Text>
       <View style={[GlobalStyle.rowStart, {marginTop: hp(30), marginBottom: hp(20)}]}>
         <ScrollView horizontal showsHorizontalScrollIndicator={false}>
           <View

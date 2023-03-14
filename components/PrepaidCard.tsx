@@ -34,7 +34,7 @@ const PrepaidCard = () => {
               style={{
                 ...FONTS.body5,
                 marginLeft: hp(4),
-                fontWeight: 'bold'
+                fontWeight: '600'
               }}>{format(1500)}</Text>
                <Text
               style={{

@@ -99,7 +99,7 @@ const RequireConfirmation = (props: any) => {
         color={COLORS.gray2}
       />
 
-      <Text style={{...FONTS.h2, fontWeight: 'bold'}}>Verify New Device</Text>
+      <Text style={{...FONTS.h2, fontWeight: '600'}}>Verify New Device</Text>
 
       <Text
         style={{

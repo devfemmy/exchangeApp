@@ -15,7 +15,7 @@ const ZendPrepaid = ({navigation}: any) => {
         header="History"
         handlePress={() => navigation?.navigate('ZendPrepaidHistory')}
       />
-      <Text style={{...FONTS.h3, fontWeight: 'bold'}}>Zend Prepaid</Text>
+      <Text style={{...FONTS.h3, fontWeight: '600'}}>Zend Prepaid</Text>
 
       <View style={styles.cardDiv}>
         <ScrollView
@@ -27,7 +27,7 @@ const ZendPrepaid = ({navigation}: any) => {
               Available Balance in USDT
             </Text>
             <Text
-              style={{...FONTS.h1, fontWeight: 'bold', color: COLORS.white}}>
+              style={{...FONTS.h1, fontWeight: '600', color: COLORS.white}}>
               $2,000
             </Text>
           </View>
@@ -35,7 +35,7 @@ const ZendPrepaid = ({navigation}: any) => {
           <Text style={{...FONTS.h5, color: COLORS.white}}>
             Available Balance in USDT
           </Text>
-          <Text style={{...FONTS.h1, fontWeight: 'bold', color: COLORS.white}}>
+          <Text style={{...FONTS.h1, fontWeight: '600', color: COLORS.white}}>
             $2,000
           </Text>
         </View>
@@ -43,7 +43,7 @@ const ZendPrepaid = ({navigation}: any) => {
           <Text style={{...FONTS.h5, color: COLORS.white}}>
             Available Balance in USDT
           </Text>
-          <Text style={{...FONTS.h1, fontWeight: 'bold', color: COLORS.white}}>
+          <Text style={{...FONTS.h1, fontWeight: '600', color: COLORS.white}}>
             $2,000
           </Text>
         </View> */}

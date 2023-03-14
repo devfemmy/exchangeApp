@@ -43,7 +43,7 @@ import { tradingAccount } from '../../slice/WalletSlice';
             <Text style={{...FONTS.body5}}>{`${format(
             tradingAccountInfo?.[data?.toUpperCase()]?.availBal ?   `${parseFloat(tradingAccountInfo?.[data?.toUpperCase()]?.availBal).toFixed(2)}` : 0     
           )}`}</Text>
-          <Text style={{...FONTS.body5, fontWeight: 'bold'}}>{`$${format(
+          <Text style={{...FONTS.body5, fontWeight: '600'}}>{`$${format(
             tradingAccountInfo?.[data?.toUpperCase()]?.availBal ?   parseFloat(tradingAccountInfo?.[data?.toUpperCase()]?.availBal).toFixed(2) : 0     
           )}`}</Text>    
         </View>
@@ -66,7 +66,7 @@ import { tradingAccount } from '../../slice/WalletSlice';
                   style={styles.icons}
                 />
                 <View style={{marginLeft: hp(10)}}>
-                  <Text style={{...FONTS.body3, fontWeight: 'bold'}}>
+                  <Text style={{...FONTS.body3, fontWeight: '600'}}>
                     {info?.token}
                   </Text>
                   <Text style={{...FONTS.body5, textTransform: 'uppercase'}}>
