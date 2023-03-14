@@ -152,11 +152,11 @@ const Home = ({navigation}: any) => {
                 />
                 )}
               </View>
-              <Text style={[styles.txt, {...FONTS.h5,fontWeight: 'bold', marginTop: hp(10), color: COLORS.white}]}>
+              <Text style={[styles.txt, {...FONTS.h5,fontWeight: '600', marginTop: hp(10), color: COLORS.white}]}>
                 Total Assets Balance
               </Text>
               <Text
-                style={[styles.txt, {...FONTS.largeTitle, fontWeight: 'bold',color: COLORS.white}]}>
+                style={[styles.txt, {...FONTS.largeTitle, fontWeight: '600',color: COLORS.white}]}>
                 {show ? `$${format(totalAssetBalanceUsd ? totalAssetBalanceUsd?.toFixed(2) : 0)}` : '$-------'}
               </Text>
               <Text style={[styles.txt, {...FONTS.body5, color: COLORS.white}]}>
@@ -200,7 +200,7 @@ const Home = ({navigation}: any) => {
             {(!getUserInfo?.hasSetPin ||
               !getUserInfo?.isKycVerified ||
               !getUserInfo?.hasVerifiedPhoneNumber) &&
-            <Text style={[{...FONTS.h4, fontWeight: 'bold', marginVertical: hp(15)}]}>
+            <Text style={[{...FONTS.h4, fontWeight: '600', marginVertical: hp(15)}]}>
               Pending Action
             </Text>
             }
@@ -209,7 +209,7 @@ const Home = ({navigation}: any) => {
               .map(data => {
                 return (
                   <View style={styles.actionCard}>
-                    <Text style={[{...FONTS.body5, fontWeight: 'bold'}]}>{data?.name}</Text>
+                    <Text style={[{...FONTS.body5, fontWeight: '600'}]}>{data?.name}</Text>
                     <Text style={[styles.tag, {...FONTS.body5, color: COLORS.white}]}>
                       {data?.status}
                     </Text>

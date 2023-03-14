@@ -20,7 +20,7 @@ const GiftCard = ({navigation}: any) => {
               size={hp(25)}
               onPress={() => navigation?.goBack()}
             />
-            <Text style={{...FONTS.h3, fontWeight: 'bold'}}>
+            <Text style={{...FONTS.h3, fontWeight: '600'}}>
               Convert Gift card
             </Text>
             <View />
@@ -30,7 +30,7 @@ const GiftCard = ({navigation}: any) => {
               ...FONTS.body5,
               color: COLORS.lightBlack,
               marginVertical: hp(20),
-              fontWeight: 'bold',
+              fontWeight: '600',
             }}>
             Select your gift card type
           </Text>
@@ -56,7 +56,7 @@ const GiftCard = ({navigation}: any) => {
                 style={{
                   ...FONTS.body5,
                   color: COLORS.primary,
-                  fontWeight: 'bold',
+                  fontWeight: '600',
                 }}>
                 Upload the back view of the gift card
               </Text>

@@ -49,7 +49,7 @@ const Swap = ({navigation}: any) => {
         <View style={styles.centeredView}>
           <View style={styles.modalView}>
             <HeaderComponent onPress={() => navigation.goBack()} />
-            <Text style={{...FONTS.h2,fontWeight: 'bold', textAlign: 'left'}}>Withdraw</Text>
+            <Text style={{...FONTS.h2,fontWeight: '600', textAlign: 'left'}}>Withdraw</Text>
             <Text
               style={{
                 ...FONTS.body4,

@@ -14,7 +14,7 @@ const ZendUsdHistory = ({navigation}: any) => {
     <View style={GlobalStyle.container}>
               <View style={styles.margin} />
               <HeaderComponent onPress={() => navigation.goBack()} /> 
-      <Text style={{...FONTS.h3, fontWeight: 'bold'}}>Zend Usd History</Text>
+      <Text style={{...FONTS.h3, fontWeight: '600'}}>Zend Usd History</Text>
       <View style={[GlobalStyle.rowStart, {marginTop: hp(30), marginBottom: hp(20)}]}>
         <ScrollView horizontal showsHorizontalScrollIndicator={false}>
           <View

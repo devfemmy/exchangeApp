@@ -30,7 +30,7 @@ const MarketComponent = ({info, navigation,type, action}: any) => {
         resizeMode={FastImage.resizeMode.cover}
     />
         <View style={{marginLeft: hp(10)}}>
-          <Text style={{...FONTS.body3, color: COLORS.lightBlack, fontWeight: 'bold'}}>
+          <Text style={{...FONTS.body3, color: COLORS.lightBlack, fontWeight: '600'}}>
             {info?.token}
           </Text>
           <Text style={{...FONTS.body5, color: COLORS.lightBlack, textTransform: 'uppercase'}}>

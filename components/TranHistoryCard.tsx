@@ -34,7 +34,7 @@ const TranHistoryCard = ({header}: any) => {
         <Text
           style={{
             ...FONTS.body5,
-            fontWeight: 'bold',
+            fontWeight: '600',
           }}>{`${format(
           10000,
         )} ETH`}</Text>

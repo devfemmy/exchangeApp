@@ -12,7 +12,7 @@ const PaymentDetails = ({navigation}: any) => {
     <ScrollView showsVerticalScrollIndicator={false} style={GlobalStyle.container}>
       <View>
       <HeaderComponent onPress={() => navigation.goBack()} />
-      <Text style={{...FONTS.h3, fontWeight: 'bold'}}>
+      <Text style={{...FONTS.h3, fontWeight: '600'}}>
         Confirm Payment Details
       </Text>
       <Text style={{...FONTS.body5, color: COLORS.gray}}>
@@ -25,7 +25,7 @@ const PaymentDetails = ({navigation}: any) => {
           <Text
             style={{
               ...FONTS.body4,
-              fontWeight: 'bold',
+              fontWeight: '600',
               width: wp(200),
               textAlign: 'right',
             }}>
@@ -37,14 +37,14 @@ const PaymentDetails = ({navigation}: any) => {
           <Text style={{...FONTS.body4, color: COLORS.gray}}>
             Amount you want to send
           </Text>
-          <Text style={{...FONTS.body4, fontWeight: 'bold'}}>$1000</Text>
+          <Text style={{...FONTS.body4, fontWeight: '600'}}>$1000</Text>
         </View>
         <View style={[GlobalStyle.rowBetween, {marginVertical: hp(10)}]}>
           <Text style={{...FONTS.body4, color: COLORS.gray}}>Rate</Text>
           <Text
             style={{
               ...FONTS.body4,
-              fontWeight: 'bold',
+              fontWeight: '600',
               width: wp(200),
               textAlign: 'right',
             }}>
@@ -58,7 +58,7 @@ const PaymentDetails = ({navigation}: any) => {
           <Text
             style={{
               ...FONTS.body4,
-              fontWeight: 'bold',
+              fontWeight: '600',
               width: wp(200),
               textAlign: 'right',
             }}>
@@ -72,7 +72,7 @@ const PaymentDetails = ({navigation}: any) => {
           <Text
             style={{
               ...FONTS.body4,
-              fontWeight: 'bold',
+              fontWeight: '600',
               width: wp(200),
               textAlign: 'right',
             }}>
@@ -84,7 +84,7 @@ const PaymentDetails = ({navigation}: any) => {
           <Text
             style={{
               ...FONTS.body4,
-              fontWeight: 'bold',
+              fontWeight: '600',
               width: wp(200),
               textAlign: 'right',
             }}>
@@ -98,7 +98,7 @@ const PaymentDetails = ({navigation}: any) => {
           <Text
             style={{
               ...FONTS.body4,
-              fontWeight: 'bold',
+              fontWeight: '600',
               width: wp(200),
               textAlign: 'right',
             }}>
@@ -110,7 +110,7 @@ const PaymentDetails = ({navigation}: any) => {
           <Text
             style={{
               ...FONTS.body4,
-              fontWeight: 'bold',
+              fontWeight: '600',
               width: wp(200),
               textAlign: 'right',
             }}>
@@ -122,7 +122,7 @@ const PaymentDetails = ({navigation}: any) => {
           <Text
             style={{
               ...FONTS.body4,
-              fontWeight: 'bold',
+              fontWeight: '600',
               width: wp(200),
               textAlign: 'right',
             }}>
@@ -132,12 +132,12 @@ const PaymentDetails = ({navigation}: any) => {
 
         <View style={[GlobalStyle.rowBetween, {marginVertical: hp(10)}]}>
         <Text style={{...FONTS.body4, color: COLORS.gray}}>Charges</Text>
-        <Text style={{...FONTS.body4, fontWeight: 'bold', width: wp(200), textAlign: "right"}}>2373778276</Text>
+        <Text style={{...FONTS.body4, fontWeight: '600', width: wp(200), textAlign: "right"}}>2373778276</Text>
       </View>
 
       <View style={[GlobalStyle.rowBetween, {marginVertical: hp(10)}]}>
         <Text style={{...FONTS.body4, color: COLORS.gray}}>Recipient will receive</Text>
-        <Text style={{...FONTS.body4, fontWeight: 'bold', width: wp(200), textAlign: "right"}}>$8,900</Text>
+        <Text style={{...FONTS.body4, fontWeight: '600', width: wp(200), textAlign: "right"}}>$8,900</Text>
       </View>
       </View>
 

@@ -241,7 +241,7 @@ const AssetInfo = (props: any) => {
             }}>
             Total Balance
           </Text>
-          <Text style={{textAlign: 'center', fontWeight: 'bold', ...FONTS.h1, color: COLORS.white}}>
+          <Text style={{textAlign: 'center', fontWeight: '600', ...FONTS.h1, color: COLORS.white}}>
           {show ? `${assetData &&
               `$${format(
                 parseFloat(assetData[asset?.toUpperCase()]?.balance || 0).toFixed(4),
