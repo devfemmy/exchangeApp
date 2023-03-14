@@ -1,3 +1,4 @@
+/* eslint-disable no-trailing-spaces */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable react-hooks/exhaustive-deps */
 import {View, Text, StyleSheet, TouchableOpacity, Image} from 'react-native';
@@ -14,22 +15,29 @@ import {getMarketPrice, marketInfo} from '../slice/TradeSlice';
 import IconTextButton from '../components/IconTextButton';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import SwapTokenModal from '../components/Modals/SwapTokenModal';
-import { tether } from '../assets/images';
-import { getTradingAccount, tradingAccount } from '../slice/WalletSlice';
+import {tether} from '../assets/images';
+import {
+  getTradingAccount,
+  getTradingAccountByCurrency,
+  tradingAccount,
+} from '../slice/WalletSlice';
 import SwapHeader from '../components/SwapHeader';
 
 const SwapCard = (props: any) => {
-  const assetName = props.route?.params?.info?.token;
-  const currencyIcon = props.route?.params?.info?.icon;
-  const currencyName = props.route?.params?.info?.currency;
+  const [assetName, setAssetName] = useState(props.route?.params?.info?.token);
+  const [currencyIcon, setCurrencyIcon] = useState(props.route?.params?.info?.icon);
+  const [currencyName, setCurrencyName] = useState(props.route?.params?.info?.currency);
   const [max, setMax] = useState('');
   const [openSelectTo, setOpenSelectTo] = useState(false);
-  const [selectedAssetsTo, setSelectedAssetsTo] = useState('Not selected');
-  const [selectedIcon, setSelectedIcon] = useState<any>()
-  const [selectedBalance, setSelectedBalance] = useState<any>(0)
-  const tradingAccountInfo: any = useAppSelector(tradingAccount)
+  const [selectedAssetsTo, setSelectedAssetsTo] = useState('N/A');
+  const [selectedIcon, setSelectedIcon] = useState<any>();
+  const [selectedBalance, setSelectedBalance] = useState<any>(0);
+  const tradingAccountInfo: any = useAppSelector(tradingAccount);
   const [assetData, setAssetData] = useState<any>();
-  const dispatch = useAppDispatch()
+  const dispatch = useAppDispatch();
+  const [amount, setAmount] = useState<any>()
+
+  const [assetDataTo, setAssetDataTo] = useState<any>();
 
   const handleOpenSelectToOpen = () => {
     setOpenSelectTo(true);
@@ -40,49 +48,77 @@ const SwapCard = (props: any) => {
   };
 
   useEffect(() => {
-   const loadData = async () => {
+    const loadData = async () => {
       await dispatch(getTradingAccount()).then(gg => {
-        setAssetData(gg?.payload?.[currencyName?.toUpperCase()])
-      })
-   } 
-   loadData()
-  }, [currencyName])
+        setAssetData(gg?.payload?.[currencyName?.toUpperCase()]);
+      });
+    };
+    loadData();
+  }, [currencyName]);
 
-
+  useEffect(() => {
+    const loadData = async () => {
+      await dispatch(getTradingAccount()).then(gg => {
+        setAssetDataTo(gg?.payload?.[selectedAssetsTo]);
+      });
+    };
+    loadData();
+  }, [selectedAssetsTo]);
 
   const range = [
     {
       id: 1,
-      num: '25%',
+      num: '25',
     },
     {
       id: 2,
-      num: '50%',
+      num: '50',
     },
     {
       id: 3,
-      num: '75%',
+      num: '75',
     },
     {
       id: 4,
-      num: '100%',
+      num: '100',
     },
   ];
 
   const handleSelectionTo = (value: any) => {
-    const selectedBalance = tradingAccountInfo?.[value?.currency?.toUpperCase()]?.availBal
+    const selectedBalance =
+      tradingAccountInfo?.[value?.currency?.toUpperCase()]?.availBal;
     setSelectedAssetsTo(value?.currency?.toUpperCase());
-    setSelectedIcon(value?.icon)
-    setSelectedBalance(selectedBalance ? selectedBalance : 0)
+    setSelectedIcon(value?.icon);
+    setSelectedBalance(selectedBalance ? selectedBalance : 0);
     handleOpenSelectToClose();
   };
+
+
+  const handleSwapChange = () => {
+     setCurrencyIcon(selectedIcon)
+     setCurrencyName(selectedAssetsTo)
+     setSelectedAssetsTo(currencyName)
+     setSelectedIcon(currencyIcon)
+     setAssetData(assetDataTo)
+     setAssetDataTo(assetData)
+  }
+
+  const handlePerChange = (value: any) => {
+    const max = (parseInt(value) / 1000) * assetData?.availBal
+    setAmount(max?.toString())
+    setMax(value)
+  }
+
 
   return (
     <View style={GlobalStyle.container}>
       <View style={styles.centeredView}>
         <View style={styles.centeredView}>
           <View style={[styles.modalView, styles.top]}>
-          <SwapHeader header="Swap History" handlePress={() => props?.navigation.navigate("SwapHistory")} />
+            <SwapHeader
+              header="Swap History"
+              handlePress={() => props?.navigation.navigate('SwapHistory')}
+            />
 
             <Text style={{...FONTS.h2, textAlign: 'left'}}>Swap</Text>
             <Text style={{...FONTS.body5, textAlign: 'left'}}>
@@ -91,31 +127,13 @@ const SwapCard = (props: any) => {
 
             <View style={styles.carddiv}>
               <View style={[GlobalStyle.rowBetween, styles.card]}>
-                <View>
-                  <View style={GlobalStyle.rowStart}>
-                    <Text>0</Text>
-                    <View
-                      style={{
-                        backgroundColor: COLORS.primary,
-                        padding: hp(3),
-                        marginLeft: hp(10),
-                        borderRadius: 10,
-                        width: wp(80),
-                      }}>
-                      <Text
-                        style={{
-                          ...FONTS.body5,
-                          color: COLORS.white,
-                          textAlign: 'center',
-                        }}>
-                        Swap max
-                      </Text>
-                    </View>
-                  </View>
-                  <Text style={{...FONTS.body5, marginTop: hp(10)}}>From</Text>
-                </View>
-                <View>
-                  <View style={{flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'center'}}>
+                <View style={{ width: wp(120)}}>
+                  <View
+                    style={{
+                      flexDirection: 'row',
+                      justifyContent: 'flex-start',
+                      alignItems: 'center',
+                    }}>
                     <Image source={currencyIcon} style={styles.icons} />
                     <Text
                       style={{
@@ -126,30 +144,35 @@ const SwapCard = (props: any) => {
                     </Text>
                     <AntDesign name="down" />
                   </View>
-                  <Text style={{...FONTS.body5,textAlign: 'right', marginTop: hp(10)}}>
-                    Balance: {assetData?.availBal ? format(parseFloat(assetData?.availBal)?.toFixed(2)) : 0}
+                  <Text
+                    style={{
+                      ...FONTS.body5,
+                      textAlign: 'left',
+                      marginTop: hp(10),
+                    }}>
+                    Bal:{' '}
+                    {assetData?.availBal
+                      ? format(parseFloat(assetData?.availBal)?.toFixed(2))
+                      : 0}
                   </Text>
                 </View>
-              </View>
 
-              <View style={styles.swap}>
-                <View style={styles.swapIcon}>
-                  <AntDesign name="swap" size={20} color={COLORS.primary} />
-                </View>
-              </View>
-
-              <View style={[GlobalStyle.rowBetween, styles.card]}>
-                <View>
-                  <View style={GlobalStyle.rowStart}>
-                    <Text>0</Text>
+                <TouchableOpacity onPress={() => handleSwapChange()}>
+                  <View style={styles.swap}>
+                    <View style={styles.swapIcon}>
+                      <AntDesign name="swap" size={20} color={COLORS.primary} />
+                    </View>
                   </View>
-                  <Text style={{...FONTS.body5, marginTop: hp(10)}}>
-                    Receive
-                  </Text>
-                </View>
-                <View>
-                  <TouchableOpacity onPress={() => handleOpenSelectToOpen()}>
-                    <View style={{flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'center'}}>
+                </TouchableOpacity>
+
+                <TouchableOpacity onPress={() => handleOpenSelectToOpen()}>
+                  <View style={{ width: wp(120)}}>
+                    <View
+                      style={{
+                        flexDirection: 'row',
+                        justifyContent: 'flex-end',
+                        alignItems: 'center',
+                      }}>
                       <Image source={selectedIcon} style={styles.icons} />
                       <Text
                         style={{
@@ -160,22 +183,45 @@ const SwapCard = (props: any) => {
                       </Text>
                       <AntDesign name="down" />
                     </View>
-                  </TouchableOpacity>
+                    <Text
+                      style={{
+                        ...FONTS.body5,
+                        textAlign: 'right',
+                        marginTop: hp(10),
+                      }}>
+                      Bal:{' '}
+                      {assetDataTo?.availBal
+                        ? format(parseFloat(assetDataTo?.availBal)?.toFixed(2))
+                        : 0}
+                    </Text>
+                  </View>
+                </TouchableOpacity>
+              </View>
 
-                  <Text style={{...FONTS.body5, marginTop: hp(10), textAlign: 'right'}}>
-                    Balance: {selectedBalance ? format(parseFloat(selectedBalance)?.toFixed(2)) : 0}
-                  </Text>
+              <View style={{marginTop: hp(20), flexDirection: 'row'}}>
+                <View style={{width: "100%"}}>
+                <TextInput  
+                    placeholderTextColor={COLORS.black}
+                    placeholder='Enter Amount'
+                   inputMode="numeric"
+                    keyboardType='number-pad'
+                    value={amount}
+                    onChangeText={value => setAmount(value)}
+                    style={{ backgroundColor: COLORS.primary2 }}               />
                 </View>
+               
               </View>
 
               <View
                 style={{
                   flexDirection: 'row',
-                  marginVertical: hp(20),
+                  marginVertical: hp(10),
+                  justifyContent: 'flex-end',
+                  alignItems: 'center'
                 }}>
                 {range?.map(data => {
                   return (
-                    <TouchableOpacity onPress={() => setMax(data?.num)}>
+                    <TouchableOpacity onPress={() => handlePerChange(data?.num)}>
                       <View
                         style={{
                           borderRadius: 15,
@@ -183,18 +229,19 @@ const SwapCard = (props: any) => {
                             max === data?.num
                               ? COLORS.primary
                               : COLORS.primary2,
-                          marginRight: hp(20),
+                          marginRight: hp(5),
+          
                         }}>
                         <Text
                           style={{
-                            ...FONTS.body3,
+                            ...FONTS.body5,
                             color:
                               max === data?.num ? COLORS.white : COLORS.black,
                             padding: hp(5),
                             width: wp(60),
                             textAlign: 'center',
                           }}>
-                          {data?.num}
+                          {data?.num}%
                         </Text>
                       </View>
                     </TouchableOpacity>
@@ -208,14 +255,12 @@ const SwapCard = (props: any) => {
           </View>
 
           <SwapTokenModal
-        modalVisible={openSelectTo}
-        setSelectedToken={(value: any) => handleSelectionTo(value)}
-        setModalVisible={() => handleOpenSelectToClose()}
-        selectedToken={currencyName}
-      />
+            modalVisible={openSelectTo}
+            setSelectedToken={(value: any) => handleSelectionTo(value)}
+            setModalVisible={() => handleOpenSelectToClose()}
+            selectedToken={currencyName}
+          />
         </View>
-
-        
       </View>
     </View>
   );
@@ -268,10 +313,10 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   card: {
-    paddingHorizontal: hp(30),
-    paddingVertical: hp(20),
+    paddingHorizontal: hp(10),
+    paddingVertical: hp(10),
     borderColor: COLORS.primary,
-    backgroundColor: '#FAFBFF',
+    backgroundColor: COLORS.primary2,
     borderWidth: 1,
     borderRadius: 15,
   },
@@ -296,5 +341,5 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     paddingHorizontal: hp(10),
     paddingVertical: hp(5),
-  },
+  }
 });

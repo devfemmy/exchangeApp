@@ -13,7 +13,7 @@ import { COLORS, FONTS } from '../utils/constants/theme';
 
 type InputProps = ComponentProps<typeof BaseInput> & {
   errorMsg?: string;
-  label: string;
+  label?: string;
   isPassword?: boolean;
   searchInput?: boolean;
   placeholder?: string;

@@ -8,6 +8,7 @@ import {
   TouchableOpacity,
   Image,
   TextInput,
+  Alert
 } from 'react-native';
 import React, {useEffect, useState} from 'react';
 import AntDesign from 'react-native-vector-icons/AntDesign';
@@ -27,7 +28,7 @@ import {
 } from '../slice/WalletSlice';
 import { transferToken } from '../slice/TradeSlice';
 import { Notifier, NotifierComponents } from 'react-native-notifier';
-// import SelectTokenModal from './SelectTokenModal';
+
 
 const Transfer = ({navigation}: any) => {
   const [from, setFrom] = useState('funding');
@@ -86,6 +87,8 @@ const Transfer = ({navigation}: any) => {
     setNumber(choose)
   }
 
+  console.log({number})
+
   const handleTokenTransfer = async () => {
     const payload = {
       fromAcct : from,
@@ -93,7 +96,7 @@ const Transfer = ({navigation}: any) => {
     currency : selectedAssets?.toLowerCase(),
     amount : number
     }
-    if(number > assetDataFund?.availBal && from === "funding") {
+    if(parseInt(number) > assetDataFund?.availBal && from === "funding") {
       return  Notifier.showNotification({
         title: 'Error',
         description: "Insufficient fund",
@@ -103,7 +106,7 @@ const Transfer = ({navigation}: any) => {
         },
       });
     }
-    if(number > assetDataTrad?.availBal && from === "trading") {
+    if(parseInt(number) > assetDataTrad?.availBal && from === "trading") {
       return  Notifier.showNotification({
         title: 'Error',
         description: "Insufficient fund",
@@ -116,7 +119,6 @@ const Transfer = ({navigation}: any) => {
     setLoader(true)
     try {
       var response = await dispatch(transferToken(payload))
-     
       if(transferToken.fulfilled.match(response)){
         setLoader(false)
         dispatch(getFundingAccountByCurrency(selectedAssets.toLowerCase())).then(
@@ -274,7 +276,7 @@ const Transfer = ({navigation}: any) => {
                 )}` : 0} ${selectedAssets}`}</Text>
 
               <View style={{marginTop: hp(10)}}>
-                <IconTextButton label="Transfer Token" isLoading={loader} onPress={handleTokenTransfer} />
+                <IconTextButton disabled={number?.length <= 0} label="Transfer Token" isLoading={loader} onPress={handleTokenTransfer} />
               </View>
             </View>
           </ScrollView>

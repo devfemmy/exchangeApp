@@ -53,8 +53,11 @@ const Assets = ({navigation}: any) => {
     
   }
 
+
+  
+
   const tradingAssets = (data: any) => {
-   
+
     switch (data) {
       case data?.toUpperCase():
         return  <View style={styles.sub}>
@@ -86,10 +89,10 @@ const Assets = ({navigation}: any) => {
   }, [currentCount])
 
   const searchData = !value ? tokenBalanceData : tokenBalanceData?.filter(data => data?.currency?.toLowerCase().includes(value?.toLowerCase()) ||  data?.token?.toLowerCase().includes(value?.toLowerCase()))
-  
+
   const showFundingAssets = () => {
+    return searchData?.map((info: any) => {
     return marketInfos?.map((data: any) => {
-    return searchData?.map(info => {
       return info?.currency === data?.symbol && <MarketComponent info={info} type="funding" marketData={data} navigation={navigation} action={(data: any) => fundingAssets(data)} />
     });
   })
@@ -110,8 +113,8 @@ const Assets = ({navigation}: any) => {
 
 
   const showTradingAssets = () => {
-    return marketInfos?.map((data: any) => {
-      return searchData?.map(info => {
+    return searchData?.map((info: any) => {
+      return marketInfos?.map((data: any) => {
         return info?.currency === data?.symbol && <MarketComponent info={info} type="trading" navigation={navigation} marketData={data} action={(data: any) => tradingAssets(data)} />
       });
     })

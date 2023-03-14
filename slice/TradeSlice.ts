@@ -47,7 +47,6 @@ export const transferToken = createAsyncThunk(
     },
     {rejectWithValue},
   ) => {
-     console.log({payload})
     try {
       var response = await postRequest(
         `${config.wallet_base_url}/api/transfer`,
