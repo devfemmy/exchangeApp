@@ -52,7 +52,7 @@ import { useNavigation } from '@react-navigation/native';
   
               <Text style={{...FONTS.h3, color: COLORS.primary, fontWeight: '600', textAlign: 'center', marginBottom: hp(20)}}>Select Network</Text>
              
-             <ScrollView>
+             <ScrollView showsVerticalScrollIndicator={false}>
              {
                 networks?.map((data: any) => {
                     return <TouchableOpacity onPress={() => handleAction(data)}>
@@ -84,7 +84,7 @@ import { useNavigation } from '@react-navigation/native';
     },
     modalView: {
       margin: 20,
-      height: hp(300),
+      height: hp(350),
       backgroundColor: 'white',
       borderRadius: 20,
       padding: 25,
@@ -127,7 +127,9 @@ import { useNavigation } from '@react-navigation/native';
     net: {
         padding: hp(10),
         backgroundColor: COLORS.primary2,
-        marginBottom: hp(10),
+        marginBottom: hp(20),
         borderRadius: 10,
+        justifyContent: 'center',
+        height: hp(65)
     }
   });

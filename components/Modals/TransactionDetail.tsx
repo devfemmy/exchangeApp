@@ -82,7 +82,7 @@ const TransactionDetailModal = ({modalVisible, setModalVisible, data}: any) => {
                     color: COLORS.gray,
                     ...FONTS.body4,
                   }}>
-                  Order ID:
+                  Transaction ID:
                 </Text>
                <View style={GlobalStyle.rowStart}>
                <Text style={{...FONTS.body3, marginRight: hp(30)}}>{data?._id}</Text>
@@ -97,7 +97,7 @@ const TransactionDetailModal = ({modalVisible, setModalVisible, data}: any) => {
                     color: COLORS.gray,
                     ...FONTS.body4,
                   }}>
-                  Withdraw Type:
+                  Transaction Type:
                 </Text>
                 <Text style={{...FONTS.body3, textTransform: 'capitalize'}}>
                   {data?.type} withdrawal

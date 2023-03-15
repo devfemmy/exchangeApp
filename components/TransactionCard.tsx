@@ -7,7 +7,7 @@ import {hp, wp} from '../utils/helper';
 import {useNavigation} from '@react-navigation/native';
 
 const TransactionCard = ({data}: any) => {
-  const {header, icon, navigationScreen, color} = data;
+  const {header, icon, navigationScreen, color, title} = data;
   const navigation = useNavigation() as any;
   return (
    <TouchableOpacity onPress={() => navigation.navigate(navigationScreen)}>
@@ -16,6 +16,7 @@ const TransactionCard = ({data}: any) => {
         <View style={styles.img}>
           <AntDesign name={icon} size={20} color={COLORS.primary} />
         </View>
+        <View>
         <Text
         style={{
           ...FONTS.h3,
@@ -24,6 +25,15 @@ const TransactionCard = ({data}: any) => {
         }}>
         {header}
       </Text>
+      <Text
+        style={{
+          ...FONTS.h4,
+          fontWeight: 'normal',
+          color: COLORS.gray,
+        }}>
+        {title}
+      </Text>
+        </View>
       </View>
     </View>
    </TouchableOpacity>

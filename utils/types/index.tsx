@@ -85,6 +85,8 @@ export type ProfileFormData = {
     gender: string,
     country: string,
     streetName: string,
+    phone: string,
+    dob: string,
 }
 
 export type KyCFormDataOne = {

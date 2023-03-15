@@ -2,13 +2,14 @@
 /* eslint-disable comma-dangle */
 /* eslint-disable quotes */
 /* eslint-disable react-native/no-inline-styles */
-import { View, Animated } from 'react-native'
+import { View, Animated, Dimensions } from 'react-native'
 import React, { useEffect } from 'react'
 import { COLORS, SIZES, } from '../utils/constants/theme'
 import { useAppSelector } from '../app/hooks'
 import { tradeStatus } from '../slice/TradeSlice'
 
 import TradeCard from '../components/TradeCard'
+import { hp } from '../utils/helper'
 
 
 const MainLayout = ({children}: any) => {
@@ -20,13 +21,13 @@ const MainLayout = ({children}: any) => {
 
 
     const tradeAction = [
-        {
-            id: 1,
-            header: "Deposit",
-            title: "Deposit crypto to another wallet",
-            icon: 'arrowdown',
-            navigationScreen: "Deposit",
-        },
+        // {
+        //     id: 1,
+        //     header: "Deposit",
+        //     title: "Deposit crypto to another wallet",
+        //     icon: 'arrowdown',
+        //     navigationScreen: "Deposit",
+        // },
         {
             id: 2,
             header: "Swap",
@@ -52,7 +53,7 @@ const MainLayout = ({children}: any) => {
             id: 5,
             header: "Zend USD",
             title: "make Usd payment to customers",
-            icon: 'arrowdown',
+            icon: 'dollar',
             navigationScreen: "ZendUsd",
         },
     ]
@@ -103,12 +104,15 @@ const MainLayout = ({children}: any) => {
      <Animated.View
         style={{
             position: "absolute",
-            left: 0,
+            left: hp(10),
+            right: hp(10),
             top: modalY,
-            width: "100%",
+            // width: "100%",
             borderRadius: 30,
             padding: SIZES.padding,
-            backgroundColor: COLORS.white
+            backgroundColor: COLORS.white,
+            // marginHorizontal: hp(20),
+            width: Dimensions.get('window').width/1.07,
         }}
      >
        {
