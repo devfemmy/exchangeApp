@@ -14,6 +14,7 @@ import {getMarketPrice, marketInfo} from '../slice/TradeSlice';
 import IconTextButton from '../components/IconTextButton';
 import { SelectInput } from '../components/SelectInput';
 import { getTradingAccount, getWalletNetwork } from '../slice/WalletSlice';
+import SelectDropdowns from '../components/SelectDropdowns';
 
 const WithdrawalCard = (props: any) => {
   const assetName = props.route?.params?.info?.token;
@@ -38,7 +39,12 @@ useEffect(() => {
  }, [currencyName])
 
 
- const networksList = networks?.map((data: any) => data?.chain)
+ const networksList = networks?.map((data: any) => {
+  return {
+    id: data?.address,
+    name: data?.chain
+  }
+ })
 
   return (
     <View style={GlobalStyle.container}>
@@ -72,27 +78,53 @@ useEffect(() => {
             <View style={styles.form}>
               <ScrollView>
               <TextInput value="" label="Enter Amount" />
-                <SelectInput 
-                  value={walletType}
-                  items={["Internal Wallet", "External Wallet"]}
-                   setState={(value: any) => setWalletType(value)}
-                   placeholder="Wallet Type"
-                   errorMsg={undefined}
-                  />
+              <TextInput value="" label="Enter Usd Amount" />
+              <SelectDropdowns 
+                label="Select Wallet"
+                data={[
                   {
-                    walletType?.length > 0 &&   <TextInput value="" label="Zend Username" />
+                    id: 1,
+                    name: "Zend Pay"
+                  },
+                  {
+                    id: 2,
+                    name: "External Wallet"
+                  }
+                ]}
+                selected={walletType}
+                setSelected={(value: any) => setWalletType(value)}
+              />
+
+                  {
+                    walletType ===  "Zend Pay" &&   <TextInput value="" label="Zend Username" />
                   }
                   {
-                    walletType?.length > 0 &&   <TextInput value="" label="Transaction Fee" />
+                    walletType ===  "Zend Pay" &&   <TextInput value="" label="Transaction Fee" />
                   }
-                <TextInput value="" label="Enter Wallet ID" />
-                <SelectInput 
-                  value={walletNetwork}
-                  items={networksList}
-                   setState={(value: any) => setWalletNetwork(value)}
-                   placeholder="Select Withdrawal Network"
-                   errorMsg={undefined}
+                  {
+                    walletType ===  "External Wallet"  &&       <SelectDropdowns 
+                    label="Select Network"
+                    data={networksList}
+                    selected={walletNetwork}
+                    setSelected={(value: any) => setWalletNetwork(value)}
                   />
+                  }
+                  {
+                    walletType ===  "External Wallet" && <TextInput value="" label="Wallet Address" />
+                  }
+              {
+                    walletType ===  "External Wallet" && <View style={styles.card}>
+                        <View style={GlobalStyle.rowBetween}>
+                          <Text>Fees:</Text>
+                          <Text>0 {currencyName?.toUpperCase()}</Text>
+                        </View>
+                        <View style={styles.hr} />
+                        <View style={GlobalStyle.rowBetween}>
+                          <Text>Recipient will receive:</Text>
+                          <Text>0.000 {currencyName?.toUpperCase()}</Text>
+                        </View>
+                    </View>
+                  }
               </ScrollView>
               
             </View>
@@ -149,9 +181,23 @@ const styles = StyleSheet.create({
   },
   top: {
     flex: 5,
+    marginBottom: hp(10)
   },
   bottom: {
-    flex: 1,
+    flex: 0.8,
     paddingTop: hp(20)
+  },
+  card: {
+    backgroundColor: COLORS.primary2,
+    padding: hp(15),
+    borderRadius: hp(10),
+    borderColor: COLORS.primary,
+    borderWidth: 0.2,
+    marginBottom: hp(10)
+  },
+  hr: {
+    backgroundColor: COLORS.primary,
+    height: 2,
+    marginVertical: hp(10)
   }
 });

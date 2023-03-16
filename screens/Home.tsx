@@ -35,6 +35,8 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 import EvilIcons from 'react-native-vector-icons/EvilIcons';
 
 
+
+
 const Home = ({navigation}: any) => {
   const dispatch = useAppDispatch();
   const userStateInfo = useAppSelector(userState);
@@ -46,8 +48,6 @@ const Home = ({navigation}: any) => {
   const getUserInfo = userStateInfo?.userData
     ? userStateInfo?.userData
     : userStateInfo;
-
- 
 
 
   useEffect(() => {
@@ -216,6 +216,8 @@ const Home = ({navigation}: any) => {
                   </View>
                 );
               })}
+
+              
             <Text style={[{...FONTS.h3, fontWeight: "600", marginTop: hp(25), marginBottom: hp(5)}]}>
               My Assets
             </Text>

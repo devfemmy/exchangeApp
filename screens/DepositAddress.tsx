@@ -34,7 +34,7 @@ const DepositAddress = (props: any) => {
                 size={200}
                 logo={icon}
       logoSize={50}
-      logoBackgroundColor='transparent'
+      logoBackgroundColor='white'
               />
           </View>
           <View>

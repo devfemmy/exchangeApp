@@ -14,6 +14,7 @@ import UploadCard from '../components/UploadCard';
 import { PhoneNumberData } from '../utils/types';
 import { useFormik } from 'formik';
 import { PhoneSchema } from '../utils/schemas';
+import SelectDropdowns from '../components/SelectDropdowns';
 
 
 const KycScreen = ({navigation}: any) => {
@@ -37,10 +38,12 @@ const KycScreen = ({navigation}: any) => {
     setCountryCode(country.cca2);
     setCountry(country);
   };
-  const getUserInfo = userStateInfo?.userData
-    ? userStateInfo?.userData
-    : userStateInfo;
+  // const getUserInfo = userStateInfo?.userData
+  //   ? userStateInfo?.userData
+  //   : userStateInfo;
 
+    const [selectedKin, setSelectedKin] = useState("")
+    const [selectedVerifyType, setSelectedVerifyType] = useState("")
 
     const sectionOne = () => {
         return (
@@ -100,9 +103,47 @@ const KycScreen = ({navigation}: any) => {
 
           <View style={styles.form}>
           <TextInput label="Name Next of Kin" />
-            <SelectInput placeholder="Next of Kin Relationship" />
+            <SelectDropdowns
+                label="Next of Kin Relationship"
+                data={[
+                  {
+                    id: 1,
+                    name: "Father"
+                  },
+                  {
+                    id: 2,
+                    name: "Sibling"
+                  },
+                  {
+                    id: 3,
+                    name: "Friend"
+                  }
+                ]}
+                selected={selectedKin}
+                setSelected={(value: any) => setSelectedKin(value)}
+              />
+
             <TextInput label="Next of kin Address" />
-            <SelectInput placeholder="Verification Type ID" />
+            <SelectDropdowns
+                label="Verification Type ID"
+                data={[
+                  {
+                    id: 1,
+                    name: "Voter's Card"
+                  },
+                  {
+                    id: 2,
+                    name: "National ID Card"
+                  },
+                  {
+                    id: 3,
+                    name: "Passport"
+                  }
+                ]}
+                selected={selectedVerifyType}
+                setSelected={(value: any) => setSelectedVerifyType(value)}
+              />
+
             <TextInput label="Verification Number" />
             <UploadCard header="Upload scanned ID" />
           </View>

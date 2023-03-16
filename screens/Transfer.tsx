@@ -34,7 +34,7 @@ import { Notifier, NotifierComponents } from 'react-native-notifier';
 const Transfer = ({navigation}: any) => {
   const [from, setFrom] = useState('funding');
   const [to, setTo] = useState('trading');
-  const [selectedAssets, setSelectedAssets] = useState('N/A');
+  const [selectedAssets, setSelectedAssets] = useState('Select Token');
   const [number, setNumber] = useState('');
   const [openSelect, setOpenSelect] = useState(false);
   const dispatch = useAppDispatch();
@@ -43,7 +43,7 @@ const Transfer = ({navigation}: any) => {
   const [loader, setLoader] = useState(false);
 
   useEffect(() => {
-    if (selectedAssets !== 'N/A') {
+    if (selectedAssets !== 'Select Token') {
       dispatch(getFundingAccountByCurrency(selectedAssets.toLowerCase())).then(
         dd =>{
           var head = dd?.payload[selectedAssets];
@@ -274,7 +274,7 @@ const Transfer = ({navigation}: any) => {
                   parseFloat(
                     assetDataTrad?.availBal || 0
                   ).toFixed(4),
-                )}` : 0} ${selectedAssets}`}</Text>
+                )}` : 0} ${selectedAssets === "Select Token" ? "" : selectedAssets}`}</Text>
 
               <View style={{marginTop: hp(10)}}>
                 <IconTextButton disabled={number?.length <= 0} label="Transfer Token" isLoading={loader} onPress={handleTokenTransfer} />

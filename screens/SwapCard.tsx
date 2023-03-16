@@ -29,7 +29,7 @@ const SwapCard = (props: any) => {
   const [currencyName, setCurrencyName] = useState(props.route?.params?.info?.currency);
   const [max, setMax] = useState('');
   const [openSelectTo, setOpenSelectTo] = useState(false);
-  const [selectedAssetsTo, setSelectedAssetsTo] = useState('N/A');
+  const [selectedAssetsTo, setSelectedAssetsTo] = useState('Swap to');
   const [selectedIcon, setSelectedIcon] = useState<any>();
   const [selectedBalance, setSelectedBalance] = useState<any>(0);
   const tradingAccountInfo: any = useAppSelector(tradingAccount);
@@ -105,7 +105,7 @@ const SwapCard = (props: any) => {
 
   const handlePerChange = (value: any) => {
     const max = (parseInt(value) / 1000) * assetData?.availBal
-    setAmount(max?.toString())
+    setAmount(isNaN(max) ? "0" : max?.toString())
     setMax(value)
   }
 
