@@ -47,6 +47,8 @@ const TransferAsset = ({navigation}: any) => {
         </View>
 
         <IconTextButton label="Transfer Token" />
+
+       
     </View>
 
   );
