@@ -127,6 +127,20 @@ const SwapCard = (props: any) => {
   }
 
 
+  const confirmSwapDetail = () => {
+ 
+      return props?.navigation.navigate("ConfirmSwap", {
+        info: {
+          fromIcon: currencyIcon,
+          fromName: currencyName,
+          toIcon: selectedIcon,
+          toName: selectedAssetsTo,
+          amount: amount,
+        }
+      })
+  }
+
+
 
   return (
     <View style={GlobalStyle.container}>
@@ -271,7 +285,7 @@ const SwapCard = (props: any) => {
             </View>
           </View>
           <View style={styles.bottom}>
-            <IconTextButton label="Get a Quote" />
+            <IconTextButton label="Get a Quote" onPress={() => confirmSwapDetail()} />
           </View>
 
           <SwapTokenModal

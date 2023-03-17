@@ -104,7 +104,7 @@ const AssetInfo = (props: any) => {
             Total Balance
           </Text>
           <Text style={{textAlign: 'center', fontWeight: '600', ...FONTS.h1, color: COLORS.black, marginVertical: hp(5)}}>
-          {`${assetData &&
+          {`${assetData === undefined ? 0 :
               `${format(
                 parseFloat(assetData[asset?.toUpperCase()]?.balance || 0).toFixed(4),
               )}`}`}

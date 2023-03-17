@@ -12,13 +12,19 @@ import { getProfile, signOutUser, userState } from '../slice/AuthSlice'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import IconTextButton from '../components/IconTextButton'
 import { hp, wp } from '../utils/helper'
-import { bigM } from '../assets/images'
+import { bigM, userSearch } from '../assets/images'
 import AntDesign from 'react-native-vector-icons/AntDesign'
 import ListCard from '../components/ListCard'
 import { COLORS, FONTS } from '../utils/constants/theme'
 import EditIcon from '../assets/svg/edit.svg'
 import TextIconIndicator from '../components/TextIcon'
 import CheckIcon from '../assets/svg/check.svg'
+import UserDark from "../assets/svg/userdark.svg"
+import UserSearch from "../assets/svg/user-search.svg"
+import SecuritySafe from "../assets/svg/security-safe.svg"
+import SupportDark from "../assets/svg/24-supportdark.svg"
+import SignOutDark from "../assets/svg/logoutdark.svg"
+
 
 const Profile = ({navigation}: any) => {
 
@@ -46,37 +52,37 @@ const Profile = ({navigation}: any) => {
       {
         id: 1,
         name: "General",
-        icon: "user",
+        icon: <UserDark />,
         route: 'EditProfile'
       },
       {
         id: 4,
         name: "KYC",
-        icon: "addusergroup",
+        icon: <UserSearch />,
         route: 'KycScreen'
       },
     {
       id: 2,
       name: "Security",
-      icon: "security",
+      icon:  <SecuritySafe />,
       route: 'SecurityScreen'
     },
     {
       id: 3,
       name: "Support",
-      icon: "support",
+      icon: <SupportDark />,
       route: 'SupportScreen'
     },
     {
       id: 5,
       name: "Refer & Earn",
-      icon: "user",
+      icon: <UserDark />,
       route: 'ReferAndEarn'
     },
     {
       id: 6,
       name: "Sign Out",
-      icon: "logout",
+      icon: <SignOutDark />,
       route: 'SignOut'
     }
   ]

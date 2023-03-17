@@ -34,6 +34,7 @@ import GiftCard from '../screens/GiftCard';
 import ReferAndEarn from '../screens/ReferAndEarn';
 import KycScreen from '../screens/KycScreen';
 import Transfer from '../screens/Transfer';
+import ConfirmSwap from '../screens/ConfirmSwap';
 
 const Stack = createStackNavigator();
 
@@ -130,6 +131,10 @@ const ContainerComponent = () => {
          <Stack.Screen
             name="Transfer"
             component={Transfer}
+        />
+         <Stack.Screen
+            name="ConfirmSwap"
+            component={ConfirmSwap}
         />
              <Stack.Screen
             name="KycScreen"
