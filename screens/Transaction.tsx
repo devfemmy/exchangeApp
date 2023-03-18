@@ -8,7 +8,10 @@ import MainLayout from './mainLayout'
 import GlobalStyle from '../utils/globalStyle'
 import { COLORS, FONTS } from '../utils/constants/theme'
 import { hp, wp } from '../utils/helper'
-import TransactionCard from '../components/TransactionCard'
+import TransactionCard from '../components/TransactionCard';
+import SwapIcon from '../assets/svg/swap.svg';
+import HistoryIcon from '../assets/svg/bitcoin-convert.svg';
+import UsdIcon from '../assets/svg/usd.svg';
 
 const Transaction = () => {
 
@@ -17,7 +20,7 @@ const Transaction = () => {
       id: 2,
       header: "Token Transactions",
       title: "View all your token transactions",
-      icon: 'profile',
+      icon: <HistoryIcon />,
       navigationScreen: "TokenHistory",
       color: COLORS.lightOrange,
   }, 
@@ -25,7 +28,7 @@ const Transaction = () => {
       id: 1,
       header: "Swap History",
       title: "View all your swap transactions",
-      icon: 'swap',
+      icon: <SwapIcon />,
       navigationScreen: "SwapHistory",
       color: COLORS.primary2,
   },
@@ -41,7 +44,7 @@ const Transaction = () => {
         id: 3,
         header: "Zend USD",
         title: "View all your usd transactions",
-        icon: 'pay-circle1',
+        icon: <UsdIcon />,
         navigationScreen: "ZendUsdHistory",
         color: COLORS.primary2,
     },

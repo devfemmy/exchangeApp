@@ -14,7 +14,8 @@ const TransactionCard = ({data}: any) => {
      <View style={[styles.card, {backgroundColor: color}]}>
       <View style={{flexDirection: "row", justifyContent: 'flex-start', alignItems: 'center'}}>
         <View style={styles.img}>
-          <AntDesign name={icon} size={20} color={COLORS.primary} />
+          {/* <AntDesign name={icon} size={20} color={COLORS.primary} /> */}
+          {icon}
         </View>
         <View>
         <Text
