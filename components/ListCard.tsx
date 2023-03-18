@@ -1,10 +1,10 @@
 import { View, Text, StyleSheet, Pressable, Image } from 'react-native';
 import React from 'react';
 import { hp } from '../utils/helper';
-import AntDesign from 'react-native-vector-icons/AntDesign';
+
 import { stroke } from '../assets/images';
-import { COLORS, FONTS } from '../utils/constants/theme';
-import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import { FONTS } from '../utils/constants/theme';
+
 
 const ListCard = ({ data, id, handlePress, logOut}: any) => {
 
@@ -13,10 +13,8 @@ const ListCard = ({ data, id, handlePress, logOut}: any) => {
     <Pressable onPress={data?.name === 'Sign Out' ? logOut : handlePress}>
         <View style={styles.rowBtw}>
             <View style={styles.row}>
-                {
-                    data?.icon === 'addusergroup' || data?.icon === 'user' ? <AntDesign name={data?.icon} style={styles.img} size={20} /> : <MaterialIcons name={data?.icon} color={data?.icon === 'logout' ? '#FF0000' : COLORS.gray} size={20} style={styles.img} />
-                }
-                <Text style={{...FONTS.body3, marginLeft: hp(5), color: COLORS.gray}}>{data?.name}</Text>
+                {data?.icon}
+                <Text style={{...FONTS.body3, marginLeft: hp(10)}}>{data?.name}</Text>
             </View>
              {
                 (data?.name !== 'Sign Out' && !data?.type) && <Image source={stroke} style={styles.img} />

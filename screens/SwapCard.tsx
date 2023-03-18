@@ -29,7 +29,8 @@ const SwapCard = (props: any) => {
   const [currencyName, setCurrencyName] = useState(props.route?.params?.info?.currency);
   const [max, setMax] = useState('');
   const [openSelectTo, setOpenSelectTo] = useState(false);
-  const [selectedAssetsTo, setSelectedAssetsTo] = useState('N/A');
+  const [openSelectFrom, setOpenSelectFrom] = useState(false);
+  const [selectedAssetsTo, setSelectedAssetsTo] = useState('Swap to');
   const [selectedIcon, setSelectedIcon] = useState<any>();
   const [selectedBalance, setSelectedBalance] = useState<any>(0);
   const tradingAccountInfo: any = useAppSelector(tradingAccount);
@@ -45,6 +46,14 @@ const SwapCard = (props: any) => {
 
   const handleOpenSelectToClose = () => {
     setOpenSelectTo(false);
+  };
+
+   const handleOpenSelectFromOpen = () => {
+    setOpenSelectFrom(true);
+  };
+
+  const handleOpenSelectFromClose = () => {
+    setOpenSelectFrom(false);
   };
 
   useEffect(() => {
@@ -93,6 +102,13 @@ const SwapCard = (props: any) => {
     handleOpenSelectToClose();
   };
 
+    const handleSelectionFrom = (value: any) => {
+   
+    setCurrencyName(value?.currency?.toUpperCase());
+    setCurrencyIcon(value?.icon);
+   
+    handleOpenSelectFromClose();
+  };
 
   const handleSwapChange = () => {
      setCurrencyIcon(selectedIcon)
@@ -104,10 +120,26 @@ const SwapCard = (props: any) => {
   }
 
   const handlePerChange = (value: any) => {
-    const max = (parseInt(value) / 1000) * assetData?.availBal
-    setAmount(max?.toString())
+    const max = (parseInt(value) / 100) * assetData?.availBal
+    setAmount(isNaN(max) ? "0" : max?.toString())
     setMax(value)
+   
   }
+
+
+  const confirmSwapDetail = () => {
+ 
+      return props?.navigation.navigate("ConfirmSwap", {
+        info: {
+          fromIcon: currencyIcon,
+          fromName: currencyName,
+          toIcon: selectedIcon,
+          toName: selectedAssetsTo,
+          amount: amount,
+        }
+      })
+  }
+
 
 
   return (
@@ -127,6 +159,7 @@ const SwapCard = (props: any) => {
 
             <View style={styles.carddiv}>
               <View style={[GlobalStyle.rowBetween, styles.card]}>
+              <TouchableOpacity onPress={() => handleOpenSelectFromOpen()}>
                 <View style={{ width: wp(120)}}>
                   <View
                     style={{
@@ -156,6 +189,7 @@ const SwapCard = (props: any) => {
                       : 0}
                   </Text>
                 </View>
+                </TouchableOpacity>
 
                 <TouchableOpacity onPress={() => handleSwapChange()}>
                   <View style={styles.swap}>
@@ -251,13 +285,19 @@ const SwapCard = (props: any) => {
             </View>
           </View>
           <View style={styles.bottom}>
-            <IconTextButton label="Get a Quote" />
+            <IconTextButton label="Get a Quote" onPress={() => confirmSwapDetail()} />
           </View>
 
           <SwapTokenModal
             modalVisible={openSelectTo}
             setSelectedToken={(value: any) => handleSelectionTo(value)}
             setModalVisible={() => handleOpenSelectToClose()}
+            selectedToken={currencyName}
+          />
+             <SwapTokenModal
+            modalVisible={openSelectFrom}
+            setSelectedToken={(value: any) => handleSelectionFrom(value)}
+            setModalVisible={() => handleOpenSelectFromClose()}
             selectedToken={currencyName}
           />
         </View>

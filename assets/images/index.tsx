@@ -31,7 +31,7 @@ export const upload: ImageSourcePropType = require('../images/upload.png');
 export const mage: ImageSourcePropType = require('../images/mage.png');
 export const greater: ImageSourcePropType = require('../images/greater.png');
 export const bigM: ImageSourcePropType = require('../images/bigM.png');
-
+export const success: ImageSourcePropType = require("../images/success.png")
 
 
 
