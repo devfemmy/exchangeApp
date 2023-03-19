@@ -71,12 +71,15 @@ const styles = StyleSheet.create({
     marginBottom: hp(15),
     borderColor: COLORS.primary,
     borderWidth: 0.3,
+    
+  
   },
   centeredView: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: COLORS.transparentBlack
+    backgroundColor: COLORS.transparentBlack,
+   
   },
   end: {
     width: '100%',
@@ -85,7 +88,7 @@ const styles = StyleSheet.create({
   },
   modalView: {
     margin: 20,
-    // height: hp(600),
+    maxHeight: hp(600),
     backgroundColor: 'white',
     borderRadius: 20,
     padding: 25,

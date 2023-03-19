@@ -5,14 +5,19 @@ import SwapHeader from '../components/SwapHeader';
 import {COLORS, FONTS} from '../utils/constants/theme';
 import {hp, wp} from '../utils/helper';
 import {tether} from '../assets/images';
-import {SelectInput} from '../components/SelectInput';
+
 import {TextInput} from '../components/TextInput';
 import IconTextButton from '../components/IconTextButton';
 import InvoiceUploadModal from '../components/Modals/InvoiceUploadModal';
+import SelectDropdowns from '../components/SelectDropdowns';
+import CountryList from '../utils/constants/Countries';
 
-const ZendUsdForm = ({navigation}: any) => {
+const ZendUsdForm = (props: any) => {
+
   const [type, setType] = useState<any>(1);
   const [openModal, setOpenModal] = useState(false)
+  const [selectedCountry, setSelectedCountry] = useState("")
+
 
   const handleOpen = () => {
     setOpenModal(true)
@@ -20,11 +25,20 @@ const ZendUsdForm = ({navigation}: any) => {
 
   const handleClose = () => {
     setOpenModal(false)
+
   }
+
+  const listofCountries = CountryList?.map((data, i )=> {
+    return {
+      id: i + 1,
+      name: data
+    }
+  })
 
   const sectionOne = () => {
     return (
       <View>
+        
         <View style={[GlobalStyle.rowBetween, {marginVertical: hp(20)}]}>
           <View style={GlobalStyle.rowStart}>
             <Image source={tether} style={styles.icons} />
@@ -43,13 +57,24 @@ const ZendUsdForm = ({navigation}: any) => {
           </View>
         </View>
 
+        <View style={GlobalStyle.rowStart}>
+            <Text style={{...FONTS.body4, color: COLORS.gray}}>Rate </Text>
+            <Text style={{...FONTS.body4, color: COLORS.primary}}>1.00 USDT = 0.99 USD</Text>
+          </View>
+
         <View style={styles.form}>
-          <SelectInput
+          {/* <SelectInput
             items={['Nigeria', 'Togo', 'Ghana', 'Usa', 'Uk']}
             setState={(value: any) => console.log(value)}
             value=""
             placeholder="Select Country"
             errorMsg={undefined}
+          /> */}
+          <SelectDropdowns 
+            label="Select Country" 
+            data={listofCountries}  
+            selected={selectedCountry}
+            setSelected={(value: any) => setSelectedCountry(value)}
           />
           <TextInput label={'Enter amount you want to send'} />
         </View>
@@ -85,6 +110,12 @@ const ZendUsdForm = ({navigation}: any) => {
       </View>
     );
   };
+  const routeNext = () => {
+    handleClose()
+    setType(1)
+   props?.navigation.navigate("PaymentDetails")
+  
+  }
 
   const sectionTwo = () => {
     return (
@@ -122,8 +153,8 @@ const ZendUsdForm = ({navigation}: any) => {
     <ScrollView>
       <View style={GlobalStyle.container}>
         <SwapHeader
-          header="Zend History"
-          handlePress={() => navigation.navigate('ZendUsdHistory')}
+          header="Instructions"
+          handlePress={() => props?.navigation.navigate('Instructions')}
         />
         <View style={GlobalStyle.rowBetween}>
           <View>
@@ -135,17 +166,14 @@ const ZendUsdForm = ({navigation}: any) => {
               Kindly provide the necessary details
             </Text>
           </View>
-          <View style={GlobalStyle.rowStart}>
-            <Text style={{...FONTS.body4, color: COLORS.gray}}>Rate </Text>
-            <Text style={{...FONTS.body4, color: COLORS.primary}}>1.00</Text>
-          </View>
+
         </View>
 
         {type === 1 && sectionOne()}
 
         {type === 2 && sectionTwo()}
       </View>
-      <InvoiceUploadModal modalVisible={openModal} setModalVisible={() => handleClose()} />
+      <InvoiceUploadModal modalVisible={openModal} setModalVisible={() => handleClose()} routeNext={routeNext} />
     </ScrollView>
   );
 };

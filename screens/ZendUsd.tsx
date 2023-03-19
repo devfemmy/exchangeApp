@@ -6,6 +6,7 @@ import { COLORS, FONTS } from '../utils/constants/theme'
 import { hp } from '../utils/helper'
 import AntDesign from 'react-native-vector-icons/AntDesign'
 import IconTextButton from '../components/IconTextButton'
+import { TextInput } from '../components/TextInput'
 
 const ZendUsd = ({navigation}: any) => {
   return (
@@ -18,6 +19,20 @@ const ZendUsd = ({navigation}: any) => {
             <AntDesign name="addfolder" size={20} color={COLORS.gray} />
             <Text style={{...FONTS.body5, color: COLORS.gray}}>Upload CAC Document</Text>
         </View>
+        <View style={styles.div2}>
+            <AntDesign name="addfolder" size={20} color={COLORS.gray} />
+            <Text style={{...FONTS.body5, color: COLORS.gray}}>Upload Mermat</Text>
+        </View>
+        <TextInput
+              label={'Enter Name of Company'}
+              value={""}
+            
+            />
+        <TextInput
+              label={'Enter Cac registration number'}
+              value={""}
+            
+            />
          <IconTextButton label="Upload Document" onPress={() => navigation.navigate("CacUploadSuccess")} />
     </View>
   )
@@ -36,6 +51,17 @@ const styles = StyleSheet.create({
         height: hp(100),
         justifyContent: 'center',
         alignItems: 'center',
-        marginBottom: hp(50)
-    }
+        marginBottom: hp(30)
+    },
+    div2: {
+      borderColor: COLORS.primary,
+      borderWidth: 1,
+      borderRadius: 15,
+      borderStyle: 'dashed',
+      backgroundColor: COLORS.primary2,
+      height: hp(100),
+      justifyContent: 'center',
+      alignItems: 'center',
+      marginBottom: hp(20)
+  }
 })

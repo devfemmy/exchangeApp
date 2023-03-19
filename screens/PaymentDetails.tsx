@@ -6,6 +6,7 @@ import {COLORS, FONTS} from '../utils/constants/theme';
 import {hp, wp} from '../utils/helper';
 import IconTextButton from '../components/IconTextButton';
 import Feather from 'react-native-vector-icons/Feather';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 const PaymentDetails = ({navigation}: any) => {
   return (
@@ -141,10 +142,16 @@ const PaymentDetails = ({navigation}: any) => {
       </View>
       </View>
 
-      <View style={{justifyContent: 'flex-end',alignItems: 'center', flexDirection: 'row', marginTop: hp(30), marginBottom: hp(10)}}>
+     <TouchableOpacity onPress={() => navigation.navigate("ZendUsdForm", {
+      params: {
+        edit: 1
+      }
+     })}>
+     <View style={{justifyContent: 'flex-end',alignItems: 'center', flexDirection: 'row', marginTop: hp(30), marginBottom: hp(10)}}>
         <Feather name="shopping-bag" color={COLORS.primary} size={15} />
           <Text style={{...FONTS.body3, color: COLORS.primary, marginLeft: hp(10)}}>Edit</Text>
       </View>
+     </TouchableOpacity>
 
       <IconTextButton label="Zend USD" />
     </View>

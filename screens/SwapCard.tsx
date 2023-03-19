@@ -24,9 +24,9 @@ import {
 import SwapHeader from '../components/SwapHeader';
 
 const SwapCard = (props: any) => {
-  const [assetName, setAssetName] = useState(props.route?.params?.info?.token);
-  const [currencyIcon, setCurrencyIcon] = useState(props.route?.params?.info?.icon);
-  const [currencyName, setCurrencyName] = useState(props.route?.params?.info?.currency);
+  const [assetName, setAssetName] = useState<any>();
+  const [currencyIcon, setCurrencyIcon] = useState<any>();
+  const [currencyName, setCurrencyName] = useState("Swap from");
   const [max, setMax] = useState('');
   const [openSelectTo, setOpenSelectTo] = useState(false);
   const [openSelectFrom, setOpenSelectFrom] = useState(false);
@@ -128,6 +128,9 @@ const SwapCard = (props: any) => {
 
 
   const confirmSwapDetail = () => {
+    if(selectedAssetsTo === "Swap from" || currencyName === "Swap to" || selectedAssetsTo === "Swap to" || currencyName === "Swap from"){
+      return;
+    }
  
       return props?.navigation.navigate("ConfirmSwap", {
         info: {
@@ -167,7 +170,10 @@ const SwapCard = (props: any) => {
                       justifyContent: 'flex-start',
                       alignItems: 'center',
                     }}>
-                    <Image source={currencyIcon} style={styles.icons} />
+                      {
+                        currencyIcon &&  <Image source={currencyIcon} style={styles.icons} />
+                      }
+                   
                     <Text
                       style={{
                         marginHorizontal: hp(5),
@@ -191,13 +197,13 @@ const SwapCard = (props: any) => {
                 </View>
                 </TouchableOpacity>
 
-                <TouchableOpacity onPress={() => handleSwapChange()}>
+               
                   <View style={styles.swap}>
                     <View style={styles.swapIcon}>
                       <AntDesign name="swap" size={20} color={COLORS.primary} />
                     </View>
                   </View>
-                </TouchableOpacity>
+           
 
                 <TouchableOpacity onPress={() => handleOpenSelectToOpen()}>
                   <View style={{ width: wp(120)}}>

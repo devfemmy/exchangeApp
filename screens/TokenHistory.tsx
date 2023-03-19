@@ -16,23 +16,23 @@ const TokenHistory = ({navigation}: any) => {
               <HeaderComponent onPress={() => navigation.goBack()} /> 
       <Text style={{...FONTS.h3, fontWeight: '600'}}>Token Transactions</Text>
       <View style={[GlobalStyle.rowStart, {marginTop: hp(30), marginBottom: hp(20)}]}>
-      <ScrollView style={{borderBottomColor: 'rgb(227, 227, 227)', borderBottomWidth: 1}} horizontal showsHorizontalScrollIndicator={false}>
+        <ScrollView horizontal showsHorizontalScrollIndicator={false}>
           <View
             style={{
-              // width: wp(70),
-              borderBottomColor: type === 'all' ? COLORS.primary : COLORS.white,
-              borderBottomWidth: type === 'all' ? 2 : 0,
-              // borderColor: COLORS.primary,
-              // borderRadius: hp(20),
+              width: wp(70),
+              borderColor: type === 'all' ? COLORS.primary : COLORS.gray,
+              borderWidth: type === 'all' ? 1 : 1,
+              //  borderColor: COLORS.primary,
+               borderRadius: hp(20),
               marginRight: hp(10),
-              padding: hp(10),
+              padding: hp(5),
               justifyContent: 'center',
               alignItems: 'center',
             }}>
             <Pressable onPress={() => setType('all')}>
               <Text
                 style={{
-                  ...FONTS.h4,
+                  ...FONTS.h5,
                   textAlign: 'center',
                   color: type === 'all' ? COLORS.primary : 'rgb(128, 128, 128)',
                 }}>
@@ -42,26 +42,26 @@ const TokenHistory = ({navigation}: any) => {
           </View>
           <View
             style={{
-              // width: wp(100),
+              width: wp(100),
               // backgroundColor:
               //   type === 'withdraw' ? COLORS.primary : COLORS.white,
               //  borderColor: COLORS.primary,
               // borderWidth: 1,
-              borderBottomColor: type === 'withdraw' ? COLORS.primary : COLORS.white,
-              borderBottomWidth: type === 'withdraw' ? 2 : 0,
-              // borderRadius: hp(20),
+              borderColor: type === 'withdraw' ? COLORS.primary : COLORS.gray,
+              borderWidth: type === 'withdraw' ? 1 : 1,
+               borderRadius: hp(20),
                 marginRight: hp(10),
-                padding: hp(10),
+                padding: hp(5),
                 justifyContent: 'center',
                 alignItems: 'center',
             }}>
             <Pressable onPress={() => setType('withdraw')}>
               <Text
                 style={{
-                  ...FONTS.h4,
+                  ...FONTS.h5,
                   textAlign: 'center',
                   color:
-                    type === 'withdraw' ? COLORS.primary : COLORS.gray1,
+                  type === 'withdraw' ? COLORS.primary : COLORS.gray1,
                 }}>
                 Withdraw
               </Text>
@@ -69,23 +69,23 @@ const TokenHistory = ({navigation}: any) => {
           </View>
           <View
             style={{
-              // width: wp(100),
+              width: wp(100),
               // backgroundColor:
               //   type === 'deposit' ? COLORS.primary : COLORS.white,
               //  borderColor: COLORS.primary,
               // borderWidth: 1,
-              // borderRadius: hp(20),
-              borderBottomColor: type === 'deposit' ? COLORS.primary : COLORS.white,
-              borderBottomWidth: type === 'deposit' ? 2 : 0,
+               borderRadius: hp(20),
+              borderColor: type === 'deposit' ? COLORS.primary : COLORS.gray,
+              borderWidth: type === 'deposit' ? 1 : 1,
                 marginRight: hp(10),
-                padding: hp(10),
+                padding: hp(5),
                 justifyContent: 'center',
                 alignItems: 'center',
             }}>
             <Pressable onPress={() => setType('deposit')}>
               <Text
                 style={{
-                  ...FONTS.h4,
+                  ...FONTS.h5,
                   textAlign: 'center',
                   color:
                     type === 'deposit' ? COLORS.primary : COLORS.gray,
@@ -96,23 +96,23 @@ const TokenHistory = ({navigation}: any) => {
           </View>
           <View
             style={{
-              // width: wp(100),
+              width: wp(100),
               // backgroundColor:
               //   type === 'successful' ? COLORS.primary : COLORS.white,
               //  borderColor: COLORS.primary,
               // borderWidth: 1,
-              // borderRadius: hp(20),
-              borderBottomColor: type === 'successful' ? COLORS.primary : COLORS.white,
-              borderBottomWidth: type === 'successful' ? 2 : 0,
+               borderRadius: hp(20),
+              borderColor: type === 'successful' ? COLORS.primary : COLORS.gray,
+              borderWidth: type === 'successful' ? 1 : 1,
                 marginRight: hp(10),
-                padding: hp(10),
+                padding: hp(5),
                 justifyContent: 'center',
                 alignItems: 'center',
             }}>
             <Pressable onPress={() => setType('successful')}>
               <Text
                 style={{
-                  ...FONTS.h4,
+                  ...FONTS.h5,
                   textAlign: 'center',
                   color:
                     type === 'successful' ? COLORS.primary : COLORS.gray,
@@ -123,24 +123,23 @@ const TokenHistory = ({navigation}: any) => {
           </View>
           <View
             style={{
-              // width: wp(100),
+              width: wp(100),
               // backgroundColor:
               //   type === 'incoming' ? COLORS.primary : COLORS.white,
               //  borderColor: COLORS.primary,
               // borderWidth: 1,
-              //   marginRight: hp(10),
+                 marginRight: hp(10),
               borderRadius: hp(20),
-              borderBottomColor: type === 'incoming' ? COLORS.primary : COLORS.white,
-              borderBottomWidth: type === 'incoming' ? 2 : 0,
-              marginRight: hp(10),
-              padding: hp(10),
+              borderColor: type === 'incoming' ? COLORS.primary : COLORS.gray,
+              borderWidth: type === 'incoming' ? 1 : 1,
+              padding: hp(5),
               justifyContent: 'center',
               alignItems: 'center',
             }}>
             <Pressable onPress={() => setType('incoming')}>
               <Text
                 style={{
-                  ...FONTS.h4,
+                  ...FONTS.h5,
                   textAlign: 'center',
                   color:
                     type === 'incoming' ? COLORS.primary : COLORS.gray,
@@ -151,17 +150,17 @@ const TokenHistory = ({navigation}: any) => {
           </View>
           <View
             style={{
-              // width: wp(100),
+              width: wp(100),
               // backgroundColor:
               //   type === 'pending' ? COLORS.primary : COLORS.white,
               //  borderColor: COLORS.primary,
               // borderWidth: 1,
               //   marginRight: hp(10),
-              // borderRadius: hp(20),
-              borderBottomColor: type === 'pending' ? COLORS.primary : COLORS.white,
-              borderBottomWidth: type === 'pending' ? 2 : 0,
+               borderRadius: hp(20),
+              borderColor: type === 'pending' ? COLORS.primary : COLORS.gray,
+              borderWidth: type === 'pending' ? 1 : 1,
               marginRight: hp(10),
-              padding: hp(10),
+              padding: hp(5),
               justifyContent: 'center',
               alignItems: 'center',
             }}>
@@ -179,24 +178,24 @@ const TokenHistory = ({navigation}: any) => {
           </View>
           <View
             style={{
-              // width: wp(100),
+              width: wp(100),
               // backgroundColor:
               //   type === 'failed' ? COLORS.primary : COLORS.white,
               //  borderColor: COLORS.primary,
               // borderWidth: 1,
-              // borderRadius: hp(20),
+              borderRadius: hp(20),
               //   marginRight: hp(10),
-                borderBottomColor: type === 'failed' ? COLORS.primary : COLORS.white,
-                borderBottomWidth: type === 'failed' ? 2 : 0,
+                borderColor: type === 'failed' ? COLORS.primary : COLORS.gray,
+                borderWidth: type === 'failed' ? 1 : 1,
                 marginRight: hp(10),
-                padding: hp(10),
+                padding: hp(5),
                 justifyContent: 'center',
                 alignItems: 'center',
             }}>
             <Pressable onPress={() => setType('failed')}>
               <Text
                 style={{
-                  ...FONTS.h4,
+                  ...FONTS.h5,
                   textAlign: 'center',
                   color: type === 'failed' ? COLORS.primary : COLORS.gray,
                 }}>

@@ -14,10 +14,12 @@ import {getMarketPrice, marketInfo} from '../slice/TradeSlice';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import AssetsComponent from '../components/AssetsComponent';
 import HeaderComponent from '../components/HeaderComponent';
+import { tradingAccount } from '../slice/WalletSlice';
 
 const Swap = ({navigation}: any) => {
   const [value, setValue] = useState('');
   const marketInfos = useAppSelector(marketInfo) as any;
+  const tradingAccountInfo: any = useAppSelector(tradingAccount)
 
   const searchToken = !value
     ? tokenBalanceData
@@ -33,7 +35,7 @@ const Swap = ({navigation}: any) => {
         return (
           info?.currency === data?.symbol && (
 
-            <AssetsComponent info={info} data={data} handleClick={(info: any, data: any) => navigation.navigate("WithdrawalCard", {
+            <AssetsComponent info={info} data={data} tradingAccountInfo={tradingAccountInfo} handleClick={(info: any, data: any) => navigation.navigate("WithdrawalCard", {
               info: info,
               data: data
             })} />

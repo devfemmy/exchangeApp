@@ -124,7 +124,7 @@ const Login = ({navigation}: any) => {
               <Text
                 style={{
                   ...FONTS.body4,
-                  textAlign: 'center',
+                   textAlign: 'center',
                   marginRight: hp(5),
                   color: '#808080',
                 }}>
@@ -136,7 +136,7 @@ const Login = ({navigation}: any) => {
                   color: COLORS.primary,
                   marginLeft: hp(3),
                 }}>
-                Create Account
+                 Create Account
               </Text>
             </Text>
           </View>

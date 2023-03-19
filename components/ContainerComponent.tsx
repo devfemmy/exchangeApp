@@ -35,6 +35,7 @@ import ReferAndEarn from '../screens/ReferAndEarn';
 import KycScreen from '../screens/KycScreen';
 import Transfer from '../screens/Transfer';
 import ConfirmSwap from '../screens/ConfirmSwap';
+import Instructions from '../screens/Instructions';
 
 const Stack = createStackNavigator();
 
@@ -131,6 +132,10 @@ const ContainerComponent = () => {
          <Stack.Screen
             name="Transfer"
             component={Transfer}
+        />
+        <Stack.Screen
+            name="Instructions"
+            component={Instructions}
         />
          <Stack.Screen
             name="ConfirmSwap"

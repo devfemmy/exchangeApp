@@ -1,3 +1,4 @@
+/* eslint-disable react-native/no-inline-styles */
 /* eslint-disable no-unreachable */
 /* eslint-disable @typescript-eslint/no-shadow */
 /* eslint-disable @typescript-eslint/no-unsafe-return */
@@ -9,11 +10,13 @@ import {View, Text, Modal, StyleSheet, TouchableOpacity} from 'react-native';
 import React from 'react';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import {COLORS, FONTS} from '../../utils/constants/theme';
-import {copyToClipboard, hp, wp} from '../../utils/helper';
+import {copyToClipboard, format, hp, wp} from '../../utils/helper';
 import GlobalStyle from '../../utils/globalStyle';
 import Feather from 'react-native-vector-icons/Feather';
 
 const TransactionDetailModal = ({modalVisible, setModalVisible, data}: any) => {
+
+
 
 
   return (
@@ -35,7 +38,7 @@ const TransactionDetailModal = ({modalVisible, setModalVisible, data}: any) => {
             </TouchableOpacity>
 
             <Text
-              style={{...FONTS.h3, textAlign: 'center', marginBottom: hp(20)}}>
+              style={{...FONTS.body3, textAlign: 'center', fontWeight: '700', marginBottom: hp(20)}}>
               Transaction Details
             </Text>
 
@@ -47,21 +50,17 @@ const TransactionDetailModal = ({modalVisible, setModalVisible, data}: any) => {
                     marginRight: hp(20),
                     borderRadius: 50,
                     backgroundColor:
-                      data?.status === 'success'
+                      data?.transactionType === 'withdraw'
                         ? COLORS.lightGreen
-                        : data?.status === 'submitted'
-                        ? COLORS.orange
-                        : COLORS.red,
+                        : COLORS.lightOrange
                   }}>
                   <AntDesign
-                    name="arrowdown"
+                    name={data?.transactionType === "withdraw" ? "arrowup" : "arrowdown"}
                     size={15}
                     color={
-                      data?.status === 'success'
+                      data?.transactionType === 'withdraw'
                         ? COLORS.darkGreen
-                        : data?.status === 'submitted'
-                        ? COLORS.orange
-                        : COLORS.red
+                        : COLORS.orange
                     }
                   />
                 </View>
@@ -69,8 +68,8 @@ const TransactionDetailModal = ({modalVisible, setModalVisible, data}: any) => {
                   <Text style={{textTransform: 'capitalize', ...FONTS.body4}}>
                     {data?.transactionType}
                   </Text>
-                  <Text style={{...FONTS.body3, color: COLORS.gray}}>
-                    {data?.chain} {data?.currency} 
+                  <Text style={{...FONTS.body5, color: COLORS.gray}}>
+                  {parseFloat(data?.amount)?.toFixed(2)} {data?.currency?.toUpperCase()}
                   </Text>
                 </View>
               </View>
@@ -79,8 +78,19 @@ const TransactionDetailModal = ({modalVisible, setModalVisible, data}: any) => {
                 <Text
                   style={{
                     textTransform: 'capitalize',
-                    color: COLORS.gray,
-                    ...FONTS.body4,
+                    ...FONTS.body4,color: COLORS.gray,
+                  }}>
+                  Amount:
+                </Text>
+                <Text style={{...FONTS.body3, textTransform: 'capitalize'}}>
+                 {parseFloat(data?.amount).toFixed(2)} {data?.currency?.toUpperCase()}
+                </Text>
+              </View>
+
+              <View style={styles.mt}>
+                <Text
+                  style={{
+                    ...FONTS.body4,color: COLORS.gray
                   }}>
                   Transaction ID:
                 </Text>
@@ -94,8 +104,7 @@ const TransactionDetailModal = ({modalVisible, setModalVisible, data}: any) => {
                 <Text
                   style={{
                     textTransform: 'capitalize',
-                    color: COLORS.gray,
-                    ...FONTS.body4,
+                    ...FONTS.body4,color: COLORS.gray,
                   }}>
                   Transaction Type:
                 </Text>
@@ -108,50 +117,23 @@ const TransactionDetailModal = ({modalVisible, setModalVisible, data}: any) => {
                 <Text
                   style={{
                     textTransform: 'capitalize',
-                    color: COLORS.gray,
-                    ...FONTS.body4,
+                    ...FONTS.body4,color: COLORS.gray,
                   }}>
-                  From:
+                 Network
                 </Text>
                 <Text style={{...FONTS.body3, textTransform: 'capitalize'}}>
-                  N/A
+                  {data?.chain}
                 </Text>
               </View>
+
+
+             
 
               <View style={styles.mt}>
                 <Text
                   style={{
                     textTransform: 'capitalize',
-                    color: COLORS.gray,
-                    ...FONTS.body4,
-                  }}>
-                Token:
-                </Text>
-                <Text style={{...FONTS.body3, textTransform: 'capitalize'}}>
-                  {data?.currency}
-                </Text>
-              </View>
-
-              <View style={styles.mt}>
-                <Text
-                  style={{
-                    textTransform: 'capitalize',
-                    color: COLORS.gray,
-                    ...FONTS.body4,
-                  }}>
-                  Amount:
-                </Text>
-                <Text style={{...FONTS.body3, textTransform: 'capitalize'}}>
-                 {data?.amount} {data?.currency?.toUpperCase()}
-                </Text>
-              </View>
-
-              <View style={styles.mt}>
-                <Text
-                  style={{
-                    textTransform: 'capitalize',
-                    color: COLORS.gray,
-                    ...FONTS.body4,
+                    ...FONTS.body4,color: COLORS.gray,
                   }}>
                   Date:
                 </Text>
@@ -164,13 +146,25 @@ const TransactionDetailModal = ({modalVisible, setModalVisible, data}: any) => {
                 <Text
                   style={{
                     textTransform: 'capitalize',
-                    color: COLORS.gray,
-                    ...FONTS.body4,
+                    ...FONTS.body4,color: COLORS.gray,
                   }}>
                   Transaction Status:
                 </Text>
                 <Text style={{...FONTS.body3, color: data?.status === "success" ? COLORS.darkGreen : data?.status === "submited" ? COLORS.orange : COLORS.red, textTransform: 'capitalize'}}>
                   {data?.status}
+                </Text>
+              </View>
+
+              <View style={styles.mt}>
+                <Text
+                  style={{
+                    textTransform: 'capitalize',
+                    ...FONTS.body4,color: COLORS.gray,
+                  }}>
+                  Value when received in USD
+                </Text>
+                <Text style={{...FONTS.body3, color: COLORS.black, textTransform: 'uppercase'}}>
+                  {format(parseFloat(data?.usdValue)?.toFixed(2))} USD
                 </Text>
               </View>
 

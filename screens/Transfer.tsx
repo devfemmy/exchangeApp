@@ -233,7 +233,7 @@ const Transfer = ({navigation}: any) => {
               <View style={styles.card2}>
                 <View style={{width: '78%'}}>
                   <Text style={{...FONTS.body5, color: COLORS.gray}}>
-                    Enter Amount you want to Transfer
+                    Enter Amount
                   </Text>
                   <TextInput
                     style={styles.input}

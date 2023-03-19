@@ -33,7 +33,7 @@ const MainLayout = ({children}: any) => {
             header: "Swap",
             title: "Exchange for crypto",
             icon: 'swap',
-            navigationScreen: "Swap",
+            navigationScreen: "SwapCard",
         },
         {
             id: 3,
