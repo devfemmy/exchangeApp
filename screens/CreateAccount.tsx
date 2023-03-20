@@ -15,6 +15,7 @@ import {useAppDispatch} from '../app/hooks';
 import {createUser, verifyEmailSend} from '../slice/AuthSlice';
 import {Notifier, NotifierComponents} from 'react-native-notifier';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import HeaderComponent from '../components/HeaderComponent';
 
 const CreateAccount = ({navigation}: any) => {
   const [cookieSelected, setCookieSelected] = useState(false);
@@ -182,6 +183,7 @@ const CreateAccount = ({navigation}: any) => {
       <View style={GlobalStyle.container}>
       <KeyboardAwareScrollView >
       <ScrollView showsVerticalScrollIndicator={false}>
+        <HeaderComponent onPress={() => navigation.goBack()} />
         <View>
           <View style={styles.rowBtw}>
             <Text style={{...FONTS.h2}}>Create Account</Text>
@@ -259,15 +261,18 @@ const CreateAccount = ({navigation}: any) => {
                 flexDirection: 'row',
                 alignItems: 'center',
                 marginLeft: hp(10),
+                width: hp(250)
               }}>
-              <Text style={{...FONTS.body5}}>I agree to privacy policy </Text>
-              <Text style={{...FONTS.body5, color: COLORS.primary}}>
+                <Text>
+                   <Text style={{...FONTS.body5}}>I agree to privacy policy </Text> 
+                   <Text style={{...FONTS.body5, color: COLORS.primary}}>
                 cookies policy{' '}
-              </Text>
+              </Text> 
               <Text style={{...FONTS.body5}}>and </Text>
               <Text style={{...FONTS.body5, color: COLORS.primary}}>
                 terms and conditions.
               </Text>
+                </Text>
             </View>
           </View>
 
@@ -340,7 +345,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    paddingTop: hp(25),
+    paddingTop: hp(5),
     paddingBottom: hp(10),
   },
 });

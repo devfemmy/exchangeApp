@@ -37,7 +37,7 @@ export const success: ImageSourcePropType = require("../images/success.png")
 
 export const bitcoin: ImageSourcePropType = require('../images/bitcoin.png');
 export const bitcoinCash: ImageSourcePropType = require('../images/bitcoin-cash.png');
-export const dogeCoin: ImageSourcePropType = require('../images/dogecoin.png');
+export const dogeCoin: ImageSourcePropType = require('../images/Doge.png');
 export const ethereum: ImageSourcePropType = require('../images/ethereum.png');
 export const algorand: ImageSourcePropType = require('../images/algorand.png');
 export const avalanche: ImageSourcePropType = require('../images/avalanche.png');
@@ -50,4 +50,4 @@ export const solana: ImageSourcePropType = require('../images/solana.png');
 export const steller: ImageSourcePropType = require('../images/stellar.png');
 export const tether: ImageSourcePropType = require('../images/tether.png');
 export const tron: ImageSourcePropType = require('../images/tron.png');
-export const usd: ImageSourcePropType = require('../images/usd.png');
+export const usd: ImageSourcePropType = require('../images/usdc.png');

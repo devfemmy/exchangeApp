@@ -34,22 +34,34 @@ const Assets = ({navigation}: any) => {
   const [value, setValue] = useState<any>()
 
 
+  const newFundingAccount = fundingAccountInfo ? Object?.values(fundingAccountInfo) : [];
+  const newFundingAccount2 = fundingAccountInfo ? Object?.keys(fundingAccountInfo) : [];
+  const newList = newFundingAccount?.map((data: any, i) => {
+    return typeof(data) === "object" && {
+      currency: newFundingAccount2[i]?.toLowerCase(),
+      availBal: data?.availBal
+    }
+  })
+  const afterFilt = newList?.filter(data => data !== false)
+  const afterSort = afterFilt?.sort((a: any,b: any) => parseFloat(b?.availBal) - parseFloat(a?.availBal))
+// console.log({afterSort})
+
   const fundingAssets = (data: any) => {
    
-    switch (data) {
-      case data?.toUpperCase():
-        return  <View style={styles.sub}>
-          <Text style={{...FONTS.body4}}>{`${format(
-          fundingAccountInfo?.[data?.toUpperCase()]?.availBal ? `${parseFloat(fundingAccountInfo?.[data?.toUpperCase()]?.availBal).toFixed(2)}` : 0     
-        )}`}</Text>
-        <Text style={{...FONTS.body4, fontWeight: '600'}}>{`$${format(
-          fundingAccountInfo?.[data?.toUpperCase()]?.availBal ?   parseFloat(fundingAccountInfo?.[data?.toUpperCase()]?.availBal).toFixed(2) : 0     
-        )}`}</Text>    
-      </View>
-        break;
-        default: 
-          break;
-        }
+    // switch (data) {
+    //   case data?.toUpperCase():
+    //     return  <View style={styles.sub}>
+    //       <Text style={{...FONTS.body4}}>{`${format(
+    //       fundingAccountInfo?.[data?.toUpperCase()]?.availBal ? `${parseFloat(fundingAccountInfo?.[data?.toUpperCase()]?.availBal).toFixed(2)}` : 0     
+    //     )}`}</Text>
+    //     <Text style={{...FONTS.body4, fontWeight: '600'}}>{`$${format(
+    //       fundingAccountInfo?.[data?.toUpperCase()]?.availBal ?   parseFloat(fundingAccountInfo?.[data?.toUpperCase()]?.availBal).toFixed(2) : 0     
+    //     )}`}</Text>    
+    //   </View>
+    //     break;
+    //     default: 
+    //       break;
+    //     }
     
   }
 
@@ -89,13 +101,18 @@ const Assets = ({navigation}: any) => {
   }, [currentCount])
 
   const searchData = !value ? tokenBalanceData : tokenBalanceData?.filter(data => data?.currency?.toLowerCase().includes(value?.toLowerCase()) ||  data?.token?.toLowerCase().includes(value?.toLowerCase()))
-
+console.log({searchData})
   const showFundingAssets = () => {
-    return searchData?.map((info: any) => {
-    return marketInfos?.map((data: any) => {
-      return info?.currency === data?.symbol && <MarketComponent info={info} type="funding" marketData={data} navigation={navigation} action={(data: any) => fundingAssets(data)} />
-    });
-  })
+    return afterSort?.map((data: any) => {
+      return searchData?.map((info: any) => {
+        return <MarketComponent info={info} type="funding" marketData={data} navigation={navigation} action={(data: any) => fundingAssets(data)} />
+      } )
+    })
+  //   return searchData?.map((info: any) => {
+  //   return marketInfos?.map((data: any) => {
+  //     return info?.currency === data?.symbol && <MarketComponent info={info} type="funding" marketData={data} navigation={navigation} action={(data: any) => fundingAssets(data)} />
+  //   });
+  // })
   };
 
 

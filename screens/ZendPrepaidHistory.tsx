@@ -21,21 +21,21 @@ const ZendPrepaidHistory = ({navigation}: any) => {
           <View
             style={{
               width: wp(70),
-              backgroundColor: type === 'all' ? COLORS.primary : COLORS.white,
-              borderColor: COLORS.primary,
-              borderWidth: 1,
-              borderRadius: hp(20),
+              borderColor: type === 'all' ? COLORS.primary : COLORS.gray,
+              borderWidth: type === 'all' ? 1 : 1,
+              //  borderColor: COLORS.primary,
+               borderRadius: hp(20),
               marginRight: hp(10),
-              padding: hp(10),
+              padding: hp(5),
               justifyContent: 'center',
-              alignItems: 'center'
+              alignItems: 'center',
             }}>
             <Pressable onPress={() => setType('all')}>
               <Text
                 style={{
                   ...FONTS.h5,
                   textAlign: 'center',
-                  color: type === 'all' ? COLORS.white : COLORS.primary,
+                  color: type === 'all' ? COLORS.primary : 'rgb(128, 128, 128)',
                 }}>
                 All
               </Text>
@@ -44,15 +44,17 @@ const ZendPrepaidHistory = ({navigation}: any) => {
           <View
             style={{
               width: wp(100),
-              backgroundColor:
-                type === 'withdraw' ? COLORS.primary : COLORS.white,
-               borderColor: COLORS.primary,
-              borderWidth: 1,
-              borderRadius: hp(20),
+              // backgroundColor:
+              //   type === 'withdraw' ? COLORS.primary : COLORS.white,
+              //  borderColor: COLORS.primary,
+              // borderWidth: 1,
+              borderColor: type === 'withdraw' ? COLORS.primary : COLORS.gray,
+              borderWidth: type === 'withdraw' ? 1 : 1,
+               borderRadius: hp(20),
                 marginRight: hp(10),
-                padding: hp(10),
+                padding: hp(5),
                 justifyContent: 'center',
-                alignItems: 'center'
+                alignItems: 'center',
             }}>
             <Pressable onPress={() => setType('withdraw')}>
               <Text
@@ -60,7 +62,7 @@ const ZendPrepaidHistory = ({navigation}: any) => {
                   ...FONTS.h5,
                   textAlign: 'center',
                   color:
-                    type === 'withdraw' ? COLORS.white : COLORS.primary,
+                  type === 'withdraw' ? COLORS.primary : COLORS.gray1,
                 }}>
                 Withdraw
               </Text>
@@ -69,15 +71,17 @@ const ZendPrepaidHistory = ({navigation}: any) => {
           <View
             style={{
               width: wp(100),
-              backgroundColor:
-                type === 'deposit' ? COLORS.primary : COLORS.white,
-               borderColor: COLORS.primary,
-              borderWidth: 1,
-              borderRadius: hp(20),
+              // backgroundColor:
+              //   type === 'deposit' ? COLORS.primary : COLORS.white,
+              //  borderColor: COLORS.primary,
+              // borderWidth: 1,
+               borderRadius: hp(20),
+              borderColor: type === 'deposit' ? COLORS.primary : COLORS.gray,
+              borderWidth: type === 'deposit' ? 1 : 1,
                 marginRight: hp(10),
-                padding: hp(10),
+                padding: hp(5),
                 justifyContent: 'center',
-                alignItems: 'center'
+                alignItems: 'center',
             }}>
             <Pressable onPress={() => setType('deposit')}>
               <Text
@@ -85,7 +89,7 @@ const ZendPrepaidHistory = ({navigation}: any) => {
                   ...FONTS.h5,
                   textAlign: 'center',
                   color:
-                    type === 'deposit' ? COLORS.white : COLORS.primary,
+                    type === 'deposit' ? COLORS.primary : COLORS.gray,
                 }}>
                 Deposit
               </Text>
@@ -94,15 +98,17 @@ const ZendPrepaidHistory = ({navigation}: any) => {
           <View
             style={{
               width: wp(100),
-              backgroundColor:
-                type === 'successful' ? COLORS.primary : COLORS.white,
-               borderColor: COLORS.primary,
-              borderWidth: 1,
-              borderRadius: hp(20),
+              // backgroundColor:
+              //   type === 'successful' ? COLORS.primary : COLORS.white,
+              //  borderColor: COLORS.primary,
+              // borderWidth: 1,
+               borderRadius: hp(20),
+              borderColor: type === 'successful' ? COLORS.primary : COLORS.gray,
+              borderWidth: type === 'successful' ? 1 : 1,
                 marginRight: hp(10),
-                padding: hp(10),
+                padding: hp(5),
                 justifyContent: 'center',
-                alignItems: 'center'
+                alignItems: 'center',
             }}>
             <Pressable onPress={() => setType('successful')}>
               <Text
@@ -110,7 +116,7 @@ const ZendPrepaidHistory = ({navigation}: any) => {
                   ...FONTS.h5,
                   textAlign: 'center',
                   color:
-                    type === 'successful' ? COLORS.white : COLORS.primary,
+                    type === 'successful' ? COLORS.primary : COLORS.gray,
                 }}>
                 Successful
               </Text>
@@ -119,15 +125,17 @@ const ZendPrepaidHistory = ({navigation}: any) => {
           <View
             style={{
               width: wp(100),
-              backgroundColor:
-                type === 'incoming' ? COLORS.primary : COLORS.white,
-               borderColor: COLORS.primary,
-              borderWidth: 1,
-                marginRight: hp(10),
+              // backgroundColor:
+              //   type === 'incoming' ? COLORS.primary : COLORS.white,
+              //  borderColor: COLORS.primary,
+              // borderWidth: 1,
+                 marginRight: hp(10),
               borderRadius: hp(20),
-              padding: hp(10),
+              borderColor: type === 'incoming' ? COLORS.primary : COLORS.gray,
+              borderWidth: type === 'incoming' ? 1 : 1,
+              padding: hp(5),
               justifyContent: 'center',
-              alignItems: 'center'
+              alignItems: 'center',
             }}>
             <Pressable onPress={() => setType('incoming')}>
               <Text
@@ -135,7 +143,7 @@ const ZendPrepaidHistory = ({navigation}: any) => {
                   ...FONTS.h5,
                   textAlign: 'center',
                   color:
-                    type === 'incoming' ? COLORS.white : COLORS.primary,
+                    type === 'incoming' ? COLORS.primary : COLORS.gray,
                 }}>
                 Incoming
               </Text>
@@ -144,15 +152,18 @@ const ZendPrepaidHistory = ({navigation}: any) => {
           <View
             style={{
               width: wp(100),
-              backgroundColor:
-                type === 'pending' ? COLORS.primary : COLORS.white,
-               borderColor: COLORS.primary,
-              borderWidth: 1,
-                marginRight: hp(10),
-              borderRadius: hp(20),
-              padding: hp(10),
+              // backgroundColor:
+              //   type === 'pending' ? COLORS.primary : COLORS.white,
+              //  borderColor: COLORS.primary,
+              // borderWidth: 1,
+              //   marginRight: hp(10),
+               borderRadius: hp(20),
+              borderColor: type === 'pending' ? COLORS.primary : COLORS.gray,
+              borderWidth: type === 'pending' ? 1 : 1,
+              marginRight: hp(10),
+              padding: hp(5),
               justifyContent: 'center',
-              alignItems: 'center'
+              alignItems: 'center',
             }}>
             <Pressable onPress={() => setType('pending')}>
               <Text
@@ -160,7 +171,7 @@ const ZendPrepaidHistory = ({navigation}: any) => {
                   ...FONTS.h5,
                   textAlign: 'center',
                   color:
-                    type === 'pending' ? COLORS.white : COLORS.primary,
+                    type === 'pending' ? COLORS.primary : COLORS.gray,
                 }}>
                 Pending
               </Text>
@@ -169,22 +180,25 @@ const ZendPrepaidHistory = ({navigation}: any) => {
           <View
             style={{
               width: wp(100),
-              backgroundColor:
-                type === 'failed' ? COLORS.primary : COLORS.white,
-               borderColor: COLORS.primary,
-              borderWidth: 1,
+              // backgroundColor:
+              //   type === 'failed' ? COLORS.primary : COLORS.white,
+              //  borderColor: COLORS.primary,
+              // borderWidth: 1,
               borderRadius: hp(20),
+              //   marginRight: hp(10),
+                borderColor: type === 'failed' ? COLORS.primary : COLORS.gray,
+                borderWidth: type === 'failed' ? 1 : 1,
                 marginRight: hp(10),
-                padding: hp(10),
+                padding: hp(5),
                 justifyContent: 'center',
-                alignItems: 'center'
+                alignItems: 'center',
             }}>
             <Pressable onPress={() => setType('failed')}>
               <Text
                 style={{
                   ...FONTS.h5,
                   textAlign: 'center',
-                  color: type === 'failed' ? COLORS.white : COLORS.primary,
+                  color: type === 'failed' ? COLORS.primary : COLORS.gray,
                 }}>
                 Failed
               </Text>

@@ -1,12 +1,13 @@
 import { View, Text } from 'react-native'
 import React from 'react'
-import Feather from 'react-native-vector-icons/Feather'
-import { COLORS, FONTS } from '../utils/constants/theme'
+
+import { FONTS } from '../utils/constants/theme'
+import Empty from "../assets/svg/empty.svg"
 
 const EmptyScreen = () => {
   return (
     <View style={{alignItems: 'center'}}>
-    <Feather name="cloud-off" size={200} color={COLORS.primary} />
+   <Empty />
     <Text
       style={{
         ...FONTS.h3,

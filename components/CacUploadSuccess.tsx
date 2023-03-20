@@ -4,10 +4,12 @@ import GlobalStyle from '../utils/globalStyle';
 import { COLORS, FONTS } from '../utils/constants/theme';
 import { hp } from '../utils/helper';
 import IconTextButton from './IconTextButton';
+import HeaderComponent from './HeaderComponent';
 
 const CacUploadSuccess = ({navigation}: any) => {
   return (
     <View style={[GlobalStyle.container, {flex: 1}]}>
+      <HeaderComponent onPress={() => navigation.goBack()} />
       <View style={styles.div}>
         <Text style={{...FONTS.h2, textAlign: 'center', color: COLORS.darkGreen, fontWeight: '600'}}>Your CAC Document has been uploaded</Text>
         <Text style={{...FONTS.body4, textAlign: 'center', color: COLORS.gray, marginVertical: hp(30)}}>Your CAC Document uploaded and verified, you now have access to Zend USD</Text>

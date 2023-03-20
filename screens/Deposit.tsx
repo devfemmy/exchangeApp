@@ -12,7 +12,7 @@ import {ScrollView} from 'react-native-gesture-handler';
 import {useAppDispatch, useAppSelector} from '../app/hooks';
 import {getMarketPrice, marketInfo} from '../slice/TradeSlice';
 import DepositModal from '../components/Modals/DepositModal';
-import { getWalletNetwork } from '../slice/WalletSlice';
+import { getWalletNetwork, tradingAccount } from '../slice/WalletSlice';
 import AssetsComponent from '../components/AssetsComponent';
 import HeaderComponent from '../components/HeaderComponent';
 
@@ -25,6 +25,7 @@ const Deposit = ({navigation}: any) => {
   const dispatch = useAppDispatch()
   const [otherInfo, setOtherInfo] = useState<any>()
 
+  const tradingAccountInfo: any = useAppSelector(tradingAccount)
 
   const searchToken = !value
     ? tokenBalanceData
@@ -52,7 +53,7 @@ const Deposit = ({navigation}: any) => {
       return searchToken?.map((info: any) => {
         return (
           info?.currency === data?.symbol && (
-            <AssetsComponent info={info} data={data} handleClick={(info: any, data: any) => handleModalOpen(info)} />
+            <AssetsComponent info={info} data={data} handleClick={(info: any, data: any) => handleModalOpen(info)} tradingAccountInfo={tradingAccountInfo} />
           )
         );
       });

@@ -12,17 +12,13 @@ import {COLORS, FONTS, SIZES} from '../../utils/constants/theme';
 import {hp, wp} from '../../utils/helper';
 import IconTextButton from '../IconTextButton';
 import GlobalStyle from '../../utils/globalStyle';
-import { useNavigation } from '@react-navigation/native';
+
 import UploadCard from '../UploadCard';
 
-const InvoiceUploadModal = ({modalVisible, setModalVisible}: any) => {
-  const navigation = useNavigation() as any
+const InvoiceUploadModal = ({modalVisible, setModalVisible, routeNext}: any) => {
 
-  const routeNext = () => {
-    setModalVisible()
-    return navigation.navigate("PaymentDetails")
+
   
-  }
 
   return (
     <View>

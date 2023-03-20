@@ -15,11 +15,14 @@ const HistoryCard = ({data, handleClick}: any) => {
    <TouchableOpacity onPress={() => handleClick(data)}>
      <View style={[GlobalStyle.rowBetween, styles.card]}>
       <View style={[GlobalStyle.rowStart]}>
-        <View style={{padding: hp(5),marginRight: hp(10), borderRadius: 50, backgroundColor: transactionType === 'deposit' ? COLORS.lightGreen : transactionType === 'withdraw' ? '#FFCCCB' : transactionType === 'incoming' ? '#FFD580' : ''}}>
-            <AntDesign name={transactionType === 'withdraw' ? 'arrowdown' : 'arrowup'} size={25} color={transactionType === 'deposit' ? COLORS.darkGreen : transactionType === 'withdraw' ? COLORS.red : transactionType === 'incoming' ? COLORS.orange : ''} />
+        <View style={{padding: hp(5),marginRight: hp(10), borderRadius: 50, backgroundColor: transactionType === 'withdraw' ? COLORS.lightGreen : transactionType === 'deposit' ? COLORS.lightOrange : transactionType === 'incoming' ? '#FFD580' : ''}}>
+            <AntDesign name={transactionType === 'withdraw' ? 'arrowup' : 'arrowdown'} size={25} color={transactionType === 'withdraw' ? COLORS.darkGreen : transactionType === 'deposit' ? COLORS.orange : transactionType === 'incoming' ? COLORS.orange : ''} />
         </View>
         <View>
+            <Text>
             <Text style={{textTransform: 'capitalize', ...FONTS.body4}}>{transactionType}</Text>
+            <Text style={{...FONTS.body4 }}> {currency?.toUpperCase()}</Text>
+            </Text>
             <Text  style={{...FONTS.body4}}>{new Date(timeStamp).toDateString()}</Text>
         </View>
       </View>
