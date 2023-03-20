@@ -1,103 +1,111 @@
 /* eslint-disable eslint-comments/no-unlimited-disable */
 /* eslint-disable */
 
-
-
-import { View, Text, StyleSheet,ScrollView, Linking, Pressable, TouchableOpacity } from 'react-native'
-import React, {useState, useEffect} from 'react'
-import MainLayout from './mainLayout'
-import GlobalStyle from '../utils/globalStyle'
-import { useAppDispatch, useAppSelector } from '../app/hooks'
-import { getProfile, signOutUser, userState } from '../slice/AuthSlice'
-import AsyncStorage from '@react-native-async-storage/async-storage'
-import IconTextButton from '../components/IconTextButton'
-import { hp, wp } from '../utils/helper'
-import { bigM, userSearch } from '../assets/images'
-import AntDesign from 'react-native-vector-icons/AntDesign'
-import ListCard from '../components/ListCard'
-import { COLORS, FONTS } from '../utils/constants/theme'
-import EditIcon from '../assets/svg/edit.svg'
-import TextIconIndicator from '../components/TextIcon'
-import CheckIcon from '../assets/svg/check.svg'
-import UserDark from "../assets/svg/userdark.svg"
-import UserSearch from "../assets/svg/user-search.svg"
-import SecuritySafe from "../assets/svg/security-safe.svg"
-import SupportDark from "../assets/svg/24-supportdark.svg"
-import SignOutDark from "../assets/svg/logoutdark.svg"
-
+import {
+  View,
+  Text,
+  StyleSheet,
+  ScrollView,
+  Linking,
+  Pressable,
+  TouchableOpacity,
+  Modal,
+  Image,
+} from 'react-native';
+import React, {useState, useEffect} from 'react';
+import MainLayout from './mainLayout';
+import GlobalStyle from '../utils/globalStyle';
+import {useAppDispatch, useAppSelector} from '../app/hooks';
+import {getProfile, signOutUser, userState} from '../slice/AuthSlice';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import IconTextButton from '../components/IconTextButton';
+import {hp, wp} from '../utils/helper';
+import {bigM, userSearch} from '../assets/images';
+import AntDesign from 'react-native-vector-icons/AntDesign';
+import ListCard from '../components/ListCard';
+import {COLORS, FONTS} from '../utils/constants/theme';
+import EditIcon from '../assets/svg/edit.svg';
+import TextIconIndicator from '../components/TextIcon';
+import CheckIcon from '../assets/svg/check.svg';
+import UserDark from '../assets/svg/userdark.svg';
+import UserSearch from '../assets/svg/user-search.svg';
+import SecuritySafe from '../assets/svg/security-safe.svg';
+import SupportDark from '../assets/svg/24-supportdark.svg';
+import SignOutDark from '../assets/svg/logoutdark.svg';
+import LogOuts from "../assets/svg/logout.svg"
 
 const Profile = ({navigation}: any) => {
+  const dispatch = useAppDispatch();
+  const userStateInfo = useAppSelector(userState);
+  const [modalVisible, setModalVisible] = useState(false);
 
-  const dispatch = useAppDispatch()
- const userStateInfo = useAppSelector(userState)
- 
-
-  const getUserInfo = userStateInfo?.userData ? userStateInfo?.userData : userStateInfo
-
+  const getUserInfo = userStateInfo?.userData
+    ? userStateInfo?.userData
+    : userStateInfo;
 
   const logOut = async () => {
     dispatch(signOutUser()).then(() => {
-      AsyncStorage.clear()
-    })
-  }
+      AsyncStorage.clear();
+    });
+  };
 
-    useEffect(() => {
+  useEffect(() => {
     const loadData = async () => {
-      dispatch(getProfile())
-    }
-    loadData()
-  }, [])
+      dispatch(getProfile());
+    };
+    loadData();
+  }, []);
 
-    const Info = [
-      {
-        id: 1,
-        name: "General",
-        icon: <UserDark />,
-        route: 'EditProfile'
-      },
-      {
-        id: 4,
-        name: "KYC",
-        icon: <UserSearch />,
-        route: 'KycScreen'
-      },
+  const Info = [
+    {
+      id: 1,
+      name: 'General',
+      icon: <UserDark />,
+      route: 'EditProfile',
+    },
+    {
+      id: 4,
+      name: 'KYC',
+      icon: <UserSearch />,
+      route: 'KycScreen',
+    },
     {
       id: 2,
-      name: "Security",
-      icon:  <SecuritySafe />,
-      route: 'SecurityScreen'
+      name: 'Security',
+      icon: <SecuritySafe />,
+      route: 'SecurityScreen',
     },
     {
       id: 3,
-      name: "Support",
+      name: 'Support',
       icon: <SupportDark />,
-      route: 'SupportScreen'
+      route: 'SupportScreen',
     },
     {
       id: 5,
-      name: "Refer & Earn",
+      name: 'Refer & Earn',
       icon: <UserDark />,
-      route: 'ReferAndEarn'
+      route: 'ReferAndEarn',
     },
     {
       id: 6,
-      name: "Sign Out",
+      name: 'Sign Out',
       icon: <SignOutDark />,
-      route: 'SignOut'
-    }
-  ]
-
-
-
+      route: 'SignOut',
+    },
+  ];
 
   return (
     <MainLayout>
-    <View style={GlobalStyle.container}>
-    <View style={styles.container}>
-      <ScrollView showsVerticalScrollIndicator={false}>
-        <Text style={{...FONTS.h2, marginBottom: hp(25), fontWeight: '600'}}>Account Settings</Text>
+      <View style={GlobalStyle.container}>
+        <View style={styles.container}>
+          <ScrollView showsVerticalScrollIndicator={false}>
+            <Text
+              style={{...FONTS.h2, marginBottom: hp(25), fontWeight: '600'}}>
+              Account Settings
+            </Text>
 
-        {/* <View style={[GlobalStyle.rowBetween, styles.settings]}>
+            {/* <View style={[GlobalStyle.rowBetween, styles.settings]}>
           <View style={GlobalStyle.profileCircle}>
             <Image source={{uri: getUserInfo?.image}}  style={styles.imgs} />
           </View>
@@ -126,22 +134,61 @@ const Profile = ({navigation}: any) => {
         </View>
         </View> */}
 
-        <View>
-          {
-            Info?.map((data, i) => {
-              return <ListCard id={i} data={data} handlePress={() => data?.route === 'SupportScreen' ? Linking.openURL('mailto:support@zendwallet.com') : navigation.navigate(data?.route)} logOut={logOut} />
-            })
-          }
+            <View>
+              {Info?.map((data, i) => {
+                return (
+                  <ListCard
+                    id={i}
+                    data={data}
+                    handlePress={() =>
+                      data?.route === 'SupportScreen'
+                        ? Linking.openURL('mailto:support@zendwallet.com')
+                        : navigation.navigate(data?.route)
+                    }
+                    logOut={() => setModalVisible(true)}
+                  />
+                );
+              })}
+            </View>
+
+            <View style={styles.centeredView}>
+              <Modal
+                animationType="slide"
+                transparent={true}
+                visible={modalVisible}
+                onRequestClose={() => {
+                  setModalVisible(false);
+                }}>
+                <View style={styles.centeredView}>
+                  <View style={styles.modalView}>
+                    <TouchableOpacity onPress={() => setModalVisible(false)}>
+                      <View style={styles.end}>
+                        <AntDesign name="close" size={30} />
+                      </View>
+                    </TouchableOpacity>
+
+                    <View style={{justifyContent: 'center', alignItems: 'center'}}>
+                      <LogOuts  />
+                      <Text style={{...FONTS.h3, fontWeight: '700', marginVertical: hp(10)}}>Confirm Logout</Text>
+                      <Text style={{...FONTS.body4, marginBottom: hp(10)}}>Are you sure about this?</Text>
+                      <TouchableOpacity onPress={() => logOut()}>
+                      <View style={{backgroundColor: COLORS.red, width: wp(100), padding: hp(10), borderRadius: hp(5)}}>
+                        <Text style={{textAlign: 'center',...FONTS.h3, color: COLORS.white }}>Logout</Text>
+                      </View>
+                      </TouchableOpacity>
+                    </View>
+                  </View>
+                </View>
+              </Modal>
+            </View>
+          </ScrollView>
         </View>
-      </ScrollView>
-    </View>
-   </View> 
-  </MainLayout>
-  )
-}
+      </View>
+    </MainLayout>
+  );
+};
 
-export default Profile
-
+export default Profile;
 
 const styles = StyleSheet.create({
   imgCircle: {
@@ -153,11 +200,37 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     marginTop: hp(5),
     flexDirection: 'row',
-    
+  },
+  centeredView: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: COLORS.transparentBlack,
+  },
+  modalView: {
+    margin: 20,
+    maxHeight: hp(650),
+    backgroundColor: 'white',
+    borderRadius: 20,
+    padding: 25,
+    width: '90%',
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5,
   },
   txt: {
     marginTop: hp(35),
     alignItems: 'center',
+  },
+  end: {
+    width: '100%',
+    justifyContent: 'flex-end',
+    alignItems: 'flex-end',
   },
   container: {
     paddingHorizontal: wp(10),
@@ -169,19 +242,19 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     paddingVertical: hp(10),
     alignItems: 'center',
-    marginTop: hp(16)
+    marginTop: hp(16),
   },
   row2: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginBottom: hp(20)
+    marginBottom: hp(20),
   },
   levelContainer: {
     marginBottom: hp(20),
   },
   rowDiv: {
     flexDirection: 'row',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   textStyle: {
     color: '#4F4F4F',
@@ -189,44 +262,38 @@ const styles = StyleSheet.create({
   },
   div: {
     width: '50%',
-    marginHorizontal: hp(20)
+    marginHorizontal: hp(20),
   },
   settings: {
     marginBottom: hp(25),
   },
   textContainer: {
-    width: '55%'
+    width: '55%',
   },
-  img: {
-
-  },
-  txt1: {
-
-  },
+  img: {},
+  txt1: {},
   txt2: {
     backgroundColor: '#DEF8E9',
     paddingHorizontal: hp(8),
     marginLeft: hp(5),
-    borderRadius: 10
+    borderRadius: 10,
   },
   txtNotVerified: {
     backgroundColor: '#ff0000',
     paddingHorizontal: hp(8),
     marginLeft: hp(5),
-    borderRadius: 10
+    borderRadius: 10,
   },
-  txt3: {
-
-  },
+  txt3: {},
   tag: {
     backgroundColor: '#E2E6FD',
     borderRadius: 10,
     padding: hp(10),
-    width: wp(110)
+    width: wp(110),
   },
   imgs: {
-    width: "100%", 
-    height: "100%",
-    borderRadius: 50
-  }
-})
+    width: '100%',
+    height: '100%',
+    borderRadius: 50,
+  },
+});

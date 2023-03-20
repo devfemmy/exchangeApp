@@ -130,6 +130,7 @@ const Login = ({navigation}: any) => {
                 }}>
                 Don’t have an account?   
               </Text>
+              <Text> </Text>
               <Text
                 style={{
                   ...FONTS.body4,
