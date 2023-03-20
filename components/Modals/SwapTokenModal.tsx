@@ -23,13 +23,13 @@ import {
   import {ScrollView} from 'react-native-gesture-handler';
 import {useAppSelector } from '../../app/hooks';
 import { tradingAccount } from '../../slice/WalletSlice';
+import { algorand, avalanche, bitcoin, bitcoinCash, dogeCoin, ethereum, litecoin, okb, polygon, ripple, solana, steller, tether, tron, usd } from '../../assets/images';
   
   const SwapTokenModal = ({modalVisible, setModalVisible, selectedToken, setSelectedToken}: any) => {
     const [value, setValue] = useState("")
 
    const tradingAccountInfo: any = useAppSelector(tradingAccount)
-    const searchToken = tokenBalanceData?.filter(data => data?.currency?.toLowerCase().includes(value?.toLowerCase()) || data?.token?.toLowerCase().includes(value?.toLowerCase()))
-  
+ 
 
 
     const selectType = (data: any) => {
@@ -53,9 +53,107 @@ import { tradingAccount } from '../../slice/WalletSlice';
           }
     }
 
+    const newTradingAccount = tradingAccountInfo
+    ? Object?.values(tradingAccountInfo)
+    : [];
+  const newTradingAccount2 = tradingAccountInfo
+    ? Object?.keys(tradingAccountInfo)
+    : [];
+  const newTradingList = newTradingAccount?.map((data: any, i) => {
+    return (
+      typeof data === 'object' && {
+        currency: newTradingAccount2[i]?.toLowerCase(),
+        availBalance: data?.availBal,
+        balUsd: data?.usd,
+        token:
+          newTradingAccount2[i]?.toLowerCase() === 'btc'
+            ? 'Bitcoin'
+            : newTradingAccount2[i]?.toLowerCase() === 'eth'
+            ? 'Ethereum'
+            : newTradingAccount2[i]?.toLowerCase() === 'usdt'
+            ? 'Tether'
+            : newTradingAccount2[i]?.toLowerCase() === 'usdc'
+            ? 'USD Coin'
+            : newTradingAccount2[i]?.toLowerCase() === 'trx'
+            ? 'Tron'
+            : newTradingAccount2[i]?.toLowerCase() === 'sol'
+            ? 'Solana'
+            : newTradingAccount2[i]?.toLowerCase() === 'algo'
+            ? 'Algorand'
+            : newTradingAccount2[i]?.toLowerCase() === 'xrp'
+            ? 'Ripple'
+            : newTradingAccount2[i]?.toLowerCase() === 'bch'
+            ? 'Bitcoin Cash'
+            : newTradingAccount2[i]?.toLowerCase() === 'matic'
+            ? 'Polygon'
+            : newTradingAccount2[i]?.toLowerCase() === 'avax'
+            ? 'Avalanche'
+            : newTradingAccount2[i]?.toLowerCase() === 'xlm'
+            ? 'Stellar'
+            : newTradingAccount2[i]?.toLowerCase() === 'ltc'
+            ? 'LiteCoin'
+            : newTradingAccount2[i]?.toLowerCase() === 'doge'
+            ? 'DogeCoin'
+            : newTradingAccount2[i]?.toLowerCase() === 'okb'
+            ? 'OKX'
+            : null,
+        icon:
+          newTradingAccount2[i]?.toLowerCase() === 'btc'
+            ? bitcoin
+            : newTradingAccount2[i]?.toLowerCase() === 'eth'
+            ? ethereum
+            : newTradingAccount2[i]?.toLowerCase() === 'usdt'
+            ? tether
+            : newTradingAccount2[i]?.toLowerCase() === 'usdc'
+            ? usd
+            : newTradingAccount2[i]?.toLowerCase() === 'trx'
+            ? tron
+            : newTradingAccount2[i]?.toLowerCase() === 'sol'
+            ? solana
+            : newTradingAccount2[i]?.toLowerCase() === 'algo'
+            ? algorand
+            : newTradingAccount2[i]?.toLowerCase() === 'xrp'
+            ? ripple
+            : newTradingAccount2[i]?.toLowerCase() === 'bch'
+            ? bitcoinCash
+            : newTradingAccount2[i]?.toLowerCase() === 'matic'
+            ? polygon
+            : newTradingAccount2[i]?.toLowerCase() === 'avax'
+            ? avalanche
+            : newTradingAccount2[i]?.toLowerCase() === 'xlm'
+            ? steller
+            : newTradingAccount2[i]?.toLowerCase() === 'ltc'
+            ? litecoin
+            : newTradingAccount2[i]?.toLowerCase() === 'doge'
+            ? dogeCoin
+            : newTradingAccount2[i]?.toLowerCase() === 'okb'
+            ? okb
+            : null,
+      }
+    );
+  });
+  const afterTradFilt = newTradingList?.filter(data => data !== false);
+  const afterTradSort = afterTradFilt?.sort(
+    (a: any, b: any) => parseFloat(b?.balUsd) - parseFloat(a?.balUsd),
+  );
+  const tokenBal: any = tokenBalanceData;
+  const combineTradData = afterTradSort?.concat(tokenBal);
+
+  const uniqueTradData = combineTradData.filter(
+    (tag: any, index: any, array: any) =>
+      array.findIndex((t: any) => t?.currency == tag?.currency) == index,
+  );
+  const searchTradData = !value
+    ? uniqueTradData
+    : uniqueTradData.filter(
+        (data: any) =>
+          data?.currency?.toLowerCase().includes(value?.toLowerCase()) ||
+          data?.token?.toLowerCase().includes(value?.toLowerCase()),
+      );
+
 
     const assets = () => {
-      return searchToken?.map(info => {
+      return searchTradData?.map((info:any )=> {
         return (
           <TouchableOpacity onPress={ selectedToken?.toLowerCase() === info?.currency?.toLowerCase() ? () => {} : () => selectType(info)}>
             <View style={[styles.actionCard2, {backgroundColor: selectedToken?.toLowerCase() === info?.currency?.toLowerCase() ? COLORS.lightGray2 : COLORS.white}]}>

@@ -2,10 +2,10 @@ import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import React from 'react';
 import GlobalStyle from '../utils/globalStyle';
 import FastImage from 'react-native-fast-image';
-import { hp, wp } from '../utils/helper';
+import { format, hp, wp } from '../utils/helper';
 import { COLORS, FONTS } from '../utils/constants/theme';
 
-const MarketComponent = ({info, navigation,type, action}: any) => {
+const MarketComponent = ({info, navigation,type}: any) => {
 
   return (
     <TouchableOpacity
@@ -39,11 +39,11 @@ const MarketComponent = ({info, navigation,type, action}: any) => {
         </View>
 
       </View>
-     {action(info?.currency?.toUpperCase())}
-     {/* <View style={{justifyContent: 'flex-end', alignItems: 'flex-end', width: "30%"}}>
-                 <Text style={{...FONTS.h3,color: COLORS.lightBlack, fontWeight: "bold"}}>{`$${format(marketData?.current_price.toFixed(2))}`}</Text>
-                      <Text style={{...FONTS.body5, color: marketData?.price_change_percentage_24h === 0 ? COLORS.lightGray : marketData?.price_change_percentage_24h > 0 ? COLORS.darkGreen : COLORS.red}}>{`${marketData?.price_change_24h.toFixed(2) + " " + `(${marketData?.price_change_percentage_24h.toFixed(2)})%`}`}</Text>
-                 </View> */}
+   
+     <View style={{justifyContent: 'flex-end', alignItems: 'flex-end', width: "30%"}}>
+                 <Text style={{...FONTS.h3,color: COLORS.lightBlack}}>{`${format(info?.availBalance ? parseFloat(info?.availBalance)?.toFixed(4) : 0)}`}</Text>
+                 <Text style={{...FONTS.h3,color: COLORS.lightBlack}}>{`$${format(info?.balUsd ? parseFloat(info?.balUsd)?.toFixed(2) : 0)}`}</Text>
+                 </View>
     </View>
   </TouchableOpacity>
   );

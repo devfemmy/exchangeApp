@@ -23,6 +23,7 @@ import {useAppDispatch, useAppSelector} from '../app/hooks';
 
 import {getFundingAccount, getTradingAccount} from '../slice/WalletSlice';
 import MarketComponent from '../components/MarketComponent';
+import { algorand, avalanche, bitcoin, bitcoinCash, dogeCoin, ethereum, litecoin, okb, polygon, ripple, solana, steller, tether, tron, usd } from '../assets/images';
 
 const Assets = ({navigation}: any) => {
   const [type, setType] = useState('funding');
@@ -39,12 +40,31 @@ const Assets = ({navigation}: any) => {
   const newList = newFundingAccount?.map((data: any, i) => {
     return typeof(data) === "object" && {
       currency: newFundingAccount2[i]?.toLowerCase(),
-      availBal: data?.availBal
+      availBalance: data?.availBal,
+      balUsd: data?.usd,
+      token: newFundingAccount2[i]?.toLowerCase() === "btc" ? "Bitcoin" : newFundingAccount2[i]?.toLowerCase() === "eth" ? "Ethereum" : newFundingAccount2[i]?.toLowerCase() === "usdt" ? "Tether" : newFundingAccount2[i]?.toLowerCase() === "usdc" ? "USD Coin" : newFundingAccount2[i]?.toLowerCase() === "trx" ? "Tron" :  newFundingAccount2[i]?.toLowerCase() === "sol" ? "Solana" :  newFundingAccount2[i]?.toLowerCase() === "algo" ? "Algorand" :  newFundingAccount2[i]?.toLowerCase() === "xrp" ? "Ripple" :  newFundingAccount2[i]?.toLowerCase() === "bch" ? "Bitcoin Cash" :  newFundingAccount2[i]?.toLowerCase() === "matic" ? "Polygon" :  newFundingAccount2[i]?.toLowerCase() === "avax" ? "Avalanche" :  newFundingAccount2[i]?.toLowerCase() === "xlm" ? "Stellar" :  newFundingAccount2[i]?.toLowerCase() === "ltc" ? "LiteCoin" :  newFundingAccount2[i]?.toLowerCase() === "doge" ? "DogeCoin" :  newFundingAccount2[i]?.toLowerCase() === "okb" ? "OKX" : null,
+      icon: newFundingAccount2[i]?.toLowerCase() === "btc" ? bitcoin : newFundingAccount2[i]?.toLowerCase() === "eth" ? ethereum : newFundingAccount2[i]?.toLowerCase() === "usdt" ? tether : newFundingAccount2[i]?.toLowerCase() === "usdc" ? usd : newFundingAccount2[i]?.toLowerCase() === "trx" ? tron : newFundingAccount2[i]?.toLowerCase() === "sol" ? solana :  newFundingAccount2[i]?.toLowerCase() === "algo" ? algorand :  newFundingAccount2[i]?.toLowerCase() === "xrp" ? ripple :  newFundingAccount2[i]?.toLowerCase() === "bch" ? bitcoinCash :  newFundingAccount2[i]?.toLowerCase() === "matic" ? polygon :  newFundingAccount2[i]?.toLowerCase() === "avax" ? avalanche :  newFundingAccount2[i]?.toLowerCase() === "xlm" ? steller :  newFundingAccount2[i]?.toLowerCase() === "ltc" ? litecoin :  newFundingAccount2[i]?.toLowerCase() === "doge" ? dogeCoin :  newFundingAccount2[i]?.toLowerCase() === "okb" ? okb : null,
     }
   })
   const afterFilt = newList?.filter(data => data !== false)
-  const afterSort = afterFilt?.sort((a: any,b: any) => parseFloat(b?.availBal) - parseFloat(a?.availBal))
-// console.log({afterSort})
+  const afterSort = afterFilt?.sort((a: any,b: any) => parseFloat(b?.balUsd) - parseFloat(a?.balUsd))
+
+
+  const newTradingAccount = tradingAccountInfo ? Object?.values(tradingAccountInfo) : [];
+  const newTradingAccount2 = tradingAccountInfo ? Object?.keys(tradingAccountInfo) : [];
+  const newTradingList = newTradingAccount?.map((data: any, i) => {
+    return typeof(data) === "object" && {
+      currency: newTradingAccount2[i]?.toLowerCase(),
+      availBalance: data?.availBal,
+      balUsd: data?.usd,
+      token: newTradingAccount2[i]?.toLowerCase() === "btc" ? "Bitcoin" : newTradingAccount2[i]?.toLowerCase() === "eth" ? "Ethereum" : newTradingAccount2[i]?.toLowerCase() === "usdt" ? "Tether" : newTradingAccount2[i]?.toLowerCase() === "usdc" ? "USD Coin" : newTradingAccount2[i]?.toLowerCase() === "trx" ? "Tron" :  newTradingAccount2[i]?.toLowerCase() === "sol" ? "Solana" :  newTradingAccount2[i]?.toLowerCase() === "algo" ? "Algorand" :  newTradingAccount2[i]?.toLowerCase() === "xrp" ? "Ripple" :  newTradingAccount2[i]?.toLowerCase() === "bch" ? "Bitcoin Cash" :  newTradingAccount2[i]?.toLowerCase() === "matic" ? "Polygon" :  newTradingAccount2[i]?.toLowerCase() === "avax" ? "Avalanche" :  newTradingAccount2[i]?.toLowerCase() === "xlm" ? "Stellar" :  newTradingAccount2[i]?.toLowerCase() === "ltc" ? "LiteCoin" :  newTradingAccount2[i]?.toLowerCase() === "doge" ? "DogeCoin" :  newTradingAccount2[i]?.toLowerCase() === "okb" ? "OKX" : null,
+      icon: newTradingAccount2[i]?.toLowerCase() === "btc" ? bitcoin : newTradingAccount2[i]?.toLowerCase() === "eth" ? ethereum : newTradingAccount2[i]?.toLowerCase() === "usdt" ? tether : newTradingAccount2[i]?.toLowerCase() === "usdc" ? usd : newTradingAccount2[i]?.toLowerCase() === "trx" ? tron : newTradingAccount2[i]?.toLowerCase() === "sol" ? solana :  newTradingAccount2[i]?.toLowerCase() === "algo" ? algorand :  newTradingAccount2[i]?.toLowerCase() === "xrp" ? ripple :  newTradingAccount2[i]?.toLowerCase() === "bch" ? bitcoinCash :  newTradingAccount2[i]?.toLowerCase() === "matic" ? polygon :  newTradingAccount2[i]?.toLowerCase() === "avax" ? avalanche :  newTradingAccount2[i]?.toLowerCase() === "xlm" ? steller :  newTradingAccount2[i]?.toLowerCase() === "ltc" ? litecoin :  newTradingAccount2[i]?.toLowerCase() === "doge" ? dogeCoin :  newTradingAccount2[i]?.toLowerCase() === "okb" ? okb : null,
+    }
+  })
+  const afterTradFilt = newTradingList?.filter(data => data !== false)
+  const afterTradSort = afterTradFilt?.sort((a: any,b: any) => parseFloat(b?.balUsd) - parseFloat(a?.balUsd))
+
+ 
 
   const fundingAssets = (data: any) => {
    
@@ -100,19 +120,25 @@ const Assets = ({navigation}: any) => {
  return () => clearInterval(id);
   }, [currentCount])
 
-  const searchData = !value ? tokenBalanceData : tokenBalanceData?.filter(data => data?.currency?.toLowerCase().includes(value?.toLowerCase()) ||  data?.token?.toLowerCase().includes(value?.toLowerCase()))
-console.log({searchData})
+ const tokenBal: any = tokenBalanceData
+  const combineData = afterSort?.concat(tokenBal)
+
+  const uniqueData = combineData.filter((tag: any, index: any, array: any) => array.findIndex((t: any) => t?.currency == tag?.currency) == index);
+  const searchData = !value ? uniqueData : uniqueData.filter((data: any) => data?.currency?.toLowerCase().includes(value?.toLowerCase()) ||  data?.token?.toLowerCase().includes(value?.toLowerCase()))
+  
+  const combineTradData = afterTradSort?.concat(tokenBal)
+
+  const uniqueTradData = combineTradData.filter((tag: any, index: any, array: any) => array.findIndex((t: any) => t?.currency == tag?.currency) == index);
+  const searchTradData = !value ? uniqueTradData : uniqueTradData.filter((data: any) => data?.currency?.toLowerCase().includes(value?.toLowerCase()) ||  data?.token?.toLowerCase().includes(value?.toLowerCase()))
+
+
+
   const showFundingAssets = () => {
-    return afterSort?.map((data: any) => {
-      return searchData?.map((info: any) => {
-        return <MarketComponent info={info} type="funding" marketData={data} navigation={navigation} action={(data: any) => fundingAssets(data)} />
-      } )
-    })
-  //   return searchData?.map((info: any) => {
-  //   return marketInfos?.map((data: any) => {
-  //     return info?.currency === data?.symbol && <MarketComponent info={info} type="funding" marketData={data} navigation={navigation} action={(data: any) => fundingAssets(data)} />
-  //   });
-  // })
+    return searchData?.map((info: any) => {
+    return marketInfos?.map((data: any) => {
+      return info?.currency === data?.symbol && <MarketComponent info={info} type="funding" marketData={data} navigation={navigation} action={(data: any) => fundingAssets(data)} />
+    });
+  })
   };
 
 
@@ -130,7 +156,7 @@ console.log({searchData})
 
 
   const showTradingAssets = () => {
-    return searchData?.map((info: any) => {
+    return searchTradData?.map((info: any) => {
       return marketInfos?.map((data: any) => {
         return info?.currency === data?.symbol && <MarketComponent info={info} type="trading" navigation={navigation} marketData={data} action={(data: any) => tradingAssets(data)} />
       });

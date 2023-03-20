@@ -36,6 +36,38 @@ export const getMarketPrice = createAsyncThunk(
   },
 );
 
+export const getSwapQuote = createAsyncThunk(
+  'wallet/getSwapQuote',
+  async (payload: {fromCurrency: string, toCurrency: string, fromCurrencyAmt: string}, {rejectWithValue}) => {
+       try {
+        var response = await postRequest(config.wallet_base_url + '/api/swap/quote', payload)
+        if (response?.status === 200) {
+            return response?.data
+          }
+       }
+       catch (e: any) {
+        return rejectWithValue(e?.response?.data?.message);
+      }
+
+  }
+)
+
+export const swapToken = createAsyncThunk(
+  'wallet/swapToken',
+  async (payload: {fromCurrency: string, toCurrency: string, fromCurrencyAmt: string}, {rejectWithValue}) => {
+       try {
+        var response = await postRequest(config.wallet_base_url + '/api/swap', payload)
+        if (response?.status === 200) {
+            return response?.data
+          }
+       }
+       catch (e: any) {
+        return rejectWithValue(e?.response?.data?.message);
+      }
+
+  }
+)
+
 export const transferToken = createAsyncThunk(
   'trade/transferToken',
   async (
@@ -94,6 +126,24 @@ export const tradeSlice = createSlice({
           state.loading = false
         });
       builder.addCase(transferToken.rejected, state => {
+        state.loading = false;
+      });
+      builder.addCase(getSwapQuote.pending, state => {
+        state.loading = true;
+      }),
+        builder.addCase(getSwapQuote.fulfilled, (state, action) => {
+          state.loading = false
+        });
+      builder.addCase(getSwapQuote.rejected, state => {
+        state.loading = false;
+      });
+      builder.addCase(swapToken.pending, state => {
+        state.loading = true;
+      }),
+        builder.addCase(swapToken.fulfilled, (state, action) => {
+          state.loading = false
+        });
+      builder.addCase(swapToken.rejected, state => {
         state.loading = false;
       });
   },

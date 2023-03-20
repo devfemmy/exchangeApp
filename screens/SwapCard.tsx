@@ -121,14 +121,17 @@ const SwapCard = (props: any) => {
 
   const handlePerChange = (value: any) => {
     const max = (parseInt(value) / 100) * assetData?.availBal
-    setAmount(isNaN(max) ? "0" : max?.toString())
+    const dd = isNaN(max) ? "0" : max?.toString()
+    setAmount(parseFloat(dd)?.toFixed(4))
     setMax(value)
-   
   }
 
 
   const confirmSwapDetail = () => {
-    if(selectedAssetsTo === "Swap from" || currencyName === "Swap to" || selectedAssetsTo === "Swap to" || currencyName === "Swap from"){
+    if(selectedAssetsTo === "Swap from" || currencyName === "Swap to"){
+      return;
+    }
+    if(amount > assetData?.availBal) {
       return;
     }
  
