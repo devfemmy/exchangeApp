@@ -209,7 +209,7 @@ const ZendPrepaidHistory = ({navigation}: any) => {
      <View style={styles.hr}></View>
 
      <View>
-     <TranHistoryCard header="Swap" />
+     {/* <TranHistoryCard header="Swap" /> */}
      </View>
     </View>
   )
