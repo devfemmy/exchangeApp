@@ -194,7 +194,7 @@ const SwapCard = (props: any) => {
                     }}>
                     Bal:{' '}
                     {assetData?.availBal
-                      ? format(parseFloat(assetData?.availBal)?.toFixed(2))
+                      ? format(parseFloat(assetData?.availBal)?.toFixed(4).slice(0,-1))
                       : 0}
                   </Text>
                 </View>
@@ -234,7 +234,7 @@ const SwapCard = (props: any) => {
                       }}>
                       Bal:{' '}
                       {assetDataTo?.availBal
-                        ? format(parseFloat(assetDataTo?.availBal)?.toFixed(2))
+                        ? format(parseFloat(assetDataTo?.availBal)?.toFixed(4).slice(0,-1))
                         : 0}
                     </Text>
                   </View>

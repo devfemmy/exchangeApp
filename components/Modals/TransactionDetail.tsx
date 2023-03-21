@@ -150,7 +150,7 @@ const TransactionDetailModal = ({modalVisible, setModalVisible, data}: any) => {
                   }}>
                   Transaction Status:
                 </Text>
-                <Text style={{...FONTS.body3, color: data?.status === "success" ? COLORS.darkGreen : data?.status === "submited" ? COLORS.orange : COLORS.red, textTransform: 'capitalize'}}>
+                <Text style={{...FONTS.body3, color: data?.status === "success" ? COLORS.darkGreen : data?.status === "submited" ? COLORS.orange :  data?.status === "pending" ? COLORS.orange : COLORS.red, textTransform: 'capitalize'}}>
                   {data?.status}
                 </Text>
               </View>

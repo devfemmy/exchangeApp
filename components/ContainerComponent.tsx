@@ -36,6 +36,7 @@ import KycScreen from '../screens/KycScreen';
 import Transfer from '../screens/Transfer';
 import ConfirmSwap from '../screens/ConfirmSwap';
 import Instructions from '../screens/Instructions';
+import TwoFactorVerification from '../screens/TwoFactorVerification';
 
 const Stack = createStackNavigator();
 
@@ -132,6 +133,10 @@ const ContainerComponent = () => {
          <Stack.Screen
             name="Transfer"
             component={Transfer}
+        />
+        <Stack.Screen
+            name="TwoFactorVerification"
+            component={TwoFactorVerification}
         />
         <Stack.Screen
             name="Instructions"

@@ -32,12 +32,10 @@ const RequireConfirmation = (props: any) => {
         var response = (await dispatch(verifySignin(data))) as any;
         if (verifySignin.fulfilled.match(response)) {
             setLoader(false);
-         
-           
+
         } else {
           var errMsg = response?.payload as string;
           setLoader(false);
-          
           Notifier.showNotification({
             title: 'Error',
             description: errMsg,

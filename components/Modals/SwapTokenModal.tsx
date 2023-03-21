@@ -36,22 +36,6 @@ import { algorand, avalanche, bitcoin, bitcoinCash, dogeCoin, ethereum, litecoin
         setSelectedToken(data)
     }
 
-    const tradingAssets = (data: any) => {
-      switch (data) {
-        case data?.toUpperCase():
-          return  <View style={styles.sub}>
-            <Text style={{...FONTS.body5}}>{`${format(
-            tradingAccountInfo?.[data?.toUpperCase()]?.availBal ?   `${parseFloat(tradingAccountInfo?.[data?.toUpperCase()]?.availBal).toFixed(2)}` : 0     
-          )}`}</Text>
-          <Text style={{...FONTS.body5, fontWeight: '600'}}>{`$${format(
-            tradingAccountInfo?.[data?.toUpperCase()]?.availBal ?   parseFloat(tradingAccountInfo?.[data?.toUpperCase()]?.availBal).toFixed(2) : 0     
-          )}`}</Text>    
-        </View>
-          break;
-          default: 
-            break;
-          }
-    }
 
     const newTradingAccount = tradingAccountInfo
     ? Object?.values(tradingAccountInfo)
@@ -172,8 +156,12 @@ import { algorand, avalanche, bitcoin, bitcoinCash, dogeCoin, ethereum, litecoin
                   </Text>
                 </View>
               </View>
-              {tradingAssets(info?.currency?.toUpperCase())}
-              
+              <View
+        style={{justifyContent: 'flex-end', alignItems: 'flex-end'}}>
+        <Text style={{...FONTS.h5,color: COLORS.lightBlack}}>{`${format(info?.availBalance ? parseFloat(info?.availBalance)?.toFixed(4) : 0)}`}</Text>
+                 <Text style={{...FONTS.h5,color: COLORS.lightBlack, fontWeight: '600'}}>{`$${format(info?.balUsd ? parseFloat(info?.balUsd)?.toFixed(2) : 0)}`}</Text>
+
+      </View>
             </View>
           </TouchableOpacity>
         );

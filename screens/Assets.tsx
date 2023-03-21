@@ -8,6 +8,7 @@ import {
   StyleSheet,
   Pressable,
   Image,
+  RefreshControl,
 } from 'react-native';
 import React, {useState, useEffect} from 'react';
 import MainLayout from './mainLayout';
@@ -33,7 +34,7 @@ const Assets = ({navigation}: any) => {
   const [fundingAccountInfo, setFundingAccountInfo] = useState<any>();
   const dispatch = useAppDispatch();
   const [value, setValue] = useState<any>()
-
+  const [refreshing, setRefreshing] = useState(false);
 
   const newFundingAccount = fundingAccountInfo ? Object?.values(fundingAccountInfo) : [];
   const newFundingAccount2 = fundingAccountInfo ? Object?.keys(fundingAccountInfo) : [];
@@ -85,6 +86,14 @@ const Assets = ({navigation}: any) => {
     
   }
 
+  const onRefresh = React.useCallback(() => {
+    setRefreshing(true);
+    dispatch(getTradingAccount())
+    dispatch(getFundingAccount())
+    setTimeout(() => {
+      setRefreshing(false);
+    }, 2000);
+  }, []);
 
   
 
@@ -166,7 +175,9 @@ const Assets = ({navigation}: any) => {
   return (
     <MainLayout>
       <View style={GlobalStyle.container}>
-        <ScrollView showsVerticalScrollIndicator={false}>
+        <ScrollView showsVerticalScrollIndicator={false} refreshControl={
+              <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+            }>
           <Text style={{...FONTS.h2, marginBottom: hp(5), fontWeight: '600'}}>Assets</Text>
           <View style={GlobalStyle.rowBetween}>
             <View style={{width: '60%'}}>

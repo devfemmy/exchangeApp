@@ -44,8 +44,8 @@ const ConfirmSwap = (props: any) => {
 
   const handleSwapToken = async () => {
     const payload = {
-        fromCurrency: fromName,
-        toCurrency: toName,
+        fromCurrency: fromName?.toLowerCase(),
+        toCurrency: toName?.toLowerCase(),
         fromCurrencyAmt: amount,
       };
       setLoader(true);

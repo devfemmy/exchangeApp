@@ -56,7 +56,8 @@ export const swapToken = createAsyncThunk(
   'wallet/swapToken',
   async (payload: {fromCurrency: string, toCurrency: string, fromCurrencyAmt: string}, {rejectWithValue}) => {
        try {
-        var response = await postRequest(config.wallet_base_url + '/api/swap', payload)
+        var response = await postRequest(`${config.wallet_base_url}/api/swap`,
+        payload)
         if (response?.status === 200) {
             return response?.data
           }
@@ -64,6 +65,19 @@ export const swapToken = createAsyncThunk(
        catch (e: any) {
         return rejectWithValue(e?.response?.data?.message);
       }
+
+  }
+)
+
+
+export const getWithdrawalOtp = createAsyncThunk(
+  'wallet/getWithdrawalOtp',
+  async () => {
+        var response = await getRequest(`${config.wallet_base_url}/api/emailotp`)
+        if (response?.status === 200) {
+            return response?.data
+          }
+
 
   }
 )
@@ -92,6 +106,64 @@ export const transferToken = createAsyncThunk(
     }
   },
 );
+
+export const submitInternalWithdraw = createAsyncThunk(
+  'trade/submitInternalWithdraw',
+  async (
+    payload: {
+      currency: string,
+      type: string,
+      amount: string,
+      toUser: string,
+      pin: string,
+      emailOtp: string,
+      messageId: string
+    },
+    {rejectWithValue},
+  ) => {
+    try {
+      var response = await postRequest(
+        `${config.wallet_base_url}/api/withdraw`,
+        payload,
+      );
+      if (response?.status === 200) {
+        return response?.data;
+      }
+    } catch (e: any) {
+      return rejectWithValue(e?.response?.data?.message);
+    }
+  },
+);
+
+export const submitExternalWithdraw = createAsyncThunk(
+  'trade/submitExternalWithdraw',
+  async (
+    payload: {
+      currency: string,
+      type: string,
+      amount: string,
+      toAddr: string,
+      pin: string,
+      emailOtp: string,
+      messageId: string,
+      chain: string
+    },
+    {rejectWithValue},
+  ) => {
+    try {
+      var response = await postRequest(
+        `${config.wallet_base_url}/api/withdraw`,
+        payload,
+      );
+      if (response?.status === 200) {
+        return response?.data;
+      }
+    } catch (e: any) {
+      return rejectWithValue(e?.response?.data?.message);
+    }
+  },
+);
+
 
 export const tradeSlice = createSlice({
   name: 'trade',
@@ -144,6 +216,33 @@ export const tradeSlice = createSlice({
           state.loading = false
         });
       builder.addCase(swapToken.rejected, state => {
+        state.loading = false;
+      });
+      builder.addCase(getWithdrawalOtp.pending, state => {
+        state.loading = true;
+      }),
+        builder.addCase(getWithdrawalOtp.fulfilled, (state, action) => {
+          state.loading = false
+        });
+      builder.addCase(getWithdrawalOtp.rejected, state => {
+        state.loading = false;
+      });
+      builder.addCase(submitInternalWithdraw.pending, state => {
+        state.loading = true;
+      }),
+        builder.addCase(submitInternalWithdraw.fulfilled, (state, action) => {
+          state.loading = false
+        });
+      builder.addCase(submitInternalWithdraw.rejected, state => {
+        state.loading = false;
+      });
+      builder.addCase(submitExternalWithdraw.pending, state => {
+        state.loading = true;
+      }),
+        builder.addCase(submitExternalWithdraw.fulfilled, (state, action) => {
+          state.loading = false
+        });
+      builder.addCase(submitExternalWithdraw.rejected, state => {
         state.loading = false;
       });
   },
