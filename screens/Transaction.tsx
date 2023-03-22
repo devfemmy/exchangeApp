@@ -12,6 +12,7 @@ import TransactionCard from '../components/TransactionCard';
 import SwapIcon from '../assets/svg/swap.svg';
 import HistoryIcon from '../assets/svg/bitcoin-convert.svg';
 import UsdIcon from '../assets/svg/usd.svg';
+import TransIcon from '..//assets/svg/transaction-minus.svg'
 
 const Transaction = () => {
 
@@ -36,7 +37,7 @@ const Transaction = () => {
     id: 4,
     header: "Zend Prepaid",
     title: "View all your prepaid transactions",
-    icon: <UsdIcon />,
+    icon: <TransIcon />,
     navigationScreen: "ZendPrepaidHistory",
     color: COLORS.primary2,
 },

@@ -47,7 +47,7 @@ const MainLayout = ({children}: any) => {
             header: "Zend Prepaid",
             title: "Change your crypto to giftcard",
             icon: 'sync',
-            navigationScreen: "ZendPrepaid",
+            navigationScreen: "ZendPrepaidHistory",
         },
         {
             id: 5,
