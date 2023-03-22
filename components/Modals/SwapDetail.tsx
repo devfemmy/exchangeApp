@@ -14,7 +14,7 @@ import {copyToClipboard, format, hp, wp} from '../../utils/helper';
 import GlobalStyle from '../../utils/globalStyle';
 import Feather from 'react-native-vector-icons/Feather';
 
-const TransactionDetailModal = ({modalVisible, setModalVisible, data}: any) => {
+const SwapDetailModal = ({modalVisible, setModalVisible, data}: any) => {
 
 
   return (
@@ -36,7 +36,7 @@ const TransactionDetailModal = ({modalVisible, setModalVisible, data}: any) => {
             </TouchableOpacity>
 
             <Text
-              style={{...FONTS.body3, textAlign: 'center', fontWeight: '700', marginBottom: hp(20)}}>
+              style={{...FONTS.body4, textAlign: 'center', fontWeight: '700', marginBottom: hp(20)}}>
               Transaction Details
             </Text>
 
@@ -47,27 +47,20 @@ const TransactionDetailModal = ({modalVisible, setModalVisible, data}: any) => {
                     padding: hp(15),
                     marginRight: hp(20),
                     borderRadius: 50,
-                    backgroundColor:
-                      data?.transactionType === 'withdraw'
-                        ? COLORS.lightGreen
-                        : COLORS.lightOrange
+                    backgroundColor: COLORS.lightGreen
                   }}>
                   <AntDesign
-                    name={data?.transactionType === "withdraw" ? "arrowup" : "arrowdown"}
+                    name={"swap"}
                     size={15}
-                    color={
-                      data?.transactionType === 'withdraw'
-                        ? COLORS.darkGreen
-                        : COLORS.orange
-                    }
+                    color={COLORS.darkGreen}
                   />
                 </View>
                 <View>
                   <Text style={{textTransform: 'capitalize', ...FONTS.body4}}>
-                    {data?.transactionType}
+                    Swap
                   </Text>
                   <Text style={{...FONTS.body5, color: COLORS.gray}}>
-                  {parseFloat(data?.amount)?.toFixed(2)} {data?.currency?.toUpperCase()}
+                  {data?.fromCurrency +  "-" + data?.toCurrency}
                   </Text>
                 </View>
               </View>
@@ -78,10 +71,10 @@ const TransactionDetailModal = ({modalVisible, setModalVisible, data}: any) => {
                     textTransform: 'capitalize',
                     ...FONTS.body4,color: COLORS.gray,
                   }}>
-                  Amount:
+                  Amount Received:
                 </Text>
-                <Text style={{...FONTS.body3, textTransform: 'capitalize'}}>
-                 {parseFloat(data?.amount).toFixed(2)} {data?.currency?.toUpperCase()}
+                <Text style={{...FONTS.body4}}>
+                 {format(parseFloat(data?.toCurrencyAmt).toFixed(2))} {data?.toCurrency?.toUpperCase()}
                 </Text>
               </View>
 
@@ -93,21 +86,50 @@ const TransactionDetailModal = ({modalVisible, setModalVisible, data}: any) => {
                   Transaction ID:
                 </Text>
                <View style={GlobalStyle.rowStart}>
-               <Text style={{...FONTS.body3, marginRight: hp(30)}}>{data?.txId?.slice(0, 25) + "..."}</Text>
-               <Feather name="copy" size={20} onPress={() => copyToClipboard(data?.txId)} />
+               <Text style={{...FONTS.body4, marginRight: hp(30)}}>{data?.ordId}</Text>
+               <Feather name="copy" size={20} onPress={() => copyToClipboard(data?.ordId)} />
                </View>
               </View>
 
+            <View style={GlobalStyle.rowBetween}>
+            <View style={styles.mt}>
+                <Text
+                  style={{
+                    textTransform: 'capitalize',
+                    ...FONTS.body4,color: COLORS.gray,
+                  }}>
+                  From:
+                </Text>
+                <Text style={{...FONTS.body4}}>
+                  {format(parseFloat(data?.fromCurrencyAmt)?.toFixed(4).slice(0, -1))} {data?.fromCurrency?.toUpperCase()}
+                </Text>
+              </View>
+                  <AntDesign name="swap" size={20} />
+                  <View style={styles.mt}>
+                <Text
+                  style={{
+                    textTransform: 'capitalize',
+                    textAlign: 'right',
+                    ...FONTS.body4,color: COLORS.gray,
+                  }}>
+                  To:
+                </Text>
+                <Text style={{...FONTS.body4}}>
+                {format(parseFloat(data?.toCurrencyAmt)?.toFixed(4).slice(0, -1))} {data?.toCurrency?.toUpperCase()}
+                </Text>
+              </View>
+            </View>
+
               <View style={styles.mt}>
                 <Text
                   style={{
                     textTransform: 'capitalize',
                     ...FONTS.body4,color: COLORS.gray,
                   }}>
-                  Transaction Type:
+                 Conversion Rate:
                 </Text>
-                <Text style={{...FONTS.body3, textTransform: 'capitalize'}}>
-                  {data?.type} withdrawal
+                <Text style={{...FONTS.body4, textTransform: 'capitalize'}}>
+                {data?.rate}
                 </Text>
               </View>
 
@@ -117,17 +139,16 @@ const TransactionDetailModal = ({modalVisible, setModalVisible, data}: any) => {
                     textTransform: 'capitalize',
                     ...FONTS.body4,color: COLORS.gray,
                   }}>
-                 Network
+                 Fee:
                 </Text>
-                <Text style={{...FONTS.body3, textTransform: 'capitalize'}}>
-                  {data?.chain}
+                <Text style={{...FONTS.body4, textTransform: 'capitalize'}}>
+                {data?.fee}
                 </Text>
               </View>
 
 
-             
-
-              <View style={styles.mt}>
+             <View style={GlobalStyle.rowBetween}>
+  <View style={styles.mt}>
                 <Text
                   style={{
                     textTransform: 'capitalize',
@@ -135,12 +156,12 @@ const TransactionDetailModal = ({modalVisible, setModalVisible, data}: any) => {
                   }}>
                   Date:
                 </Text>
-                <Text style={{...FONTS.body3, textTransform: 'capitalize'}}>
+                <Text style={{...FONTS.body4, textTransform: 'capitalize'}}>
                 {new Date(data?.timeStamp).toDateString()}
                 </Text>
-              </View>
-
-              <View style={styles.mt}>
+              </View> 
+              
+               <View style={styles.mt}>
                 <Text
                   style={{
                     textTransform: 'capitalize',
@@ -148,23 +169,12 @@ const TransactionDetailModal = ({modalVisible, setModalVisible, data}: any) => {
                   }}>
                   Transaction Status:
                 </Text>
-                <Text style={{...FONTS.body3, color: data?.status === "success" ? COLORS.darkGreen : data?.status === "submited" ? COLORS.orange :  data?.status === "pending" ? COLORS.orange : COLORS.red, textTransform: 'capitalize'}}>
+                <Text style={{...FONTS.body4, color: data?.status === "success" ? COLORS.darkGreen : data?.status === "submited" ? COLORS.orange :  data?.status === "pending" ? COLORS.orange : COLORS.red, textTransform: 'capitalize'}}>
                   {data?.status}
                 </Text>
               </View>
+             </View>
 
-              <View style={styles.mt}>
-                <Text
-                  style={{
-                    textTransform: 'capitalize',
-                    ...FONTS.body4,color: COLORS.gray,
-                  }}>
-                  Value when received in USD
-                </Text>
-                <Text style={{...FONTS.body3, color: COLORS.black, textTransform: 'uppercase'}}>
-                  {format(parseFloat(data?.usdValue ? data?.usdValue : 0)?.toFixed(2))} USD
-                </Text>
-              </View>
 
             </View>
           </View>
@@ -175,7 +185,7 @@ const TransactionDetailModal = ({modalVisible, setModalVisible, data}: any) => {
   );
 };
 
-export default TransactionDetailModal;
+export default SwapDetailModal;
 
 const styles = StyleSheet.create({
   centeredView: {

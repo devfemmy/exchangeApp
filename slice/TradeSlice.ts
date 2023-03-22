@@ -77,8 +77,41 @@ export const getWithdrawalOtp = createAsyncThunk(
         if (response?.status === 200) {
             return response?.data
           }
+  }
+)
+
+export const getSwapHistory = createAsyncThunk(
+  'wallet/getSwapHistory',
+  async (payload: {page: number, status: string, id: string}) => {
+        var response = await getRequest(`${config.wallet_base_url}/api/swap/history?page=${payload?.page}&limit=10&status=${payload?.status}&transactionId=${payload?.id}`)
+        if (response?.status === 200) {
+            return response?.data
+          }
 
 
+  }
+)
+
+export const getTransactionHistory = createAsyncThunk(
+  'wallet/getTransactionHistory',
+  async (payload: {page: number, status: string, id: string, type: string}) => {
+        var response = await getRequest(`${config.wallet_base_url}/api/transaction/history?page=${payload?.page}&limit=10&status=${payload?.status}&transactionId=${payload?.id}&transactionType=${payload?.type}`)
+        if (response?.status === 200) {
+            return response?.data
+          }
+
+
+  }
+)
+
+
+export const getWithdrawalFee = createAsyncThunk(
+  'wallet/getWithdrawalFee',
+  async (payload: string) => {
+        var response = await getRequest(`${config.wallet_base_url}/api/withdraw/fee?currency=${payload}`)
+        if (response?.status === 200) {
+            return response?.data
+          }
   }
 )
 
@@ -243,6 +276,33 @@ export const tradeSlice = createSlice({
           state.loading = false
         });
       builder.addCase(submitExternalWithdraw.rejected, state => {
+        state.loading = false;
+      });
+      builder.addCase(getWithdrawalFee.pending, state => {
+        state.loading = true;
+      }),
+        builder.addCase(getWithdrawalFee.fulfilled, (state, action) => {
+          state.loading = false
+        });
+      builder.addCase(getWithdrawalFee.rejected, state => {
+        state.loading = false;
+      });
+      builder.addCase(getSwapHistory.pending, state => {
+        state.loading = true;
+      }),
+        builder.addCase(getSwapHistory.fulfilled, (state, action) => {
+          state.loading = false
+        });
+      builder.addCase(getSwapHistory.rejected, state => {
+        state.loading = false;
+      });
+      builder.addCase(getTransactionHistory.pending, state => {
+        state.loading = true;
+      }),
+        builder.addCase(getTransactionHistory.fulfilled, (state, action) => {
+          state.loading = false
+        });
+      builder.addCase(getTransactionHistory.rejected, state => {
         state.loading = false;
       });
   },

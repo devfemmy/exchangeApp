@@ -15,7 +15,21 @@ export const PhoneSchema = yup.object().shape({
     .min(11, ({min}) => `Phone Number must be at least ${min} characters`)
     .required('Phone Number is required'),
 });
-
+export const CompanyVerificationSchema = yup.object().shape({
+  CACNumber: yup.string().required('CAC Number is required'),
+  registeredName: yup.string().required('Company Name is required'),
+});
+export const UsdSchema = yup.object().shape({
+  beneficiaryName: yup.string().required('Beneficiary Name is required'),
+  beneficiaryAddress: yup.string().required('Beneficiary Address is required'),
+  bankName: yup.string().required('Bank Name is required'),
+  bankAccount: yup.string().required('Bank Account is required'),
+  swiftCode: yup.string().required('Swift Code is required'),
+  beneficiaryEmail: yup.string().email().required('Beneficiary Email is required'),
+  phoneNumber: yup.string()
+  .min(11, ({min}) => `Phone Number must be at least ${min} characters`)
+  .required('Phone Number is required'),
+});
 export const ForgetPasswordSchema = yup.object().shape({
   emailAddress: yup.string().email().required('Email is required'),
 });

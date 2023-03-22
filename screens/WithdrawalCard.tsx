@@ -10,7 +10,7 @@ import {tokenBalanceData} from '../utils/constants/tokenList';
 import GlobalStyle from '../utils/globalStyle';
 import {ScrollView} from 'react-native-gesture-handler';
 import {useAppDispatch, useAppSelector} from '../app/hooks';
-import {getMarketPrice, marketInfo} from '../slice/TradeSlice';
+import {getMarketPrice, getWithdrawalFee, marketInfo} from '../slice/TradeSlice';
 import IconTextButton from '../components/IconTextButton';
 import { SelectInput } from '../components/SelectInput';
 import { getFundingAccount, getWalletNetwork } from '../slice/WalletSlice';
@@ -32,7 +32,7 @@ const WithdrawalCard = (props: any) => {
   const [amount, setAmount] = useState<any>("")
   const [user, setUser] = useState<any>("")
   const [userAddress, setUserAddress] = useState<any>("")
-
+  const [fee, setFee] = useState<any>()
 
   const handleVisibleOpen = () => {
     if(parseFloat(amount) > parseFloat(assetData?.availBal)) {
@@ -65,12 +65,94 @@ const WithdrawalCard = (props: any) => {
         },
       });
     }
+    if(user?.length <= 0) {
+      return Notifier.showNotification({
+        title: 'Error',
+        description: "Username is required",
+        Component: NotifierComponents.Alert,
+        componentProps: {
+          alertType: 'error',
+        },
+      });
+    }
+    setModalVisible(true)
+  }
+
+  const handleVisibleOpen2 = () => {
+    if(parseFloat(amount) > parseFloat(assetData?.availBal)) {
+      return Notifier.showNotification({
+        title: 'Error',
+        description: "Insufficient Balance",
+        Component: NotifierComponents.Alert,
+        componentProps: {
+          alertType: 'error',
+        },
+      });
+    }
+    if(amount?.length <= 0) {
+      return Notifier.showNotification({
+        title: 'Error',
+        description: "Amount is required",
+        Component: NotifierComponents.Alert,
+        componentProps: {
+          alertType: 'error',
+        },
+      });
+    }
+    if(walletType?.length <= 0) {
+      return Notifier.showNotification({
+        title: 'Error',
+        description: "wallet type is required",
+        Component: NotifierComponents.Alert,
+        componentProps: {
+          alertType: 'error',
+        },
+      });
+    }
+    if(walletNetwork?.length <= 0) {
+      return Notifier.showNotification({
+        title: 'Error',
+        description: "Network is required",
+        Component: NotifierComponents.Alert,
+        componentProps: {
+          alertType: 'error',
+        },
+      });
+    }
+    if(userAddress?.length <= 0) {
+      return Notifier.showNotification({
+        title: 'Error',
+        description: "Address is required",
+        Component: NotifierComponents.Alert,
+        componentProps: {
+          alertType: 'error',
+        },
+      });
+    }
+    if(parseFloat(amount) <  parseFloat(fee?.minWd)) {
+      return Notifier.showNotification({
+        title: 'Error',
+        description: `Min Withdrawal is ${fee?.minWd} ${currencyName?.toUpperCase()}`,
+        Component: NotifierComponents.Alert,
+        componentProps: {
+          alertType: 'error',
+        },
+      });
+    }
     setModalVisible(true)
   }
 
   const handleVisibleClose = () => {
     setModalVisible(false)
   }
+
+useEffect(() => {
+  dispatch(getWithdrawalFee(currencyName?.toUpperCase())).then(pp => {
+    const selectedFee = pp?.payload[currencyName?.toUpperCase()]?.find((data: any) => data?.chain === walletNetwork)
+    setFee(selectedFee)
+  })
+}, [currencyName, walletNetwork])
+
 
 useEffect(() => {
   const loadData = async () => {
@@ -161,12 +243,12 @@ useEffect(() => {
                     walletType ===  "External Wallet" && <View style={styles.card}>
                         <View style={GlobalStyle.rowBetween}>
                           <Text>Fees:</Text>
-                          <Text>0 {currencyName?.toUpperCase()}</Text>
+                          <Text>{fee?.minFee} {currencyName?.toUpperCase()}</Text>
                         </View>
                         <View style={styles.hr} />
                         <View style={GlobalStyle.rowBetween}>
                           <Text>Recipient will receive:</Text>
-                          <Text>0.000 {currencyName?.toUpperCase()}</Text>
+                          <Text>{(amount - fee?.minFee)?.toFixed(4).slice(0, -1)} {currencyName?.toUpperCase()}</Text>
                         </View>
                     </View>
                   }
@@ -177,7 +259,7 @@ useEffect(() => {
             </View>
           </View>
           <View style={styles.bottom}>
-            <IconTextButton label="Withdraw" onPress={() => handleVisibleOpen()} />
+            <IconTextButton label="Withdraw" onPress={walletType === "Zend Pay" ? () => handleVisibleOpen() : () => handleVisibleOpen2()} />
           </View>
 
           <WithdrawalNotice 

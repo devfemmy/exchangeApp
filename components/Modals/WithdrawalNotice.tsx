@@ -73,7 +73,7 @@ const WithdrawalNotice = ({modalVisible, setModalVisible, data}: any) => {
                
             </View> 
             <Text style={{marginBottom: hp(20)}}>
-                    <Text style={{...FONTS.body3, color: COLORS.gray}}>Username: </Text>
+                    <Text style={{...FONTS.body3, color: COLORS.gray}}>Address: </Text>
                     <Text style={{...FONTS.body3}}>{data?.user || data?.userAddress}</Text>
                 </Text>
 
