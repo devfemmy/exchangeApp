@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, Pressable, ScrollView } from 'react-native'
+import { View, Text, StyleSheet, Pressable, ScrollView, Image } from 'react-native'
 import React, {useState} from 'react'
 import GlobalStyle from '../utils/globalStyle'
 import { COLORS, FONTS } from '../utils/constants/theme'
@@ -208,7 +208,8 @@ const ZendPrepaidHistory = ({navigation}: any) => {
       </View>
      <View style={styles.hr}></View>
 
-     <View>
+     <View style={styles.gifContainer}>
+      <Image style={styles.gifStyle} source={require('../assets/images/trans.gif')} />
      {/* <TranHistoryCard header="Swap" /> */}
      </View>
     </View>
@@ -220,6 +221,14 @@ export default ZendPrepaidHistory
 const styles = StyleSheet.create({
     margin: {
         // marginVertical: 20,
+      },
+      gifContainer: {
+        justifyContent: 'center',
+        alignItems: 'center',
+      },
+      gifStyle: {
+        width: wp(300),
+        height: hp(380),
       },
       icon: {
         marginVertical: 20,

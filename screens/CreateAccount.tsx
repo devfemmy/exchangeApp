@@ -181,7 +181,7 @@ const CreateAccount = ({navigation}: any) => {
     //   </View>
     // </View>
       <View style={GlobalStyle.container}>
-      <KeyboardAwareScrollView >
+      <KeyboardAwareScrollView showsVerticalScrollIndicator={false}>
       <ScrollView showsVerticalScrollIndicator={false}>
         <HeaderComponent onPress={() => navigation.goBack()} />
         <View>
