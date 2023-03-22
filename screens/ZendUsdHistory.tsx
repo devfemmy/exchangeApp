@@ -209,7 +209,7 @@ const ZendUsdHistory = ({navigation}: any) => {
      <View style={styles.hr}></View>
 
      <View>
-     <TranHistoryCard header="Sold usd" />
+     {/* <TranHistoryCard header="Sold usd" /> */}
      </View>
     </View>
   )

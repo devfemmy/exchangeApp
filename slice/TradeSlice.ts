@@ -36,6 +36,85 @@ export const getMarketPrice = createAsyncThunk(
   },
 );
 
+export const getSwapQuote = createAsyncThunk(
+  'wallet/getSwapQuote',
+  async (payload: {fromCurrency: string, toCurrency: string, fromCurrencyAmt: string}, {rejectWithValue}) => {
+       try {
+        var response = await postRequest(config.wallet_base_url + '/api/swap/quote', payload)
+        if (response?.status === 200) {
+            return response?.data
+          }
+       }
+       catch (e: any) {
+        return rejectWithValue(e?.response?.data?.message);
+      }
+
+  }
+)
+
+export const swapToken = createAsyncThunk(
+  'wallet/swapToken',
+  async (payload: {fromCurrency: string, toCurrency: string, fromCurrencyAmt: string}, {rejectWithValue}) => {
+       try {
+        var response = await postRequest(`${config.wallet_base_url}/api/swap`,
+        payload)
+        if (response?.status === 200) {
+            return response?.data
+          }
+       }
+       catch (e: any) {
+        return rejectWithValue(e?.response?.data?.message);
+      }
+
+  }
+)
+
+
+export const getWithdrawalOtp = createAsyncThunk(
+  'wallet/getWithdrawalOtp',
+  async () => {
+        var response = await getRequest(`${config.wallet_base_url}/api/emailotp`)
+        if (response?.status === 200) {
+            return response?.data
+          }
+  }
+)
+
+export const getSwapHistory = createAsyncThunk(
+  'wallet/getSwapHistory',
+  async (payload: {page: number, status: string, id: string}) => {
+        var response = await getRequest(`${config.wallet_base_url}/api/swap/history?page=${payload?.page}&limit=10&status=${payload?.status}&transactionId=${payload?.id}`)
+        if (response?.status === 200) {
+            return response?.data
+          }
+
+
+  }
+)
+
+export const getTransactionHistory = createAsyncThunk(
+  'wallet/getTransactionHistory',
+  async (payload: {page: number, status: string, id: string, type: string}) => {
+        var response = await getRequest(`${config.wallet_base_url}/api/transaction/history?page=${payload?.page}&limit=10&status=${payload?.status}&transactionId=${payload?.id}&transactionType=${payload?.type}`)
+        if (response?.status === 200) {
+            return response?.data
+          }
+
+
+  }
+)
+
+
+export const getWithdrawalFee = createAsyncThunk(
+  'wallet/getWithdrawalFee',
+  async (payload: string) => {
+        var response = await getRequest(`${config.wallet_base_url}/api/withdraw/fee?currency=${payload}`)
+        if (response?.status === 200) {
+            return response?.data
+          }
+  }
+)
+
 export const transferToken = createAsyncThunk(
   'trade/transferToken',
   async (
@@ -60,6 +139,64 @@ export const transferToken = createAsyncThunk(
     }
   },
 );
+
+export const submitInternalWithdraw = createAsyncThunk(
+  'trade/submitInternalWithdraw',
+  async (
+    payload: {
+      currency: string,
+      type: string,
+      amount: string,
+      toUser: string,
+      pin: string,
+      emailOtp: string,
+      messageId: string
+    },
+    {rejectWithValue},
+  ) => {
+    try {
+      var response = await postRequest(
+        `${config.wallet_base_url}/api/withdraw`,
+        payload,
+      );
+      if (response?.status === 200) {
+        return response?.data;
+      }
+    } catch (e: any) {
+      return rejectWithValue(e?.response?.data?.message);
+    }
+  },
+);
+
+export const submitExternalWithdraw = createAsyncThunk(
+  'trade/submitExternalWithdraw',
+  async (
+    payload: {
+      currency: string,
+      type: string,
+      amount: string,
+      toAddr: string,
+      pin: string,
+      emailOtp: string,
+      messageId: string,
+      chain: string
+    },
+    {rejectWithValue},
+  ) => {
+    try {
+      var response = await postRequest(
+        `${config.wallet_base_url}/api/withdraw`,
+        payload,
+      );
+      if (response?.status === 200) {
+        return response?.data;
+      }
+    } catch (e: any) {
+      return rejectWithValue(e?.response?.data?.message);
+    }
+  },
+);
+
 
 export const tradeSlice = createSlice({
   name: 'trade',
@@ -94,6 +231,78 @@ export const tradeSlice = createSlice({
           state.loading = false
         });
       builder.addCase(transferToken.rejected, state => {
+        state.loading = false;
+      });
+      builder.addCase(getSwapQuote.pending, state => {
+        state.loading = true;
+      }),
+        builder.addCase(getSwapQuote.fulfilled, (state, action) => {
+          state.loading = false
+        });
+      builder.addCase(getSwapQuote.rejected, state => {
+        state.loading = false;
+      });
+      builder.addCase(swapToken.pending, state => {
+        state.loading = true;
+      }),
+        builder.addCase(swapToken.fulfilled, (state, action) => {
+          state.loading = false
+        });
+      builder.addCase(swapToken.rejected, state => {
+        state.loading = false;
+      });
+      builder.addCase(getWithdrawalOtp.pending, state => {
+        state.loading = true;
+      }),
+        builder.addCase(getWithdrawalOtp.fulfilled, (state, action) => {
+          state.loading = false
+        });
+      builder.addCase(getWithdrawalOtp.rejected, state => {
+        state.loading = false;
+      });
+      builder.addCase(submitInternalWithdraw.pending, state => {
+        state.loading = true;
+      }),
+        builder.addCase(submitInternalWithdraw.fulfilled, (state, action) => {
+          state.loading = false
+        });
+      builder.addCase(submitInternalWithdraw.rejected, state => {
+        state.loading = false;
+      });
+      builder.addCase(submitExternalWithdraw.pending, state => {
+        state.loading = true;
+      }),
+        builder.addCase(submitExternalWithdraw.fulfilled, (state, action) => {
+          state.loading = false
+        });
+      builder.addCase(submitExternalWithdraw.rejected, state => {
+        state.loading = false;
+      });
+      builder.addCase(getWithdrawalFee.pending, state => {
+        state.loading = true;
+      }),
+        builder.addCase(getWithdrawalFee.fulfilled, (state, action) => {
+          state.loading = false
+        });
+      builder.addCase(getWithdrawalFee.rejected, state => {
+        state.loading = false;
+      });
+      builder.addCase(getSwapHistory.pending, state => {
+        state.loading = true;
+      }),
+        builder.addCase(getSwapHistory.fulfilled, (state, action) => {
+          state.loading = false
+        });
+      builder.addCase(getSwapHistory.rejected, state => {
+        state.loading = false;
+      });
+      builder.addCase(getTransactionHistory.pending, state => {
+        state.loading = true;
+      }),
+        builder.addCase(getTransactionHistory.fulfilled, (state, action) => {
+          state.loading = false
+        });
+      builder.addCase(getTransactionHistory.rejected, state => {
         state.loading = false;
       });
   },

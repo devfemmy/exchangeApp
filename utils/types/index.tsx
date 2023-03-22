@@ -13,6 +13,20 @@ export type LoginFormData = {
     emailAddress: string,
     password: string,
 }
+export type CompanyVerificationFormData = {
+    CACNumber: string,
+    registeredName: string,
+}
+
+export type UsdFormData = {
+    beneficiaryName: string,
+    beneficiaryAddress: string,
+    bankName: string,
+    bankAccount: string,
+    swiftCode: string,
+    beneficiaryEmail: string,
+    phoneNumber: string
+}
 
 export type ButtonProps = {
     title: string,
@@ -48,6 +62,25 @@ export type CreateAccountFormDataUi = {
     // gender: string,
     password: string,
     confirmPassword: string,
+}
+
+export type CreateUsd = {
+    swiftCode: string,
+    amount: number,
+    charges: number,
+    beneficiary: {
+        name: string,
+        address: string,
+        bankName: string,
+        bankAccountNumber: string,
+        emailAddress: string,
+        phoneNumber: string,
+        country: string
+    },
+    paymentInvoice: {
+        isUploaded: boolean,
+        file: string
+    }
 }
 
 export type HomeAddress = {

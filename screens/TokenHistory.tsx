@@ -1,14 +1,48 @@
-import { View, Text, StyleSheet, Pressable, ScrollView } from 'react-native'
-import React, {useState} from 'react'
+/* eslint-disable react-hooks/exhaustive-deps */
+import { View, Text, StyleSheet, Pressable, ScrollView, FlatList } from 'react-native'
+import React, {useEffect, useState} from 'react'
 import GlobalStyle from '../utils/globalStyle'
 import { COLORS, FONTS } from '../utils/constants/theme'
 import { hp, wp } from '../utils/helper'
 import HeaderComponent from '../components/HeaderComponent'
-import TranHistoryCard from '../components/TranHistoryCard'
+
+import { useAppDispatch } from '../app/hooks'
+import { getTransactionHistory } from '../slice/TradeSlice'
+import { TextInput } from '../components/TextInput'
+import EmptyScreen from '../components/EmptyScreen'
+
+import TransactionDetailModal from '../components/Modals/TransactionDetail'
+import HistoryCard from '../components/HistoryCard'
 
 
 const TokenHistory = ({navigation}: any) => {
-    const [type, setType] = useState('all');
+  const [transactionData, setTransactionData] = useState<any>()
+  const dispatch = useAppDispatch()
+  const [modalVisible, setModalVisible] = useState(false);
+  const [details, setDetails] = useState<any>();
+  const [value, setValue] = useState("")
+  const [type, setType] = useState('all');
+
+  const handleModalClose = () => {
+    setModalVisible(false);
+    setDetails(null);
+  };
+
+  const handleModalOpen = (data: any) => {
+    setModalVisible(true);
+    setDetails(data);
+  };
+
+  useEffect(() => {
+    const payload = {
+        page: 1, 
+        status: (type === "success" || type === "incoming" || type === "pending" || type === "failed") ? type : "", 
+        id: value?.length <= 0 ? "" : value,
+        type: (type === "all" || type === "success" || type === "incoming" || type === "pending" || type === "failed")  ? "" : type,
+      }
+    dispatch(getTransactionHistory(payload)).then((pp: any) => setTransactionData(pp?.payload))
+  }, [type, value])
+
 
   return (
     <View style={GlobalStyle.container}>
@@ -102,20 +136,20 @@ const TokenHistory = ({navigation}: any) => {
               //  borderColor: COLORS.primary,
               // borderWidth: 1,
                borderRadius: hp(20),
-              borderColor: type === 'successful' ? COLORS.primary : COLORS.gray,
-              borderWidth: type === 'successful' ? 1 : 1,
+              borderColor: type === 'success' ? COLORS.primary : COLORS.gray,
+              borderWidth: type === 'success' ? 1 : 1,
                 marginRight: hp(10),
                 padding: hp(5),
                 justifyContent: 'center',
                 alignItems: 'center',
             }}>
-            <Pressable onPress={() => setType('successful')}>
+            <Pressable onPress={() => setType('success')}>
               <Text
                 style={{
                   ...FONTS.h5,
                   textAlign: 'center',
                   color:
-                    type === 'successful' ? COLORS.primary : COLORS.gray,
+                    type === 'success' ? COLORS.primary : COLORS.gray,
                 }}>
                 Successful
               </Text>
@@ -208,8 +242,29 @@ const TokenHistory = ({navigation}: any) => {
      <View style={styles.hr}></View>
 
      <View>
-     <TranHistoryCard header="Deposit" />
+              <TextInput
+                label={'Search transaction by id'}
+                value={value}
+                onChangeText={(value: any) => setValue(value)}
+                searchInput
+              />
+            </View>
+            {
+        transactionData?.transactions?.length < 1 && <EmptyScreen />
+      }
+     <View style={{marginBottom: hp(280)}}>
+      <FlatList 
+        keyExtractor={item => item?.id}
+        showsVerticalScrollIndicator={false}
+        data={transactionData?.transactions}
+        renderItem={(item) => {
+         return <HistoryCard data={item?.item} handleClick={(data: any) => handleModalOpen(data)} />;
+        }}
+      />
+
      </View>
+
+     <TransactionDetailModal modalVisible={modalVisible} setModalVisible={() => handleModalClose()} data={details} />
     </View>
   )
 }

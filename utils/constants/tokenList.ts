@@ -15,16 +15,16 @@ const tokenBalanceData = [
       icon: tether,
       token: "Tether",
       currency: "usdt",
-      pendingBalance: 22020,
-      availableBalance: 220,
+      pendingBalance: 0,
+      availableBalance: 0,
       fall: true
     },
     {
       icon: ethereum,
       token: "Ethereum",
       currency: "eth",
-      pendingBalance: 1.12,
-      availableBalance: 0.01,
+      pendingBalance: 0,
+      availableBalance: 0,
     },
     {
       icon: usd,
@@ -66,8 +66,8 @@ const tokenBalanceData = [
       icon: ripple,
       token: "Ripple",
       currency: "xrp",
-      pendingBalance: 10,
-      availableBalance: 200,
+      pendingBalance: 0,
+      availableBalance: 0,
     },
     {
       icon: bitcoinCash,

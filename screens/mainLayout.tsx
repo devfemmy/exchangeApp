@@ -21,13 +21,13 @@ const MainLayout = ({children}: any) => {
 
 
     const tradeAction = [
-        // {
-        //     id: 1,
-        //     header: "Deposit",
-        //     title: "Deposit crypto to another wallet",
-        //     icon: 'arrowdown',
-        //     navigationScreen: "Deposit",
-        // },
+        {
+            id: 1,
+            header: "Deposit",
+            title: "Deposit crypto to another wallet",
+            icon: 'arrowdown',
+            navigationScreen: "Deposit",
+        },
         {
             id: 2,
             header: "Swap",
@@ -77,7 +77,7 @@ const MainLayout = ({children}: any) => {
 
     const modalY = modalAnimatedValue.interpolate({
         inputRange: [0,1],
-        outputRange: [SIZES.height, SIZES.height - 550]
+        outputRange: [SIZES.height, SIZES.height - 650]
     })
   
   return (

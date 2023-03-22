@@ -1,13 +1,47 @@
-import { View, Text, StyleSheet } from 'react-native'
-import React from 'react'
+/* eslint-disable react-hooks/exhaustive-deps */
+import { View, Text, StyleSheet, FlatList, ScrollView, Pressable } from 'react-native'
+import React, { useEffect, useState } from 'react'
 import GlobalStyle from '../utils/globalStyle'
 import { COLORS, FONTS } from '../utils/constants/theme'
 import { hp, wp } from '../utils/helper'
 import HeaderComponent from '../components/HeaderComponent'
 import TranHistoryCard from '../components/TranHistoryCard'
+import { useAppDispatch } from '../app/hooks'
+import { getSwapHistory } from '../slice/TradeSlice'
+import SwapDetailModal from '../components/Modals/SwapDetail'
+import { TextInput } from '../components/TextInput'
+import EmptyScreen from '../components/EmptyScreen'
 
 
 const SwapHistory = ({navigation}: any) => {
+  const [swapData, setSwapData] = useState<any>()
+  const dispatch = useAppDispatch()
+  const [modalVisible, setModalVisible] = useState(false);
+  const [details, setDetails] = useState<any>();
+  const [value, setValue] = useState("")
+  const [type, setType] = useState('all');
+
+  const handleModalClose = () => {
+    setModalVisible(false);
+    setDetails(null);
+  };
+
+  const handleModalOpen = (data: any) => {
+    setModalVisible(true);
+    setDetails(data);
+  };
+
+  useEffect(() => {
+    const payload = {
+        page: 1, 
+        status: type === "all" ? "" : type, 
+        id: value?.length <= 0 ? "" : value
+      }
+    dispatch(getSwapHistory(payload)).then(pp => setSwapData(pp?.payload))
+  }, [type, value])
+
+ 
+
   return (
     <View style={GlobalStyle.container}>
               <View style={styles.margin} />
@@ -16,9 +50,142 @@ const SwapHistory = ({navigation}: any) => {
      
      <View style={styles.hr}></View>
 
+     <View style={[GlobalStyle.rowStart]}>
+        <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+          <View
+            style={{
+               width: wp(70),
+              borderColor: type === 'all' ? COLORS.primary : COLORS.gray,
+              borderWidth: type === 'all' ? 1 : 1,
+              //  borderColor: COLORS.primary,
+               borderRadius: hp(20),
+              marginRight: hp(10),
+              padding: hp(5),
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}>
+            <Pressable onPress={() => setType('all')}>
+              <Text
+                style={{
+                  ...FONTS.h5,
+                  textAlign: 'center',
+                  color: type === 'all' ? COLORS.primary : 'rgb(128, 128, 128)',
+                }}>
+                All
+              </Text>
+            </Pressable>
+          </View>
+          <View
+            style={{
+              width: wp(100),
+              // backgroundColor:
+              //   type === 'withdraw' ? COLORS.primary : COLORS.white,
+              //  borderColor: COLORS.primary,
+              // borderWidth: 1,
+              borderColor: type === 'success' ? COLORS.primary : COLORS.gray,
+              borderWidth: type === 'success' ? 1 : 1,
+               borderRadius: hp(20),
+                marginRight: hp(10),
+                padding: hp(5),
+                justifyContent: 'center',
+                alignItems: 'center',
+            }}>
+            <Pressable onPress={() => setType('success')}>
+              <Text
+                style={{
+                  ...FONTS.h5,
+                  textAlign: 'center',
+                  color:
+                    type === 'success' ? COLORS.primary : COLORS.gray1,
+                }}>
+                Success
+              </Text>
+            </Pressable>
+          </View>
+          <View
+            style={{
+               width: wp(100),
+              // backgroundColor:
+              //   type === 'deposit' ? COLORS.primary : COLORS.white,
+              //  borderColor: COLORS.primary,
+              // borderWidth: 1,
+               borderRadius: hp(20),
+              borderColor: type === 'pending' ? COLORS.primary : COLORS.gray,
+              borderWidth: type === 'pending' ? 1 : 1,
+                marginRight: hp(10),
+                padding: hp(5),
+                justifyContent: 'center',
+                alignItems: 'center',
+            }}>
+            <Pressable onPress={() => setType('pending')}>
+              <Text
+                style={{
+                  ...FONTS.h5,
+                  textAlign: 'center',
+                  color:
+                    type === 'pending' ? COLORS.primary : COLORS.gray,
+                }}>
+                Pending
+              </Text>
+            </Pressable>
+          </View>
+          <View
+            style={{
+               width: wp(100),
+              // backgroundColor:
+              //   type === 'successful' ? COLORS.primary : COLORS.white,
+              //  borderColor: COLORS.primary,
+              // borderWidth: 1,
+               borderRadius: hp(20),
+              borderColor: type === 'fail' ? COLORS.primary : COLORS.gray,
+              borderWidth: type === 'fail' ? 1 : 1,
+                marginRight: hp(10),
+                padding: hp(5),
+                justifyContent: 'center',
+                alignItems: 'center',
+            }}>
+            <Pressable onPress={() => setType('fail')}>
+              <Text
+                style={{
+                  ...FONTS.h5,
+                  textAlign: 'center',
+                  color:
+                    type === 'fail' ? COLORS.primary : COLORS.gray,
+                }}>
+                Failed
+              </Text>
+            </Pressable>
+          </View>
+
+        </ScrollView>
+      </View>
+      
+      <View style={styles.hr}></View>
+
      <View>
-    <TranHistoryCard header="Swap" />
+              <TextInput
+                label={'Search transaction by id'}
+                value={value}
+                onChangeText={(value: any) => setValue(value)}
+                searchInput
+              />
+            </View>
+            {
+        swapData?.transactions?.length < 1 && <EmptyScreen />
+      }
+     <View style={{marginBottom: hp(280)}}>
+      <FlatList 
+        keyExtractor={item => item?.id}
+        showsVerticalScrollIndicator={false}
+        data={swapData?.transactions}
+        renderItem={(item) => {
+         return <TranHistoryCard data={item?.item} handlePress={(data: any) => handleModalOpen(data)} />;
+        }}
+      />
+
      </View>
+
+     <SwapDetailModal modalVisible={modalVisible} setModalVisible={() => handleModalClose()} data={details} />
     </View>
   )
 }

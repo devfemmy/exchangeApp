@@ -17,6 +17,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 export const getRequest = async (url: string) => {
 
     const token =  await AsyncStorage.getItem('userInfo').then((req: any) => JSON.parse(req))
+
     var response = await axios.get(url, {
         headers: {
           authorization: `Bearer ${token?.accessToken}`,
