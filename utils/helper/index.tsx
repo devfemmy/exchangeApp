@@ -38,6 +38,7 @@ import { Notifier, NotifierComponents } from 'react-native-notifier';
   
     return year + '-' + month + '-' + date;//format: d-m-y;
   }
+
   
   
   export const numberFormat = (value: number) => {

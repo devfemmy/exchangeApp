@@ -32,6 +32,8 @@ import { useNavigation } from '@react-navigation/native';
         })
     }
 
+
+
     return (
       <View>
         <View style={styles.centeredView}>

@@ -55,8 +55,9 @@ const Deposit = ({navigation}: any) => {
 
   const handleModalOpen = (data: any) => {
     setOpenModal(true);
-    dispatch(getWalletNetwork(data?.currency)).then(pp =>
-      setNetworks(pp?.payload?.[data?.currency?.toUpperCase()]),
+    dispatch(getWalletNetwork(data?.currency)).then(pp => {
+      setNetworks(pp?.payload?.[data?.currency?.toUpperCase()])
+    }
     );
     setOtherInfo(data);
   };
