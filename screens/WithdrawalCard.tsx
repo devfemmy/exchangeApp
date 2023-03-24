@@ -17,6 +17,7 @@ import { getFundingAccount, getWalletNetwork } from '../slice/WalletSlice';
 import SelectDropdowns from '../components/SelectDropdowns';
 import WithdrawalNotice from '../components/Modals/WithdrawalNotice';
 import { Notifier, NotifierComponents } from 'react-native-notifier';
+import { memoryUsage } from 'process';
 
 const WithdrawalCard = (props: any) => {
   const assetName = props.route?.params?.info?.token;
@@ -30,6 +31,7 @@ const WithdrawalCard = (props: any) => {
   const [networks, setNetworks] = useState<any>()
   const [modalVisible, setModalVisible] = useState(false)
   const [amount, setAmount] = useState<any>("")
+  const [memo, setMemo] = useState<any>("")
   const [user, setUser] = useState<any>("")
   const [userAddress, setUserAddress] = useState<any>("")
   const [fee, setFee] = useState<any>()
@@ -77,6 +79,8 @@ const WithdrawalCard = (props: any) => {
     }
     setModalVisible(true)
   }
+
+  
 
   const handleVisibleOpen2 = () => {
     if(parseFloat(amount) > parseFloat(assetData?.availBal)) {
@@ -150,6 +154,7 @@ useEffect(() => {
   dispatch(getWithdrawalFee(currencyName?.toUpperCase())).then(pp => {
     const selectedFee = pp?.payload[currencyName?.toUpperCase()]?.find((data: any) => data?.chain === walletNetwork)
     setFee(selectedFee)
+
   })
 }, [currencyName, walletNetwork])
 
@@ -166,7 +171,7 @@ useEffect(() => {
  }, [currencyName])
 
 
- const networksList = networks?.map((data: any) => {
+ const networksList = networks?.reverse()?.map((data: any) => {
   return {
     id: data?.address,
     name: data?.chain
@@ -236,8 +241,13 @@ useEffect(() => {
                     setSelected={(value: any) => setWalletNetwork(value)}
                   />
                   }
+                 
                   {
                     walletType ===  "External Wallet" && <TextInput value={userAddress} onChangeText={(value) => setUserAddress(value)} label="Wallet Address" />
+                  } 
+                  
+                  {
+                    (currencyName === "xrp" || currencyName === "xlm") && walletType ===  "External Wallet" && <TextInput value={memo} onChangeText={(value) => setMemo(value)} label="Enter Memo" />
                   }
               {
                     walletType ===  "External Wallet" && <View style={styles.card}>
@@ -248,7 +258,7 @@ useEffect(() => {
                         <View style={styles.hr} />
                         <View style={GlobalStyle.rowBetween}>
                           <Text>Recipient will receive:</Text>
-                          <Text>{(amount - fee?.minFee)?.toFixed(4).slice(0, -1)} {currencyName?.toUpperCase()}</Text>
+                          <Text>{ amount?.length <= 0 ? 0 : (parseFloat(amount) - parseFloat(fee?.minFee))?.toFixed(4).slice(0, -1)} {currencyName?.toUpperCase()}</Text>
                         </View>
                     </View>
                   }

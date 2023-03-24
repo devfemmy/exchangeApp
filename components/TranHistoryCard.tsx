@@ -55,7 +55,7 @@ const TranHistoryCard = ({data, handlePress}: any) => {
             ...FONTS.body5,
             fontWeight: '600',
           }}>{`${format(
-          parseFloat(data?.toCurrencyAmt).toFixed(3).slice(0, -1)
+          parseFloat(data?.toCurrencyAmt).toFixed(5).slice(0, -1)
         )}`}</Text>
         <Text
           style={{

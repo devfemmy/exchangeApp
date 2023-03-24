@@ -13,6 +13,7 @@ const DepositAddress = (props: any) => {
   const {chain, address} = props?.route?.params?.data;
   const {token, icon, currency} = props?.route?.params?.otherInfo;
 
+ 
 
   return (
     <View style={GlobalStyle.container}>

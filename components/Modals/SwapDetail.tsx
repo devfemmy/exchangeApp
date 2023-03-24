@@ -74,7 +74,7 @@ const SwapDetailModal = ({modalVisible, setModalVisible, data}: any) => {
                   Amount Received:
                 </Text>
                 <Text style={{...FONTS.body4}}>
-                 {format(parseFloat(data?.toCurrencyAmt).toFixed(2))} {data?.toCurrency?.toUpperCase()}
+                 {format(parseFloat(data?.toCurrencyAmt).toFixed(5).slice(0, -1))} {data?.toCurrency?.toUpperCase()}
                 </Text>
               </View>
 
@@ -101,7 +101,7 @@ const SwapDetailModal = ({modalVisible, setModalVisible, data}: any) => {
                   From:
                 </Text>
                 <Text style={{...FONTS.body4}}>
-                  {format(parseFloat(data?.fromCurrencyAmt)?.toFixed(4).slice(0, -1))} {data?.fromCurrency?.toUpperCase()}
+                  {format(parseFloat(data?.fromCurrencyAmt)?.toFixed(5).slice(0, -1))} {data?.fromCurrency?.toUpperCase()}
                 </Text>
               </View>
                   <AntDesign name="swap" size={20} />
@@ -115,7 +115,7 @@ const SwapDetailModal = ({modalVisible, setModalVisible, data}: any) => {
                   To:
                 </Text>
                 <Text style={{...FONTS.body4}}>
-                {format(parseFloat(data?.toCurrencyAmt)?.toFixed(4).slice(0, -1))} {data?.toCurrency?.toUpperCase()}
+                {format(parseFloat(data?.toCurrencyAmt)?.toFixed(5).slice(0, -1))} {data?.toCurrency?.toUpperCase()}
                 </Text>
               </View>
             </View>
@@ -142,7 +142,7 @@ const SwapDetailModal = ({modalVisible, setModalVisible, data}: any) => {
                  Fee:
                 </Text>
                 <Text style={{...FONTS.body4, textTransform: 'capitalize'}}>
-                {data?.fee}
+                {format(parseFloat(data?.fee)?.toFixed(7).slice(0, -1))}
                 </Text>
               </View>
 

@@ -87,8 +87,17 @@ export const getSwapHistory = createAsyncThunk(
         if (response?.status === 200) {
             return response?.data
           }
+  }
+)
 
+export const getUsdHistory = createAsyncThunk(
+  'wallet/getUsdHistory',
+  async (payload: {page: number, status: string, id: string, userId: string}) => {
 
+        var response = await getRequest(`${config.api_base_url}/users/transactions/find/all?userID=${payload?.userId}&type=zendUSD&page=${payload?.page}&count=10${payload?.status?.length > 0 && "&filter=status"}&status=${payload?.status}&id=${payload?.id}`)
+        if (response?.status === 200) {
+            return response?.data
+          }
   }
 )
 
@@ -303,6 +312,15 @@ export const tradeSlice = createSlice({
           state.loading = false
         });
       builder.addCase(getTransactionHistory.rejected, state => {
+        state.loading = false;
+      });
+      builder.addCase(getUsdHistory.pending, state => {
+        state.loading = true;
+      }),
+        builder.addCase(getUsdHistory.fulfilled, (state, action) => {
+          state.loading = false
+        });
+      builder.addCase(getUsdHistory.rejected, state => {
         state.loading = false;
       });
   },
