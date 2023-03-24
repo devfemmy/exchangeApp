@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet } from 'react-native'
+import { View, Text, StyleSheet, ScrollView } from 'react-native'
 import React, { useState } from 'react'
 import GlobalStyle from '../utils/globalStyle'
 import HeaderComponent from '../components/HeaderComponent'
@@ -66,6 +66,7 @@ const ZendUsd = ({navigation}: any) => {
   return (
     <View style={GlobalStyle.container}>
       <HeaderComponent onPress={() => navigation.goBack()} />
+      <ScrollView>
       <Text style={{...FONTS.h3, fontWeight: '600'}}>Welcome to Zend USD</Text> 
       <Text style={{...FONTS.body4, marginTop: hp(20), color: COLORS.gray}}>Welcome to zend USD, before you can carry out any transactions you have to upload your company CAC Document</Text> 
     
@@ -73,10 +74,10 @@ const ZendUsd = ({navigation}: any) => {
             <AntDesign name="addfolder" size={20} color={COLORS.gray} />
             <Text style={{...FONTS.body5, color: COLORS.gray}}>Upload CAC Document</Text>
         </View>
-        {/* <View style={styles.div2}>
+        <View style={styles.div2}>
             <AntDesign name="addfolder" size={20} color={COLORS.gray} />
-            <Text style={{...FONTS.body5, color: COLORS.gray}}>Upload Mermat</Text>
-        </View> */}
+            <Text style={{...FONTS.body5, color: COLORS.gray}}>Upload Mermat (MEMORANDUM OF ARTICLES)</Text>
+        </View>
         <TextInput
               label={'Enter Name of Company'}
               value={values?.registeredName}
@@ -93,6 +94,7 @@ const ZendUsd = ({navigation}: any) => {
               errorMsg={touched.CACNumber ? errors.CACNumber : undefined}
             />
          <IconTextButton label="Upload Document" onPress={() => handleSubmit()} isLoading={loader} />
+         </ScrollView>
     </View>
   )
 }

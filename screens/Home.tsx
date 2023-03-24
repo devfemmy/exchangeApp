@@ -141,14 +141,18 @@ const Home = ({navigation}: any) => {
               <View style={styles.eyeDiv}>
                 {show ? (
                    <Pressable onPress={() => setShow(!show)}>
-                   <Image source={eye} />
+                    <Ionicons
+                  name="eye-outline"
+                  color={'white'}
+                  size={30}
+                />
                  </Pressable>
                 ) : (
                   <Ionicons
                   name="eye-off-outline"
                   onPress={() => setShow(!show)}
                   color={'white'}
-                  size={22}
+                  size={30}
                 />
                 )}
               </View>

@@ -1,6 +1,5 @@
-import { View, StyleSheet, Image,Text, TouchableOpacity } from 'react-native';
+import { View, StyleSheet,Text, TouchableOpacity } from 'react-native';
 import React from 'react';
-import {  scanner } from '../assets/images';
 import { hp, wp } from '../utils/helper';
 import { COLORS, FONTS } from '../utils/constants/theme';
 import { useNavigation } from '@react-navigation/native';
@@ -11,7 +10,7 @@ const Header = ({info, note}: any) => {
 
     return (
         <View style={styles.row}>
-           <TouchableOpacity onPress={() => navigation?.navigate('Profile')}>
+           <TouchableOpacity onPress={() => navigation?.navigate('EditProfile')}>
            <View>
                 <FastImage
                     style={styles.image}
@@ -31,9 +30,9 @@ const Header = ({info, note}: any) => {
                 </View>
                 <Text style={{...FONTS.body5}}>{note}</Text>
             </View>
-            <View>
+            {/* <View>
                 <Image source={scanner} />
-            </View>
+            </View> */}
         </View>
     );
 };

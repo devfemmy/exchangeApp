@@ -15,8 +15,8 @@ const HistoryCard = ({data, handleClick}: any) => {
    <TouchableOpacity onPress={() => handleClick(data)}>
      <View style={[GlobalStyle.rowBetween, styles.card]}>
       <View style={[GlobalStyle.rowStart]}>
-        <View style={{padding: hp(5),marginRight: hp(10), borderRadius: 50, backgroundColor: transactionType === 'withdraw' ? COLORS.lightGreen : transactionType === 'deposit' ? COLORS.lightOrange : transactionType === 'incoming' ? '#FFD580' : ''}}>
-            <AntDesign name={transactionType === 'withdraw' ? 'arrowup' : 'arrowdown'} size={25} color={transactionType === 'withdraw' ? COLORS.darkGreen : transactionType === 'deposit' ? COLORS.orange : transactionType === 'incoming' ? COLORS.orange : ''} />
+        <View style={{padding: hp(5),marginRight: hp(10), borderRadius: 50, backgroundColor: status === 'success' ? COLORS.lightGreen : status === 'submitted' ? COLORS.lightOrange : status === "pending" ? COLORS.orange : ''}}>
+            <AntDesign name={transactionType === 'withdraw' ? 'arrowup' : 'arrowdown'} size={25} color={status === 'success' ? COLORS.darkGreen : status === 'submitted' ? COLORS.orange : status === "pending" ? COLORS.orange : ''} />
         </View>
         <View>
             <Text>
@@ -28,8 +28,8 @@ const HistoryCard = ({data, handleClick}: any) => {
       </View>
 
       <View>
-            <Text  style={{fontWeight: '600', ...FONTS.body4}}>{format(parseFloat(amount).toFixed(3))} {currency}</Text>
-            <Text style={{textAlign: 'right',...FONTS.body4, color: status === 'success' ? COLORS.darkGreen : status === 'submitted' ? COLORS.orange :  data?.status === "pending" ? COLORS.orange : COLORS.red}}>{status}</Text>
+            <Text  style={{fontWeight: '600', ...FONTS.body4}}>{format(parseFloat(amount).toFixed(5).slice(0, -1))} {currency}</Text>
+            <Text style={{textAlign: 'right',...FONTS.body4, color: status === 'success' ? COLORS.darkGreen : status === 'submitted' ? COLORS.orange :  status === "pending" ? COLORS.orange : COLORS.red}}>{status}</Text>
         </View>
 
 

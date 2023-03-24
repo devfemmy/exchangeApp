@@ -48,17 +48,13 @@ const TransactionDetailModal = ({modalVisible, setModalVisible, data}: any) => {
                     marginRight: hp(20),
                     borderRadius: 50,
                     backgroundColor:
-                      data?.transactionType === 'withdraw'
-                        ? COLORS.lightGreen
-                        : COLORS.lightOrange
+                    data?.status === 'success' ? COLORS.lightGreen : data?.status === 'submitted' ? COLORS.lightOrange : data?.status === "pending" ? COLORS.lightOrange : ''
                   }}>
                   <AntDesign
                     name={data?.transactionType === "withdraw" ? "arrowup" : "arrowdown"}
                     size={15}
                     color={
-                      data?.transactionType === 'withdraw'
-                        ? COLORS.darkGreen
-                        : COLORS.orange
+                      data?.status === 'success' ? COLORS.darkGreen : data?.status === 'submitted' ? COLORS.orange : data?.status === "pending" ? COLORS.orange : ''
                     }
                   />
                 </View>
@@ -93,11 +89,58 @@ const TransactionDetailModal = ({modalVisible, setModalVisible, data}: any) => {
                   Transaction ID:
                 </Text>
                <View style={GlobalStyle.rowStart}>
-               <Text style={{...FONTS.body3, marginRight: hp(30)}}>{data?.txId?.slice(0, 25) + "..."}</Text>
-               <Feather name="copy" size={20} onPress={() => copyToClipboard(data?.txId)} />
+               <Text style={{...FONTS.body3, marginRight: hp(30)}}>{data?.type === "internal" ? data?.billId : data?.txId?.slice(0, 25) + "..."}</Text>
+               <Feather name="copy" size={20} onPress={() => copyToClipboard(data?.type === "internal" ? data?.billId : data?.txId)} />
                </View>
               </View>
 
+
+  <View style={styles.mt}>
+                <Text
+                  style={{
+                    textTransform: 'capitalize',
+                    ...FONTS.body4,color: COLORS.gray,
+                  }}>
+                {data?.type === "internal" ? "Fee" :  "Network"}
+                </Text>
+                <Text style={{...FONTS.body3, textTransform: 'capitalize'}}>
+                  { data?.type === "internal" ? data?.fee : data?.chain}
+                </Text>
+              </View>
+
+              {
+                data?.transactionType === "withdraw" && data?.type !== "internal" && <View>
+<View style={styles.mt}>
+                <Text
+                  style={{
+                    textTransform: 'capitalize',
+                    ...FONTS.body4,color: COLORS.gray,
+                  }}>
+                Fee:
+                </Text>
+                <Text style={{...FONTS.body3, textTransform: 'capitalize'}}>
+                  {data?.fee}
+                </Text>
+              </View>
+
+              <View style={styles.mt}>
+                <Text
+                  style={{
+                    textTransform: 'capitalize',
+                    ...FONTS.body4,color: COLORS.gray,
+                  }}>
+                To Address:
+                </Text>
+                <Text style={{...FONTS.body3, textTransform: 'capitalize'}}>
+                  { data?.toAddr}
+                </Text>
+              </View>
+
+                  </View>
+              }
+
+
+              <View style={GlobalStyle.rowBetween}>
               <View style={styles.mt}>
                 <Text
                   style={{
@@ -107,27 +150,32 @@ const TransactionDetailModal = ({modalVisible, setModalVisible, data}: any) => {
                   Transaction Type:
                 </Text>
                 <Text style={{...FONTS.body3, textTransform: 'capitalize'}}>
-                  {data?.type} withdrawal
+                  {data?.type} Transaction
                 </Text>
+              </View>
+            {
+              data?.type === "internal" &&   <View style={styles.mt}>
+              <Text
+                style={{
+                  textTransform: 'capitalize',
+                  ...FONTS.body4,color: COLORS.gray,
+                  textAlign: 'right'
+                }}>
+                Beneficiary:
+              </Text>
+              <Text style={{...FONTS.body3}}>
+                @{data?.beneficiary?.username}
+              </Text>
+            </View>
+            }
               </View>
 
-              <View style={styles.mt}>
-                <Text
-                  style={{
-                    textTransform: 'capitalize',
-                    ...FONTS.body4,color: COLORS.gray,
-                  }}>
-                 Network
-                </Text>
-                <Text style={{...FONTS.body3, textTransform: 'capitalize'}}>
-                  {data?.chain}
-                </Text>
-              </View>
+            
 
 
              
-
-              <View style={styles.mt}>
+              <View style={GlobalStyle.rowBetween}>
+ <View style={styles.mt}>
                 <Text
                   style={{
                     textTransform: 'capitalize',
@@ -148,11 +196,14 @@ const TransactionDetailModal = ({modalVisible, setModalVisible, data}: any) => {
                   }}>
                   Transaction Status:
                 </Text>
-                <Text style={{...FONTS.body3, color: data?.status === "success" ? COLORS.darkGreen : data?.status === "submited" ? COLORS.orange :  data?.status === "pending" ? COLORS.orange : COLORS.red, textTransform: 'capitalize'}}>
+                <Text style={{...FONTS.body3, textAlign: 'right', color: data?.status === "success" ? COLORS.darkGreen : data?.status === "submited" ? COLORS.orange :  data?.status === "pending" ? COLORS.orange : COLORS.red, textTransform: 'capitalize'}}>
                   {data?.status}
                 </Text>
               </View>
-
+              </View>
+             
+              {
+                data?.type === "external" && data?.chain !== "USDT-TRC20" &&
               <View style={styles.mt}>
                 <Text
                   style={{
@@ -165,6 +216,8 @@ const TransactionDetailModal = ({modalVisible, setModalVisible, data}: any) => {
                   {format(parseFloat(data?.usdValue ? data?.usdValue : 0)?.toFixed(2))} USD
                 </Text>
               </View>
+              }
+
 
             </View>
           </View>
@@ -186,7 +239,7 @@ const styles = StyleSheet.create({
   },
   modalView: {
     margin: 20,
-    height: hp(650),
+    maxHeight: hp(650),
     backgroundColor: 'white',
     borderRadius: 20,
     padding: 25,
