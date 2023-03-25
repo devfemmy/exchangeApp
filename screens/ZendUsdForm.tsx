@@ -1,8 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import {View, Text, StyleSheet, Image, ScrollView} from 'react-native';
+import {View, Text, StyleSheet, Image, ScrollView, TouchableOpacity} from 'react-native';
 import React, {useEffect, useState} from 'react';
 import GlobalStyle from '../utils/globalStyle';
-import SwapHeader from '../components/SwapHeader';
 import {COLORS, FONTS} from '../utils/constants/theme';
 import {format, hp, wp} from '../utils/helper';
 import {tether} from '../assets/images';
@@ -19,6 +18,8 @@ import { Notifier, NotifierComponents } from 'react-native-notifier';
 import { UsdFormData } from '../utils/types';
 import { UsdSchema } from '../utils/schemas';
 import { useFormik } from 'formik';
+import AntDesign from 'react-native-vector-icons/AntDesign';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
 
 const ZendUsdForm = (props: any) => {
@@ -30,6 +31,7 @@ const ZendUsdForm = (props: any) => {
   const [rate, setRate] = useState<any>("")
   const [usdBal, setUsdBal] = useState<any>("")
   const [amount, setAmount] = useState<any>("")
+  const [dataInfo, setDataInfo] = useState<any>()
 
   useEffect(() => {
     dispatch(getRate()).then(dd => setRate(dd?.payload?.data?.rate))
@@ -81,7 +83,7 @@ const ZendUsdForm = (props: any) => {
   }
 
   const handleSubmitData = (data: any) => {
-    console.log({data})
+    setDataInfo(data)
     handleOpen()
   }
 
@@ -164,7 +166,18 @@ const ZendUsdForm = (props: any) => {
   const routeNext = () => {
     handleClose()
     setType(1)
-   props?.navigation.navigate("PaymentDetails")
+
+
+   props?.navigation.navigate("PaymentDetails", {
+    params: {
+      ...dataInfo,
+      country: selectedCountry,
+      rate: rate?.rate,
+      balance: parseFloat(usdBal)?.toFixed(3).slice(0,-1),
+      amtToReceive: parseFloat(amount) * parseFloat(rate?.rate),
+      amount: amount
+    }
+   })
   
   }
 
@@ -226,10 +239,19 @@ const ZendUsdForm = (props: any) => {
   return (
     <ScrollView>
       <View style={GlobalStyle.container}>
-        <SwapHeader
-          header="Instructions"
-          handlePress={() => props?.navigation.navigate('Instructions')}
-        />
+         <View style={[GlobalStyle.rowBetween, {marginBottom: hp(20)}]}>
+              <AntDesign
+                name="arrowleft"
+                size={hp(20)}
+                onPress={type === 1 ? () => props?.navigation.goBack() : () => setType(type - 1)}
+              />
+              <TouchableOpacity onPress={() => props?.navigation.navigate('Instructions')}>
+                <View style={styles.swap}>
+                  <Text style={{marginRight: hp(5)}}>Instructions</Text>
+                  <MaterialIcons name="history" size={20} />
+                </View>
+              </TouchableOpacity>
+            </View>
         <View style={GlobalStyle.rowBetween}>
           <View>
             <Text
@@ -281,5 +303,14 @@ const styles = StyleSheet.create({
     // height: hp(200),
     justifyContent: 'flex-end',
     marginBottom: hp(50)
+  },
+  swap: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    borderWidth: 1,
+    borderColor: COLORS.gray,
+    borderRadius: 10,
+    paddingHorizontal: hp(10),
+    paddingVertical: hp(5),
   },
 });

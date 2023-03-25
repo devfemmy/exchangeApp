@@ -103,10 +103,10 @@ const Assets = ({navigation}: any) => {
       case data?.toUpperCase():
         return  <View style={styles.sub}>
           <Text style={{...FONTS.body4}}>{`${format(
-          tradingAccountInfo?.[data?.toUpperCase()]?.availBal ?   `${parseFloat(tradingAccountInfo?.[data?.toUpperCase()]?.availBal).toFixed(2)}` : 0     
+          tradingAccountInfo?.[data?.toUpperCase()]?.availBal ?   `${parseFloat(tradingAccountInfo?.[data?.toUpperCase()]?.availBal).toFixed(3).slice(0, -1)}` : 0     
         )}`}</Text>
         <Text style={{...FONTS.body4, fontWeight: '600'}}>{`$${format(
-          tradingAccountInfo?.[data?.toUpperCase()]?.availBal ?   parseFloat(tradingAccountInfo?.[data?.toUpperCase()]?.availBal).toFixed(2) : 0     
+          tradingAccountInfo?.[data?.toUpperCase()]?.availBal ?   parseFloat(tradingAccountInfo?.[data?.toUpperCase()]?.availBal).toFixed(3)?.slice(0, -1) : 0     
         )}`}</Text>    
       </View>
         break;

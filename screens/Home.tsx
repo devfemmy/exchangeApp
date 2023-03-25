@@ -49,6 +49,7 @@ const Home = ({navigation}: any) => {
     ? userStateInfo?.userData
     : userStateInfo;
 
+    
 
   useEffect(() => {
     const loadData = async () => {
