@@ -1,8 +1,8 @@
 /* eslint-disable react-native/no-inline-styles */
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { View, Text, StyleSheet, ScrollView } from 'react-native'
-import React, { useState } from 'react'
-import GlobalStyle from '../utils/globalStyle'
+import { View, Text, StyleSheet, ScrollView, Pressable } from 'react-native';
+import React, { useState } from 'react';
+import GlobalStyle from '../utils/globalStyle';
 import { ForgetPasswordFormData, ProfileFormData } from '../utils/types';
 import CountryPicker from 'react-native-country-picker-modal';
 import { useFormik } from 'formik';
@@ -16,13 +16,17 @@ import { COLORS, FONTS } from '../utils/constants/theme';
 import { Image } from 'react-native';
 import { useAppSelector } from '../app/hooks';
 import { userState } from '../slice/AuthSlice';
+import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
+import SelectDropdowns from '../components/SelectDropdowns';
 
 const EditProfile = ({navigation}: any) => {
   const userStateInfo = useAppSelector(userState);
   const [countryCode, setCountryCode] = useState('NG');
   const [, setCountry] = useState(null);
 
-  const getUserInfo = userStateInfo?.userData ? userStateInfo?.userData : userStateInfo
+  const getUserInfo = userStateInfo?.userData ? userStateInfo?.userData : userStateInfo;
+  const [imgUri, setImageUri] = useState(getUserInfo?.image);
+  const [gender, setGender] = useState('');
 
 
   const initialValues: ProfileFormData = {
@@ -32,7 +36,7 @@ const EditProfile = ({navigation}: any) => {
     username: '',
     country: '',
     streetName: '',
-    gender: '',
+    gender: gender,
     phone: '',
     dob: '',
   };
@@ -52,6 +56,36 @@ const EditProfile = ({navigation}: any) => {
       setCountryCode(country.cca2);
       setCountry(country);
     };
+    const imagePickerHandler = async() => {
+      const options: any = {
+        quality: 1.0,
+        maxWidth: 500,
+        mediaType: 'photo',
+        includeBase64: true,
+        maxHeight: 500,
+        storageOptions: {
+          skipBackup: true,
+        },
+      };
+      launchImageLibrary(options, async (response: any) => {
+        // const path = await this.normalizePath(response.uri);
+        // const imageUri = await RNFetchBlob.fs.readFile(path, 'base64');
+        if (response.didCancel) {
+          //('User cancelled photo picker');
+        } else if (response.error) {
+          //('ImagePicker Error: ', response.error);
+        } else {
+          // const uri = response.uri;
+          console.log('response', response?.assets[0].uri);
+          const imageUri = response?.assets[0].uri;
+          setImageUri(imageUri);
+          const uri = response.uri;
+          const avatarUri = response.uri;
+          const type = response.type;
+          const name = response.fileName;
+        }
+      });
+    };
 
   return (
     <View style={[GlobalStyle.container, styles.div]}>
@@ -64,9 +98,9 @@ const EditProfile = ({navigation}: any) => {
           {/* <View style={GlobalStyle.level}>
             <Text style={{...FONTS.h4, color: '#4F4F4F', fontWeight: '500'}}>Beginner</Text>
           </View> */}
-          <View style={GlobalStyle.profileCircle2}>
-            <Image source={{uri: getUserInfo?.image}} style={styles.icons} />
-          </View>
+          <Pressable onPress={imagePickerHandler} style={GlobalStyle.profileCircle2}>
+            <Image source={{uri: imgUri }} style={styles.icons} />
+          </Pressable>
           <View>
             <Text style={{...FONTS.h3, fontSize: hp(18), fontWeight: '600', color: COLORS.primary, textAlign: 'center'}}>Olatunji Monsurat</Text>
             <Text style={{...FONTS.h4, fontSize: hp(16), fontWeight: '400', color: '#808080', textAlign: 'center'}}>@Techbabby</Text>
@@ -102,6 +136,21 @@ const EditProfile = ({navigation}: any) => {
               onChangeText={handleChange('username')}
               errorMsg={touched.username ? errors.username : undefined}
             />
+            <SelectDropdowns
+                label="Gender"
+                data={[
+                  {
+                    id: 1,
+                    name: 'Male',
+                  },
+                  {
+                    id: 2,
+                    name: 'Female',
+                  },
+                ]}
+                selected={gender}
+                setSelected={(value: any) => setGender(value)}
+              />
             <TextInput
               label={'House Address'}
               value={values.streetName}
@@ -120,7 +169,7 @@ const EditProfile = ({navigation}: any) => {
                 visible={false}
               />
             </View>
-            <View style={{width: '89%',}}>
+            <View style={{width: '89%'}}>
               <TextInput
               label={'Phone Number'}
               value={values.phone}
@@ -149,9 +198,9 @@ const styles = StyleSheet.create({
 
   },
   icons: {
-    width: "100%", 
-    height: "100%",
-    borderRadius: 50
+    width: '100%',
+    height: '100%',
+    borderRadius: 50,
   },
   icon: {
     marginVertical: hp(20),

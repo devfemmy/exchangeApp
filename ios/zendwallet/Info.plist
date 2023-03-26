@@ -37,6 +37,10 @@
 	</dict>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string/>
+		<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>App requires access to Photo Library to allow you to to choose a profile picture from your photo library.</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>App requires access to Photo Library to allow you to to choose a profile picture from your photo library.</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>AntDesign.ttf</string>

@@ -17,6 +17,7 @@ import {Notifier, NotifierComponents} from 'react-native-notifier';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import HeaderComponent from '../components/HeaderComponent';
 import CheckBox from '@react-native-community/checkbox';
+// import CheckBox from '@react-native-community/checkbox';
 
 const CreateAccount = ({navigation}: any) => {
   const [cookieSelected, setCookieSelected] = useState(false);
@@ -254,10 +255,11 @@ const CreateAccount = ({navigation}: any) => {
                 <View style={styles.box} />
               </TouchableOpacity>
             )} */}
-              <CheckBox
-                value={cookieSelected}
+                <CheckBox
                 boxType="square"
-                onValueChange={newValue => setCookieSelected(newValue)}
+                value={cookieSelected}
+                onValueChange={(newValue) => setCookieSelected(newValue)}
+                style={{marginRight: 10, marginLeft: hp(3), width: hp(25), height: hp(25)}}
               />
 
               <View
@@ -290,7 +292,7 @@ const CreateAccount = ({navigation}: any) => {
                   <TouchableOpacity>
                     <Text style={{...FONTS.body5}}>and </Text>
                   </TouchableOpacity>
-                  <TouchableOpacity onPress={() => {Linking.openURL('https://zendwallet-webapp.vercel.app/terms')}}>
+                  <TouchableOpacity onPress={() => {Linking.openURL('https://zendwallet-webapp.vercel.app/terms');}}>
                     <Text style={{...FONTS.body5, color: COLORS.primary}}>
                       terms and conditions.
                     </Text>
@@ -301,6 +303,7 @@ const CreateAccount = ({navigation}: any) => {
 
             <View style={styles.btnContainer}>
               <IconTextButton
+                disabled={!cookieSelected}
                 label="Create Account"
                 onPress={handleSubmit}
                 isLoading={loader}

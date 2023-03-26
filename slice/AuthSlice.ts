@@ -177,6 +177,23 @@ export const signInUser = createAsyncThunk(
     }
   },
 );
+export const updateUserProfile = createAsyncThunk(
+  'user/update',
+  async (payload: LoginFormData, {rejectWithValue}) => {
+    try {
+      const response = await postRequest(
+        `${config.api_base_url}/users/:${ID}/update`,
+        payload,
+      );
+  
+      if (response?.status === 200) {
+        return response?.data;
+      }
+    } catch (e: any) {
+      return rejectWithValue(e?.response?.data?.message);
+    }
+  },
+);
 
 export const getProfile = createAsyncThunk('auth/getProfile', async () => {
   var profile = await AsyncStorage.getItem('userInfo').then((req: any) =>

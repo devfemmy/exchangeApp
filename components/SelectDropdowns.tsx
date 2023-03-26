@@ -3,6 +3,7 @@ import React, { useState } from 'react'
 import { hp } from '../utils/helper'
 import { COLORS, FONTS } from '../utils/constants/theme'
 import AntDesign from 'react-native-vector-icons/AntDesign'
+import GlobalStyle from '../utils/globalStyle'
 
 const SelectDropdowns = ({label, data, selected, setSelected}: any) => {
   const [modalVisible, setModalVisible] = useState(false);
@@ -16,8 +17,9 @@ const SelectDropdowns = ({label, data, selected, setSelected}: any) => {
 
   return (
     <View style={styles.div}>
-      <TouchableOpacity onPress={() => setModalVisible(true)}>
+      <TouchableOpacity style={GlobalStyle.rowBetween} onPress={() => setModalVisible(true)}>
         <Text>{!selected ? label : selected}</Text>
+        <AntDesign name="down" size={15} />
       </TouchableOpacity>
 
       <View>
