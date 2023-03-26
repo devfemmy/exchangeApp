@@ -25,6 +25,7 @@ import {useAppDispatch, useAppSelector} from '../app/hooks';
 import {getFundingAccount, getTradingAccount} from '../slice/WalletSlice';
 import MarketComponent from '../components/MarketComponent';
 import { algorand, avalanche, bitcoin, bitcoinCash, dogeCoin, ethereum, litecoin, okb, polygon, ripple, solana, steller, tether, tron, usd } from '../assets/images';
+import EvilIcons from 'react-native-vector-icons/EvilIcons';
 
 const Assets = ({navigation}: any) => {
   const [type, setType] = useState('funding');
@@ -181,13 +182,13 @@ const Assets = ({navigation}: any) => {
           <Text style={{...FONTS.h2, marginBottom: hp(5), fontWeight: '600'}}>Assets</Text>
           <View style={GlobalStyle.rowBetween}>
             <View style={{width: '60%'}}>
-              <Text style={{...FONTS.body4, opacity: 0.7}}>
+              <Text style={{...FONTS.body5, opacity: 0.7}}>
                 Buy, Sell and Swap all of the assets offered by our wallet
               </Text>
             </View>
-            <View style={{backgroundColor: COLORS.primary,borderRadius: hp(10), width: '30%', paddingVertical: hp(10), paddingHorizontal: hp(20), justifyContent: 'center'}}>
+            <View style={{backgroundColor: COLORS.primary, width: wp(50), borderRadius: hp(10), paddingVertical: hp(10),  justifyContent: 'center', alignItems: 'center'}}>
               <TouchableOpacity onPress={() => navigation.navigate("Transfer")}>
-                <Text style={{...FONTS.body4, color: COLORS.white}}>Transfer</Text>
+              <EvilIcons  name="external-link" size={40} color={COLORS.white} />
               </TouchableOpacity>
             </View>
           </View>

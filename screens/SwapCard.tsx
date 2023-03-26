@@ -131,9 +131,6 @@ const SwapCard = (props: any) => {
     if(selectedAssetsTo === "Swap from" || currencyName === "Swap to"){
       return;
     }
-    if(amount > assetData?.availBal) {
-      return;
-    }
  
       return props?.navigation.navigate("ConfirmSwap", {
         info: {
