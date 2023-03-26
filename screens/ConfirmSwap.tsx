@@ -86,26 +86,27 @@ const ConfirmSwap = (props: any) => {
         </View>
       </View>
 
-      <View>
-        <View style={[GlobalStyle.rowBetween, {paddingVertical: hp(15)}]}>
-          <Text>Rate</Text>
-          <Text>{quoteInfo?.rate}</Text>
-        </View>
+      <View style={styles.swapCard}>
         <View style={[GlobalStyle.rowBetween, {paddingVertical: hp(15)}]}>
           <Text>From</Text>
           <Text style={{textTransform: 'uppercase'}}>
-            {fromName}
+            {amount} {fromName}
           </Text>
         </View>
-        <View style={[GlobalStyle.rowBetween, {paddingVertical: hp(15)}]}>
+        <View style={[GlobalStyle.rowBetween, {paddingVertical: hp(10)}]}>
           <Text>Fee</Text>
           <Text style={{textTransform: 'uppercase'}}>{quoteInfo?.fee}</Text>
         </View>
-        <View style={[GlobalStyle.rowBetween, {paddingVertical: hp(15)}]}>
+        <View style={[GlobalStyle.rowBetween, {paddingVertical: hp(10)}]}>
           <Text>Total value to receive</Text>
           <Text style={{textTransform: 'uppercase'}}>{quoteInfo?.amtToGet}</Text>
         </View>
       </View>
+
+      <View style={[GlobalStyle.rowBetween, {paddingVertical: hp(10)}]}>
+          <Text>Rate</Text>
+          <Text>{quoteInfo?.rate}</Text>
+        </View>
 
       <View style={{marginVertical: hp(20)}}>
         {isFetching ? (
@@ -149,4 +150,10 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
   },
+  swapCard: {
+    borderColor: COLORS.primary,
+    borderWidth: 1,
+    borderRadius: 10,
+    padding: hp(10)
+  }
 });

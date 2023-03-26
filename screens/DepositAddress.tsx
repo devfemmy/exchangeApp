@@ -10,8 +10,9 @@ import IconTextButton from '../components/IconTextButton';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 
 const DepositAddress = (props: any) => {
-  const {chain, address} = props?.route?.params?.data;
+  const {chain, address, memo} = props?.route?.params?.data;
   const {token, icon, currency} = props?.route?.params?.otherInfo;
+
 
 
   return (
@@ -53,6 +54,23 @@ const DepositAddress = (props: any) => {
                 />
               </View>
             </View>
+            {
+              memo &&   <View style={styles.service}>
+              <Text style={{...FONTS.body4, color: COLORS.gray}}>
+                Memo
+              </Text>
+              <View style={GlobalStyle.rowStart}>
+                <Text style={{...FONTS.h4,fontWeight: '600', marginRight: hp(20)}}>
+                  {memo}
+                </Text>
+                <Feather
+                  name="copy"
+                  size={20}
+                  onPress={() => copyToClipboard(memo)}
+                />
+              </View>
+            </View>
+            }
             <View style={styles.service}>
               <Text style={{...FONTS.body4, color: COLORS.gray}}>
                 Network

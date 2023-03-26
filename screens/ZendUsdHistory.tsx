@@ -1,22 +1,145 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react-native/no-inline-styles */
-import { View, Text, StyleSheet, Pressable, ScrollView } from 'react-native'
-import React, {useState} from 'react'
-import GlobalStyle from '../utils/globalStyle'
-import { COLORS, FONTS } from '../utils/constants/theme'
-import { hp, wp } from '../utils/helper'
-import HeaderComponent from '../components/HeaderComponent'
-import TranHistoryCard from '../components/TranHistoryCard'
-
+import {
+  View,
+  Text,
+  StyleSheet,
+  Pressable,
+  ScrollView,
+  FlatList,
+  Modal,
+} from 'react-native';
+import React, {useEffect, useState} from 'react';
+import GlobalStyle from '../utils/globalStyle';
+import {COLORS, FONTS} from '../utils/constants/theme';
+import {copyToClipboard, getCurrentDate, hp, wp} from '../utils/helper';
+import HeaderComponent from '../components/HeaderComponent';
+import {TextInput} from '../components/TextInput';
+import {useAppDispatch, useAppSelector} from '../app/hooks';
+import {getUsdHistory} from '../slice/TradeSlice';
+import {userState} from '../slice/AuthSlice';
+import EmptyScreen from '../components/EmptyScreen';
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import {TouchableOpacity} from 'react-native-gesture-handler';
+import AntDesign from 'react-native-vector-icons/AntDesign';
+import Feather from 'react-native-vector-icons/Feather';
 
 const ZendUsdHistory = ({navigation}: any) => {
-    const [type, setType] = useState('all');
+  const [type, setType] = useState('all');
+  const [value, setValue] = useState('');
+  const dispatch = useAppDispatch();
+  const userStateInfo = useAppSelector(userState);
+  const [usdData, setUsdData] = useState<any>(null);
+  const [modalOpen, setModalOpen] = useState(false);
+  const [dataInfo, setDataInfo] = useState<any>();
+
+  const getUserInfo = userStateInfo?.userData
+    ? userStateInfo?.userData
+    : userStateInfo;
+
+  useEffect(() => {
+    const payload = {
+      page: 1,
+      status: type === 'all' ? '' : type === 'pending' ? 'submitted' : type,
+      id: value?.length <= 0 ? '' : value,
+      userId: getUserInfo?._id,
+    };
+    dispatch(getUsdHistory(payload)).then(pp => setUsdData(pp?.payload?.data));
+  }, [type, value]);
+
+  const handleModalOpen = (data: any) => {
+    setModalOpen(true);
+    setDataInfo(data);
+  };
+
+  const handleModalClose = () => {
+    setModalOpen(false);
+    setDataInfo(null);
+  };
+
+  const transactionCardBox = (item: any) => {
+    return (
+      <TouchableOpacity onPress={() => handleModalOpen(item)}>
+        <View
+          style={[
+            GlobalStyle.rowBetween,
+            {
+              padding: hp(10),
+              borderColor: COLORS.lightGray3,
+              borderWidth: 0.5,
+              marginBottom: hp(15),
+              borderRadius: 8,
+            },
+          ]}>
+          <View style={GlobalStyle.rowStart}>
+            <View
+              style={{
+                marginRight: hp(10),
+                backgroundColor:
+                  item?.status === 'submitted'
+                    ? COLORS.lightOrange
+                    : item?.status === 'approved'
+                    ? COLORS.lightGreen
+                    : item?.status === 'rejected'
+                    ? 'rgb(241, 241, 241)'
+                    : '',
+                width: wp(30),
+                height: hp(30),
+                borderRadius: 50,
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}>
+              <FontAwesome
+                name="dollar"
+                color={
+                  item?.status === 'submitted'
+                    ? COLORS.orange
+                    : item?.status === 'approved'
+                    ? COLORS.darkGreen
+                    : item?.status === 'rejected'
+                    ? COLORS.red
+                    : ''
+                }
+              />
+            </View>
+            <View>
+              <Text>ZEND USD</Text>
+              <Text>{getCurrentDate(item?.createdAt)}</Text>
+            </View>
+          </View>
+          <View>
+            <Text style={{textAlign: 'right'}}>${item?.amount}</Text>
+            <Text
+              style={{
+                ...FONTS.body5,
+                textTransform: 'capitalize',
+                color:
+                  item?.status === 'submitted'
+                    ? COLORS.orange
+                    : item?.status === 'approved'
+                    ? COLORS.darkGreen
+                    : item?.status === 'rejected'
+                    ? COLORS.red
+                    : '',
+              }}>
+              {item?.status === 'submitted' ? 'Pending' : item?.status}
+            </Text>
+          </View>
+        </View>
+      </TouchableOpacity>
+    );
+  };
 
   return (
     <View style={GlobalStyle.container}>
-              <View style={styles.margin} />
-              <HeaderComponent onPress={() => navigation.goBack()} /> 
+      <View style={styles.margin} />
+      <HeaderComponent onPress={() => navigation.goBack()} />
       <Text style={{...FONTS.h3, fontWeight: '600'}}>Zend Usd History</Text>
-      <View style={[GlobalStyle.rowStart, {marginTop: hp(30), marginBottom: hp(20)}]}>
+      <View
+        style={[
+          GlobalStyle.rowStart,
+          {marginTop: hp(30), marginBottom: hp(20)},
+        ]}>
         <ScrollView horizontal showsHorizontalScrollIndicator={false}>
           <View
             style={{
@@ -24,7 +147,7 @@ const ZendUsdHistory = ({navigation}: any) => {
               borderColor: type === 'all' ? COLORS.primary : COLORS.gray,
               borderWidth: type === 'all' ? 1 : 1,
               //  borderColor: COLORS.primary,
-               borderRadius: hp(20),
+              borderRadius: hp(20),
               marginRight: hp(10),
               padding: hp(5),
               justifyContent: 'center',
@@ -48,23 +171,22 @@ const ZendUsdHistory = ({navigation}: any) => {
               //   type === 'withdraw' ? COLORS.primary : COLORS.white,
               //  borderColor: COLORS.primary,
               // borderWidth: 1,
-              borderColor: type === 'withdraw' ? COLORS.primary : COLORS.gray,
-              borderWidth: type === 'withdraw' ? 1 : 1,
-               borderRadius: hp(20),
-                marginRight: hp(10),
-                padding: hp(5),
-                justifyContent: 'center',
-                alignItems: 'center',
+              borderColor: type === 'approved' ? COLORS.primary : COLORS.gray,
+              borderWidth: type === 'approved' ? 1 : 1,
+              borderRadius: hp(20),
+              marginRight: hp(10),
+              padding: hp(5),
+              justifyContent: 'center',
+              alignItems: 'center',
             }}>
-            <Pressable onPress={() => setType('withdraw')}>
+            <Pressable onPress={() => setType('approved')}>
               <Text
                 style={{
                   ...FONTS.h5,
                   textAlign: 'center',
-                  color:
-                  type === 'withdraw' ? COLORS.primary : COLORS.gray1,
+                  color: type === 'approved' ? COLORS.primary : COLORS.gray1,
                 }}>
-                Withdraw
+                Approved
               </Text>
             </Pressable>
           </View>
@@ -75,89 +197,7 @@ const ZendUsdHistory = ({navigation}: any) => {
               //   type === 'deposit' ? COLORS.primary : COLORS.white,
               //  borderColor: COLORS.primary,
               // borderWidth: 1,
-               borderRadius: hp(20),
-              borderColor: type === 'deposit' ? COLORS.primary : COLORS.gray,
-              borderWidth: type === 'deposit' ? 1 : 1,
-                marginRight: hp(10),
-                padding: hp(5),
-                justifyContent: 'center',
-                alignItems: 'center',
-            }}>
-            <Pressable onPress={() => setType('deposit')}>
-              <Text
-                style={{
-                  ...FONTS.h5,
-                  textAlign: 'center',
-                  color:
-                    type === 'deposit' ? COLORS.primary : COLORS.gray,
-                }}>
-                Deposit
-              </Text>
-            </Pressable>
-          </View>
-          <View
-            style={{
-              width: wp(100),
-              // backgroundColor:
-              //   type === 'successful' ? COLORS.primary : COLORS.white,
-              //  borderColor: COLORS.primary,
-              // borderWidth: 1,
-               borderRadius: hp(20),
-              borderColor: type === 'successful' ? COLORS.primary : COLORS.gray,
-              borderWidth: type === 'successful' ? 1 : 1,
-                marginRight: hp(10),
-                padding: hp(5),
-                justifyContent: 'center',
-                alignItems: 'center',
-            }}>
-            <Pressable onPress={() => setType('successful')}>
-              <Text
-                style={{
-                  ...FONTS.h5,
-                  textAlign: 'center',
-                  color:
-                    type === 'successful' ? COLORS.primary : COLORS.gray,
-                }}>
-                Successful
-              </Text>
-            </Pressable>
-          </View>
-          <View
-            style={{
-              width: wp(100),
-              // backgroundColor:
-              //   type === 'incoming' ? COLORS.primary : COLORS.white,
-              //  borderColor: COLORS.primary,
-              // borderWidth: 1,
-                 marginRight: hp(10),
               borderRadius: hp(20),
-              borderColor: type === 'incoming' ? COLORS.primary : COLORS.gray,
-              borderWidth: type === 'incoming' ? 1 : 1,
-              padding: hp(5),
-              justifyContent: 'center',
-              alignItems: 'center',
-            }}>
-            <Pressable onPress={() => setType('incoming')}>
-              <Text
-                style={{
-                  ...FONTS.h5,
-                  textAlign: 'center',
-                  color:
-                    type === 'incoming' ? COLORS.primary : COLORS.gray,
-                }}>
-                Incoming
-              </Text>
-            </Pressable>
-          </View>
-          <View
-            style={{
-              width: wp(100),
-              // backgroundColor:
-              //   type === 'pending' ? COLORS.primary : COLORS.white,
-              //  borderColor: COLORS.primary,
-              // borderWidth: 1,
-              //   marginRight: hp(10),
-               borderRadius: hp(20),
               borderColor: type === 'pending' ? COLORS.primary : COLORS.gray,
               borderWidth: type === 'pending' ? 1 : 1,
               marginRight: hp(10),
@@ -170,8 +210,7 @@ const ZendUsdHistory = ({navigation}: any) => {
                 style={{
                   ...FONTS.h5,
                   textAlign: 'center',
-                  color:
-                    type === 'pending' ? COLORS.primary : COLORS.gray,
+                  color: type === 'pending' ? COLORS.primary : COLORS.gray,
                 }}>
                 Pending
               </Text>
@@ -181,68 +220,298 @@ const ZendUsdHistory = ({navigation}: any) => {
             style={{
               width: wp(100),
               // backgroundColor:
-              //   type === 'failed' ? COLORS.primary : COLORS.white,
+              //   type === 'successful' ? COLORS.primary : COLORS.white,
               //  borderColor: COLORS.primary,
               // borderWidth: 1,
               borderRadius: hp(20),
-              //   marginRight: hp(10),
-                borderColor: type === 'failed' ? COLORS.primary : COLORS.gray,
-                borderWidth: type === 'failed' ? 1 : 1,
-                marginRight: hp(10),
-                padding: hp(5),
-                justifyContent: 'center',
-                alignItems: 'center',
+              borderColor: type === 'rejected' ? COLORS.primary : COLORS.gray,
+              borderWidth: type === 'rejected' ? 1 : 1,
+              marginRight: hp(10),
+              padding: hp(5),
+              justifyContent: 'center',
+              alignItems: 'center',
             }}>
-            <Pressable onPress={() => setType('failed')}>
+            <Pressable onPress={() => setType('rejected')}>
               <Text
                 style={{
                   ...FONTS.h5,
                   textAlign: 'center',
-                  color: type === 'failed' ? COLORS.primary : COLORS.gray,
+                  color: type === 'rejected' ? COLORS.primary : COLORS.gray,
                 }}>
-                Failed
+                Rejected
               </Text>
             </Pressable>
           </View>
         </ScrollView>
       </View>
-     <View style={styles.hr}></View>
+      <View style={styles.hr}></View>
+      <View>
+        <TextInput
+          label={'Search transaction by id'}
+          value={value}
+          onChangeText={(value: any) => setValue(value)}
+          searchInput
+        />
+      </View>
 
-     <View>
-     {/* <TranHistoryCard header="Sold usd" /> */}
-     </View>
+      {usdData?.transactions?.length < 1 && <EmptyScreen />}
+
+      <View style={{marginBottom: hp(280)}}>
+        <FlatList
+          keyExtractor={item => item?.id}
+          showsVerticalScrollIndicator={false}
+          data={usdData?.transactions}
+          renderItem={({item}: any) => {
+            return transactionCardBox(item);
+          }}
+        />
+      </View>
+
+      <View>
+        <View style={styles.centeredView}>
+          <Modal
+            animationType="slide"
+            transparent={true}
+            visible={modalOpen}
+            onDismiss={() => {
+              handleModalClose();
+            }}
+            onRequestClose={() => {
+              handleModalClose();
+            }}>
+            <View style={styles.centeredView}>
+              <View style={styles.modalView}>
+                <TouchableOpacity onPress={() => handleModalClose()}>
+                  <View style={styles.end}>
+                    <AntDesign name="close" size={30} />
+                  </View>
+                </TouchableOpacity>
+                <Text
+                  style={{
+                    ...FONTS.body3,
+                    textAlign: 'center',
+                    fontWeight: '700',
+                    marginBottom: hp(20),
+                  }}>
+                  Transaction Details
+                </Text>
+
+                <View>
+                  <View
+                    style={[GlobalStyle.rowBetween, {marginVertical: hp(10)}]}>
+                    <View style={GlobalStyle.rowStart}>
+                      <View
+                        style={{
+                          width: wp(40),
+                          height: hp(40),
+                          justifyContent: 'center',
+                          alignItems: 'center',
+                          marginRight: hp(20),
+                          borderRadius: 50,
+                          backgroundColor:
+                            dataInfo?.status === 'approved'
+                              ? COLORS.lightGreen
+                              : dataInfo?.status === 'submitted'
+                              ? COLORS.lightOrange
+                              : dataInfo?.status === 'rejected'
+                              ? 'rgb(241, 241, 241)'
+                              : '',
+                        }}>
+                        <FontAwesome
+                          name={'dollar'}
+                          size={15}
+                          color={
+                            dataInfo?.status === 'success'
+                              ? COLORS.darkGreen
+                              : dataInfo?.status === 'submitted'
+                              ? COLORS.orange
+                              : dataInfo?.status === 'rejected'
+                              ? COLORS.red
+                              : ''
+                          }
+                        />
+                      </View>
+                      <View>
+                        <Text
+                          style={{textTransform: 'uppercase', ...FONTS.body4}}>
+                          ZEND USD
+                        </Text>
+                      </View>
+                    </View>
+                    <View>
+                      <Text style={{...FONTS.body5}}>Amount</Text>
+                      <Text style={{...FONTS.body5, fontWeight: '600'}}>
+                        ${dataInfo?.amount}
+                      </Text>
+                    </View>
+                  </View>
+
+                  <View>
+                    <Text style={{...FONTS.body5}}>Transaction ID</Text>
+                    <View style={GlobalStyle.rowStart}>
+                      <Text style={{...FONTS.body3, marginRight: hp(30)}}>
+                        {dataInfo?._id?.slice(0, 25) + '...'}
+                      </Text>
+                      <Feather
+                        name="copy"
+                        size={20}
+                        onPress={() => copyToClipboard(dataInfo?._id)}
+                      />
+                    </View>
+                  </View>
+
+                  <View>
+                    <View style={styles.mt}>
+                      <Text
+                        style={{
+                          textTransform: 'capitalize',
+                          ...FONTS.body4,
+                          color: COLORS.gray,
+                        }}>
+                        Rate:
+                      </Text>
+                      <Text
+                        style={{...FONTS.body3, textTransform: 'capitalize'}}>
+                        {dataInfo?.rate?.rate}
+                      </Text>
+                    </View>
+                  </View>
+
+                  <View style={{marginTop: hp(10)}}>
+                    <Text style={{...FONTS.h4, fontWeight: '600'}}>
+                      Beneficiary Details
+                    </Text>
+                    <View style={{borderColor: COLORS.lightGray3, borderWidth: 0.5, borderRadius: 8, padding: hp(10), marginTop: hp(5)}}>
+                      <View style={[GlobalStyle.rowStart, {paddingVertical: hp(10)}]}>
+                        <Text style={{width: wp(100)}}>Name: </Text>
+                        <Text style={{...FONTS.body5, marginRight: hp(20), fontWeight: 'bold'}}>{dataInfo?.beneficiary?.name}</Text>
+                      </View>
+                      <View style={[GlobalStyle.rowStart, {paddingVertical: hp(10)}]}>
+                        <Text style={{width: wp(100)}}>Account No: </Text>
+                        <Text style={{...FONTS.body5, marginRight: hp(20), fontWeight: 'bold'}}>{dataInfo?.beneficiary?.bankAccountNumber}</Text>
+                      </View>
+                      <View style={[GlobalStyle.rowStart, {paddingVertical: hp(10)}]}>
+                        <Text style={{width: wp(100)}}>Country: </Text>
+                        <Text style={{...FONTS.body5, marginRight: hp(20), fontWeight: 'bold'}}>{dataInfo?.beneficiary?.country}</Text>
+                      </View>
+                      <View style={[GlobalStyle.rowStart, {paddingVertical: hp(10)}]}>
+                        <Text style={{width: wp(100)}}>Bank Name: </Text>
+                        <Text style={{...FONTS.body5, marginRight: hp(20), fontWeight: 'bold'}}>{dataInfo?.beneficiary?.bankName}</Text>
+                      </View>
+                    </View>
+                  </View>
+
+                  <View style={GlobalStyle.rowBetween}>
+                    <View style={styles.mt}>
+                      <Text
+                        style={{
+                          textTransform: 'capitalize',
+                          ...FONTS.body4,
+                          color: COLORS.gray,
+                        }}>
+                        Date:
+                      </Text>
+                      <Text
+                        style={{...FONTS.body3, textTransform: 'capitalize'}}>
+                        {new Date(dataInfo?.createdAt).toDateString()}
+                      </Text>
+                    </View>
+
+                    <View style={styles.mt}>
+                      <Text
+                        style={{
+                          textTransform: 'capitalize',
+                          ...FONTS.body4,
+                          color: COLORS.gray,
+                        }}>
+                        Transaction Status:
+                      </Text>
+                      <Text
+                        style={{
+                          ...FONTS.body3,
+                          textAlign: 'right',
+                          color:
+                            dataInfo?.status === 'approved'
+                              ? COLORS.darkGreen
+                              : dataInfo?.status === 'submitted'
+                              ? COLORS.orange
+                              : dataInfo?.status === 'rejected'
+                              ? COLORS.red
+                              : '',
+                          textTransform: 'capitalize',
+                        }}>
+                        {dataInfo?.status}
+                      </Text>
+                    </View>
+                  </View>
+                </View>
+              </View>
+            </View>
+          </Modal>
+        </View>
+      </View>
     </View>
-  )
-}
+  );
+};
 
-export default ZendUsdHistory
+export default ZendUsdHistory;
 
 const styles = StyleSheet.create({
-    margin: {
-        // marginVertical: 20,
-      },
-      icon: {
-        marginVertical: 20,
-      },
-      hr: {
-        width: "100%",
-        height: hp(2),
-        backgroundColor: COLORS.lightGray2,
-        marginVertical: hp(15)
-      },
-      actionCard2: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        marginBottom: hp(10),
-        paddingBottom: hp(10),
-      },
-      icons: {
-        width: wp(40),
-        height: hp(40),
-        backgroundColor: COLORS.primary2,
-        alignItems: 'center',
-        justifyContent: 'center',
-        borderRadius: 50,
-      },
-})
+  centeredView: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: COLORS.transparentBlack,
+  },
+  end: {
+    width: '100%',
+    justifyContent: 'flex-end',
+    alignItems: 'flex-end',
+  },
+  modalView: {
+    margin: 20,
+    // height: hp(600),
+    backgroundColor: 'white',
+    borderRadius: 20,
+    padding: 25,
+    width: '90%',
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5,
+  },
+  margin: {
+    // marginVertical: 20,
+  },
+  mt: {
+    marginTop: hp(20),
+  },
+  icon: {
+    marginVertical: 20,
+  },
+  hr: {
+    width: '100%',
+    height: hp(2),
+    backgroundColor: COLORS.lightGray2,
+    marginVertical: hp(15),
+  },
+  actionCard2: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: hp(10),
+    paddingBottom: hp(10),
+  },
+  icons: {
+    width: wp(40),
+    height: hp(40),
+    backgroundColor: COLORS.primary2,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 50,
+  },
+});

@@ -63,7 +63,7 @@ const TransactionDetailModal = ({modalVisible, setModalVisible, data}: any) => {
                     {data?.transactionType}
                   </Text>
                   <Text style={{...FONTS.body5, color: COLORS.gray}}>
-                  {parseFloat(data?.amount)?.toFixed(2)} {data?.currency?.toUpperCase()}
+                  {parseFloat(data?.amount)?.toFixed(5).slice(0, -1)} {data?.currency?.toUpperCase()}
                   </Text>
                 </View>
               </View>
@@ -77,7 +77,7 @@ const TransactionDetailModal = ({modalVisible, setModalVisible, data}: any) => {
                   Amount:
                 </Text>
                 <Text style={{...FONTS.body3, textTransform: 'capitalize'}}>
-                 {parseFloat(data?.amount).toFixed(2)} {data?.currency?.toUpperCase()}
+                 {parseFloat(data?.amount).toFixed(5).slice(0, -1)} {data?.currency?.toUpperCase()}
                 </Text>
               </View>
 

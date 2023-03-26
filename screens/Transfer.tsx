@@ -276,16 +276,13 @@ const Transfer = ({navigation}: any) => {
               </View>
             </View>
           </ScrollView>
-          {/* <SelectTokenModal
-              modalVisible={openSelect}
-              setSelectedToken={(value: any) => handleSelection(value)}
-              setModalVisible={() => handleOpenSelectClose()}
-            /> */}
+
           <SwapTokenModal
             modalVisible={openSelect}
             setSelectedToken={(value: any) => handleSelection(value)}
             setModalVisible={() => handleOpenSelectClose()}
             selectedToken={null}
+            transferType={from}
           />
            <SuccessModal visible={visible} handleVisible={() => setVisible(false)} />
         </View>

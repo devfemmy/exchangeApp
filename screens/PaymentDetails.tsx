@@ -1,5 +1,5 @@
 import {View, Text, ScrollView} from 'react-native';
-import React from 'react';
+import React, { useState } from 'react';
 import GlobalStyle from '../utils/globalStyle';
 import HeaderComponent from '../components/HeaderComponent';
 import {COLORS, FONTS} from '../utils/constants/theme';
@@ -7,12 +7,66 @@ import {hp, wp} from '../utils/helper';
 import IconTextButton from '../components/IconTextButton';
 import Feather from 'react-native-vector-icons/Feather';
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import { useAppDispatch } from '../app/hooks';
+import { createUsd } from '../slice/ZendSlice';
+import { Notifier, NotifierComponents } from 'react-native-notifier';
+import SuccessModal from '../components/Modals/SuccessModal';
 
-const PaymentDetails = ({navigation}: any) => {
+const PaymentDetails = (props: any) => {
+  const {amount, rate, country, amtToReceive,phoneNumber, beneficiaryName, beneficiaryAddress, beneficiaryEmail, swiftCode,bankAccount, bankName} = props?.route?.params?.params
+  const [loader, setLoader] = useState(false)
+  const dispatch = useAppDispatch()
+  const [visible, setVisible] = useState(false)
+
+  const handleSubmit = async () => {
+      setLoader(true)
+      const payload = {
+        swiftCode: swiftCode,
+        amount: parseFloat(amount),
+        charges: 0,
+        beneficiary: {
+            name: beneficiaryName,
+            address: beneficiaryAddress,
+            bankName: bankName,
+            bankAccountNumber: bankAccount,
+            emailAddress: beneficiaryEmail,
+            phoneNumber: phoneNumber,
+            country: country
+        },
+        paymentInvoice: {
+            isUploaded: true,
+            file: ""
+        }
+      }
+      try{
+        var response = await dispatch(createUsd(payload))
+        if(createUsd.fulfilled.match(response)){
+          setLoader(false)
+          setVisible(true)
+        }
+        else {
+          var errMsg = response?.payload as string
+          setLoader(false);
+          Notifier.showNotification({
+            title: 'Error',
+            description: errMsg,
+            Component: NotifierComponents.Alert,
+            componentProps: {
+              alertType: 'error',
+            },
+          });
+        }
+      }
+      catch(e){
+
+      }
+  }
+
+
   return (
     <ScrollView showsVerticalScrollIndicator={false} style={GlobalStyle.container}>
       <View>
-      <HeaderComponent onPress={() => navigation.goBack()} />
+      <HeaderComponent onPress={() => props?.navigation.goBack()} />
       <Text style={{...FONTS.h3, fontWeight: '600'}}>
         Confirm Payment Details
       </Text>
@@ -30,7 +84,7 @@ const PaymentDetails = ({navigation}: any) => {
               width: wp(200),
               textAlign: 'right',
             }}>
-            China
+            {country}
           </Text>
         </View>
 
@@ -38,7 +92,7 @@ const PaymentDetails = ({navigation}: any) => {
           <Text style={{...FONTS.body4, color: COLORS.gray}}>
             Amount you want to send
           </Text>
-          <Text style={{...FONTS.body4, fontWeight: '600'}}>$1000</Text>
+          <Text style={{...FONTS.body4, fontWeight: '600'}}>${amount}</Text>
         </View>
         <View style={[GlobalStyle.rowBetween, {marginVertical: hp(10)}]}>
           <Text style={{...FONTS.body4, color: COLORS.gray}}>Rate</Text>
@@ -49,7 +103,7 @@ const PaymentDetails = ({navigation}: any) => {
               width: wp(200),
               textAlign: 'right',
             }}>
-            $45
+            {rate}
           </Text>
         </View>
         <View style={[GlobalStyle.rowBetween, {marginVertical: hp(10)}]}>
@@ -63,7 +117,7 @@ const PaymentDetails = ({navigation}: any) => {
               width: wp(200),
               textAlign: 'right',
             }}>
-            Zenghzuep Tech Co. limited
+            {beneficiaryName}
           </Text>
         </View>
         <View style={[GlobalStyle.rowBetween, {marginVertical: hp(10)}]}>
@@ -77,7 +131,7 @@ const PaymentDetails = ({navigation}: any) => {
               width: wp(200),
               textAlign: 'right',
             }}>
-            37, katangura street off ajegunle china
+           {beneficiaryAddress}
           </Text>
         </View>
         <View style={[GlobalStyle.rowBetween, {marginVertical: hp(10)}]}>
@@ -89,7 +143,7 @@ const PaymentDetails = ({navigation}: any) => {
               width: wp(200),
               textAlign: 'right',
             }}>
-            Zenghzuep Tech Co. limited
+           {bankName}
           </Text>
         </View>
         <View style={[GlobalStyle.rowBetween, {marginVertical: hp(10)}]}>
@@ -103,11 +157,11 @@ const PaymentDetails = ({navigation}: any) => {
               width: wp(200),
               textAlign: 'right',
             }}>
-            01239384443
+            {bankAccount}
           </Text>
         </View>
         <View style={[GlobalStyle.rowBetween, {marginVertical: hp(10)}]}>
-          <Text style={{...FONTS.body4, color: COLORS.gray}}>Bank Address</Text>
+          <Text style={{...FONTS.body4, color: COLORS.gray}}>Beneficiary Email</Text>
           <Text
             style={{
               ...FONTS.body4,
@@ -115,7 +169,7 @@ const PaymentDetails = ({navigation}: any) => {
               width: wp(200),
               textAlign: 'right',
             }}>
-            37, katangura street off ajegunle china{' '}
+            {beneficiaryEmail}
           </Text>
         </View>
         <View style={[GlobalStyle.rowBetween, {marginVertical: hp(10)}]}>
@@ -127,22 +181,22 @@ const PaymentDetails = ({navigation}: any) => {
               width: wp(200),
               textAlign: 'right',
             }}>
-            BSDFSR342{' '}
+           {swiftCode}
           </Text>
         </View>
 
         <View style={[GlobalStyle.rowBetween, {marginVertical: hp(10)}]}>
         <Text style={{...FONTS.body4, color: COLORS.gray}}>Charges</Text>
-        <Text style={{...FONTS.body4, fontWeight: '600', width: wp(200), textAlign: "right"}}>2373778276</Text>
+        <Text style={{...FONTS.body4, fontWeight: '600', width: wp(200), textAlign: "right"}}>0</Text>
       </View>
 
       <View style={[GlobalStyle.rowBetween, {marginVertical: hp(10)}]}>
         <Text style={{...FONTS.body4, color: COLORS.gray}}>Recipient will receive</Text>
-        <Text style={{...FONTS.body4, fontWeight: '600', width: wp(200), textAlign: "right"}}>$8,900</Text>
+        <Text style={{...FONTS.body4, fontWeight: '600', width: wp(200), textAlign: "right"}}>${amtToReceive}</Text>
       </View>
       </View>
 
-     <TouchableOpacity onPress={() => navigation.navigate("ZendUsdForm", {
+     <TouchableOpacity onPress={() => props?.navigation.navigate("ZendUsdForm", {
       params: {
         edit: 1
       }
@@ -153,7 +207,9 @@ const PaymentDetails = ({navigation}: any) => {
       </View>
      </TouchableOpacity>
 
-      <IconTextButton label="Zend USD" />
+      <IconTextButton label="Zend USD" isLoading={loader} onPress={() => handleSubmit()} />
+
+      <SuccessModal visible={visible} handleVisible={() => setVisible(false)} />
     </View>
     </ScrollView>
   );

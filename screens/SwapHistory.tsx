@@ -15,7 +15,7 @@ import EmptyScreen from '../components/EmptyScreen'
 
 const SwapHistory = ({navigation}: any) => {
   const [swapData, setSwapData] = useState<any>()
-  const dispatch = useAppDispatch()
+  const dispatch = useAppDispatch() as any
   const [modalVisible, setModalVisible] = useState(false);
   const [details, setDetails] = useState<any>();
   const [value, setValue] = useState("")
@@ -37,7 +37,7 @@ const SwapHistory = ({navigation}: any) => {
         status: type === "all" ? "" : type, 
         id: value?.length <= 0 ? "" : value
       }
-    dispatch(getSwapHistory(payload)).then(pp => setSwapData(pp?.payload))
+    dispatch(getSwapHistory(payload)).then((pp: any)=> setSwapData(pp?.payload))
   }, [type, value])
 
  
