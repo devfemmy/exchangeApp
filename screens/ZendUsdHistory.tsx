@@ -23,6 +23,7 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import Feather from 'react-native-vector-icons/Feather';
+import moment  from 'moment';
 
 const ZendUsdHistory = ({navigation}: any) => {
   const [type, setType] = useState('all');
@@ -104,7 +105,7 @@ const ZendUsdHistory = ({navigation}: any) => {
             </View>
             <View>
               <Text>ZEND USD</Text>
-              <Text>{getCurrentDate(item?.createdAt)}</Text>
+              <Text>{moment(item?.createdAt).format('MMMM Do YYYY, h:mm:ss a')}</Text>
             </View>
           </View>
           <View>

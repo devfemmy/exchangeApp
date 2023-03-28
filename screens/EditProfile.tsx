@@ -14,15 +14,19 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import { hp, wp } from '../utils/helper';
 import { COLORS, FONTS } from '../utils/constants/theme';
 import { Image } from 'react-native';
-import { useAppSelector } from '../app/hooks';
+import { useAppDispatch, useAppSelector } from '../app/hooks';
 import { userState } from '../slice/AuthSlice';
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import SelectDropdowns from '../components/SelectDropdowns';
 import DatePicker from 'react-native-date-picker';
+import {updateProfile, getProfile} from '../slice/AuthSlice';
+import {Notifier, NotifierComponents} from 'react-native-notifier';
 import moment from 'moment';
 
 const EditProfile = ({navigation}: any) => {
+  const dispatch = useAppDispatch();
+  const [loader, setLoader] = useState(false);
   const userStateInfo = useAppSelector(userState);
   const [countryCode, setCountryCode] = useState('NG');
   const [, setCountry] = useState(null);
@@ -32,23 +36,56 @@ const EditProfile = ({navigation}: any) => {
   const [gender, setGender] = useState(getUserInfo?.gender);
   const [date, setDate] = useState(new Date(getUserInfo?.dateOfBirth));
   const [open, setOpen] = useState(false);
-  console.log('get userInfo', getUserInfo);
-
   const initialValues: ProfileFormData = {
     firstName: getUserInfo?.firstName,
     lastName: getUserInfo?.lastName,
     email: getUserInfo?.emailAddress,
     username: getUserInfo?.username,
-    country: '',
+    country: getUserInfo?.country,
     streetName: getUserInfo?.homeAddress,
     gender: gender,
     phone: getUserInfo?.phoneNumber,
     dob: '',
   };
+  const handleCredentialSubmit =  async (data: any) => {
+    const payload = {
+      dateOfBirth: moment(date).format('YYYY-MM-DD'),
+      gender: gender,
+      country: data?.country,
+      houseAddress: data?.streetName,
+      userId: getUserInfo?._id,
+    };
+    setLoader(true);
+    try {
+      var response = (await dispatch(updateProfile(payload))) as any;
+      if (updateProfile.fulfilled.match(response)) {
+        setLoader(false);
+        dispatch(getProfile());
+        let msg = response?.payload?.message as string;
+        Notifier.showNotification({
+          title: 'Success',
+          description: msg,
+          Component: NotifierComponents.Alert,
+          componentProps: {
+            alertType: 'success',
+          },
+        });
+      } else {
+        var errMsg = response?.payload as string;
+        setLoader(false);
 
-  const handleCredentialSubmit = (data: any) => {
-
+        Notifier.showNotification({
+          title: 'Error',
+          description: errMsg,
+          Component: NotifierComponents.Alert,
+          componentProps: {
+            alertType: 'error',
+          },
+        });
+      }
+    } catch (e) {}
   };
+
 
   const { values, errors, touched, handleChange, handleSubmit, handleBlur } =
     useFormik({
@@ -56,7 +93,6 @@ const EditProfile = ({navigation}: any) => {
       validationSchema: ProfileAccountSchema,
       onSubmit: (data: ProfileFormData) => handleCredentialSubmit(data),
     });
-
     const onSelect = (country: any) => {
       setCountryCode(country.cca2);
       setCountry(country);
@@ -111,10 +147,8 @@ const EditProfile = ({navigation}: any) => {
             <Image source={{uri: imgUri }} style={styles.icons} />
           </Pressable>
           <View>
-            <Text style={{...FONTS.h3, fontSize: hp(18), fontWeight: '600', color: COLORS.primary, textAlign: 'center'}}>Olatunji Monsurat</Text>
-            <Text style={{...FONTS.h4, fontSize: hp(16), fontWeight: '400', color: '#808080', textAlign: 'center'}}>@Techbabby</Text>
-            <Text style={{...FONTS.h4, fontSize: hp(15), fontWeight: '400', color: '#808080', textAlign: 'center', fontStyle: 'italic'}}>Joined on:</Text>
-            <Text style={{...FONTS.h4, fontSize: hp(15), fontWeight: '400', color: '#808080', textAlign: 'center', fontStyle: 'italic'}}>{moment(getUserInfo?.createdAt).format('MMMM Do YYYY, h:mm:ss a')}</Text>
+            <Text style={{...FONTS.h3, fontSize: hp(18), fontWeight: '600', color: COLORS.primary, textAlign: 'center', textTransform: 'capitalize'}}>{getUserInfo?.firstName} {getUserInfo?.lastName}</Text>
+            <Text style={{...FONTS.h4, fontSize: hp(16), fontWeight: '400', color: '#808080', textAlign: 'center'}}>@{getUserInfo?.emailAddress}</Text>
           </View>
         </View>
 
@@ -156,11 +190,15 @@ const EditProfile = ({navigation}: any) => {
                 data={[
                   {
                     id: 1,
-                    name: 'Male',
+                    name: 'male',
                   },
                   {
                     id: 2,
-                    name: 'Female',
+                    name: 'female',
+                  },
+                  {
+                    id: 3,
+                    name: 'prefer not to say',
                   },
                 ]}
                 selected={gender}
@@ -222,6 +260,7 @@ const EditProfile = ({navigation}: any) => {
               <TextInput
               label={'Phone Number'}
               value={values.phone}
+              disabled
               onBlur={handleBlur('phone')}
               onChangeText={handleChange('phone')}
               errorMsg={touched.phone ? errors.phone : undefined}
@@ -229,9 +268,13 @@ const EditProfile = ({navigation}: any) => {
             </View>
         </View>
        </View>
+       <View>
+       <Text style={{...FONTS.h4, fontSize: hp(15), fontWeight: '400', color: '#808080', textAlign: 'center', fontStyle: 'italic'}}>Joined on:</Text>
+            <Text style={{...FONTS.h4, fontSize: hp(15), fontWeight: '400', color: '#808080', textAlign: 'center', fontStyle: 'italic'}}>{moment(getUserInfo?.createdAt).format('MMMM Do YYYY, h:mm:ss a')}</Text>
+       </View>
 
         <View style={styles.btnContainer}>
-          <IconTextButton label="Save Changes" handlePress={handleSubmit}/>
+          <IconTextButton isLoading={loader} label="Save Changes" onPress={handleSubmit}/>
         </View>
       </ScrollView>
 
