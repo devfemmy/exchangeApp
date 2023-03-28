@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/func-call-spacing */
+
 /* eslint-disable quotes */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable no-unreachable */
@@ -9,6 +9,7 @@ import {
   CreateAccountFormDataUi,
   LoginFormData,
   LoginState,
+  ProfileFormData,
 } from '../utils/types';
 import {getRequest, postRequest, getRequestNoToken} from '../utils/server';
 
@@ -30,7 +31,7 @@ export const createUser = createAsyncThunk(
       password: payload?.password,
       firstName: payload?.firstName,
       lastName: payload?.lastName,
-      username: payload?.username
+      username: payload?.username,
     };
     try {
       const response = await postRequest(
@@ -99,7 +100,7 @@ export const generateSigninToken = createAsyncThunk(
       `${config.api_base_url}/auth/sign-in/confirmation-token/generate?emailAddress=${payload?.email}`,
     );
     if (response?.status === 200) {
-     
+
      // return response?.data?.data;
     }
   },
@@ -168,24 +169,7 @@ export const signInUser = createAsyncThunk(
         `${config.api_base_url}/auth/sign-in/user?clientType=mobile`,
         payload,
       );
-  
-      if (response?.status === 200) {
-        return response?.data;
-      }
-    } catch (e: any) {
-      return rejectWithValue(e?.response?.data?.message);
-    }
-  },
-);
-export const updateUserProfile = createAsyncThunk(
-  'user/update',
-  async (payload: LoginFormData, {rejectWithValue}) => {
-    try {
-      const response = await postRequest(
-        `${config.api_base_url}/users/:${ID}/update`,
-        payload,
-      );
-  
+
       if (response?.status === 200) {
         return response?.data;
       }
@@ -272,11 +256,11 @@ export const AuthSlice = createSlice({
         signInUser.fulfilled,
         (state, action: PayloadAction<any>) => {
           (state.loading = false);
-          if(!action?.payload?.data?.requiresConfirmation) {
+          if (!action?.payload?.data?.requiresConfirmation) {
             (state.userInfo = action.payload?.data);
             AsyncStorage.setItem("userInfo", JSON.stringify(action.payload?.data))
           }
-            
+
         },
       );
     builder.addCase(signInUser.rejected, (state, action) => {
@@ -341,7 +325,7 @@ export const AuthSlice = createSlice({
       builder.addCase(signOutUser.fulfilled, (state, action) => {
         (state.loading = false),
           (state.userInfo = null),
-         
+
           (state.userData = null);
           AsyncStorage.clear()
       });
