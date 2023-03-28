@@ -1,23 +1,25 @@
-import { View, Text, StyleSheet, Modal, TouchableOpacity, ScrollView, Image, } from 'react-native'
-import React, { useState } from 'react'
-import { hp } from '../utils/helper'
-import { COLORS, FONTS } from '../utils/constants/theme'
-import AntDesign from 'react-native-vector-icons/AntDesign'
+import { View, Text, StyleSheet, Modal, TouchableOpacity, ScrollView, Image } from 'react-native';
+import React, { useState } from 'react';
+import { hp } from '../utils/helper';
+import { COLORS, FONTS } from '../utils/constants/theme';
+import AntDesign from 'react-native-vector-icons/AntDesign';
+import GlobalStyle from '../utils/globalStyle';
 
-const SelectDropdowns = ({label, data, selected, setSelected}: any) => {
+const SelectDropdowns = ({label, data, selected, setSelected, dob, onPress}: any) => {
   const [modalVisible, setModalVisible] = useState(false);
 
 
   const handleSelected = (data: any) => {
-    setSelected(data?.name)
-    setModalVisible(false)
-  }
+    setSelected(data?.name);
+    setModalVisible(false);
+  };
 
 
   return (
     <View style={styles.div}>
-      <TouchableOpacity onPress={() => setModalVisible(true)}>
+      <TouchableOpacity style={GlobalStyle.rowBetween} onPress={dob ? onPress : () => setModalVisible(true)}>
         <Text>{!selected ? label : selected}</Text>
+        <AntDesign name="down" size={15} />
       </TouchableOpacity>
 
       <View>
@@ -36,18 +38,18 @@ const SelectDropdowns = ({label, data, selected, setSelected}: any) => {
                   <AntDesign name="close" size={30} />
                 </View>
               </TouchableOpacity>
-  
+
               <Text style={{...FONTS.h3, textAlign: 'center', marginBottom: hp(20)}}>{label}</Text>
-           
+
              <ScrollView>
               {
                 data?.map((info: any) => {
                   return <TouchableOpacity onPress={() => handleSelected(info)} key={info?.id}>
                     <View style={styles.modalP}>
                     {info?.image && <Image source={{uri: info?.image}} />}
-                    <Text style={{...FONTS.h4, fontWeight: '700', textTransform: 'capitalize', textAlign: !info?.image ? "center" : "left" ,  color: COLORS.primary}}>{info?.name}</Text>
+                    <Text style={{...FONTS.h4, fontWeight: '700', textTransform: 'capitalize', textAlign: !info?.image ? 'center' : 'left' ,  color: COLORS.primary}}>{info?.name}</Text>
                   </View>
-                  </TouchableOpacity>
+                  </TouchableOpacity>;
                 })
               }
              </ScrollView>
@@ -57,13 +59,13 @@ const SelectDropdowns = ({label, data, selected, setSelected}: any) => {
       </View>
      </View>
     </View>
-  )
-}
+  );
+};
 
-export default SelectDropdowns
+export default SelectDropdowns;
 
 const styles = StyleSheet.create({
-   
+
   div: {
     padding: hp(20),
     backgroundColor: COLORS.primary2,
@@ -71,15 +73,15 @@ const styles = StyleSheet.create({
     marginBottom: hp(15),
     borderColor: COLORS.primary,
     borderWidth: 0.3,
-    
-  
+
+
   },
   centeredView: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: COLORS.transparentBlack,
-   
+
   },
   end: {
     width: '100%',
@@ -106,7 +108,7 @@ const styles = StyleSheet.create({
     padding: hp(20),
     backgroundColor: COLORS.primary2,
     marginVertical: hp(5),
-    borderRadius: 5
-  }
-})
+    borderRadius: 5,
+  },
+});
 
