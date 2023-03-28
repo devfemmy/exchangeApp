@@ -10,13 +10,13 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import { useAppDispatch } from '../app/hooks';
 import { createUsd } from '../slice/ZendSlice';
 import { Notifier, NotifierComponents } from 'react-native-notifier';
-import SuccessModal from '../components/Modals/SuccessModal';
+
 
 const PaymentDetails = (props: any) => {
   const {amount, rate, country, amtToReceive,phoneNumber, beneficiaryName, beneficiaryAddress, beneficiaryEmail, swiftCode,bankAccount, bankName} = props?.route?.params?.params
   const [loader, setLoader] = useState(false)
   const dispatch = useAppDispatch()
-  const [visible, setVisible] = useState(false)
+
 
   const handleSubmit = async () => {
       setLoader(true)
@@ -42,7 +42,7 @@ const PaymentDetails = (props: any) => {
         var response = await dispatch(createUsd(payload))
         if(createUsd.fulfilled.match(response)){
           setLoader(false)
-          setVisible(true)
+          return props?.navigation.navigate("SuccessScreen")
         }
         else {
           var errMsg = response?.payload as string
@@ -209,7 +209,7 @@ const PaymentDetails = (props: any) => {
 
       <IconTextButton label="Zend USD" isLoading={loader} onPress={() => handleSubmit()} />
 
-      <SuccessModal visible={visible} handleVisible={() => setVisible(false)} />
+    
     </View>
     </ScrollView>
   );

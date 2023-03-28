@@ -26,7 +26,7 @@ import EmptyScreen from '../components/EmptyScreen';
 import HistoryCard from '../components/HistoryCard';
 
 import TransactionDetailModal from '../components/Modals/TransactionDetail';
-import EvilIcons from 'react-native-vector-icons/EvilIcons';
+
 import { TextInput } from '../components/TextInput';
 
 const AssetInfo = (props: any) => {
@@ -82,6 +82,7 @@ const AssetInfo = (props: any) => {
 
   const filterTransaction = assetTransactions?.transactions?.filter((data: any) => data?._id?.toLowerCase().includes(value?.toLowerCase()))
 
+ 
 
   return (
     <View style={GlobalStyle.container}>
@@ -170,7 +171,7 @@ const AssetInfo = (props: any) => {
         <TouchableOpacity onPress={() => props.navigation.navigate('SwapCard')}>
         <View>
           <View style={styles.lightBtn}>
-          <EvilIcons  name="external-link" size={30} color={COLORS.primary} />
+          <AntDesign  name="swap" size={20} color={COLORS.primary} />
             <Text style={[styles.txt, {...FONTS.body5, color: COLORS.primary, marginLeft: hp(2)}]}>
             Swap
           </Text>
@@ -386,6 +387,7 @@ const AssetInfo = (props: any) => {
                 value={value}
                 onChangeText={(value: any) => setValue(value)}
                 searchInput
+                style={{backgroundColor: COLORS.white}}
               />
             </View>
 
@@ -395,7 +397,7 @@ const AssetInfo = (props: any) => {
       }
 
       {
-        assetTransactions?.transactions?.length > 1 &&
+        assetTransactions?.transactions?.length > 0 &&
         <FlatList
          keyExtractor={(item) => item?.id}
          showsVerticalScrollIndicator={false}

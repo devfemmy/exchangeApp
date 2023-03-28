@@ -202,7 +202,12 @@ const Deposit = ({navigation}: any) => {
                 value={value}
                 onChangeText={(value: any) => setValue(value)}
                 searchInput
+                style={{backgroundColor: COLORS.white}}
               />
+            </View>
+            <View style={[GlobalStyle.rowBetween, {marginVertical: hp(5)}]}>
+              <Text style={{...FONTS.body3}}>Token</Text>
+              <Text style={{...FONTS.body3}}>Balance</Text>
             </View>
             <ScrollView showsVerticalScrollIndicator={false}>
               {assets()}

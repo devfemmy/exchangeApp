@@ -159,7 +159,12 @@ const searchTradData = !value
                 value={value}
                 onChangeText={(value: any) => setValue(value)}
                 searchInput
+                style={{backgroundColor: COLORS.ldPrimary}}
               />
+            </View>
+            <View style={[GlobalStyle.rowBetween, {marginVertical: hp(5)}]}>
+              <Text style={{...FONTS.body3}}>Token</Text>
+              <Text style={{...FONTS.body3}}>Balance</Text>
             </View>
             <ScrollView>{assets()}</ScrollView>
           </View>

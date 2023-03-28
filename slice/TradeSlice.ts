@@ -188,7 +188,8 @@ export const submitExternalWithdraw = createAsyncThunk(
       pin: string,
       emailOtp: string,
       messageId: string,
-      chain: string
+      chain: string,
+      memo: string
     },
     {rejectWithValue},
   ) => {

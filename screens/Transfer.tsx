@@ -29,7 +29,7 @@ import {
 } from '../slice/WalletSlice';
 import { transferToken } from '../slice/TradeSlice';
 import { Notifier, NotifierComponents } from 'react-native-notifier';
-import SuccessModal from '../components/Modals/SuccessModal';
+
 
 
 const Transfer = ({navigation}: any) => {
@@ -42,7 +42,7 @@ const Transfer = ({navigation}: any) => {
   const [assetDataFund, setAssetDataFund] = useState<any>();
   const [assetDataTrad, setAssetDataTrad] = useState<any>();
   const [loader, setLoader] = useState(false);
-  const [visible, setVisible] = useState(false)
+
 
   useEffect(() => {
     if (selectedAssets !== 'Select Token') {
@@ -86,7 +86,7 @@ const Transfer = ({navigation}: any) => {
   };
 
   const handleMax = () => {
-    var choose = from === 'funding' ? assetDataFund?.availBal : assetDataTrad?.availBal;
+    var choose = from === 'funding' ? parseFloat(assetDataFund?.availBal)?.toFixed(5).slice(0, -1) : parseFloat(assetDataTrad?.availBal)?.toFixed(5).slice(0, -1);
     setNumber(choose);
   };
 
@@ -135,7 +135,7 @@ const Transfer = ({navigation}: any) => {
             setAssetDataTrad(head);
           }
         );
-        setVisible(true)
+        return navigation.navigate("SuccessScreen")
       }
       else {
         setLoader(false);
@@ -240,7 +240,7 @@ const Transfer = ({navigation}: any) => {
                     onChangeText={value => setNumber(value)}
                     value={number}
                     placeholder={`0 ${selectedAssets}`}
-                    keyboardType="numeric"
+                    keyboardType="default"
                   />
                 </View>
                <TouchableOpacity onPress={() => handleMax()}>
@@ -255,6 +255,7 @@ const Transfer = ({navigation}: any) => {
                 </View>
                </TouchableOpacity>
               </View>
+              
               <Text
                 style={{
                   ...FONTS.body4,
@@ -284,7 +285,7 @@ const Transfer = ({navigation}: any) => {
             selectedToken={null}
             transferType={from}
           />
-           <SuccessModal visible={visible} handleVisible={() => setVisible(false)} />
+        
         </View>
       </View>
     </View>

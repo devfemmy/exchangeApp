@@ -29,7 +29,7 @@ const HistoryCard = ({data, handleClick}: any) => {
 
       <View>
             <Text  style={{fontWeight: '600', ...FONTS.body4}}>{format(parseFloat(amount).toFixed(5).slice(0, -1))} {currency}</Text>
-            <Text style={{textAlign: 'right',...FONTS.body4, color: status === 'success' ? COLORS.darkGreen : status === 'submitted' ? COLORS.orange :  status === "pending" ? COLORS.orange : COLORS.red}}>{status}</Text>
+            <Text style={{textTransform: "capitalize",textAlign: 'right',...FONTS.body4, color: status === 'success' ? COLORS.darkGreen : status === 'submitted' ? COLORS.orange :  status === "pending" ? COLORS.orange : COLORS.red}}>{status}</Text>
         </View>
 
 

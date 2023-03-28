@@ -37,6 +37,7 @@ import Transfer from '../screens/Transfer';
 import ConfirmSwap from '../screens/ConfirmSwap';
 import Instructions from '../screens/Instructions';
 import TwoFactorVerification from '../screens/TwoFactorVerification';
+import SuccessScreen from '../screens/SuccessScreen';
 
 const Stack = createStackNavigator();
 
@@ -133,6 +134,10 @@ const ContainerComponent = () => {
          <Stack.Screen
             name="Transfer"
             component={Transfer}
+        />
+         <Stack.Screen
+            name="SuccessScreen"
+            component={SuccessScreen}
         />
         <Stack.Screen
             name="TwoFactorVerification"
