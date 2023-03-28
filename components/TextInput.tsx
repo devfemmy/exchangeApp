@@ -20,7 +20,7 @@ type InputProps = ComponentProps<typeof BaseInput> & {
   containerStyle?: StyleProp<ViewStyle>;
   style?: StyleProp<ViewStyle>;
   iconMarginTop?: number,
-  disabled?: boolean
+  disabled?: boolean,
 };
 
 export const TextInput = memo(
