@@ -17,7 +17,10 @@ import { Image } from 'react-native';
 import { useAppSelector } from '../app/hooks';
 import { userState } from '../slice/AuthSlice';
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
+import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import SelectDropdowns from '../components/SelectDropdowns';
+import DatePicker from 'react-native-date-picker';
+import moment from 'moment';
 
 const EditProfile = ({navigation}: any) => {
   const userStateInfo = useAppSelector(userState);
@@ -26,18 +29,20 @@ const EditProfile = ({navigation}: any) => {
 
   const getUserInfo = userStateInfo?.userData ? userStateInfo?.userData : userStateInfo;
   const [imgUri, setImageUri] = useState(getUserInfo?.image);
-  const [gender, setGender] = useState('');
-
+  const [gender, setGender] = useState(getUserInfo?.gender);
+  const [date, setDate] = useState(new Date(getUserInfo?.dateOfBirth));
+  const [open, setOpen] = useState(false);
+  console.log('get userInfo', getUserInfo);
 
   const initialValues: ProfileFormData = {
-    firstName: '',
-    lastName: '',
-    email: '',
-    username: '',
+    firstName: getUserInfo?.firstName,
+    lastName: getUserInfo?.lastName,
+    email: getUserInfo?.emailAddress,
+    username: getUserInfo?.username,
     country: '',
-    streetName: '',
+    streetName: getUserInfo?.homeAddress,
     gender: gender,
-    phone: '',
+    phone: getUserInfo?.phoneNumber,
     dob: '',
   };
 
@@ -89,6 +94,7 @@ const EditProfile = ({navigation}: any) => {
 
   return (
     <View style={[GlobalStyle.container, styles.div]}>
+       <KeyboardAwareScrollView showsVerticalScrollIndicator={false}>
         <ScrollView showsVerticalScrollIndicator={false} style={styles.top}>
         <AntDesign onPress={() => navigation.goBack()} name="arrowleft" style={styles.icon} size={hp(20)} color={COLORS.gray2} />
 
@@ -98,12 +104,17 @@ const EditProfile = ({navigation}: any) => {
           {/* <View style={GlobalStyle.level}>
             <Text style={{...FONTS.h4, color: '#4F4F4F', fontWeight: '500'}}>Beginner</Text>
           </View> */}
-          <Pressable onPress={imagePickerHandler} style={GlobalStyle.profileCircle2}>
+          <Pressable style={styles.buttonStyle}  onPress={imagePickerHandler} >
+          <Text style={{...FONTS.h4, fontSize: hp(15), fontWeight: '400', color: '#232323', textAlign: 'center'}}>Upload New Image</Text>
+          </Pressable>
+          <Pressable style={GlobalStyle.profileCircle2}>
             <Image source={{uri: imgUri }} style={styles.icons} />
           </Pressable>
           <View>
             <Text style={{...FONTS.h3, fontSize: hp(18), fontWeight: '600', color: COLORS.primary, textAlign: 'center'}}>Olatunji Monsurat</Text>
             <Text style={{...FONTS.h4, fontSize: hp(16), fontWeight: '400', color: '#808080', textAlign: 'center'}}>@Techbabby</Text>
+            <Text style={{...FONTS.h4, fontSize: hp(15), fontWeight: '400', color: '#808080', textAlign: 'center', fontStyle: 'italic'}}>Joined on:</Text>
+            <Text style={{...FONTS.h4, fontSize: hp(15), fontWeight: '400', color: '#808080', textAlign: 'center', fontStyle: 'italic'}}>{moment(getUserInfo?.createdAt).format('MMMM Do YYYY, h:mm:ss a')}</Text>
           </View>
         </View>
 
@@ -111,6 +122,7 @@ const EditProfile = ({navigation}: any) => {
           <TextInput
               label={'First Name'}
               value={values.firstName}
+              disabled
               onBlur={handleBlur('firstName')}
               onChangeText={handleChange('firstName')}
               errorMsg={touched.firstName ? errors.firstName : undefined}
@@ -118,12 +130,14 @@ const EditProfile = ({navigation}: any) => {
           <TextInput
               label={'Last Name'}
               value={values.lastName}
+              disabled
               onBlur={handleBlur('lastName')}
               onChangeText={handleChange('lastName')}
               errorMsg={touched.lastName ? errors.lastName : undefined}
             />
           <TextInput
               label={'Email'}
+              disabled
               value={values.email}
               onBlur={handleBlur('emailAddress')}
               onChangeText={handleChange('emailAddress')}
@@ -131,6 +145,7 @@ const EditProfile = ({navigation}: any) => {
             />
             <TextInput
               label={'Username'}
+              disabled
               value={values.username}
               onBlur={handleBlur('username')}
               onChangeText={handleChange('username')}
@@ -151,6 +166,40 @@ const EditProfile = ({navigation}: any) => {
                 selected={gender}
                 setSelected={(value: any) => setGender(value)}
               />
+              <View>
+              <SelectDropdowns
+                dob
+                onPress={() => setOpen(true)}
+                label="Date of Birth"
+                data={[
+                  {
+                    id: 1,
+                    name: 'Male',
+                  },
+                  {
+                    id: 2,
+                    name: 'Female',
+                  },
+                ]}
+                selected={String(date).slice(0, 15)}
+                // setSelected={(value: any) => setGender(value)}
+              />
+              <DatePicker
+                modal
+                mode="date"
+                open={open}
+                minimumDate={new Date('1990-12-31')}
+                date={date}
+                onConfirm={(value) => {
+                  setOpen(false);
+                  setDate(value);
+                }}
+                onCancel={() => {
+                  setOpen(false);
+                }}
+              />
+
+              </View>
             <TextInput
               label={'House Address'}
               value={values.streetName}
@@ -185,6 +234,8 @@ const EditProfile = ({navigation}: any) => {
           <IconTextButton label="Save Changes" handlePress={handleSubmit}/>
         </View>
       </ScrollView>
+
+      </KeyboardAwareScrollView>
     </View>
   );
 };
@@ -212,6 +263,13 @@ const styles = StyleSheet.create({
     paddingHorizontal: wp(10),
     flex: 1,
     backgroundColor: 'white',
+  },
+  buttonStyle: {
+    backgroundColor: '#E2E6FD',
+    paddingHorizontal: hp(12),
+    paddingVertical: hp(7),
+    borderRadius: hp(5),
+    marginBottom: hp(10),
   },
   countryPicker: {
     // backgroundColor: 'red',
