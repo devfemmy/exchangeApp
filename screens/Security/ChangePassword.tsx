@@ -1,5 +1,5 @@
 /* eslint-disable react-native/no-inline-styles */
-import React from 'react';
+import React, { useState } from 'react';
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
 import { COLORS, FONTS } from '../../utils/constants/theme';
 import MainLayout from '../mainLayout';
@@ -11,6 +11,9 @@ import { changePasswordData } from '../../utils/types';
 import { changePasswordSchema } from '../../utils/schemas';
 import { TextInput } from '../../components/TextInput';
 import IconTextButton from '../../components/IconTextButton';
+import { changePassword } from '../../slice/AuthSlice';
+import { Notifier, NotifierComponents } from 'react-native-notifier';
+import { useAppDispatch } from '../../app/hooks';
 
 export default function ChangePassword({navigation}: any) {
   const initialValues: changePasswordData = {
@@ -18,9 +21,38 @@ export default function ChangePassword({navigation}: any) {
     newPassword: '',
     confirmNewPassword: '',
   };
+  const [loader, setLoader] = useState(false)
+  const dispatch = useAppDispatch()
 
-  const handleCredentialSubmit = (data: any) => {
-
+  const handleCredentialSubmit =  async (data: any) => {
+    setLoader(true)
+    const payload = {
+      currentPassword: data?.oldPassword,
+      newPassword: data?.newPassword
+    }
+    try {
+      const response = await dispatch(changePassword(payload))
+      if(changePassword.fulfilled.match(response)){
+        setLoader(false)
+        return navigation.navigate("SuccessScreen")
+      }
+      else {
+        var errMsg = response?.payload as string
+        setLoader(false)
+        Notifier.showNotification({
+          title: 'Error',
+          description: errMsg,
+          Component: NotifierComponents.Alert,
+          componentProps: {
+            alertType: 'error',
+          },
+        });
+      }
+    }
+    catch(e){
+      console.log({e})
+      setLoader(false)
+    }
   };
 
   const { values, errors, touched, handleChange, handleSubmit, handleBlur } =
@@ -72,8 +104,8 @@ export default function ChangePassword({navigation}: any) {
                   errorMsg={touched.confirmNewPassword ? errors.confirmNewPassword : undefined}
                 />
           </View>
-          <View style={styles.btnContainer}>
-          <IconTextButton label="Save Changes" handlePress={handleSubmit}/>
+          <View>
+          <IconTextButton label="Save Changes" onPress={handleSubmit} isLoading={loader}/>
         </View>
         </ScrollView>
       </MainLayout>

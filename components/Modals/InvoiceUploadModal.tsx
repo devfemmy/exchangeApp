@@ -6,18 +6,66 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 import {View, Text, Modal, StyleSheet, TouchableOpacity} from 'react-native';
-import React from 'react';
+import React, { useState } from 'react';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import {COLORS, FONTS, SIZES} from '../../utils/constants/theme';
 import {hp, wp} from '../../utils/helper';
 import IconTextButton from '../IconTextButton';
 import GlobalStyle from '../../utils/globalStyle';
-
+import {launchImageLibrary} from 'react-native-image-picker';
 import UploadCard from '../UploadCard';
+import { Notifier, NotifierComponents } from 'react-native-notifier';
 
 const InvoiceUploadModal = ({modalVisible, setModalVisible, routeNext}: any) => {
+  const [invoiceImg, setInvoiceImg] = useState<any>();
 
 
+  const imagePickerHandler = async() => {
+    const options: any = {
+      quality: 1.0,
+      maxWidth: 500,
+      mediaType: 'photo',
+      includeBase64: true,
+      maxHeight: 500,
+      storageOptions: {
+        skipBackup: true,
+      },
+    };
+    launchImageLibrary(options, async (response: any) => {
+      // const path = await this.normalizePath(response.uri);
+      // const imageUri = await RNFetchBlob.fs.readFile(path, 'base64');
+      if (response.didCancel) {
+        //('User cancelled photo picker');
+      } else if (response.error) {
+        //('ImagePicker Error: ', response.error);
+      } else {
+        // const uri = response.uri;
+        const imageUri = response?.assets[0].uri;
+        const payload = {
+          fileName: response?.assets[0].fileName,
+          uri: imageUri
+        }
+        setInvoiceImg(payload);
+      }
+    });
+  };
+
+
+  const handleInvoice = (invoiceImg: any) => {
+    if(invoiceImg) {
+       routeNext(invoiceImg)
+    }
+    else {
+      Notifier.showNotification({
+        title: 'Error',
+        description: "Invoice is required",
+        Component: NotifierComponents.Alert,
+        componentProps: {
+          alertType: 'error',
+        },
+      });
+    }
+  }
   
 
   return (
@@ -56,7 +104,7 @@ const InvoiceUploadModal = ({modalVisible, setModalVisible, routeNext}: any) => 
                 }}>
                 To complete your transaction, Kindly upload your payment invoice
               </Text>
-             <UploadCard header="Upload Invoice Document" />
+             <UploadCard header="Upload Invoice Document" data={invoiceImg} handlePress={imagePickerHandler} />
 
               <View style={GlobalStyle.rowBetween}>
                 <TouchableOpacity
@@ -70,7 +118,7 @@ const InvoiceUploadModal = ({modalVisible, setModalVisible, routeNext}: any) => 
                 </TouchableOpacity>
 
                 <View style={styles.cod}>
-                  <IconTextButton label="Upload Invoice" onPress={() => routeNext()} />
+                  <IconTextButton label="Upload Invoice" onPress={() => handleInvoice(invoiceImg)} />
                 </View>
               </View>
             </View>

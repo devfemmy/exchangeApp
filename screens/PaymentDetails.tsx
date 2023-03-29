@@ -13,7 +13,7 @@ import { Notifier, NotifierComponents } from 'react-native-notifier';
 
 
 const PaymentDetails = (props: any) => {
-  const {amount, rate, country, amtToReceive,phoneNumber, beneficiaryName, beneficiaryAddress, beneficiaryEmail, swiftCode,bankAccount, bankName} = props?.route?.params?.params
+  const {amount, rate, country, amtToReceive,phoneNumber, beneficiaryName, beneficiaryAddress, beneficiaryEmail,invoiceInfo, swiftCode,bankAccount, bankName} = props?.route?.params?.params
   const [loader, setLoader] = useState(false)
   const dispatch = useAppDispatch()
 
@@ -35,7 +35,7 @@ const PaymentDetails = (props: any) => {
         },
         paymentInvoice: {
             isUploaded: true,
-            file: ""
+            file: invoiceInfo?.uri
         }
       }
       try{

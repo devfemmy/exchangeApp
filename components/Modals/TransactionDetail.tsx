@@ -13,6 +13,7 @@ import {COLORS, FONTS} from '../../utils/constants/theme';
 import {copyToClipboard, format, hp, wp} from '../../utils/helper';
 import GlobalStyle from '../../utils/globalStyle';
 import Feather from 'react-native-vector-icons/Feather';
+import moment from 'moment';
 
 const TransactionDetailModal = ({modalVisible, setModalVisible, data}: any) => {
 
@@ -48,13 +49,13 @@ const TransactionDetailModal = ({modalVisible, setModalVisible, data}: any) => {
                     marginRight: hp(20),
                     borderRadius: 50,
                     backgroundColor:
-                    data?.status === 'success' ? COLORS.lightGreen : data?.status === 'submitted' ? COLORS.lightOrange : data?.status === "pending" ? COLORS.lightOrange : ''
+                    data?.status === 'success' ? COLORS.lightGreen : data?.status === 'submitted' ? COLORS.lightOrange : COLORS.lightOrange
                   }}>
                   <AntDesign
                     name={data?.transactionType === "withdraw" ? "arrowup" : "arrowdown"}
                     size={15}
                     color={
-                      data?.status === 'success' ? COLORS.darkGreen : data?.status === 'submitted' ? COLORS.orange : data?.status === "pending" ? COLORS.orange : ''
+                      data?.status === 'success' ? COLORS.darkGreen : data?.status === 'submitted' ? COLORS.orange :  COLORS.orange 
                     }
                   />
                 </View>
@@ -84,12 +85,12 @@ const TransactionDetailModal = ({modalVisible, setModalVisible, data}: any) => {
               <View style={styles.mt}>
                 <Text
                   style={{
-                    ...FONTS.body4,color: COLORS.gray
+                    ...FONTS.body4,color: COLORS.gray, 
                   }}>
                   Transaction ID:
                 </Text>
                <View style={GlobalStyle.rowStart}>
-               <Text style={{...FONTS.body3, marginRight: hp(30)}}>{data?.type === "internal" ? data?.billId : data?.txId?.slice(0, 25) + "..."}</Text>
+               <Text style={{...FONTS.body3, marginRight: hp(30), width: wp(220)}}>{data?.type === "internal" ? data?.billId : data?.txId}</Text>
                <Feather name="copy" size={20} onPress={() => copyToClipboard(data?.type === "internal" ? data?.billId : data?.txId)} />
                </View>
               </View>
@@ -183,8 +184,8 @@ const TransactionDetailModal = ({modalVisible, setModalVisible, data}: any) => {
                   }}>
                   Date:
                 </Text>
-                <Text style={{...FONTS.body3, textTransform: 'capitalize'}}>
-                {new Date(data?.timeStamp).toDateString()}
+                <Text style={{...FONTS.body3, fontSize: hp(12), textTransform: 'capitalize'}}>
+                {moment(data?.timeStamp).format('MMMM Do YYYY, h:mm:ss a')}
                 </Text>
               </View>
 
@@ -196,7 +197,7 @@ const TransactionDetailModal = ({modalVisible, setModalVisible, data}: any) => {
                   }}>
                   Transaction Status:
                 </Text>
-                <Text style={{...FONTS.body3, textAlign: 'right', color: data?.status === "success" ? COLORS.darkGreen : data?.status === "submited" ? COLORS.orange :  data?.status === "pending" ? COLORS.orange : COLORS.red, textTransform: 'capitalize'}}>
+                <Text style={{...FONTS.body3, textAlign: 'right', color: data?.status === "success" ? COLORS.darkGreen : data?.status === "submited" ? COLORS.orange : COLORS.orange , textTransform: 'capitalize'}}>
                   {data?.status}
                 </Text>
               </View>

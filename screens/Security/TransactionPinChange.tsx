@@ -1,5 +1,5 @@
 /* eslint-disable react-native/no-inline-styles */
-import React from 'react';
+import React, { useState } from 'react';
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
 import { COLORS, FONTS } from '../../utils/constants/theme';
 import MainLayout from '../mainLayout';
@@ -7,8 +7,73 @@ import { hp } from '../../utils/helper';
 import HeaderComponent from '../../components/HeaderComponent';
 import GlobalStyle from '../../utils/globalStyle';
 import OTPTextView from 'react-native-otp-textinput';
+import { TextInput } from '../../components/TextInput';
+import IconTextButton from '../../components/IconTextButton';
+import { useAppDispatch } from '../../app/hooks';
+import { changePin } from '../../slice/AuthSlice';
+import { Notifier, NotifierComponents } from 'react-native-notifier';
 
 export default function ChangeTransactionPin({navigation}: any) {
+  const [password, setPassword] = useState<any>()
+  const [loader, setLoader] = useState(false)
+  const [pin, setPin] = useState<any>()
+  const dispatch = useAppDispatch()
+
+  console.log({pin, password})
+
+  const handleSubmit = async () => {
+    if(password?.length <= 0 || password === undefined) {
+      return  Notifier.showNotification({
+        title: 'Error',
+        description: "Password is required",
+        Component: NotifierComponents.Alert,
+        componentProps: {
+          alertType: 'error',
+        },
+      });
+    }
+    if(pin?.length <= 0 || pin === undefined) {
+      return  Notifier.showNotification({
+        title: 'Error',
+        description: "Pin is required",
+        Component: NotifierComponents.Alert,
+        componentProps: {
+          alertType: 'error',
+        },
+      });
+    }
+    setLoader(true)
+    const payload = {
+      pin,
+      password
+    }
+    try {
+      const response = await dispatch(changePin(payload))
+      if(changePin.fulfilled.match(response)){
+        setLoader(false)
+        return navigation.navigate("SuccessScreen")
+      }
+      else {
+        var errMsg = response?.payload as string
+        setLoader(false)
+        Notifier.showNotification({
+          title: 'Error',
+          description: errMsg,
+          Component: NotifierComponents.Alert,
+          componentProps: {
+            alertType: 'error',
+          },
+        });
+      }
+    }
+    catch(e){
+      console.log({e})
+      setLoader(false)
+    }
+  }
+
+
+
   const styles = StyleSheet.create({
     textStyle: {
       marginVertical: hp(15),
@@ -29,17 +94,28 @@ export default function ChangeTransactionPin({navigation}: any) {
       <MainLayout>
         <ScrollView>
           <HeaderComponent onPress={() => navigation.goBack()} />
-          <Text style={{...FONTS.h2}}>Enter your Transaction Pin</Text>
+          <Text style={{...FONTS.h2}}>Reset Transaction Pin</Text>
           <Text style={styles.textStyle}>Protect all delecate informations on this application to prevents intruder</Text>
-          <View style={{marginVertical: 8, padding: 20}}>
+          <TextInput 
+              label="Enter login password"
+              isPassword
+              value={password}
+              onChangeText={(value) => setPassword(value)}
+              errorMsg={undefined}
+          />
+          <View style={{marginVertical: 8, paddingVertical: 20}}>
+            <Text style={{...FONTS.h3, fontWeight: '600'}}>Enter Pin</Text>
             <OTPTextView
               tintColor={COLORS.primary}
               textInputStyle={styles.textInputContainer}
-              handleTextChange={(text: string) => console.log(text)}
+              handleTextChange={(text: string) => setPin(text)}
               inputCount={4}
               keyboardType="numeric"
-              returnKeyType="done"
             />
+          </View>
+
+          <View>
+            <IconTextButton label="Submit" isLoading={loader} onPress={handleSubmit} />
           </View>
         </ScrollView>
       </MainLayout>

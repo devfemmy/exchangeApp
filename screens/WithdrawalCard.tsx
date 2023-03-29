@@ -203,9 +203,10 @@ useEffect(() => {
 
  const handleUsdAmountChange = (value: any) => {
   const bb = parseFloat(value) / parseFloat(currentPrice) as any
-   setAmount(isNaN(bb) ? 0 : parseFloat(bb)?.toFixed(5))
+   setAmount(bb === "Na" ? 0 : parseFloat(bb)?.toFixed(5))
   setUsdAmount(value)
  }
+
 
 
 

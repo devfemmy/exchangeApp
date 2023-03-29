@@ -244,6 +244,27 @@ export const changePassword = createAsyncThunk(
   },
 );
 
+export const changePin = createAsyncThunk(
+  'auth/changePin',
+  async (
+    payload: {pin: string; password: string},
+    {rejectWithValue},
+  ) => {
+    try {
+      const response = await postRequest(
+        `${config.api_base_url}/users/set/transaction-pin`,
+        payload,
+      );
+
+      if (response?.status === 200) {
+        return response?.data;
+      }
+    } catch (e: any) {
+      return rejectWithValue(e?.response?.data?.message);
+    }
+  },
+);
+
 export const AuthSlice = createSlice({
   name: 'auth',
   initialState,
@@ -417,6 +438,17 @@ export const AuthSlice = createSlice({
         },
       );
     builder.addCase(verifySignin.rejected, (state, action) => {
+      (state.loading = false), (state.error = action.error.message);
+    });
+    builder.addCase(changePin.pending, (state, action) => {
+      state.loading = true;
+    }),
+      builder.addCase(changePin.fulfilled,
+        (state, action: PayloadAction<any>) => {
+          state.loading = false
+        },
+      );
+    builder.addCase(changePin.rejected, (state, action) => {
       (state.loading = false), (state.error = action.error.message);
     });
   },

@@ -24,7 +24,6 @@ export const UsdSchema = yup.object().shape({
   beneficiaryAddress: yup.string().required('Beneficiary Address is required'),
   bankName: yup.string().required('Bank Name is required'),
   bankAccount: yup.string().required('Bank Account is required'),
-  swiftCode: yup.string().required('Swift Code is required'),
   beneficiaryEmail: yup.string().email().required('Beneficiary Email is required'),
   phoneNumber: yup.string()
   .min(11, ({min}) => `Phone Number must be at least ${min} characters`)

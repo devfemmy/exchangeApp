@@ -252,6 +252,7 @@ const ZendUsdHistory = ({navigation}: any) => {
           value={value}
           onChangeText={(value: any) => setValue(value)}
           searchInput
+          style={{backgroundColor: COLORS.ldPrimary}}
         />
       </View>
 
@@ -350,8 +351,8 @@ const ZendUsdHistory = ({navigation}: any) => {
                   <View>
                     <Text style={{...FONTS.body5}}>Transaction ID</Text>
                     <View style={GlobalStyle.rowStart}>
-                      <Text style={{...FONTS.body3, marginRight: hp(30)}}>
-                        {dataInfo?._id?.slice(0, 25) + '...'}
+                      <Text style={{...FONTS.body3, marginRight: hp(30), width: wp(200)}}>
+                        {dataInfo?._id}
                       </Text>
                       <Feather
                         name="copy"
@@ -403,7 +404,7 @@ const ZendUsdHistory = ({navigation}: any) => {
                   </View>
 
                   <View style={GlobalStyle.rowBetween}>
-                    <View style={styles.mt}>
+                    <View style={[styles.mt, {width: wp(150)}]}>
                       <Text
                         style={{
                           textTransform: 'capitalize',
@@ -413,8 +414,8 @@ const ZendUsdHistory = ({navigation}: any) => {
                         Date:
                       </Text>
                       <Text
-                        style={{...FONTS.body3, textTransform: 'capitalize'}}>
-                        {new Date(dataInfo?.createdAt).toDateString()}
+                        style={{...FONTS.body5, textTransform: 'capitalize'}}>
+                        {moment(dataInfo?.createdAt).format('MMMM Do YYYY, h:mm:ss a')}
                       </Text>
                     </View>
 
