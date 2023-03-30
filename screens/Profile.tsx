@@ -140,10 +140,7 @@ const Profile = ({navigation}: any) => {
                   <ListCard
                     id={i}
                     data={data}
-                    handlePress={() =>
-                      data?.route === 'SupportScreen'
-                        ? Linking.openURL('mailto:support@zendwallet.com')
-                        : navigation.navigate(data?.route)
+                    handlePress={() => navigation.navigate(data?.route)
                     }
                     logOut={() => setModalVisible(true)}
                   />

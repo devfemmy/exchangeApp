@@ -11,7 +11,7 @@ import IconTextButton from '../components/IconTextButton';
 import {useAppDispatch} from '../app/hooks';
 import {getSwapQuote, swapToken} from '../slice/TradeSlice';
 import { Notifier, NotifierComponents } from 'react-native-notifier';
-import SuccessModal from '../components/Modals/SuccessModal';
+
 
 const ConfirmSwap = (props: any) => {
   const fromIcon = props?.route.params.info.fromIcon;
@@ -23,7 +23,7 @@ const ConfirmSwap = (props: any) => {
   const [quoteInfo, setQuoteInfo] = useState<any>();
   const [isFetching, setIsFetching] = useState(false);
   const [loader, setLoader] = useState(false)
-  const [visible, setVisible] = useState(false)
+
 
   useEffect(() => {
     const payload = {
@@ -53,7 +53,7 @@ const ConfirmSwap = (props: any) => {
         var response = await dispatch(swapToken(payload))
         if(swapToken?.fulfilled.match(response)) {
             setLoader(false)
-            setVisible(true)
+          return props?.navigation.navigate("SuccessScreen")
         }
         else {
             setLoader(false);
@@ -89,23 +89,23 @@ const ConfirmSwap = (props: any) => {
       <View style={styles.swapCard}>
         <View style={[GlobalStyle.rowBetween, {paddingVertical: hp(15)}]}>
           <Text>From</Text>
-          <Text style={{textTransform: 'uppercase'}}>
+          <Text style={{textTransform: 'uppercase', color: COLORS.primary, fontWeight: '600'}}>
             {amount} {fromName}
           </Text>
         </View>
         <View style={[GlobalStyle.rowBetween, {paddingVertical: hp(10)}]}>
           <Text>Fee</Text>
-          <Text style={{textTransform: 'uppercase'}}>{quoteInfo?.fee}</Text>
+          <Text style={{textTransform: 'uppercase',color: COLORS.primary, fontWeight: '600'}}>{quoteInfo?.fee}</Text>
         </View>
         <View style={[GlobalStyle.rowBetween, {paddingVertical: hp(10)}]}>
           <Text>Total value to receive</Text>
-          <Text style={{textTransform: 'uppercase'}}>{quoteInfo?.amtToGet}</Text>
+          <Text style={{textTransform: 'uppercase',color: COLORS.primary, fontWeight: '600'}}>{quoteInfo?.amtToGet}</Text>
         </View>
       </View>
 
       <View style={[GlobalStyle.rowBetween, {paddingVertical: hp(10)}]}>
           <Text>Rate</Text>
-          <Text>{quoteInfo?.rate}</Text>
+          <Text style={{color: COLORS.primary, fontWeight: '600'}}>{quoteInfo?.rate}</Text>
         </View>
 
       <View style={{marginVertical: hp(20)}}>
@@ -127,7 +127,7 @@ const ConfirmSwap = (props: any) => {
       <View>
         <IconTextButton label="Swap Token" isLoading={loader} onPress={() => handleSwapToken()} />
       </View>
-      <SuccessModal visible={visible} handleVisible={() => setVisible(false)} />
+    
     </View>
   );
 };
@@ -152,7 +152,8 @@ const styles = StyleSheet.create({
   },
   swapCard: {
     borderColor: COLORS.primary,
-    borderWidth: 1,
+    borderWidth: 0.4,
+    backgroundColor: COLORS.ldPrimary,
     borderRadius: 10,
     padding: hp(10)
   }

@@ -1,12 +1,12 @@
 /* eslint-disable no-trailing-spaces */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable react-hooks/exhaustive-deps */
-import {View, Text, StyleSheet, TouchableOpacity, Image} from 'react-native';
+import {View, Text, StyleSheet, TouchableOpacity, Image, TextInput} from 'react-native';
 import React, {useState, useEffect} from 'react';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import {COLORS, FONTS} from '../utils/constants/theme';
 import {format, hp, wp} from '../utils/helper';
-import {TextInput} from '../components/TextInput';
+
 import {tokenBalanceData} from '../utils/constants/tokenList';
 import GlobalStyle from '../utils/globalStyle';
 import {ScrollView} from 'react-native-gesture-handler';
@@ -25,18 +25,18 @@ import SwapHeader from '../components/SwapHeader';
 
 const SwapCard = (props: any) => {
   const [assetName, setAssetName] = useState<any>();
-  const [currencyIcon, setCurrencyIcon] = useState<any>();
-  const [currencyName, setCurrencyName] = useState("Swap from");
+  const [currencyIcon, setCurrencyIcon] = useState<any>(57);
+  const [currencyName, setCurrencyName] = useState('USDT');
   const [max, setMax] = useState('');
   const [openSelectTo, setOpenSelectTo] = useState(false);
   const [openSelectFrom, setOpenSelectFrom] = useState(false);
-  const [selectedAssetsTo, setSelectedAssetsTo] = useState('Swap to');
-  const [selectedIcon, setSelectedIcon] = useState<any>();
+  const [selectedAssetsTo, setSelectedAssetsTo] = useState('BTC');
+  const [selectedIcon, setSelectedIcon] = useState<any>(45);
   const [selectedBalance, setSelectedBalance] = useState<any>(0);
   const tradingAccountInfo: any = useAppSelector(tradingAccount);
   const [assetData, setAssetData] = useState<any>();
   const dispatch = useAppDispatch();
-  const [amount, setAmount] = useState<any>()
+  const [amount, setAmount] = useState<any>();
 
   const [assetDataTo, setAssetDataTo] = useState<any>();
 
@@ -48,7 +48,7 @@ const SwapCard = (props: any) => {
     setOpenSelectTo(false);
   };
 
-   const handleOpenSelectFromOpen = () => {
+  const handleOpenSelectFromOpen = () => {
     setOpenSelectFrom(true);
   };
 
@@ -102,48 +102,44 @@ const SwapCard = (props: any) => {
     handleOpenSelectToClose();
   };
 
-    const handleSelectionFrom = (value: any) => {
-   
+  const handleSelectionFrom = (value: any) => {
     setCurrencyName(value?.currency?.toUpperCase());
     setCurrencyIcon(value?.icon);
-   
+
     handleOpenSelectFromClose();
   };
 
   const handleSwapChange = () => {
-     setCurrencyIcon(selectedIcon)
-     setCurrencyName(selectedAssetsTo)
-     setSelectedAssetsTo(currencyName)
-     setSelectedIcon(currencyIcon)
-     setAssetData(assetDataTo)
-     setAssetDataTo(assetData)
-  }
+    setCurrencyIcon(selectedIcon);
+    setCurrencyName(selectedAssetsTo);
+    setSelectedAssetsTo(currencyName);
+    setSelectedIcon(currencyIcon);
+    setAssetData(assetDataTo);
+    setAssetDataTo(assetData);
+  };
 
   const handlePerChange = (value: any) => {
-    const max = (parseInt(value) / 100) * assetData?.availBal
-    const dd = isNaN(max) ? "0" : max?.toString()
-    setAmount(parseFloat(dd)?.toFixed(4))
-    setMax(value)
-  }
-
+    const max = (parseInt(value) / 100) * assetData?.availBal;
+    const dd = isNaN(max) ? '0' : max?.toString();
+    setAmount(parseFloat(dd)?.toFixed(4));
+    setMax(value);
+  };
 
   const confirmSwapDetail = () => {
-    if(selectedAssetsTo === "Swap from" || currencyName === "Swap to"){
+    if (selectedAssetsTo === 'Swap from' || currencyName === 'Swap to') {
       return;
     }
- 
-      return props?.navigation.navigate("ConfirmSwap", {
-        info: {
-          fromIcon: currencyIcon,
-          fromName: currencyName,
-          toIcon: selectedIcon,
-          toName: selectedAssetsTo,
-          amount: amount,
-        }
-      })
-  }
 
-
+    return props?.navigation.navigate('ConfirmSwap', {
+      info: {
+        fromIcon: currencyIcon,
+        fromName: currencyName,
+        toIcon: selectedIcon,
+        toName: selectedAssetsTo,
+        amount: amount,
+      },
+    });
+  };
 
   return (
     <View style={GlobalStyle.container}>
@@ -162,51 +158,55 @@ const SwapCard = (props: any) => {
 
             <View style={styles.carddiv}>
               <View style={[GlobalStyle.rowBetween, styles.card]}>
-              <TouchableOpacity onPress={() => handleOpenSelectFromOpen()}>
-                <View style={{ width: wp(120)}}>
-                  <View
-                    style={{
-                      flexDirection: 'row',
-                      justifyContent: 'flex-start',
-                      alignItems: 'center',
-                    }}>
-                      {
-                        currencyIcon &&  <Image source={currencyIcon} style={styles.icons} />
-                      }
-                   
+                <TouchableOpacity onPress={() => handleOpenSelectFromOpen()}>
+                  <View style={{width: wp(120)}}>
+                    <View
+                      style={{
+                        flexDirection: 'row',
+                        justifyContent: 'flex-start',
+                        alignItems: 'center',
+                      }}>
+                      {currencyIcon && (
+                        <Image source={currencyIcon} style={styles.icons} />
+                      )}
+
+                      <Text
+                        style={{
+                          marginHorizontal: hp(5),
+                          textTransform: 'uppercase',
+                        }}>
+                        {currencyName}
+                      </Text>
+                      <AntDesign name="down" />
+                    </View>
                     <Text
                       style={{
-                        marginHorizontal: hp(5),
-                        textTransform: 'uppercase',
+                        ...FONTS.body5,
+                        textAlign: 'left',
+                        marginTop: hp(10),
                       }}>
-                      {currencyName}
+                      Bal:{' '}
+                      {assetData?.availBal
+                        ? format(
+                            parseFloat(assetData?.availBal)
+                              ?.toFixed(4)
+                              .slice(0, -1),
+                          )
+                        : 0}
                     </Text>
-                    <AntDesign name="down" />
                   </View>
-                  <Text
-                    style={{
-                      ...FONTS.body5,
-                      textAlign: 'left',
-                      marginTop: hp(10),
-                    }}>
-                    Bal:{' '}
-                    {assetData?.availBal
-                      ? format(parseFloat(assetData?.availBal)?.toFixed(4).slice(0,-1))
-                      : 0}
-                  </Text>
-                </View>
                 </TouchableOpacity>
 
-               
+                <TouchableOpacity onPress={handleSwapChange}>
                   <View style={styles.swap}>
                     <View style={styles.swapIcon}>
                       <AntDesign name="swap" size={20} color={COLORS.primary} />
                     </View>
                   </View>
-           
+                </TouchableOpacity>
 
                 <TouchableOpacity onPress={() => handleOpenSelectToOpen()}>
-                  <View style={{ width: wp(120)}}>
+                  <View style={{width: wp(120)}}>
                     <View
                       style={{
                         flexDirection: 'row',
@@ -231,25 +231,33 @@ const SwapCard = (props: any) => {
                       }}>
                       Bal:{' '}
                       {assetDataTo?.availBal
-                        ? format(parseFloat(assetDataTo?.availBal)?.toFixed(4).slice(0,-1))
+                        ? format(
+                            parseFloat(assetDataTo?.availBal)
+                              ?.toFixed(4)
+                              .slice(0, -1),
+                          )
                         : 0}
                     </Text>
                   </View>
                 </TouchableOpacity>
               </View>
-
-              <View style={{marginTop: hp(20), flexDirection: 'row'}}>
-                <View style={{width: "100%"}}>
-                <TextInput  
-                    placeholderTextColor={COLORS.black}
-                    placeholder='Enter Amount'
-                   inputMode="numeric"
-                    keyboardType='number-pad'
-                    value={amount}
+      
+              <View style={styles.card2}>
+                <View style={{width: '78%'}}>
+                  <TextInput
+                    style={styles.input}
                     onChangeText={value => setAmount(value)}
-                    style={{ backgroundColor: COLORS.primary2 }}               />
+                    value={amount}
+                    placeholder={`Enter Amount`}
+                    keyboardType="default"
+                  />
                 </View>
-               
+               <TouchableOpacity>
+               <View style={GlobalStyle.rowStart}>
+                 <Image source={currencyIcon} style={styles.icons} />
+                  <Text style={{...FONTS.body4, fontWeight: "700", marginLeft: hp(5)}}>{currencyName}</Text>
+                </View>
+               </TouchableOpacity>
               </View>
 
               <View
@@ -257,20 +265,22 @@ const SwapCard = (props: any) => {
                   flexDirection: 'row',
                   marginVertical: hp(10),
                   justifyContent: 'flex-end',
-                  alignItems: 'center'
+                  alignItems: 'center',
                 }}>
                 {range?.map(data => {
                   return (
-                    <TouchableOpacity onPress={() => handlePerChange(data?.num)}>
+                    <TouchableOpacity
+                      onPress={() => handlePerChange(data?.num)}>
                       <View
                         style={{
                           borderRadius: 15,
                           backgroundColor:
                             max === data?.num
                               ? COLORS.primary
-                              : COLORS.primary2,
+                              : COLORS.ldPrimary,
                           marginRight: hp(5),
-          
+                          borderColor: max === data?.num ? "" : COLORS.primary,
+                          borderWidth: 0.4
                         }}>
                         <Text
                           style={{
@@ -291,7 +301,10 @@ const SwapCard = (props: any) => {
             </View>
           </View>
           <View style={styles.bottom}>
-            <IconTextButton label="Get a Quote" onPress={() => confirmSwapDetail()} />
+            <IconTextButton
+              label="Get a Quote"
+              onPress={() => confirmSwapDetail()}
+            />
           </View>
 
           <SwapTokenModal
@@ -300,7 +313,7 @@ const SwapCard = (props: any) => {
             setModalVisible={() => handleOpenSelectToClose()}
             selectedToken={currencyName}
           />
-             <SwapTokenModal
+          <SwapTokenModal
             modalVisible={openSelectFrom}
             setSelectedToken={(value: any) => handleSelectionFrom(value)}
             setModalVisible={() => handleOpenSelectFromClose()}
@@ -352,6 +365,22 @@ const styles = StyleSheet.create({
   form: {
     marginVertical: hp(20),
   },
+  card2: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginVertical: hp(15),
+    backgroundColor: COLORS.ldPrimary,
+    paddingHorizontal: hp(25),
+    paddingVertical: hp(10),
+    borderRadius: 10,
+    borderColor: COLORS.primary,
+    borderWidth: 0.4
+  },
+
+  input: {
+    height: 40,
+  },
   top: {
     flex: 5,
   },
@@ -362,8 +391,8 @@ const styles = StyleSheet.create({
     paddingHorizontal: hp(10),
     paddingVertical: hp(10),
     borderColor: COLORS.primary,
-    backgroundColor: COLORS.primary2,
-    borderWidth: 1,
+    backgroundColor: COLORS.ldPrimary,
+    borderWidth: 0.4,
     borderRadius: 15,
   },
   carddiv: {
@@ -377,7 +406,9 @@ const styles = StyleSheet.create({
   swapIcon: {
     backgroundColor: COLORS.primary2,
     borderRadius: 50,
-    padding: hp(10),
+    padding: hp(5),
+    borderColor: COLORS.primary,
+    borderWidth: 1
   },
   swaps: {
     flexDirection: 'row',
@@ -387,5 +418,5 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     paddingHorizontal: hp(10),
     paddingVertical: hp(5),
-  }
+  },
 });

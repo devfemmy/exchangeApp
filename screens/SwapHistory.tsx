@@ -11,6 +11,7 @@ import { getSwapHistory } from '../slice/TradeSlice'
 import SwapDetailModal from '../components/Modals/SwapDetail'
 import { TextInput } from '../components/TextInput'
 import EmptyScreen from '../components/EmptyScreen'
+import Pagination from '../components/Pagination'
 
 
 const SwapHistory = ({navigation}: any) => {
@@ -20,6 +21,7 @@ const SwapHistory = ({navigation}: any) => {
   const [details, setDetails] = useState<any>();
   const [value, setValue] = useState("")
   const [type, setType] = useState('all');
+  const [page, setPage] = useState(1)
 
   const handleModalClose = () => {
     setModalVisible(false);
@@ -33,14 +35,22 @@ const SwapHistory = ({navigation}: any) => {
 
   useEffect(() => {
     const payload = {
-        page: 1, 
+        page: page, 
         status: type === "all" ? "" : type, 
         id: value?.length <= 0 ? "" : value
       }
     dispatch(getSwapHistory(payload)).then((pp: any)=> setSwapData(pp?.payload))
-  }, [type, value])
+  }, [type, value, page])
 
  
+  const handlePagination = (data: any) => {
+    if(data === "next") {
+     setPage(swapData?.nextPage) 
+    }
+    else {
+     setPage(swapData?.page - 1) 
+    }
+   }
 
   return (
     <View style={GlobalStyle.container}>
@@ -168,12 +178,15 @@ const SwapHistory = ({navigation}: any) => {
                 value={value}
                 onChangeText={(value: any) => setValue(value)}
                 searchInput
+                style={{backgroundColor: COLORS.ldPrimary}}
               />
             </View>
             {
         swapData?.transactions?.length < 1 && <EmptyScreen />
       }
      <View style={{marginBottom: hp(280)}}>
+     <Pagination data={swapData} handlePagination={(data:any) => handlePagination(data)} />
+
       <FlatList 
         keyExtractor={item => item?.id}
         showsVerticalScrollIndicator={false}

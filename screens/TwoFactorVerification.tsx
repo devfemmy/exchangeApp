@@ -13,7 +13,6 @@ import { useAppDispatch } from '../app/hooks'
 import { getWithdrawalOtp, submitExternalWithdraw, submitInternalWithdraw } from '../slice/TradeSlice'
 import { ActivityIndicator } from 'react-native-paper'
 import { Notifier, NotifierComponents } from 'react-native-notifier';
-import SuccessModal from '../components/Modals/SuccessModal'
 
 
 const TwoFactorVerification = (props: any) => {
@@ -24,9 +23,10 @@ const TwoFactorVerification = (props: any) => {
     const  currencyName = props?.route?.params?.params?.currencyName
     const userAddress = props?.route?.params?.params?.userAddress
     const chain = props?.route?.params?.params?.chain
+    const memo = props?.route?.params?.params?.memo
     const [emailLoader, setEmailLoader] = useState(false)
     const [loader, setLoader] = useState(false)
-    const [visible, setVisible] = useState(false)
+
     const [messageId, setMessageId] = useState<any>("")
     const [pin, setPin] = useState<any>("")
     const dispatch = useAppDispatch()
@@ -47,7 +47,7 @@ const TwoFactorVerification = (props: any) => {
             var response = await dispatch(submitInternalWithdraw(payload))
             if(submitInternalWithdraw.fulfilled.match(response)){
                 setLoader(false)
-                setVisible(true)
+                return props?.navigation.navigate("SuccessScreen")
             }
             else {
                 var errMsg = response?.payload as string
@@ -76,14 +76,15 @@ const TwoFactorVerification = (props: any) => {
             pin: pin,
             emailOtp: emailCode,
             messageId: messageId,
-            chain: chain
+            chain: chain,
+            memo: memo
         }
         setLoader(true)
         try {
             var response = await dispatch(submitExternalWithdraw(payload))
             if(submitInternalWithdraw.fulfilled.match(response)){
                 setLoader(false)
-                setVisible(true)
+                return props?.navigation.navigate("SuccessScreen")
             }
             else {
                 var errMsg = response?.payload as string
@@ -132,7 +133,7 @@ const TwoFactorVerification = (props: any) => {
                     onChangeText={value => setEmailCode(value)}
                     style={{backgroundColor: COLORS.primary2}}  />
             </View>
-             <TouchableOpacity style={styles.btn} onPress={() => resendMail()}>
+             <TouchableOpacity disabled={emailLoader} style={[styles.btn, {backgroundColor: emailLoader ? COLORS.gray : COLORS.primary}]} onPress={() => resendMail()}>
               {emailLoader ? <ActivityIndicator color={COLORS.white} /> :   <Text style={{...FONTS.body5, color: COLORS.white}}>Send code</Text>}
              </TouchableOpacity>
              </View>
@@ -159,7 +160,7 @@ const TwoFactorVerification = (props: any) => {
                 <IconTextButton label="Submit" isLoading={loader} onPress={() => walletType === "Zend Pay" ? handleSubmitInternal() : handleSubmitExternal()}  />
              </View>
 
-             <SuccessModal visible={visible} handleVisible={() => setVisible(false)} />
+          
         </View>
     </View>
   )
@@ -176,7 +177,6 @@ const styles = StyleSheet.create({
         marginTop: hp(20)
     },
     btn: {
-        backgroundColor: COLORS.primary,
         height: hp(50),
         justifyContent: 'center',
         alignItems: 'center',

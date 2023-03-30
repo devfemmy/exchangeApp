@@ -67,6 +67,13 @@ const Home = ({navigation}: any) => {
     setRefreshing(true);
     getMarketData();
     dispatch(getProfile());
+    dispatch(getTradingAccount()).then(gg => {
+      setTradingAccountInfo(gg?.payload)
+    }
+    );
+    dispatch(getFundingAccount()).then(gg =>
+      setFundingAccountInfo(gg?.payload),
+    );
     setTimeout(() => {
       setRefreshing(false);
     }, 2000);
@@ -359,7 +366,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-around',
     alignItems: 'center',
-    width: wp(200),
+    width: wp(250),
   },
   sub: {
     backgroundColor: '#A5B1F3',

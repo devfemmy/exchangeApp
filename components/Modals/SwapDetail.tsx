@@ -13,6 +13,7 @@ import {COLORS, FONTS} from '../../utils/constants/theme';
 import {copyToClipboard, format, hp, wp} from '../../utils/helper';
 import GlobalStyle from '../../utils/globalStyle';
 import Feather from 'react-native-vector-icons/Feather';
+import moment from 'moment';
 
 const SwapDetailModal = ({modalVisible, setModalVisible, data}: any) => {
 
@@ -156,8 +157,8 @@ const SwapDetailModal = ({modalVisible, setModalVisible, data}: any) => {
                   }}>
                   Date:
                 </Text>
-                <Text style={{...FONTS.body4, textTransform: 'capitalize'}}>
-                {new Date(data?.timeStamp).toDateString()}
+                <Text style={{...FONTS.body4, textTransform: 'capitalize', fontSize: hp(11)}}>
+                {moment(data?.timeStamp).format('MMMM Do YYYY, h:mm:ss a')}
                 </Text>
               </View> 
               

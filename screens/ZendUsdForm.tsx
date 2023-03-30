@@ -35,8 +35,9 @@ const ZendUsdForm = (props: any) => {
 
   useEffect(() => {
     dispatch(getRate()).then(dd => setRate(dd?.payload?.data?.rate))
-    dispatch(getTradingAccountByCurrency("USDT")).then(dd =>
-      setUsdBal(dd?.payload["USDT"]?.availBal),
+    dispatch(getTradingAccountByCurrency("USDT")).then(dd => {
+      setUsdBal(dd?.payload ? dd?.payload["USDT"]?.availBal : "0" )
+    }
     );
   }, [])
 
@@ -93,6 +94,8 @@ const ZendUsdForm = (props: any) => {
     validationSchema: UsdSchema,
     onSubmit: (data: UsdFormData) => handleSubmitData(data),
   });
+
+ 
 
   const sectionOne = () => {
     return (
@@ -163,10 +166,9 @@ const ZendUsdForm = (props: any) => {
       </View>
     );
   };
-  const routeNext = () => {
+  const routeNext = (data: any) => {
     handleClose()
     setType(1)
-
 
    props?.navigation.navigate("PaymentDetails", {
     params: {
@@ -175,7 +177,8 @@ const ZendUsdForm = (props: any) => {
       rate: rate?.rate,
       balance: parseFloat(usdBal)?.toFixed(3).slice(0,-1),
       amtToReceive: parseFloat(amount) * parseFloat(rate?.rate),
-      amount: amount
+      amount: amount,
+      invoiceInfo: data
     }
    })
   
@@ -269,7 +272,7 @@ const ZendUsdForm = (props: any) => {
 
         {type === 2 && sectionTwo()}
       </View>
-      <InvoiceUploadModal modalVisible={openModal} setModalVisible={() => handleClose()} routeNext={routeNext} />
+      <InvoiceUploadModal modalVisible={openModal} setModalVisible={() => handleClose()} routeNext={(data: any) => routeNext(data)} />
     </ScrollView>
   );
 };

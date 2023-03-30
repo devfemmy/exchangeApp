@@ -11,42 +11,34 @@ import { changePasswordData } from '../../utils/types';
 import { changePasswordSchema } from '../../utils/schemas';
 import { TextInput } from '../../components/TextInput';
 import IconTextButton from '../../components/IconTextButton';
-import {changePassword} from '../../slice/AuthSlice';
-import {Notifier, NotifierComponents} from 'react-native-notifier';
+import { changePassword } from '../../slice/AuthSlice';
+import { Notifier, NotifierComponents } from 'react-native-notifier';
 import { useAppDispatch } from '../../app/hooks';
 
 export default function ChangePassword({navigation}: any) {
-  const dispatch = useAppDispatch();
-  const [loader, setLoader] = useState(false);
   const initialValues: changePasswordData = {
     oldPassword: '',
     newPassword: '',
     confirmNewPassword: '',
   };
+  const [loader, setLoader] = useState(false);
+  const dispatch = useAppDispatch();
 
-  const handleCredentialSubmit = async (data: changePasswordData) => {
-    const payload = {
-      currentPassword: data.oldPassword,
-      newPassword: data.newPassword,
-    };
+  const handleCredentialSubmit =  async (data: any) => {
     setLoader(true);
+    const payload = {
+      currentPassword: data?.oldPassword,
+      newPassword: data?.newPassword,
+    };
     try {
-      var response = (await dispatch(changePassword(payload))) as any;
-      if (changePassword.fulfilled.match(response)) {
+      const response = await dispatch(changePassword(payload));
+      if (changePassword.fulfilled.match(response)){
         setLoader(false);
-        let msg = response?.payload?.message as string;
-        Notifier.showNotification({
-          title: 'Success',
-          description: msg,
-          Component: NotifierComponents.Alert,
-          componentProps: {
-            alertType: 'success',
-          },
-        });
-      } else {
+        return navigation.navigate('SuccessScreen');
+      }
+      else {
         var errMsg = response?.payload as string;
         setLoader(false);
-
         Notifier.showNotification({
           title: 'Error',
           description: errMsg,
@@ -56,7 +48,11 @@ export default function ChangePassword({navigation}: any) {
           },
         });
       }
-    } catch (e) {}
+    }
+    catch (e){
+      console.log({e});
+      setLoader(false);
+    }
   };
 
   const { values, errors, touched, handleChange, handleSubmit, handleBlur } =
@@ -111,8 +107,8 @@ export default function ChangePassword({navigation}: any) {
                   errorMsg={touched.confirmNewPassword ? errors.confirmNewPassword : undefined}
                 />
           </View>
-          <View style={styles.btnContainer}>
-          <IconTextButton label="Save Changes" isLoading={loader} onPress={handleSubmit}/>
+          <View>
+          <IconTextButton label="Save Changes" onPress={handleSubmit} isLoading={loader}/>
         </View>
         </ScrollView>
       </MainLayout>

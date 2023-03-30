@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable react-hooks/exhaustive-deps */
-import {View, Text, StyleSheet, TouchableOpacity, Image} from 'react-native';
+import {View, Text, StyleSheet, TouchableOpacity, Image, TextInput as TextInput2} from 'react-native';
 import React, {useState, useEffect} from 'react';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import {COLORS, FONTS} from '../utils/constants/theme';
@@ -17,7 +17,7 @@ import { getFundingAccount, getWalletNetwork } from '../slice/WalletSlice';
 import SelectDropdowns from '../components/SelectDropdowns';
 import WithdrawalNotice from '../components/Modals/WithdrawalNotice';
 import { Notifier, NotifierComponents } from 'react-native-notifier';
-import { memoryUsage } from 'process';
+
 
 const WithdrawalCard = (props: any) => {
   const assetName = props.route?.params?.info?.token;
@@ -31,10 +31,15 @@ const WithdrawalCard = (props: any) => {
   const [networks, setNetworks] = useState<any>()
   const [modalVisible, setModalVisible] = useState(false)
   const [amount, setAmount] = useState<any>("")
+  const [usdAmount, setUsdAmount] = useState<any>("")
   const [memo, setMemo] = useState<any>("")
   const [user, setUser] = useState<any>("")
   const [userAddress, setUserAddress] = useState<any>("")
   const [fee, setFee] = useState<any>()
+  const marketInfos = useAppSelector(marketInfo) as any;
+
+  const coinPriceInfo = marketInfos?.find((data: any) => data?.symbol?.toLowerCase() === currencyName?.toLowerCase())
+  const currentPrice = coinPriceInfo?.current_price
 
   const handleVisibleOpen = () => {
     if(parseFloat(amount) > parseFloat(assetData?.availBal)) {
@@ -159,24 +164,52 @@ useEffect(() => {
 }, [currencyName, walletNetwork])
 
 
+
 useEffect(() => {
   const loadData = async () => {
      await dispatch(getFundingAccount()).then(gg => {
        setAssetData(gg?.payload?.[currencyName?.toUpperCase()])
      })
 
-     await dispatch(getWalletNetwork(currencyName)).then((pp: any) => setNetworks(pp?.payload?.[currencyName?.toUpperCase()]))
+     await dispatch(getWalletNetwork(currencyName)).then((pp: any) => {
+      var xy = pp?.payload?.[currencyName?.toUpperCase()]
+      var reverseArr = xy[0]?.chain?.toLowerCase().includes("trc20") ? xy : xy?.reverse()
+      setNetworks(reverseArr)
+    })
   } 
   loadData()
  }, [currencyName])
 
 
- const networksList = networks?.reverse()?.map((data: any) => {
+ const networksList = networks?.map((data: any) => {
   return {
     id: data?.address,
     name: data?.chain
   }
  })
+
+
+ const handleMax = () => {
+   setAmount(parseFloat(assetData?.availBal)?.toFixed(5)?.slice(0, -1))
+   const bb = parseFloat(assetData?.availBal) * parseFloat(currentPrice) as any
+   setUsdAmount(isNaN(bb) ? 0 : bb.toString())
+ }
+
+ const handleAmountChange = (value: any) => {
+  setAmount(value)
+  const bb = parseFloat(value) * parseFloat(currentPrice)
+  setUsdAmount( isNaN(bb) ? 0 : bb?.toString())
+ }
+
+ const handleUsdAmountChange = (value: any) => {
+  const bb = parseFloat(value) / parseFloat(currentPrice) as any
+   setAmount(bb === "Na" ? 0 : parseFloat(bb)?.toFixed(5))
+  setUsdAmount(value)
+ }
+
+
+
+
 
   return (
     <View style={GlobalStyle.container}>
@@ -209,8 +242,51 @@ useEffect(() => {
 
             <View style={styles.form}>
               <ScrollView>
-              <TextInput value={amount} onChangeText={(value) => setAmount(value)} label="Enter Amount" />
-              {/* <TextInput value="0" label="Enter Usd Amount" disabled /> */}
+              <View style={styles.card2}>
+                <View style={{width: '78%'}}>
+                  <Text style={{...FONTS.body5, color: COLORS.gray}}>
+                    Enter Amount
+                  </Text>
+                  <TextInput2
+                    style={styles.input}
+                    onChangeText={value => handleAmountChange(value)}
+                    value={amount?.toString()}
+                    keyboardType="default"
+                  />
+                </View>
+               <TouchableOpacity onPress={() => handleMax()}>
+               <View
+                  style={{
+                    backgroundColor: COLORS.primary,
+                    paddingHorizontal: hp(15),
+                    paddingVertical: hp(3),
+                    borderRadius: 5,
+                  }}>
+                  <Text style={{...FONTS.body4, color: COLORS.white}}>Max</Text>
+                </View>
+               </TouchableOpacity>
+              </View>
+              {
+                currencyName !== "usdc" && currencyName !== "usdt" &&  <View style={[styles.card2, {marginBottom: hp(30)}]}>
+                <View style={{width: '78%'}}>
+                  <Text style={{...FONTS.body5, color: COLORS.gray}}>
+                    Enter Usd Amount
+                  </Text> 
+                  <TextInput2
+                    style={styles.input}
+                    onChangeText={value => handleUsdAmountChange(value)}
+                    value={usdAmount?.toString()}
+                    keyboardType="default"
+                  />
+                </View>
+               <TouchableOpacity>
+               <View>
+                  <Text style={{...FONTS.body4, color: COLORS.black}}>USD</Text>
+                </View>
+               </TouchableOpacity>
+              </View>
+              }
+             
               <SelectDropdowns 
                 label="Select Wallet"
                 data={[
@@ -262,8 +338,7 @@ useEffect(() => {
                         </View>
                     </View>
                   }
-                  {/* <TextInput value="0" label="Transaction Pin" />
-                  <TextInput value="0" label="Email OTP" /> */}
+
               </ScrollView>
               
             </View>
@@ -282,7 +357,8 @@ useEffect(() => {
                 walletType,
                 currencyName,
                 chain: walletNetwork,
-                userAddress
+                userAddress,
+                memo
               }
               } 
           />
@@ -352,5 +428,20 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.primary,
     height: 2,
     marginVertical: hp(10)
-  }
+  },
+  card2: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginVertical: hp(15),
+    backgroundColor: COLORS.primary2,
+    paddingHorizontal: hp(25),
+    paddingVertical: hp(10),
+    borderRadius: 10,
+  },
+
+  input: {
+    height: 40,
+  },
+
 });

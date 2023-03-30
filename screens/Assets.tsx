@@ -89,8 +89,14 @@ const Assets = ({navigation}: any) => {
 
   const onRefresh = React.useCallback(() => {
     setRefreshing(true);
-    dispatch(getTradingAccount())
-    dispatch(getFundingAccount())
+    dispatch(getTradingAccount()).then((gg: any) => {
+      setTradingAccountInfo(gg?.payload)
+    }
+    );
+    dispatch(getFundingAccount()).then((gg: any)  => {
+      setFundingAccountInfo(gg?.payload)
+    }
+    );
     setTimeout(() => {
       setRefreshing(false);
     }, 2000);

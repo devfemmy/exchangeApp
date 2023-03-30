@@ -279,7 +279,7 @@ const SwapTokenModal = ({
                     selectedToken?.toLowerCase() ===
                     info?.currency?.toLowerCase()
                       ? COLORS.lightGray2
-                      : COLORS.white,
+                      : "#f1f3fe",
                 },
               ]}>
               <View style={GlobalStyle.rowStart}>
@@ -288,12 +288,12 @@ const SwapTokenModal = ({
                   resizeMode="cover"
                   style={styles.icons}
                 />
-                <View style={{marginLeft: hp(10)}}>
+                <View style={[GlobalStyle.rowStart,{marginLeft: hp(10)}]}>
                   <Text style={{...FONTS.body3, fontWeight: '600'}}>
                     {info?.token}
                   </Text>
-                  <Text style={{...FONTS.body5, textTransform: 'uppercase'}}>
-                    {info?.currency}
+                  <Text style={{...FONTS.h5, textTransform: 'uppercase', marginLeft: hp(5)}}>
+                    ({info?.currency})
                   </Text>
                 </View>
               </View>
@@ -335,7 +335,7 @@ const SwapTokenModal = ({
                     selectedToken?.toLowerCase() ===
                     info?.currency?.toLowerCase()
                       ? COLORS.lightGray2
-                      : COLORS.white,
+                      : "#f1f3fe",
                 },
               ]}>
               <View style={GlobalStyle.rowStart}>
@@ -344,12 +344,12 @@ const SwapTokenModal = ({
                   resizeMode="cover"
                   style={styles.icons}
                 />
-                <View style={{marginLeft: hp(10)}}>
+                <View style={[GlobalStyle.rowStart,{marginLeft: hp(10)}]}>
                   <Text style={{...FONTS.body3, fontWeight: '600'}}>
                     {info?.token}
                   </Text>
-                  <Text style={{...FONTS.body5, textTransform: 'uppercase'}}>
-                    {info?.currency}
+                  <Text style={{...FONTS.h5, textTransform: 'uppercase', marginLeft: hp(5)}}>
+                    ({info?.currency})
                   </Text>
                 </View>
               </View>
@@ -404,8 +404,13 @@ const SwapTokenModal = ({
                   value={value}
                   onChangeText={value => setValue(value)}
                   searchInput
+                  style={{backgroundColor: COLORS.ldPrimary}}
                 />
               </View>
+              <View style={[GlobalStyle.rowBetween, {marginVertical: hp(5)}]}>
+              <Text style={{...FONTS.body3}}>Token</Text>
+              <Text style={{...FONTS.body3}}>Balance</Text>
+            </View>
               <ScrollView>{assets()}</ScrollView>
             </View>
           </View>
@@ -456,10 +461,14 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginBottom: hp(10),
+    marginBottom: hp(15),
     paddingBottom: hp(10),
     padding: 10,
     borderRadius: 10,
+    borderColor: COLORS.lightPrimary,
+     backgroundColor: '#f1f3fe',
+    borderWidth: 1,
+    paddingVertical: hp(15)
   },
   sub: {
     justifyContent: 'flex-end',

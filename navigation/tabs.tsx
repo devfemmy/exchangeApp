@@ -57,7 +57,8 @@ const Tabs = () => {
                 headerShown: false,
                 tabBarStyle: {
                   height: 120,
-                  borderTopColor: "transparent"
+                  borderTopColor: COLORS.primary,
+                  borderTopWidth: 2,
                 }
             }}
         >

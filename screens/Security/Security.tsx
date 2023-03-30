@@ -8,10 +8,19 @@ import HeaderComponent from '../../components/HeaderComponent';
 import GlobalStyle from '../../utils/globalStyle';
 import SecurityIcon from '../../assets/svg/security-safe.svg';
 import PassswordIcon from '../../assets/svg/password-check.svg';
-import BioMetricIcon from '../../assets/svg/finger-scan.svg';
+// import BioMetricIcon from '../../assets/svg/finger-scan.svg';
 import ListCardItem from '../../components/ListCardItem';
+import { useAppSelector } from '../../app/hooks';
+import { userState } from '../../slice/AuthSlice';
 
 export default function Security({navigation}: any) {
+  const userStateInfo = useAppSelector(userState);
+
+  const getUserInfo = userStateInfo?.userData
+    ? userStateInfo?.userData
+    : userStateInfo;
+
+
   const styles = StyleSheet.create({
     textStyle: {
       marginVertical: hp(15),
@@ -19,31 +28,36 @@ export default function Security({navigation}: any) {
       lineHeight: 20,
     },
   });
+
+  console.log({getUserInfo})
   const RouteInfo = [
     {
       id: 2,
       name: 'Change Transaction Pin',
       icon: <SecurityIcon width={25} height={25} />,
       route: 'ChangePin',
+      isVerify: false
     },
     {
       id: 3,
       name: 'Change Password',
       icon: <PassswordIcon width={25} height={25} />,
       route: 'ChangePassword',
+      isVerify: false,
     },
     {
       id: 4,
       name: 'Verfify Phone Number',
       icon: <PassswordIcon width={25} height={25} />,
       route: 'VerifyPhone',
+      isVerify: getUserInfo?.hasVerifiedPhoneNumber ? true : false
     },
-    {
-      id: 5,
-      name: 'Allow Biometrics',
-      icon: <BioMetricIcon width={25} height={25} />,
-      route: 'NotificationScreen',
-    },
+    // {
+    //   id: 5,
+    //   name: 'Allow Biometrics',
+    //   icon: <BioMetricIcon width={25} height={25} />,
+    //   route: 'NotificationScreen',
+    // },
   ];
   const [isSwitchOn, setIsSwitchOn] = React.useState(false);
 
@@ -57,7 +71,7 @@ export default function Security({navigation}: any) {
           <Text style={styles.textStyle}>Protect all delecate informations on this application to prevents intruder</Text>
           <View>
           {
-            RouteInfo?.map((data, i) => {
+            RouteInfo?.filter(a => !a?.isVerify)?.map((data, i) => {
               return <ListCardItem onToggleSwitch={onToggleSwitch} isSwitchOn={isSwitchOn} icon={data?.icon} key={i} id={i} data={data} handlePress={() => navigation.navigate(data?.route)} logOut={(() => null)} />;
             })
           }

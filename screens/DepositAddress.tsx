@@ -44,8 +44,8 @@ const DepositAddress = (props: any) => {
                 Wallet Address
               </Text>
               <View style={GlobalStyle.rowStart}>
-                <Text style={{...FONTS.h4,fontWeight: '600', marginRight: hp(20)}}>
-                  {address.substr(0, 15)}
+                <Text style={{...FONTS.h4,fontWeight: '600', marginRight: hp(20), width:wp(250)}}>
+                  {address}
                 </Text>
                 <Feather
                   name="copy"

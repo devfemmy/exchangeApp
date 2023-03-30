@@ -129,9 +129,6 @@ export const verifyPhoneNumberOtp = createAsyncThunk(
       `${config.api_base_url}/users/phone-number/verify?phoneNumber=${payload?.phoneNumber}&hasVerificationToken=true&token=${payload?.token}&pin=${payload?.pin}`,
     );
     if (response?.status === 200) {
-      // var profile = await AsyncStorage.getItem('userInfo').then((req: any) => JSON.parse(req))
-      // return profile
-      // return response?.data?.data
       return response?.data;
     }
   },
@@ -195,6 +192,7 @@ export const updateProfile = createAsyncThunk(
       country: string;
       houseAddress: string;
       userId: string;
+      image: string;
     },
     {rejectWithValue},
   ) => {
@@ -204,6 +202,7 @@ export const updateProfile = createAsyncThunk(
         gender: payload?.gender,
         country: payload?.country,
         homeAddress: payload?.houseAddress,
+        image: payload?.image,
       };
       const response = await postRequest(
         `${config.api_base_url}/users/${payload?.userId}/update`,
@@ -232,6 +231,48 @@ export const changePassword = createAsyncThunk(
     try {
       const response = await postRequest(
         `${config.api_base_url}/users/change-password`,
+        payload,
+      );
+
+      if (response?.status === 200) {
+        return response?.data;
+      }
+    } catch (e: any) {
+      return rejectWithValue(e?.response?.data?.message);
+    }
+  },
+);
+
+export const changePin = createAsyncThunk(
+  'auth/changePin',
+  async (
+    payload: {pin: string; password: string},
+    {rejectWithValue},
+  ) => {
+    try {
+      const response = await postRequest(
+        `${config.api_base_url}/users/set/transaction-pin`,
+        payload,
+      );
+
+      if (response?.status === 200) {
+        return response?.data;
+      }
+    } catch (e: any) {
+      return rejectWithValue(e?.response?.data?.message);
+    }
+  },
+);
+
+export const updatePin = createAsyncThunk(
+  'auth/updatePin',
+  async (
+    payload: {pin: string; password: string},
+    {rejectWithValue},
+  ) => {
+    try {
+      const response = await postRequest(
+        `${config.api_base_url}/users/change/transaction-pin`,
         payload,
       );
 
@@ -417,6 +458,28 @@ export const AuthSlice = createSlice({
         },
       );
     builder.addCase(verifySignin.rejected, (state, action) => {
+      (state.loading = false), (state.error = action.error.message);
+    });
+    builder.addCase(changePin.pending, (state, action) => {
+      state.loading = true;
+    }),
+      builder.addCase(changePin.fulfilled,
+        (state, action: PayloadAction<any>) => {
+          state.loading = false
+        },
+      );
+    builder.addCase(changePin.rejected, (state, action) => {
+      (state.loading = false), (state.error = action.error.message);
+    });
+    builder.addCase(updatePin.pending, (state, action) => {
+      state.loading = true;
+    }),
+      builder.addCase(updatePin.fulfilled,
+        (state, action: PayloadAction<any>) => {
+          state.loading = false
+        },
+      );
+    builder.addCase(updatePin.rejected, (state, action) => {
       (state.loading = false), (state.error = action.error.message);
     });
   },

@@ -4,7 +4,8 @@ import React from 'react'
 import AntDesign from 'react-native-vector-icons/AntDesign'
 import GlobalStyle from '../utils/globalStyle'
 import { COLORS, FONTS } from '../utils/constants/theme'
-import { format, getCurrentDate, hp, wp } from '../utils/helper'
+import { format, hp, wp } from '../utils/helper'
+import moment from 'moment'
 
 const TranHistoryCard = ({data, handlePress}: any) => {
 
@@ -15,17 +16,17 @@ const TranHistoryCard = ({data, handlePress}: any) => {
         <View style={styles.icons}>
           <AntDesign name='swap' size={20} color={COLORS.darkGreen} />
         </View>
-        <View style={{marginLeft: hp(10)}}>
+        <View style={{marginLeft: hp(10), width: wp(90)}}>
           <Text style={{...FONTS.body3}}>
            {data?.fromCurrency}
           </Text>
           <Text
             style={{
               ...FONTS.body5,
-              color: COLORS.gray
+              color: COLORS.gray,
+              fontSize: hp(10)
             }}>
-              {getCurrentDate(data?.timeStamp)}
-              {/* {data?.timeStamp} */}
+              {moment(data?.timeStamp).format('MMMM Do YYYY')}
           </Text>
         </View>
       </View>

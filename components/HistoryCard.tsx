@@ -6,6 +6,7 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 import { COLORS, FONTS } from '../utils/constants/theme';
 import { format, hp } from '../utils/helper';
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import moment from 'moment';
 
 const HistoryCard = ({data, handleClick}: any) => {
     const {transactionType,currency, timeStamp, amount, status} = data;
@@ -15,21 +16,21 @@ const HistoryCard = ({data, handleClick}: any) => {
    <TouchableOpacity onPress={() => handleClick(data)}>
      <View style={[GlobalStyle.rowBetween, styles.card]}>
       <View style={[GlobalStyle.rowStart]}>
-        <View style={{padding: hp(5),marginRight: hp(10), borderRadius: 50, backgroundColor: status === 'success' ? COLORS.lightGreen : status === 'submitted' ? COLORS.lightOrange : status === "pending" ? COLORS.orange : ''}}>
-            <AntDesign name={transactionType === 'withdraw' ? 'arrowup' : 'arrowdown'} size={25} color={status === 'success' ? COLORS.darkGreen : status === 'submitted' ? COLORS.orange : status === "pending" ? COLORS.orange : ''} />
+        <View style={{padding: hp(5),marginRight: hp(10), borderRadius: 50, backgroundColor: status === 'success' ? COLORS.lightGreen : status === 'submitted' ? COLORS.lightOrange :  COLORS.lightOrange}}>
+            <AntDesign name={transactionType === 'withdraw' ? 'arrowup' : 'arrowdown'} size={25} color={status === 'success' ? COLORS.darkGreen : status === 'submitted' ? COLORS.orange : COLORS.orange} />
         </View>
         <View>
             <Text>
             <Text style={{textTransform: 'capitalize', ...FONTS.body4}}>{transactionType}</Text>
             <Text style={{...FONTS.body4 }}> {currency?.toUpperCase()}</Text>
             </Text>
-            <Text  style={{...FONTS.body4}}>{new Date(timeStamp).toDateString()}</Text>
+            <Text  style={{...FONTS.body5,fontSize: hp(11)}}>{moment(timeStamp).format('MMMM Do YYYY, h:mm:ss a')}</Text>
         </View>
       </View>
 
       <View>
             <Text  style={{fontWeight: '600', ...FONTS.body4}}>{format(parseFloat(amount).toFixed(5).slice(0, -1))} {currency}</Text>
-            <Text style={{textAlign: 'right',...FONTS.body4, color: status === 'success' ? COLORS.darkGreen : status === 'submitted' ? COLORS.orange :  status === "pending" ? COLORS.orange : COLORS.red}}>{status}</Text>
+            <Text style={{textTransform: "capitalize",textAlign: 'right',...FONTS.body4, color: status === 'success' ? COLORS.darkGreen : status === 'submitted' ? COLORS.orange : COLORS.orange}}>{status}</Text>
         </View>
 
 

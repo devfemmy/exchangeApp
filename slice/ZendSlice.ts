@@ -34,6 +34,7 @@ export const createUsd = createAsyncThunk(
         return response?.data
       }
     } catch (e: any) {
+
       return rejectWithValue(e?.response?.data?.message);
     }
   },
