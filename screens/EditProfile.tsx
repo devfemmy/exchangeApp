@@ -32,9 +32,11 @@ const EditProfile = ({navigation}: any) => {
   const [, setCountry] = useState(null);
 
   const getUserInfo = userStateInfo?.userData ? userStateInfo?.userData : userStateInfo;
+  console.log('getUserInfo?.dateOfBirth', getUserInfo)
   const [imgUri, setImageUri] = useState(getUserInfo?.image);
+  const [base64Img, setBase64] = useState(getUserInfo?.image);
   const [gender, setGender] = useState(getUserInfo?.gender);
-  const [date, setDate] = useState(new Date(getUserInfo?.dateOfBirth));
+  const [date, setDate] = useState(getUserInfo?.dateOfBirth === 'Invalid date' ? new Date('1999-03-30') : new Date(getUserInfo?.dateOfBirth));
   const [open, setOpen] = useState(false);
   const initialValues: ProfileFormData = {
     firstName: getUserInfo?.firstName,
@@ -46,6 +48,7 @@ const EditProfile = ({navigation}: any) => {
     gender: gender,
     phone: getUserInfo?.phoneNumber,
     dob: '',
+    image: imgUri,
   };
   const handleCredentialSubmit =  async (data: any) => {
     const payload = {
@@ -54,6 +57,7 @@ const EditProfile = ({navigation}: any) => {
       country: data?.country,
       houseAddress: data?.streetName,
       userId: getUserInfo?._id,
+      image: '',
     };
     setLoader(true);
     try {
@@ -73,6 +77,7 @@ const EditProfile = ({navigation}: any) => {
       } else {
         var errMsg = response?.payload as string;
         setLoader(false);
+        console.log('response', response.payload);
 
         Notifier.showNotification({
           title: 'Error',
@@ -119,6 +124,8 @@ const EditProfile = ({navigation}: any) => {
           // const uri = response.uri;
           console.log('response', response?.assets[0].uri);
           const imageUri = response?.assets[0].uri;
+          const base64Image = response?.assets[0].base64;
+          setBase64(base64Image);
           setImageUri(imageUri);
           const uri = response.uri;
           const avatarUri = response.uri;
@@ -269,6 +276,7 @@ const EditProfile = ({navigation}: any) => {
         </View>
        </View>
        <View>
+        
        <Text style={{...FONTS.h4, fontSize: hp(15), fontWeight: '400', color: '#808080', textAlign: 'center', fontStyle: 'italic'}}>Joined on:</Text>
             <Text style={{...FONTS.h4, fontSize: hp(15), fontWeight: '400', color: '#808080', textAlign: 'center', fontStyle: 'italic'}}>{moment(getUserInfo?.createdAt).format('MMMM Do YYYY, h:mm:ss a')}</Text>
        </View>

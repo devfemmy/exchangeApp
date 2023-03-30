@@ -21,24 +21,24 @@ export default function ChangePassword({navigation}: any) {
     newPassword: '',
     confirmNewPassword: '',
   };
-  const [loader, setLoader] = useState(false)
-  const dispatch = useAppDispatch()
+  const [loader, setLoader] = useState(false);
+  const dispatch = useAppDispatch();
 
   const handleCredentialSubmit =  async (data: any) => {
-    setLoader(true)
+    setLoader(true);
     const payload = {
       currentPassword: data?.oldPassword,
-      newPassword: data?.newPassword
-    }
+      newPassword: data?.newPassword,
+    };
     try {
-      const response = await dispatch(changePassword(payload))
-      if(changePassword.fulfilled.match(response)){
-        setLoader(false)
-        return navigation.navigate("SuccessScreen")
+      const response = await dispatch(changePassword(payload));
+      if (changePassword.fulfilled.match(response)){
+        setLoader(false);
+        return navigation.navigate('SuccessScreen');
       }
       else {
-        var errMsg = response?.payload as string
-        setLoader(false)
+        var errMsg = response?.payload as string;
+        setLoader(false);
         Notifier.showNotification({
           title: 'Error',
           description: errMsg,
@@ -49,9 +49,9 @@ export default function ChangePassword({navigation}: any) {
         });
       }
     }
-    catch(e){
-      console.log({e})
-      setLoader(false)
+    catch (e){
+      console.log({e});
+      setLoader(false);
     }
   };
 
@@ -84,12 +84,14 @@ export default function ChangePassword({navigation}: any) {
           <View style={{marginVertical: 8}}>
               <TextInput
                   label={'Old Password'}
+                  isPassword
                   value={values.oldPassword}
                   onBlur={handleBlur('oldPassword')}
                   onChangeText={handleChange('oldPassword')}
                   errorMsg={touched.oldPassword ? errors.oldPassword : undefined}
                 />
               <TextInput
+                  isPassword
                   label={'New Password'}
                   value={values.newPassword}
                   onBlur={handleBlur('newPassword')}
@@ -97,6 +99,7 @@ export default function ChangePassword({navigation}: any) {
                   errorMsg={touched.newPassword ? errors.newPassword : undefined}
                 />
               <TextInput
+                  isPassword
                   label={'Confirm Password'}
                   value={values.confirmNewPassword}
                   onBlur={handleBlur('confirmNewPassword')}

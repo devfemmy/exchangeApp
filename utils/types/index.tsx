@@ -120,6 +120,7 @@ export type ProfileFormData = {
     streetName: string,
     phone: string,
     dob: string,
+    image?: string,
 }
 
 export type KyCFormDataOne = {

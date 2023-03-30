@@ -192,6 +192,7 @@ export const updateProfile = createAsyncThunk(
       country: string;
       houseAddress: string;
       userId: string;
+      image: string;
     },
     {rejectWithValue},
   ) => {
@@ -201,6 +202,7 @@ export const updateProfile = createAsyncThunk(
         gender: payload?.gender,
         country: payload?.country,
         homeAddress: payload?.houseAddress,
+        image: payload?.image,
       };
       const response = await postRequest(
         `${config.api_base_url}/users/${payload?.userId}/update`,

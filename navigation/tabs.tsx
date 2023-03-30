@@ -58,7 +58,7 @@ const Tabs = () => {
                 tabBarStyle: {
                   height: 120,
                   borderTopColor: COLORS.primary,
-                  borderTopWidth: 1,
+                  borderTopWidth: 2,
                 }
             }}
         >
