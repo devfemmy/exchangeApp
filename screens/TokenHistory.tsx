@@ -13,6 +13,7 @@ import EmptyScreen from '../components/EmptyScreen'
 
 import TransactionDetailModal from '../components/Modals/TransactionDetail'
 import HistoryCard from '../components/HistoryCard'
+import Pagination from '../components/Pagination'
 
 
 const TokenHistory = ({navigation}: any) => {
@@ -22,6 +23,7 @@ const TokenHistory = ({navigation}: any) => {
   const [details, setDetails] = useState<any>();
   const [value, setValue] = useState("")
   const [type, setType] = useState('all');
+  const [page, setPage] = useState(1)
 
   const handleModalClose = () => {
     setModalVisible(false);
@@ -35,13 +37,23 @@ const TokenHistory = ({navigation}: any) => {
 
   useEffect(() => {
     const payload = {
-        page: 1, 
+        page: page, 
         status: (type === "success" || type === "incoming" || type === "pending" || type === "failed") ? type : "", 
         id: value?.length <= 0 ? "" : value,
         type: (type === "all" || type === "success" || type === "incoming" || type === "pending" || type === "failed")  ? "" : type,
       }
     dispatch(getTransactionHistory(payload)).then((pp: any) => setTransactionData(pp?.payload))
-  }, [type, value])
+  }, [type, value, page])
+
+
+  const handlePagination = (data: any) => {
+   if(data === "next") {
+    setPage(transactionData?.nextPage) 
+   }
+   else {
+    setPage(transactionData?.page - 1) 
+   }
+  }
 
 
   return (
@@ -253,7 +265,9 @@ const TokenHistory = ({navigation}: any) => {
             {
         transactionData?.transactions?.length < 1 && <EmptyScreen />
       }
-     <View style={{marginBottom: hp(280)}}>
+     <View style={{marginBottom: hp(350)}}>
+      <Pagination data={transactionData} handlePagination={(data:any) => handlePagination(data)} />
+
       <FlatList 
         keyExtractor={item => item?.id}
         showsVerticalScrollIndicator={false}
@@ -262,7 +276,6 @@ const TokenHistory = ({navigation}: any) => {
          return <HistoryCard data={item?.item} handleClick={(data: any) => handleModalOpen(data)} />;
         }}
       />
-
      </View>
 
      <TransactionDetailModal modalVisible={modalVisible} setModalVisible={() => handleModalClose()} data={details} />

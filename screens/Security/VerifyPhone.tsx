@@ -11,16 +11,51 @@ import { PhoneNumberData } from '../../utils/types';
 import { useFormik } from 'formik';
 import { PhoneSchema } from '../../utils/schemas';
 import IconTextButton from '../../components/IconTextButton';
+import { useAppDispatch } from '../../app/hooks';
+import { VerifyPhonenumber } from '../../slice/AuthSlice';
+import { Notifier, NotifierComponents } from 'react-native-notifier';
 
 export default function VerifyPhone({navigation}: any) {
   const [countryCode, setCountryCode] = useState('NG');
   const [, setCountry] = useState(null);
+  const dispatch = useAppDispatch()
+  const [loader, setLoader] = useState(false)
   const initialValues: PhoneNumberData = {
     phone: '',
   };
 
-  const handleCredentialSubmit = (data: any) => {
-    navigation.navigate('VerifyPhonePin');
+  const handleCredentialSubmit = async (data: any) => {
+    const payload = {
+      phoneNumber: data?.phone
+    }
+    setLoader(true)
+    try {
+      var response = await dispatch(VerifyPhonenumber(payload))
+      if(VerifyPhonenumber.fulfilled.match(response)){
+          setLoader(false)
+          navigation.navigate('VerifyPhonePin', {
+            params: {
+              phone: data?.phone
+            }
+          });
+      }
+      else {
+        var errMsg = response?.payload as string
+        setLoader(false)
+        Notifier.showNotification({
+          title: 'Error',
+          description: errMsg,
+          Component: NotifierComponents.Alert,
+          componentProps: {
+            alertType: 'error',
+          },
+        });
+      }
+    }
+    catch(e){
+      setLoader(false)
+    }
+    
   };
 
   const { values, errors, touched, handleChange, handleSubmit, handleBlur } =
@@ -78,7 +113,7 @@ export default function VerifyPhone({navigation}: any) {
             </View>
         </View>
         <View style={styles.btnContainer}>
-          <IconTextButton label="Verify Phone Number" onPress={handleSubmit}/>
+          <IconTextButton label="Verify Phone Number" isLoading={loader} onPress={handleSubmit}/>
         </View>
         </ScrollView>
       </MainLayout>

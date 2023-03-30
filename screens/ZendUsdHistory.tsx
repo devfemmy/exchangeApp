@@ -12,7 +12,7 @@ import {
 import React, {useEffect, useState} from 'react';
 import GlobalStyle from '../utils/globalStyle';
 import {COLORS, FONTS} from '../utils/constants/theme';
-import {copyToClipboard, getCurrentDate, hp, wp} from '../utils/helper';
+import {copyToClipboard, hp, wp} from '../utils/helper';
 import HeaderComponent from '../components/HeaderComponent';
 import {TextInput} from '../components/TextInput';
 import {useAppDispatch, useAppSelector} from '../app/hooks';
@@ -24,6 +24,7 @@ import {TouchableOpacity} from 'react-native-gesture-handler';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import Feather from 'react-native-vector-icons/Feather';
 import moment  from 'moment';
+// import Pagination from '../components/Pagination';
 
 const ZendUsdHistory = ({navigation}: any) => {
   const [type, setType] = useState('all');
@@ -33,6 +34,8 @@ const ZendUsdHistory = ({navigation}: any) => {
   const [usdData, setUsdData] = useState<any>(null);
   const [modalOpen, setModalOpen] = useState(false);
   const [dataInfo, setDataInfo] = useState<any>();
+  // const [page, setPage] = useState(1)
+
 
   const getUserInfo = userStateInfo?.userData
     ? userStateInfo?.userData
@@ -130,6 +133,17 @@ const ZendUsdHistory = ({navigation}: any) => {
       </TouchableOpacity>
     );
   };
+
+  // const handlePagination = (data: any) => {
+  //   if(data === "next") {
+  //    setPage(usdData?.nextPage) 
+  //   }
+  //   else {
+  //    setPage(usdData?.page - 1) 
+  //   }
+  //  }
+
+ 
 
   return (
     <View style={GlobalStyle.container}>
@@ -259,6 +273,8 @@ const ZendUsdHistory = ({navigation}: any) => {
       {usdData?.transactions?.length < 1 && <EmptyScreen />}
 
       <View style={{marginBottom: hp(280)}}>
+      {/* <Pagination data={usdData} handlePagination={(data:any) => handlePagination(data)} /> */}
+
         <FlatList
           keyExtractor={item => item?.id}
           showsVerticalScrollIndicator={false}

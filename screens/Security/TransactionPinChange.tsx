@@ -9,8 +9,8 @@ import GlobalStyle from '../../utils/globalStyle';
 import OTPTextView from 'react-native-otp-textinput';
 import { TextInput } from '../../components/TextInput';
 import IconTextButton from '../../components/IconTextButton';
-import { useAppDispatch } from '../../app/hooks';
-import { changePin } from '../../slice/AuthSlice';
+import { useAppDispatch, useAppSelector } from '../../app/hooks';
+import { changePin, updatePin, userState } from '../../slice/AuthSlice';
 import { Notifier, NotifierComponents } from 'react-native-notifier';
 
 export default function ChangeTransactionPin({navigation}: any) {
@@ -18,8 +18,10 @@ export default function ChangeTransactionPin({navigation}: any) {
   const [loader, setLoader] = useState(false)
   const [pin, setPin] = useState<any>()
   const dispatch = useAppDispatch()
+  const userStateInfo = useAppSelector(userState);
+  const getUserInfo = userStateInfo?.userData ? userStateInfo?.userData : userStateInfo;
 
-  console.log({pin, password})
+
 
   const handleSubmit = async () => {
     if(password?.length <= 0 || password === undefined) {
@@ -48,23 +50,45 @@ export default function ChangeTransactionPin({navigation}: any) {
       password
     }
     try {
-      const response = await dispatch(changePin(payload))
-      if(changePin.fulfilled.match(response)){
-        setLoader(false)
-        return navigation.navigate("SuccessScreen")
+      if(getUserInfo?.hasSetPin) {
+        const response = await dispatch(updatePin(payload))
+        if(updatePin.fulfilled.match(response)){
+          setLoader(false)
+          return navigation.navigate("SuccessScreen")
+        }
+        else {
+          var errMsg = response?.payload as string
+          setLoader(false)
+          Notifier.showNotification({
+            title: 'Error',
+            description: errMsg,
+            Component: NotifierComponents.Alert,
+            componentProps: {
+              alertType: 'error',
+            },
+          });
+        }
       }
       else {
-        var errMsg = response?.payload as string
-        setLoader(false)
-        Notifier.showNotification({
-          title: 'Error',
-          description: errMsg,
-          Component: NotifierComponents.Alert,
-          componentProps: {
-            alertType: 'error',
-          },
-        });
+        const response = await dispatch(changePin(payload))
+        if(changePin.fulfilled.match(response)){
+          setLoader(false)
+          return navigation.navigate("SuccessScreen")
+        }
+        else {
+          var errMsg = response?.payload as string
+          setLoader(false)
+          Notifier.showNotification({
+            title: 'Error',
+            description: errMsg,
+            Component: NotifierComponents.Alert,
+            componentProps: {
+              alertType: 'error',
+            },
+          });
+        }
       }
+     
     }
     catch(e){
       console.log({e})

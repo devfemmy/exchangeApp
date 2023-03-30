@@ -28,6 +28,7 @@ import HistoryCard from '../components/HistoryCard';
 import TransactionDetailModal from '../components/Modals/TransactionDetail';
 
 import { TextInput } from '../components/TextInput';
+import Pagination from '../components/Pagination';
 
 const AssetInfo = (props: any) => {
   const [assetData, setAssetData] = useState<any>();
@@ -39,6 +40,7 @@ const AssetInfo = (props: any) => {
   const [modalVisible, setModalVisible] = useState(false);
   const [details, setDetails] = useState<any>();
   const [value, setValue] = useState("")
+  const [page, setPage] = useState(1)
 
   const handleModalClose = () => {
     setModalVisible(false);
@@ -70,6 +72,7 @@ const AssetInfo = (props: any) => {
 
   useEffect(() => {
     const payload = {
+      page: page,
       currency: asset,
       type: type,
     };
@@ -77,12 +80,19 @@ const AssetInfo = (props: any) => {
     dispatch(getAssetTransaction(payload)).then(dd =>
       setAssetTransaction(dd?.payload),
     );
-  }, [asset, type]);
+  }, [asset, type, page]);
 
 
   const filterTransaction = assetTransactions?.transactions?.filter((data: any) => data?._id?.toLowerCase().includes(value?.toLowerCase()))
 
- 
+  const handlePagination = (data: any) => {
+    if(data === "next") {
+     setPage(assetTransactions?.nextPage) 
+    }
+    else {
+     setPage(assetTransactions?.page - 1) 
+    }
+   }
 
   return (
     <View style={GlobalStyle.container}>
@@ -396,6 +406,8 @@ const AssetInfo = (props: any) => {
         assetTransactions?.transactions?.length < 1 && <EmptyScreen />
       }
 
+<View style={{marginBottom: hp(550)}}>
+     <Pagination data={assetTransactions} handlePagination={(data:any) => handlePagination(data)} />
       {
         assetTransactions?.transactions?.length > 0 &&
         <FlatList
@@ -407,7 +419,7 @@ const AssetInfo = (props: any) => {
          }}
         />
       }
-
+</View>
 
 <TransactionDetailModal modalVisible={modalVisible} setModalVisible={() => handleModalClose()} data={details} />
     </View>
