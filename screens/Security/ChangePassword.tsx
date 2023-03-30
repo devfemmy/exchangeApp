@@ -1,5 +1,5 @@
 /* eslint-disable react-native/no-inline-styles */
-import React from 'react';
+import React, { useState } from 'react';
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
 import { COLORS, FONTS } from '../../utils/constants/theme';
 import MainLayout from '../mainLayout';
@@ -11,16 +11,52 @@ import { changePasswordData } from '../../utils/types';
 import { changePasswordSchema } from '../../utils/schemas';
 import { TextInput } from '../../components/TextInput';
 import IconTextButton from '../../components/IconTextButton';
+import {changePassword} from '../../slice/AuthSlice';
+import {Notifier, NotifierComponents} from 'react-native-notifier';
+import { useAppDispatch } from '../../app/hooks';
 
 export default function ChangePassword({navigation}: any) {
+  const dispatch = useAppDispatch();
+  const [loader, setLoader] = useState(false);
   const initialValues: changePasswordData = {
     oldPassword: '',
     newPassword: '',
     confirmNewPassword: '',
   };
 
-  const handleCredentialSubmit = (data: any) => {
+  const handleCredentialSubmit = async (data: changePasswordData) => {
+    const payload = {
+      currentPassword: data.oldPassword,
+      newPassword: data.newPassword,
+    };
+    setLoader(true);
+    try {
+      var response = (await dispatch(changePassword(payload))) as any;
+      if (changePassword.fulfilled.match(response)) {
+        setLoader(false);
+        let msg = response?.payload?.message as string;
+        Notifier.showNotification({
+          title: 'Success',
+          description: msg,
+          Component: NotifierComponents.Alert,
+          componentProps: {
+            alertType: 'success',
+          },
+        });
+      } else {
+        var errMsg = response?.payload as string;
+        setLoader(false);
 
+        Notifier.showNotification({
+          title: 'Error',
+          description: errMsg,
+          Component: NotifierComponents.Alert,
+          componentProps: {
+            alertType: 'error',
+          },
+        });
+      }
+    } catch (e) {}
   };
 
   const { values, errors, touched, handleChange, handleSubmit, handleBlur } =
@@ -52,12 +88,14 @@ export default function ChangePassword({navigation}: any) {
           <View style={{marginVertical: 8}}>
               <TextInput
                   label={'Old Password'}
+                  isPassword
                   value={values.oldPassword}
                   onBlur={handleBlur('oldPassword')}
                   onChangeText={handleChange('oldPassword')}
                   errorMsg={touched.oldPassword ? errors.oldPassword : undefined}
                 />
               <TextInput
+                  isPassword
                   label={'New Password'}
                   value={values.newPassword}
                   onBlur={handleBlur('newPassword')}
@@ -65,6 +103,7 @@ export default function ChangePassword({navigation}: any) {
                   errorMsg={touched.newPassword ? errors.newPassword : undefined}
                 />
               <TextInput
+                  isPassword
                   label={'Confirm Password'}
                   value={values.confirmNewPassword}
                   onBlur={handleBlur('confirmNewPassword')}
@@ -73,7 +112,7 @@ export default function ChangePassword({navigation}: any) {
                 />
           </View>
           <View style={styles.btnContainer}>
-          <IconTextButton label="Save Changes" handlePress={handleSubmit}/>
+          <IconTextButton label="Save Changes" isLoading={loader} onPress={handleSubmit}/>
         </View>
         </ScrollView>
       </MainLayout>

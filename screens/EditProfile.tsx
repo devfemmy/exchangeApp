@@ -269,6 +269,7 @@ const EditProfile = ({navigation}: any) => {
         </View>
        </View>
        <View>
+        
        <Text style={{...FONTS.h4, fontSize: hp(15), fontWeight: '400', color: '#808080', textAlign: 'center', fontStyle: 'italic'}}>Joined on:</Text>
             <Text style={{...FONTS.h4, fontSize: hp(15), fontWeight: '400', color: '#808080', textAlign: 'center', fontStyle: 'italic'}}>{moment(getUserInfo?.createdAt).format('MMMM Do YYYY, h:mm:ss a')}</Text>
        </View>
