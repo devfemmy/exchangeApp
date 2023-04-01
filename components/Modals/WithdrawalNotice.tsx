@@ -1,13 +1,14 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable quotes */
 /* eslint-disable no-sequences */
 import { View, Text, StyleSheet,  Modal, TouchableOpacity } from 'react-native'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import { COLORS, FONTS } from '../../utils/constants/theme';
 import { hp, wp } from '../../utils/helper';
 import FastImage from 'react-native-fast-image';
-import { useAppSelector } from '../../app/hooks';
-import { userState } from '../../slice/AuthSlice';
+import { useAppDispatch } from '../../app/hooks';
+import { getUserByUsername } from '../../slice/AuthSlice';
 import GlobalStyle from '../../utils/globalStyle';
 import { useNavigation } from '@react-navigation/native';
 import { Notifier, NotifierComponents } from 'react-native-notifier';
@@ -15,9 +16,21 @@ import { Notifier, NotifierComponents } from 'react-native-notifier';
 
 const WithdrawalNotice = ({modalVisible, setModalVisible, data}: any) => {
     const navigation = useNavigation() as any
-    const userStateInfo = useAppSelector(userState);
-    const getUserInfo = userStateInfo?.userData ? userStateInfo?.userData : userStateInfo
+   // const userStateInfo = useAppSelector(userState);
+   // const getUserInfo = userStateInfo?.userData ? userStateInfo?.userData : userStateInfo
+    const dispatch = useAppDispatch()
+    const [userDetail, setUserDetail] = useState<any>()
 
+
+    useEffect(() => {
+      const payload = {
+        userName: data?.user
+      }
+       dispatch(getUserByUsername(payload)).then(dd => {
+        setUserDetail(dd?.payload?.data)
+       })
+       
+    }, [data?.user])
 
     const handlePress = () => {
         if(data?.user?.length <= 0 && data?.userAddress?.length <= 0) {
@@ -59,23 +72,43 @@ const WithdrawalNotice = ({modalVisible, setModalVisible, data}: any) => {
   
               <View>
               <View style={{justifyContent: 'center', alignItems: 'center'}}>
-                <FastImage
-                    style={styles.image}
-                    defaultSource={getUserInfo?.icon}
-                    source={{
-                        uri: getUserInfo?.image,
-                        priority: FastImage.priority.normal,
-                    }}
-                    resizeMode={FastImage.resizeMode.cover}
-                />
-                <Text style={{...FONTS.h3, textAlign: 'center', marginVertical: hp(20)}}>Are you sure you want to withdraw into this Zend User account?</Text>
+              {
+                data?.walletType === "Zend Pay" && <FastImage
+                style={styles.image}
+                defaultSource={userDetail?.icon}
+                source={{
+                    uri: userDetail?.image,
+                    priority: FastImage.priority.normal,
+                }}
+                resizeMode={FastImage.resizeMode.cover}
+            />
+              }
+                <Text style={{...FONTS.h3, textAlign: 'center', marginVertical: hp(20), fontWeight: '600'}}>Are you sure you want to withdraw into this {data?.walletType === "Zend Pay" ? "Zend User account?" : "External Wallet?"}  </Text>
                 
                
             </View> 
-            <Text style={{marginBottom: hp(20)}}>
+               {
+                data?.walletType === "Zend Pay" ?
+                <Text style={{marginBottom: hp(20)}}>
+                <Text style={{...FONTS.body3, color: COLORS.gray}}>Address: </Text>
+                <Text style={{...FONTS.body3, fontWeight: 'bold'}}>{data?.user}</Text>
+            </Text>
+            :
+            <View>
+ <Text style={{marginBottom: hp(20)}}>
                     <Text style={{...FONTS.body3, color: COLORS.gray}}>Address: </Text>
-                    <Text style={{...FONTS.body3}}>{data?.user || data?.userAddress}</Text>
+                    <Text style={{...FONTS.body3, fontWeight: 'bold'}}>{data?.userAddress}</Text>
                 </Text>
+                <Text style={{marginBottom: hp(20)}}>
+                    <Text style={{...FONTS.body3, color: COLORS.gray}}>Token: </Text>
+                    <Text style={{...FONTS.body3, fontWeight: 'bold'}}>{data?.currencyName?.toUpperCase()}</Text>
+                </Text>
+                <Text style={{marginBottom: hp(20)}}>
+                    <Text style={{...FONTS.body3, color: COLORS.gray}}>Network: </Text>
+                    <Text style={{...FONTS.body3, fontWeight: 'bold'}}>{data?.chain}</Text>
+                </Text>
+              </View>
+               }
 
                 <View style={GlobalStyle.rowBetween}>
                    <TouchableOpacity onPress={() => setModalVisible()} style={{borderColor: COLORS.primary, borderWidth: 1, borderRadius: hp(5), padding: hp(15), width: "47%"}}>

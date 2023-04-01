@@ -134,6 +134,18 @@ export const verifyPhoneNumberOtp = createAsyncThunk(
   },
 );
 
+export const getUserByUsername = createAsyncThunk(
+  'auth/getUserByUsername',
+  async (payload: {userName: string;}) => {
+    const response = await getRequest(
+      `${config.api_base_url}/users/find-one?by=username&username=${payload?.userName}`,
+    );
+    if (response?.status === 200) {
+      return response?.data;
+    }
+  },
+);
+
 export const VerifyPhonenumber = createAsyncThunk(
   'auth/VerifyPhonenumber',
   async (payload: {phoneNumber: string}, {rejectWithValue}) => {
@@ -480,6 +492,17 @@ export const AuthSlice = createSlice({
         },
       );
     builder.addCase(updatePin.rejected, (state, action) => {
+      (state.loading = false), (state.error = action.error.message);
+    });
+    builder.addCase(getUserByUsername.pending, (state, action) => {
+      state.loading = true;
+    }),
+      builder.addCase(getUserByUsername.fulfilled,
+        (state, action: PayloadAction<any>) => {
+          state.loading = false
+        },
+      );
+    builder.addCase(getUserByUsername.rejected, (state, action) => {
       (state.loading = false), (state.error = action.error.message);
     });
   },
