@@ -6462,10 +6462,9 @@ react-native-date-picker@^4.2.9:
   dependencies:
     prop-types "^15.8.1"
 
-react-native-dojah@^0.3.2:
-  version "0.3.2"
-  resolved "https://registry.yarnpkg.com/react-native-dojah/-/react-native-dojah-0.3.2.tgz#f1c7e4e33557613ef887de29a2c16c482ce4d25c"
-  integrity sha512-mu++2kjE3Ss+23rBrQXty6hGcg6qH99PIO3QQ4CsjOb8+BTQOtXx+evZYHiE4wLDaPUJ7D53tdciFBhquRVg9w==
+"react-native-dojah@https://github.com/SanchezQb/react-native-dojah":
+  version "0.1.0"
+  resolved "https://github.com/SanchezQb/react-native-dojah#5488f35401ba5119174db28f0318169280557ca4"
 
 react-native-dotenv@^3.4.7:
   version "3.4.7"
