@@ -1,5 +1,6 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { View, Text, StyleSheet } from 'react-native'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import GlobalStyle from '../utils/globalStyle'
 import HeaderComponent from '../components/HeaderComponent'
 import { COLORS, FONTS } from '../utils/constants/theme'
@@ -11,7 +12,6 @@ import IconTextButton from '../components/IconTextButton'
 import OTPTextView from 'react-native-otp-textinput';
 import { useAppDispatch } from '../app/hooks'
 import { getWithdrawalOtp, submitExternalWithdraw, submitInternalWithdraw } from '../slice/TradeSlice'
-import { ActivityIndicator } from 'react-native-paper'
 import { Notifier, NotifierComponents } from 'react-native-notifier';
 
 
@@ -30,6 +30,15 @@ const TwoFactorVerification = (props: any) => {
     const [messageId, setMessageId] = useState<any>("")
     const [pin, setPin] = useState<any>("")
     const dispatch = useAppDispatch()
+    const [counter, setCounter] = React.useState(0);
+
+    useEffect(() => {
+        counter > 0 && setTimeout(() => setCounter(counter - 1), 1000);
+        if(counter === 0) {
+            setEmailLoader(false)
+         }
+      }, [counter]);
+
 
 
     const handleSubmitInternal = async () => {
@@ -106,11 +115,15 @@ const TwoFactorVerification = (props: any) => {
 
     const resendMail = () => {
         setEmailLoader(true)
-        dispatch(getWithdrawalOtp()).then(pp => {
+        setCounter(50)
+         dispatch(getWithdrawalOtp()).then(pp => {
             setMessageId(pp?.payload?.messageID)
-            setEmailLoader(false)
+            // setEmailLoader(false)
         })
+
     }
+       
+       
 
 
   return (
@@ -134,11 +147,13 @@ const TwoFactorVerification = (props: any) => {
                     style={{backgroundColor: COLORS.primary2}}  />
             </View>
              <TouchableOpacity disabled={emailLoader} style={[styles.btn, {backgroundColor: emailLoader ? COLORS.gray : COLORS.primary}]} onPress={() => resendMail()}>
-              {emailLoader ? <ActivityIndicator color={COLORS.white} /> :   <Text style={{...FONTS.body5, color: COLORS.white}}>Send code</Text>}
+               <Text style={{...FONTS.body5, color: COLORS.white}}>Send code</Text>
              </TouchableOpacity>
              </View>
         </View>
-
+        {counter === 0 ? null : <Text style={{marginTop: hp(-15), fontSize: hp(10)}}>You can resend code in {counter}</Text>
+}
+       
         <View style={styles.div}>
             <Text>Transaction Pin</Text>
              <View style={GlobalStyle.rowStart}>
@@ -148,7 +163,7 @@ const TwoFactorVerification = (props: any) => {
               tintColor={COLORS.primary}
               textInputStyle={styles.textInputContainer}
               handleTextChange={(text: string) => setPin(text)}
-              inputCount={4}
+              inputCount={6}
               keyboardType="default"
               returnKeyType="done"
             />
@@ -190,7 +205,7 @@ const styles = StyleSheet.create({
         borderRadius: 5,
         color: COLORS.primary,
         borderWidth: 0,
-        width: hp(50),
-        height: hp(50),
+        width: hp(45),
+        height: hp(45),
       },
 })

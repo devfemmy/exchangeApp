@@ -1,3 +1,4 @@
+/* eslint-disable quotes */
 /* eslint-disable react-native/no-inline-styles */
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @typescript-eslint/no-unused-vars */
@@ -87,7 +88,8 @@ const Transfer = ({navigation}: any) => {
 
   const handleMax = () => {
     var choose = from === 'funding' ? parseFloat(assetDataFund?.availBal)?.toFixed(5).slice(0, -1) : parseFloat(assetDataTrad?.availBal)?.toFixed(5).slice(0, -1);
-    setNumber(choose);
+    var td = choose === "Na" || choose === undefined || !choose ? "0" : choose
+    setNumber(td);
   };
 
 
@@ -219,11 +221,14 @@ const Transfer = ({navigation}: any) => {
               </View>
 
               <TouchableOpacity onPress={() => handleOpenSelectOpen()}>
-                <View style={styles.card2}>
+                <View style={[styles.card2, {height: selectedAssets === "Select Token" ? hp(70) : ""}]}>
                   <View>
-                    <Text style={{...FONTS.body5, color: COLORS.gray}}>
+                    {
+                      selectedAssets === "Select Token" ? <Text style={{display: 'none'}}></Text> : <Text style={{...FONTS.body5, color: COLORS.gray}}>
                       Select Token
                     </Text>
+                    }
+                    
                     <Text style={{...FONTS.body3}}>{selectedAssets}</Text>
                   </View>
                   <AntDesign name="down" size={10} />

@@ -38,7 +38,7 @@ const ConfirmSwap = (props: any) => {
         setQuoteInfo(pp?.payload);
         setIsFetching(false);
       });
-    }, 10000);
+    }, 1000);
   }, [fromName, toName, amount]);
 
 

@@ -190,7 +190,7 @@ useEffect(() => {
 
 
  const handleMax = () => {
-   setAmount(parseFloat(assetData?.availBal)?.toFixed(5)?.slice(0, -1))
+   setAmount(assetData?.availBal ? parseFloat(assetData?.availBal)?.toFixed(5)?.slice(0, -1) : "0")
    const bb = parseFloat(assetData?.availBal) * parseFloat(currentPrice) as any
    setUsdAmount(isNaN(bb) ? 0 : bb.toString())
  }
@@ -203,11 +203,9 @@ useEffect(() => {
 
  const handleUsdAmountChange = (value: any) => {
   const bb = parseFloat(value) / parseFloat(currentPrice) as any
-   setAmount(bb === "Na" ? 0 : parseFloat(bb)?.toFixed(5))
+   setAmount(bb === "Na" || isNaN(bb) ? 0 : parseFloat(bb)?.toFixed(5))
   setUsdAmount(value)
  }
-
-
 
 
 
@@ -235,13 +233,13 @@ useEffect(() => {
 
               <View>
                 <Text style={{ ...FONTS.body3}}>
-                  Balance: {assetData?.availBal ? format(parseFloat(assetData?.availBal)?.toFixed(3)?.slice(0, -1)) : 0} {currencyName?.toUpperCase()}
+                  Balance: {assetData?.availBal ? format(parseFloat(assetData?.availBal)?.toFixed(5)?.slice(0, -1)) : 0} {currencyName?.toUpperCase()}
                 </Text>
               </View>
             </View>
 
             <View style={styles.form}>
-              <ScrollView>
+              <ScrollView showsVerticalScrollIndicator={false}> 
               <View style={styles.card2}>
                 <View style={{width: '78%'}}>
                   <Text style={{...FONTS.body5, color: COLORS.gray}}>
@@ -334,7 +332,7 @@ useEffect(() => {
                         <View style={styles.hr} />
                         <View style={GlobalStyle.rowBetween}>
                           <Text>Recipient will receive:</Text>
-                          <Text>{ amount?.length <= 0 ? 0 : (parseFloat(amount) - parseFloat(fee?.minFee))?.toFixed(4).slice(0, -1)} {currencyName?.toUpperCase()}</Text>
+                          <Text>{ amount?.length <= 0 || amount === "Na" || isNaN(amount) || fee?.minFee === undefined ? 0 : (parseFloat(amount) - parseFloat(fee?.minFee))?.toFixed(4).slice(0, -1)} {currencyName?.toUpperCase()}</Text>
                         </View>
                     </View>
                   }
