@@ -185,8 +185,6 @@ const SwapHistory = ({navigation}: any) => {
         swapData?.transactions?.length < 1 && <EmptyScreen />
       }
      <View style={{marginBottom: hp(280)}}>
-     <Pagination data={swapData} handlePagination={(data:any) => handlePagination(data)} />
-
       <FlatList 
         keyExtractor={item => item?.id}
         showsVerticalScrollIndicator={false}
@@ -195,6 +193,7 @@ const SwapHistory = ({navigation}: any) => {
          return <TranHistoryCard data={item?.item} handlePress={(data: any) => handleModalOpen(data)} />;
         }}
       />
+           <Pagination data={swapData} handlePagination={(data:any) => handlePagination(data)} />
 
      </View>
 

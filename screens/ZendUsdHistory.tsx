@@ -366,7 +366,7 @@ const ZendUsdHistory = ({navigation}: any) => {
 
                   <View>
                     <Text style={{...FONTS.body5}}>Transaction ID</Text>
-                    <View style={GlobalStyle.rowStart}>
+                    <View style={GlobalStyle.rowBetween}>
                       <Text style={{...FONTS.body3, marginRight: hp(30), width: wp(200)}}>
                         {dataInfo?._id}
                       </Text>

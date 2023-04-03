@@ -407,7 +407,6 @@ const AssetInfo = (props: any) => {
       }
 
 <View style={{marginBottom: hp(550)}}>
-     <Pagination data={assetTransactions} handlePagination={(data:any) => handlePagination(data)} />
       {
         assetTransactions?.transactions?.length > 0 &&
         <FlatList
@@ -419,6 +418,7 @@ const AssetInfo = (props: any) => {
          }}
         />
       }
+           <Pagination data={assetTransactions} handlePagination={(data:any) => handlePagination(data)} />
 </View>
 
 <TransactionDetailModal modalVisible={modalVisible} setModalVisible={() => handleModalClose()} data={details} />

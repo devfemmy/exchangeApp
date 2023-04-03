@@ -266,8 +266,6 @@ const TokenHistory = ({navigation}: any) => {
         transactionData?.transactions?.length < 1 && <EmptyScreen />
       }
      <View style={{marginBottom: hp(350)}}>
-      <Pagination data={transactionData} handlePagination={(data:any) => handlePagination(data)} />
-
       <FlatList 
         keyExtractor={item => item?.id}
         showsVerticalScrollIndicator={false}
@@ -276,6 +274,7 @@ const TokenHistory = ({navigation}: any) => {
          return <HistoryCard data={item?.item} handleClick={(data: any) => handleModalOpen(data)} />;
         }}
       />
+            <Pagination data={transactionData} handlePagination={(data:any) => handlePagination(data)} />
      </View>
 
      <TransactionDetailModal modalVisible={modalVisible} setModalVisible={() => handleModalClose()} data={details} />

@@ -1,11 +1,11 @@
 /* eslint-disable react-native/no-inline-styles */
-/* eslint-disable no-unreachable */
-/* eslint-disable @typescript-eslint/no-shadow */
-/* eslint-disable @typescript-eslint/no-unsafe-return */
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
-/* eslint-disable react/jsx-key */
-/* eslint-disable @typescript-eslint/no-empty-function */
-/* eslint-disable @typescript-eslint/no-unsafe-call */
+
+
+
+
+
+
+
 import {View, Text, Modal, StyleSheet, TouchableOpacity} from 'react-native';
 import React from 'react';
 import AntDesign from 'react-native-vector-icons/AntDesign';
@@ -49,13 +49,13 @@ const TransactionDetailModal = ({modalVisible, setModalVisible, data}: any) => {
                     marginRight: hp(20),
                     borderRadius: 50,
                     backgroundColor:
-                    data?.status === 'success' ? COLORS.lightGreen : data?.status === 'submitted' ? COLORS.lightOrange : COLORS.lightOrange
+                    data?.status === 'success' ? COLORS.lightGreen : data?.status === 'submitted' ? COLORS.lightOrange : COLORS.lightOrange,
                   }}>
                   <AntDesign
-                    name={data?.transactionType === "withdraw" ? "arrowup" : "arrowdown"}
-                    size={15}
+                    name={data?.transactionType === 'withdraw' ? 'arrowup' : 'arrowdown'}
+                    size={20}
                     color={
-                      data?.status === 'success' ? COLORS.darkGreen : data?.status === 'submitted' ? COLORS.orange :  COLORS.orange 
+                      data?.status === 'success' ? COLORS.darkGreen : data?.status === 'submitted' ? COLORS.orange :  COLORS.orange
                     }
                   />
                 </View>
@@ -85,13 +85,13 @@ const TransactionDetailModal = ({modalVisible, setModalVisible, data}: any) => {
               <View style={styles.mt}>
                 <Text
                   style={{
-                    ...FONTS.body4,color: COLORS.gray, 
+                    ...FONTS.body4,color: COLORS.gray,
                   }}>
                   Transaction ID:
                 </Text>
-               <View style={GlobalStyle.rowStart}>
-               <Text style={{...FONTS.body3, marginRight: hp(30), width: wp(220)}}>{data?.type === "internal" ? data?.billId : data?.txId}</Text>
-               <Feather name="copy" size={20} onPress={() => copyToClipboard(data?.type === "internal" ? data?.billId : data?.txId)} />
+               <View style={GlobalStyle.rowBetween}>
+               <Text style={{...FONTS.body3, marginRight: hp(30), width: wp(220)}}>{data?.type === 'internal' ? data?.billId : data?.txId}</Text>
+               <Feather name="copy" size={20} onPress={() => copyToClipboard(data?.type === 'internal' ? data?.billId : data?.txId)} />
                </View>
               </View>
 
@@ -102,15 +102,15 @@ const TransactionDetailModal = ({modalVisible, setModalVisible, data}: any) => {
                     textTransform: 'capitalize',
                     ...FONTS.body4,color: COLORS.gray,
                   }}>
-                {data?.type === "internal" ? "Fee" :  "Network"}
+                {data?.type === 'internal' ? 'Fee' :  'Network'}
                 </Text>
                 <Text style={{...FONTS.body3, textTransform: 'capitalize'}}>
-                  { data?.type === "internal" ? data?.fee : data?.chain}
+                  { data?.type === 'internal' ? data?.fee : data?.chain}
                 </Text>
               </View>
 
               {
-                data?.transactionType === "withdraw" && data?.type !== "internal" && <View>
+                data?.transactionType === 'withdraw' && data?.type !== 'internal' && <View>
 <View style={styles.mt}>
                 <Text
                   style={{
@@ -155,28 +155,28 @@ const TransactionDetailModal = ({modalVisible, setModalVisible, data}: any) => {
                 </Text>
               </View>
             {
-              data?.type === "internal" &&   <View style={styles.mt}>
+              data?.type === 'internal' &&   <View style={styles.mt}>
               <Text
                 style={{
                   textTransform: 'capitalize',
                   ...FONTS.body4,color: COLORS.gray,
-                  textAlign: 'right'
+                  textAlign: 'right',
                 }}>
                 Beneficiary:
               </Text>
-              <Text style={{...FONTS.body3}}>
+              <Text style={{...FONTS.body4}}>
                 @{data?.beneficiary?.username}
               </Text>
             </View>
             }
               </View>
 
-            
 
 
-             
+
+
               <View style={GlobalStyle.rowBetween}>
- <View style={styles.mt}>
+            <View style={styles.mt}>
                 <Text
                   style={{
                     textTransform: 'capitalize',
@@ -197,14 +197,14 @@ const TransactionDetailModal = ({modalVisible, setModalVisible, data}: any) => {
                   }}>
                   Transaction Status:
                 </Text>
-                <Text style={{...FONTS.body3, textAlign: 'right', color: data?.status === "success" ? COLORS.darkGreen : data?.status === "submited" ? COLORS.orange : COLORS.orange , textTransform: 'capitalize'}}>
+                <Text style={{...FONTS.body4, textAlign: 'right', color: data?.status === 'success' ? COLORS.darkGreen : data?.status === 'submited' ? COLORS.orange : COLORS.orange , textTransform: 'capitalize'}}>
                   {data?.status}
                 </Text>
               </View>
               </View>
-             
+
               {
-                data?.type === "external" && data?.chain !== "USDT-TRC20" &&
+                data?.type === 'external' && data?.chain !== 'USDT-TRC20' &&
               <View style={styles.mt}>
                 <Text
                   style={{
@@ -236,15 +236,15 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: COLORS.transparentBlack
+    backgroundColor: COLORS.transparentBlack,
   },
   modalView: {
     margin: 20,
-    maxHeight: hp(650),
+    // maxHeight: hp(650),
     backgroundColor: 'white',
     borderRadius: 20,
-    padding: 25,
-    width: '90%',
+    padding:hp(25),
+    width: '95%',
     shadowColor: '#000',
     shadowOffset: {
       width: 0,
