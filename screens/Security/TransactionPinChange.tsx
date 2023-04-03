@@ -7,6 +7,7 @@ import { hp } from '../../utils/helper';
 import HeaderComponent from '../../components/HeaderComponent';
 import GlobalStyle from '../../utils/globalStyle';
 import OTPTextView from 'react-native-otp-textinput';
+import SmoothPinCodeInput from 'react-native-smooth-pincode-input';
 import { TextInput } from '../../components/TextInput';
 import IconTextButton from '../../components/IconTextButton';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
@@ -14,51 +15,51 @@ import { changePin, updatePin, userState } from '../../slice/AuthSlice';
 import { Notifier, NotifierComponents } from 'react-native-notifier';
 
 export default function ChangeTransactionPin({navigation}: any) {
-  const [password, setPassword] = useState<any>()
-  const [loader, setLoader] = useState(false)
-  const [pin, setPin] = useState<any>()
-  const dispatch = useAppDispatch()
+  const [password, setPassword] = useState<any>();
+  const [loader, setLoader] = useState(false);
+  const [pin, setPin] = useState<any>();
+  const dispatch = useAppDispatch();
   const userStateInfo = useAppSelector(userState);
   const getUserInfo = userStateInfo?.userData ? userStateInfo?.userData : userStateInfo;
 
 
 
   const handleSubmit = async () => {
-    if(password?.length <= 0 || password === undefined) {
+    if (password?.length <= 0 || password === undefined) {
       return  Notifier.showNotification({
         title: 'Error',
-        description: "Password is required",
+        description: 'Password is required',
         Component: NotifierComponents.Alert,
         componentProps: {
           alertType: 'error',
         },
       });
     }
-    if(pin?.length <= 0 || pin === undefined) {
+    if (pin?.length <= 0 || pin === undefined) {
       return  Notifier.showNotification({
         title: 'Error',
-        description: "Pin is required",
+        description: 'Pin is required',
         Component: NotifierComponents.Alert,
         componentProps: {
           alertType: 'error',
         },
       });
     }
-    setLoader(true)
+    setLoader(true);
     const payload = {
       pin,
-      password
-    }
+      password,
+    };
     try {
-      if(getUserInfo?.hasSetPin) {
-        const response = await dispatch(updatePin(payload))
-        if(updatePin.fulfilled.match(response)){
-          setLoader(false)
-          return navigation.navigate("SuccessScreen")
+      if (getUserInfo?.hasSetPin) {
+        const response = await dispatch(updatePin(payload));
+        if (updatePin.fulfilled.match(response)){
+          setLoader(false);
+          return navigation.navigate('SuccessScreen');
         }
         else {
-          var errMsg = response?.payload as string
-          setLoader(false)
+          var errMsg = response?.payload as string;
+          setLoader(false);
           Notifier.showNotification({
             title: 'Error',
             description: errMsg,
@@ -70,14 +71,14 @@ export default function ChangeTransactionPin({navigation}: any) {
         }
       }
       else {
-        const response = await dispatch(changePin(payload))
-        if(changePin.fulfilled.match(response)){
-          setLoader(false)
-          return navigation.navigate("SuccessScreen")
+        const response = await dispatch(changePin(payload));
+        if (changePin.fulfilled.match(response)){
+          setLoader(false);
+          return navigation.navigate('SuccessScreen');
         }
         else {
-          var errMsg = response?.payload as string
-          setLoader(false)
+          var errMsg = response?.payload as string;
+          setLoader(false);
           Notifier.showNotification({
             title: 'Error',
             description: errMsg,
@@ -88,13 +89,13 @@ export default function ChangeTransactionPin({navigation}: any) {
           });
         }
       }
-     
+
     }
-    catch(e){
-      console.log({e})
-      setLoader(false)
+    catch (e){
+      console.log({e});
+      setLoader(false);
     }
-  }
+  };
 
 
 
@@ -120,15 +121,14 @@ export default function ChangeTransactionPin({navigation}: any) {
           <HeaderComponent onPress={() => navigation.goBack()} />
           <Text style={{...FONTS.h2}}>Reset Transaction Pin</Text>
           <Text style={styles.textStyle}>Protect all delecate informations on this application to prevents intruder</Text>
-          <TextInput 
+          <TextInput
               label="Enter login password"
               isPassword
               value={password}
               onChangeText={(value) => setPassword(value)}
               errorMsg={undefined}
           />
-          <View style={{marginVertical: 8, paddingVertical: 20}}>
-            <Text style={{...FONTS.h3, fontWeight: '600'}}>Enter Pin</Text>
+          {/* <View style={{marginVertical: 8, paddingVertical: 20}}>
             <OTPTextView
               tintColor={COLORS.primary}
               textInputStyle={styles.textInputContainer}
@@ -136,8 +136,30 @@ export default function ChangeTransactionPin({navigation}: any) {
               inputCount={4}
               keyboardType="numeric"
             />
-          </View>
+          </View> */}
+             <Text style={{...FONTS.h3, fontWeight: '600'}}>Enter Pin</Text>
+          <View style={{alignItems: 'center', marginVertical: 25}}>
+            <SmoothPinCodeInput
+                cellStyle={{
+                  backgroundColor: COLORS.primary2,
+                  borderRadius: 5,
+                  color: COLORS.primary,
+                  borderWidth: 0,
+                  // width: hp(63),
+                  // height: hp(63),
+                }}
+                codeLength={4}
+                cellSize={65}
+                cellSpacing={20}
+                cellStyleFocused={{
+                  borderColor: COLORS.primary,
+                  borderBottomWidth: 4,
+                }}
+                value={pin}
+                onTextChange={(value: string) => setPin(value)}
+              />
 
+          </View>
           <View>
             <IconTextButton label="Submit" isLoading={loader} onPress={handleSubmit} />
           </View>

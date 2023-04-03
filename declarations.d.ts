@@ -5,3 +5,4 @@ declare module '*.svg' {
   export default content;
 }
 declare module 'react-native-otp-textinput'
+declare module 'react-native-smooth-pincode-input';

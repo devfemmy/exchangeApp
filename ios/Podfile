@@ -21,11 +21,11 @@ if linkage != nil
   use_frameworks! :linkage => linkage.to_sym
 end
 
-// If you would like to use the selfie, or id screens, add:
+# If you would like to use the selfie, or id screens, add:
 permissions_path = '../node_modules/react-native-permissions/ios'
 pod 'Permission-Camera', :path => "#{permissions_path}/Camera"
 
-// If you would like to use the address screen, add:
+#If you would like to use the address screen, add:
 pod 'Permission-LocationAccuracy', :path => "#{permissions_path}/LocationAccuracy"
 pod 'Permission-LocationAlways', :path => "#{permissions_path}/LocationAlways"
 pod 'react-native-geolocation-service', path: '../node_modules/react-native-geolocation-service'

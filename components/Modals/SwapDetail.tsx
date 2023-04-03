@@ -1,11 +1,11 @@
 /* eslint-disable react-native/no-inline-styles */
-/* eslint-disable no-unreachable */
-/* eslint-disable @typescript-eslint/no-shadow */
-/* eslint-disable @typescript-eslint/no-unsafe-return */
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
-/* eslint-disable react/jsx-key */
-/* eslint-disable @typescript-eslint/no-empty-function */
-/* eslint-disable @typescript-eslint/no-unsafe-call */
+
+
+
+
+
+
+
 import {View, Text, Modal, StyleSheet, TouchableOpacity} from 'react-native';
 import React from 'react';
 import AntDesign from 'react-native-vector-icons/AntDesign';
@@ -48,10 +48,10 @@ const SwapDetailModal = ({modalVisible, setModalVisible, data}: any) => {
                     padding: hp(15),
                     marginRight: hp(20),
                     borderRadius: 50,
-                    backgroundColor: COLORS.lightGreen
+                    backgroundColor: COLORS.lightGreen,
                   }}>
                   <AntDesign
-                    name={"swap"}
+                    name={'swap'}
                     size={15}
                     color={COLORS.darkGreen}
                   />
@@ -61,7 +61,7 @@ const SwapDetailModal = ({modalVisible, setModalVisible, data}: any) => {
                     Swap
                   </Text>
                   <Text style={{...FONTS.body5, color: COLORS.gray}}>
-                  {data?.fromCurrency +  "-" + data?.toCurrency}
+                  {data?.fromCurrency +  '-' + data?.toCurrency}
                   </Text>
                 </View>
               </View>
@@ -82,11 +82,11 @@ const SwapDetailModal = ({modalVisible, setModalVisible, data}: any) => {
               <View style={styles.mt}>
                 <Text
                   style={{
-                    ...FONTS.body4,color: COLORS.gray
+                    ...FONTS.body4,color: COLORS.gray,
                   }}>
                   Transaction ID:
                 </Text>
-               <View style={GlobalStyle.rowStart}>
+               <View style={GlobalStyle.rowBetween}>
                <Text style={{...FONTS.body4, marginRight: hp(30)}}>{data?.ordId}</Text>
                <Feather name="copy" size={20} onPress={() => copyToClipboard(data?.ordId)} />
                </View>
@@ -160,8 +160,8 @@ const SwapDetailModal = ({modalVisible, setModalVisible, data}: any) => {
                 <Text style={{...FONTS.body4, textTransform: 'capitalize', fontSize: hp(11)}}>
                 {moment(data?.timeStamp).format('MMMM Do YYYY, h:mm:ss a')}
                 </Text>
-              </View> 
-              
+              </View>
+
                <View style={styles.mt}>
                 <Text
                   style={{
@@ -170,7 +170,7 @@ const SwapDetailModal = ({modalVisible, setModalVisible, data}: any) => {
                   }}>
                   Transaction Status:
                 </Text>
-                <Text style={{...FONTS.body4, color: data?.status === "success" ? COLORS.darkGreen : data?.status === "submited" ? COLORS.orange :  data?.status === "pending" ? COLORS.orange : COLORS.red, textTransform: 'capitalize'}}>
+                <Text style={{...FONTS.body4, color: data?.status === 'success' ? COLORS.darkGreen : data?.status === 'submited' ? COLORS.orange :  data?.status === 'pending' ? COLORS.orange : COLORS.red, textTransform: 'capitalize'}}>
                   {data?.status}
                 </Text>
               </View>
@@ -193,15 +193,15 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: COLORS.transparentBlack
+    backgroundColor: COLORS.transparentBlack,
   },
   modalView: {
     margin: 20,
-    height: hp(650),
+    // height: hp(650),
     backgroundColor: 'white',
     borderRadius: 20,
     padding: 25,
-    width: '90%',
+    width: '95%',
     shadowColor: '#000',
     shadowOffset: {
       width: 0,
