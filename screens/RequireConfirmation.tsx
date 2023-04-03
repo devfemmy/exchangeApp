@@ -1,3 +1,4 @@
+/* eslint-disable react-native/no-inline-styles */
 /* eslint-disable quotes */
 import {View, Text, StyleSheet} from 'react-native';
 import React, {useState} from 'react';
@@ -12,6 +13,7 @@ import GlobalStyle from '../utils/globalStyle';
 import {generateSigninToken, verifySignin} from '../slice/AuthSlice';
 import {useAppDispatch} from '../app/hooks';
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import SmoothPinCodeInput from 'react-native-smooth-pincode-input';
 import OTPTextView from 'react-native-otp-textinput';
 
 const RequireConfirmation = (props: any) => {
@@ -69,11 +71,11 @@ const RequireConfirmation = (props: any) => {
                   alertType: 'success',
                 },
               });
-           
+
         } else {
           var errMsg = response?.payload as string;
           setLoader(false);
-          
+
           Notifier.showNotification({
             title: 'Error',
             description: errMsg,
@@ -83,7 +85,7 @@ const RequireConfirmation = (props: any) => {
             },
           });
         }
-    
+
     } catch (e) {}
   };
 
@@ -108,7 +110,7 @@ const RequireConfirmation = (props: any) => {
             <Text style={{color: COLORS.primary}}>{`${emailAddress?.substr(0,9)}***`}</Text>
         </Text>
 
-      <View style={styles.otp}>
+      {/* <View style={styles.otp}>
           <OTPTextView
               tintColor={COLORS.primary}
               textInputStyle={styles.textInputContainer}
@@ -117,7 +119,29 @@ const RequireConfirmation = (props: any) => {
               keyboardType="default"
               returnKeyType="done"
             />
-      </View>
+      </View> */}
+                <View style={{alignItems: 'center', marginVertical: 25, marginBottom: 5}}>
+            <SmoothPinCodeInput
+                cellStyle={{
+                  backgroundColor: COLORS.primary2,
+                  borderRadius: 5,
+                  color: COLORS.primary,
+                  borderWidth: 0,
+                  // width: hp(63),
+                  // height: hp(63),
+                }}
+                codeLength={6}
+                cellSize={50}
+                cellSpacing={8}
+                cellStyleFocused={{
+                  borderColor: COLORS.primary,
+                  borderBottomWidth: 4,
+                }}
+                value={code}
+                onTextChange={(value: string) => setCode(value)}
+              />
+
+          </View>
       <View style={styles.bottom}>
        <TouchableOpacity onPress={() => resendCode()}>
          <Text style={{textAlign: 'center', color: COLORS.primary, marginVertical: hp(10)}}>Resend Code</Text>
@@ -171,7 +195,7 @@ const styles = StyleSheet.create({
   },
   bottom: {
     flex: 1,
-    marginTop: hp(20)
+    marginTop: hp(20),
   },
   textInputContainer: {
     backgroundColor: COLORS.primary2,

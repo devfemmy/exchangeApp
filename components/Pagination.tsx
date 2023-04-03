@@ -36,21 +36,25 @@ const Pagination = ({data, handlePagination}: any) => {
 
     },
     container: {
-      
-    }
+
+    },
   });
   return (
     <View style={styles.container}>
     <View style={[GlobalStyle.rowBetween, {paddingBottom: hp(10)}]}>
-        <TouchableOpacity disabled={data?.page === 1} style={styles.pagination} onPress={() => handlePagination('prev')}>
-          {data?.page === 1 ? null : <AntDesign  name="stepbackward" size={18} color={data?.page === 1 ? '#66666' : COLORS.primary} />}
-         <Text style={styles.textStyle}>Previous</Text>
-        </TouchableOpacity>
+        {/* {data?.page === 1 ? null : */}
+      <TouchableOpacity disabled={data?.page === 1} style={styles.pagination} onPress={() => handlePagination('prev')}>
+        {data?.page === 1 ? null : <AntDesign  name="stepbackward" size={18} color={data?.page === 1 ? '#66666' : COLORS.primary} />}
+      <Text style={styles.textStyle}>Previous</Text>
+      </TouchableOpacity>
+        {/* } */}
         <View style={{width: wp(20)}} />
-         <TouchableOpacity disabled={data?.page === data?.nextPage} style={styles.pagination2} onPress={() => handlePagination('next')}>
-         <Text style={styles.textStyle2}>Next</Text>
-         <AntDesign  name="stepforward" size={18} color={COLORS.primary} />
-        </TouchableOpacity>
+        {/* {data?.page === data?.nextPage ? null : */}
+            <TouchableOpacity disabled={data?.page === data?.nextPage} style={styles.pagination2} onPress={() => handlePagination('next')}>
+            <Text style={styles.textStyle2}>Next</Text>
+            <AntDesign  name="stepforward" size={18} color={COLORS.primary} />
+            </TouchableOpacity>
+        {/* } */}
      </View>
     </View>
   );
