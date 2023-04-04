@@ -30,6 +30,7 @@ import {
 } from '../slice/WalletSlice';
 import { transferToken } from '../slice/TradeSlice';
 import { Notifier, NotifierComponents } from 'react-native-notifier';
+import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 
 
 
@@ -166,6 +167,7 @@ const Transfer = ({navigation}: any) => {
     <View style={GlobalStyle.container}>
       <View style={styles.centeredView}>
         <View style={styles.centeredView}>
+        <KeyboardAwareScrollView showsVerticalScrollIndicator={false}>
           <ScrollView>
             <View style={styles.modalView}>
               <HeaderComponent onPress={() => navigation.goBack()} />
@@ -287,6 +289,7 @@ const Transfer = ({navigation}: any) => {
               </View>
             </View>
           </ScrollView>
+          </KeyboardAwareScrollView>
 
           <SwapTokenModal
             modalVisible={openSelect}

@@ -24,7 +24,8 @@ import {verifyOrganisation} from '../slice/ZendSlice';
 import {Notifier, NotifierComponents} from 'react-native-notifier';
 import {launchImageLibrary} from 'react-native-image-picker';
 import { userState } from '../slice/AuthSlice';
-import KycLogo from "../assets/svg/kyclogo.svg"
+import KycLogo from "../assets/svg/kyclogo.svg";
+import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 
 const ZendUsd = ({navigation}: any) => {
   const dispatch = useAppDispatch();
@@ -186,6 +187,7 @@ const ZendUsd = ({navigation}: any) => {
   return (
     <View style={GlobalStyle.container}>
       <HeaderComponent onPress={() => navigation.goBack()} />
+      <KeyboardAwareScrollView showsVerticalScrollIndicator={false}>
       <ScrollView>
         <Text style={{...FONTS.h3, fontWeight: '600'}}>
           Welcome to Zend USD
@@ -270,6 +272,7 @@ const ZendUsd = ({navigation}: any) => {
    </View>
   </View>
       </ScrollView>
+      </KeyboardAwareScrollView>
     </View>
   );
 };

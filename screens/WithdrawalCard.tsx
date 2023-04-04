@@ -1,3 +1,4 @@
+/* eslint-disable react-native/no-inline-styles */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable react-hooks/exhaustive-deps */
 import {View, Text, StyleSheet, TouchableOpacity, Image, TextInput as TextInput2} from 'react-native';
@@ -17,128 +18,129 @@ import { getFundingAccount, getWalletNetwork } from '../slice/WalletSlice';
 import SelectDropdowns from '../components/SelectDropdowns';
 import WithdrawalNotice from '../components/Modals/WithdrawalNotice';
 import { Notifier, NotifierComponents } from 'react-native-notifier';
+import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 
 
 const WithdrawalCard = (props: any) => {
   const assetName = props.route?.params?.info?.token;
   const currencyIcon = props.route?.params?.info?.icon;
   const currencyName = props.route?.params?.info?.currency;
-  
-  const [walletType, setWalletType] = useState("")
-  const [walletNetwork, setWalletNetwork] = useState("")
+
+  const [walletType, setWalletType] = useState('');
+  const [walletNetwork, setWalletNetwork] = useState('');
   const [assetData, setAssetData] = useState<any>();
-  const dispatch = useAppDispatch()
-  const [networks, setNetworks] = useState<any>()
-  const [modalVisible, setModalVisible] = useState(false)
-  const [amount, setAmount] = useState<any>("")
-  const [usdAmount, setUsdAmount] = useState<any>("")
-  const [memo, setMemo] = useState<any>("")
-  const [user, setUser] = useState<any>("")
-  const [userAddress, setUserAddress] = useState<any>("")
-  const [fee, setFee] = useState<any>()
+  const dispatch = useAppDispatch();
+  const [networks, setNetworks] = useState<any>();
+  const [modalVisible, setModalVisible] = useState(false);
+  const [amount, setAmount] = useState<any>('');
+  const [usdAmount, setUsdAmount] = useState<any>('');
+  const [memo, setMemo] = useState<any>('');
+  const [user, setUser] = useState<any>('');
+  const [userAddress, setUserAddress] = useState<any>('');
+  const [fee, setFee] = useState<any>();
   const marketInfos = useAppSelector(marketInfo) as any;
 
-  const coinPriceInfo = marketInfos?.find((data: any) => data?.symbol?.toLowerCase() === currencyName?.toLowerCase())
-  const currentPrice = coinPriceInfo?.current_price
+  const coinPriceInfo = marketInfos?.find((data: any) => data?.symbol?.toLowerCase() === currencyName?.toLowerCase());
+  const currentPrice = coinPriceInfo?.current_price;
 
   const handleVisibleOpen = () => {
-    if(parseFloat(amount) > parseFloat(assetData?.availBal)) {
+    if (parseFloat(amount) > parseFloat(assetData?.availBal)) {
       return Notifier.showNotification({
         title: 'Error',
-        description: "Insufficient Balance",
+        description: 'Insufficient Balance',
         Component: NotifierComponents.Alert,
         componentProps: {
           alertType: 'error',
         },
       });
     }
-    if(amount?.length <= 0) {
+    if (amount?.length <= 0) {
       return Notifier.showNotification({
         title: 'Error',
-        description: "Amount is required",
+        description: 'Amount is required',
         Component: NotifierComponents.Alert,
         componentProps: {
           alertType: 'error',
         },
       });
     }
-    if(walletType?.length <= 0) {
+    if (walletType?.length <= 0) {
       return Notifier.showNotification({
         title: 'Error',
-        description: "wallet type is required",
+        description: 'wallet type is required',
         Component: NotifierComponents.Alert,
         componentProps: {
           alertType: 'error',
         },
       });
     }
-    if(user?.length <= 0) {
+    if (user?.length <= 0) {
       return Notifier.showNotification({
         title: 'Error',
-        description: "Username is required",
+        description: 'Username is required',
         Component: NotifierComponents.Alert,
         componentProps: {
           alertType: 'error',
         },
       });
     }
-    setModalVisible(true)
-  }
+    setModalVisible(true);
+  };
 
-  
+
 
   const handleVisibleOpen2 = () => {
-    if(parseFloat(amount) > parseFloat(assetData?.availBal)) {
+    if (parseFloat(amount) > parseFloat(assetData?.availBal)) {
       return Notifier.showNotification({
         title: 'Error',
-        description: "Insufficient Balance",
+        description: 'Insufficient Balance',
         Component: NotifierComponents.Alert,
         componentProps: {
           alertType: 'error',
         },
       });
     }
-    if(amount?.length <= 0) {
+    if (amount?.length <= 0) {
       return Notifier.showNotification({
         title: 'Error',
-        description: "Amount is required",
+        description: 'Amount is required',
         Component: NotifierComponents.Alert,
         componentProps: {
           alertType: 'error',
         },
       });
     }
-    if(walletType?.length <= 0) {
+    if (walletType?.length <= 0) {
       return Notifier.showNotification({
         title: 'Error',
-        description: "wallet type is required",
+        description: 'wallet type is required',
         Component: NotifierComponents.Alert,
         componentProps: {
           alertType: 'error',
         },
       });
     }
-    if(walletNetwork?.length <= 0) {
+    if (walletNetwork?.length <= 0) {
       return Notifier.showNotification({
         title: 'Error',
-        description: "Network is required",
+        description: 'Network is required',
         Component: NotifierComponents.Alert,
         componentProps: {
           alertType: 'error',
         },
       });
     }
-    if(userAddress?.length <= 0) {
+    if (userAddress?.length <= 0) {
       return Notifier.showNotification({
         title: 'Error',
-        description: "Address is required",
+        description: 'Address is required',
         Component: NotifierComponents.Alert,
         componentProps: {
           alertType: 'error',
         },
       });
     }
-    if(parseFloat(amount) <  parseFloat(fee?.minWd)) {
+    if (parseFloat(amount) <  parseFloat(fee?.minWd)) {
       return Notifier.showNotification({
         title: 'Error',
         description: `Min Withdrawal is ${fee?.minWd} ${currencyName?.toUpperCase()}`,
@@ -148,64 +150,64 @@ const WithdrawalCard = (props: any) => {
         },
       });
     }
-    setModalVisible(true)
-  }
+    setModalVisible(true);
+  };
 
   const handleVisibleClose = () => {
-    setModalVisible(false)
-  }
+    setModalVisible(false);
+  };
 
 useEffect(() => {
   dispatch(getWithdrawalFee(currencyName?.toUpperCase())).then(pp => {
-    const selectedFee = pp?.payload[currencyName?.toUpperCase()]?.find((data: any) => data?.chain === walletNetwork)
-    setFee(selectedFee)
+    const selectedFee = pp?.payload[currencyName?.toUpperCase()]?.find((data: any) => data?.chain === walletNetwork);
+    setFee(selectedFee);
 
-  })
-}, [currencyName, walletNetwork])
+  });
+}, [currencyName, walletNetwork]);
 
 
 
 useEffect(() => {
   const loadData = async () => {
      await dispatch(getFundingAccount()).then(gg => {
-       setAssetData(gg?.payload?.[currencyName?.toUpperCase()])
-     })
+       setAssetData(gg?.payload?.[currencyName?.toUpperCase()]);
+     });
 
      await dispatch(getWalletNetwork(currencyName)).then((pp: any) => {
-      var xy = pp?.payload?.[currencyName?.toUpperCase()]
-      var reverseArr = xy[0]?.chain?.toLowerCase().includes("trc20") ? xy : xy?.reverse()
-      setNetworks(reverseArr)
-    })
-  } 
-  loadData()
- }, [currencyName])
+      var xy = pp?.payload?.[currencyName?.toUpperCase()];
+      var reverseArr = xy[0]?.chain?.toLowerCase().includes('trc20') ? xy : xy?.reverse();
+      setNetworks(reverseArr);
+    });
+  };
+  loadData();
+ }, [currencyName]);
 
 
  const networksList = networks?.map((data: any) => {
   return {
     id: data?.address,
-    name: data?.chain
-  }
- })
+    name: data?.chain,
+  };
+ });
 
 
  const handleMax = () => {
-   setAmount(assetData?.availBal ? parseFloat(assetData?.availBal)?.toFixed(5)?.slice(0, -1) : "0")
-   const bb = parseFloat(assetData?.availBal) * parseFloat(currentPrice) as any
-   setUsdAmount(isNaN(bb) ? 0 : bb.toString())
- }
+   setAmount(assetData?.availBal ? parseFloat(assetData?.availBal)?.toFixed(5)?.slice(0, -1) : '0');
+   const bb = parseFloat(assetData?.availBal) * parseFloat(currentPrice) as any;
+   setUsdAmount(isNaN(bb) ? 0 : bb.toString());
+ };
 
  const handleAmountChange = (value: any) => {
-  setAmount(value)
-  const bb = parseFloat(value) * parseFloat(currentPrice)
-  setUsdAmount( isNaN(bb) ? 0 : bb?.toString())
- }
+  setAmount(value);
+  const bb = parseFloat(value) * parseFloat(currentPrice);
+  setUsdAmount( isNaN(bb) ? 0 : bb?.toString());
+ };
 
  const handleUsdAmountChange = (value: any) => {
-  const bb = parseFloat(value) / parseFloat(currentPrice) as any
-   setAmount(bb === "Na" || isNaN(bb) ? 0 : parseFloat(bb)?.toFixed(5))
-  setUsdAmount(value)
- }
+  const bb = parseFloat(value) / parseFloat(currentPrice) as any;
+   setAmount(bb === 'Na' || isNaN(bb) ? 0 : parseFloat(bb)?.toFixed(5));
+  setUsdAmount(value);
+ };
 
 
 
@@ -239,7 +241,8 @@ useEffect(() => {
             </View>
 
             <View style={styles.form}>
-              <ScrollView showsVerticalScrollIndicator={false}> 
+            <KeyboardAwareScrollView showsVerticalScrollIndicator={false}>
+              <ScrollView showsVerticalScrollIndicator={false}>
               <View style={styles.card2}>
                 <View style={{width: '78%'}}>
                   <Text style={{...FONTS.body5, color: COLORS.gray}}>
@@ -265,11 +268,11 @@ useEffect(() => {
                </TouchableOpacity>
               </View>
               {
-                currencyName !== "usdc" && currencyName !== "usdt" &&  <View style={[styles.card2, {marginBottom: hp(30)}]}>
+                currencyName !== 'usdc' && currencyName !== 'usdt' &&  <View style={[styles.card2, {marginBottom: hp(30)}]}>
                 <View style={{width: '78%'}}>
                   <Text style={{...FONTS.body5, color: COLORS.gray}}>
                     Enter Usd Amount
-                  </Text> 
+                  </Text>
                   <TextInput2
                     style={styles.input}
                     onChangeText={value => handleUsdAmountChange(value)}
@@ -284,47 +287,47 @@ useEffect(() => {
                </TouchableOpacity>
               </View>
               }
-             
-              <SelectDropdowns 
+
+              <SelectDropdowns
                 label="Select Wallet"
                 data={[
                   {
                     id: 1,
-                    name: "Zend Pay"
+                    name: 'Zend Pay',
                   },
                   {
                     id: 2,
-                    name: "External Wallet"
-                  }
+                    name: 'External Wallet',
+                  },
                 ]}
                 selected={walletType}
                 setSelected={(value: any) => setWalletType(value)}
               />
 
                   {
-                    walletType ===  "Zend Pay" &&   <TextInput value={user} onChangeText={(value) => setUser(value)} label="Zend Username" />
+                    walletType ===  'Zend Pay' &&   <TextInput value={user} onChangeText={(value) => setUser(value)} label="Zend Username" />
                   }
                   {
-                    walletType ===  "Zend Pay" &&   <TextInput value="0" label="Transaction Fee" disabled />
+                    walletType ===  'Zend Pay' &&   <TextInput value="0" label="Transaction Fee" disabled />
                   }
                   {
-                    walletType ===  "External Wallet"  &&       <SelectDropdowns 
+                    walletType ===  'External Wallet'  &&       <SelectDropdowns
                     label="Select Network"
                     data={networksList}
                     selected={walletNetwork}
                     setSelected={(value: any) => setWalletNetwork(value)}
                   />
                   }
-                 
+
                   {
-                    walletType ===  "External Wallet" && <TextInput value={userAddress} onChangeText={(value) => setUserAddress(value)} label="Wallet Address" />
-                  } 
-                  
+                    walletType ===  'External Wallet' && <TextInput value={userAddress} onChangeText={(value) => setUserAddress(value)} label="Wallet Address" />
+                  }
+
                   {
-                    (currencyName === "xrp" || currencyName === "xlm") && walletType ===  "External Wallet" && <TextInput value={memo} onChangeText={(value) => setMemo(value)} label="Enter Memo" />
+                    (currencyName === 'xrp' || currencyName === 'xlm') && walletType ===  'External Wallet' && <TextInput value={memo} onChangeText={(value) => setMemo(value)} label="Enter Memo" />
                   }
               {
-                    walletType ===  "External Wallet" && <View style={styles.card}>
+                    walletType ===  'External Wallet' && <View style={styles.card}>
                         <View style={GlobalStyle.rowBetween}>
                           <Text>Fees:</Text>
                           <Text>{fee?.minFee} {currencyName?.toUpperCase()}</Text>
@@ -332,22 +335,23 @@ useEffect(() => {
                         <View style={styles.hr} />
                         <View style={GlobalStyle.rowBetween}>
                           <Text>Recipient will receive:</Text>
-                          <Text>{ amount?.length <= 0 || amount === "Na" || isNaN(amount) || fee?.minFee === undefined ? 0 : (parseFloat(amount) - parseFloat(fee?.minFee))?.toFixed(4).slice(0, -1)} {currencyName?.toUpperCase()}</Text>
+                          <Text>{ amount?.length <= 0 || amount === 'Na' || isNaN(amount) || fee?.minFee === undefined ? 0 : (parseFloat(amount) - parseFloat(fee?.minFee))?.toFixed(4).slice(0, -1)} {currencyName?.toUpperCase()}</Text>
                         </View>
                     </View>
                   }
 
               </ScrollView>
-              
+              </KeyboardAwareScrollView>
+
             </View>
           </View>
           <View style={styles.bottom}>
-            <IconTextButton label="Withdraw" onPress={walletType === "Zend Pay" ? () => handleVisibleOpen() : () => handleVisibleOpen2()} />
+            <IconTextButton label="Withdraw" onPress={walletType === 'Zend Pay' ? () => handleVisibleOpen() : () => handleVisibleOpen2()} />
           </View>
 
-          <WithdrawalNotice 
-              modalVisible={modalVisible} 
-              setModalVisible={() => handleVisibleClose()} 
+          <WithdrawalNotice
+              modalVisible={modalVisible}
+              setModalVisible={() => handleVisibleClose()}
               data={
                 {
                   user,
@@ -356,9 +360,9 @@ useEffect(() => {
                 currencyName,
                 chain: walletNetwork,
                 userAddress,
-                memo
+                memo,
               }
-              } 
+              }
           />
         </View>
       </View>
@@ -404,15 +408,15 @@ const styles = StyleSheet.create({
   },
   form: {
     marginVertical: hp(20),
-    marginBottom: hp(100)
+    marginBottom: hp(100),
   },
   top: {
     flex: 5,
-    marginBottom: hp(10)
+    marginBottom: hp(10),
   },
   bottom: {
     flex: 0.8,
-    paddingTop: hp(20)
+    paddingTop: hp(20),
   },
   card: {
     backgroundColor: COLORS.primary2,
@@ -420,12 +424,12 @@ const styles = StyleSheet.create({
     borderRadius: hp(10),
     borderColor: COLORS.primary,
     borderWidth: 0.2,
-    marginBottom: hp(10)
+    marginBottom: hp(10),
   },
   hr: {
     backgroundColor: COLORS.primary,
     height: 2,
-    marginVertical: hp(10)
+    marginVertical: hp(10),
   },
   card2: {
     flexDirection: 'row',

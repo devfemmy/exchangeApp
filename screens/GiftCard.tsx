@@ -8,10 +8,12 @@ import {SelectInput} from '../components/SelectInput';
 import {TextInput} from '../components/TextInput';
 import UploadCard from '../components/UploadCard';
 import IconTextButton from '../components/IconTextButton';
+import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 
 const GiftCard = ({navigation}: any) => {
   return (
     <View style={GlobalStyle.container}>
+      <KeyboardAwareScrollView showsVerticalScrollIndicator={false}>
       <ScrollView showsVerticalScrollIndicator={false}>
         <View>
           <View style={GlobalStyle.rowBetween}>
@@ -73,6 +75,7 @@ const GiftCard = ({navigation}: any) => {
           </View>
         </View>
       </ScrollView>
+      </KeyboardAwareScrollView>
     </View>
   );
 };

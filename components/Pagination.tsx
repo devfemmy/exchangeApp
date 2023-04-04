@@ -8,7 +8,8 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 const Pagination = ({data, handlePagination}: any) => {
   const styles = StyleSheet.create({
     pagination: {
-      backgroundColor: data?.page === 1 ? '#cccc' : COLORS.primary2,
+      // backgroundColor: data?.page === 1 ? '#cccc' : COLORS.primary2,
+      backgroundColor: COLORS.primary2,
       borderRadius: hp(5),
       minHeight: hp(35),
       justifyContent: 'center',
@@ -18,11 +19,13 @@ const Pagination = ({data, handlePagination}: any) => {
       width: wp(100),
     },
     textStyle: {
-      color: data?.page === 1 ? '#666666' : COLORS.primary,
+      // color: data?.page === 1 ? '#666666' : COLORS.primary,
+      color: COLORS.primary,
 
     },
     pagination2: {
-      backgroundColor: data?.page === data?.nextPage ? '#cccc' : COLORS.primary2,
+      // backgroundColor: data?.page === data?.nextPage ? '#cccc' : COLORS.primary2,
+      backgroundColor: COLORS.primary2,
       borderRadius: hp(5),
       minHeight: hp(35),
       justifyContent: 'center',
@@ -32,7 +35,8 @@ const Pagination = ({data, handlePagination}: any) => {
       width: wp(100),
     },
     textStyle2: {
-      color: data?.page === data?.nextPage ? '#666666' : COLORS.primary,
+      // color: data?.page === data?.nextPage ? '#666666' : COLORS.primary,
+      color: COLORS.primary
 
     },
     container: {
@@ -44,7 +48,7 @@ const Pagination = ({data, handlePagination}: any) => {
     <View style={[GlobalStyle.rowBetween, {paddingBottom: hp(10)}]}>
         {/* {data?.page === 1 ? null : */}
       <TouchableOpacity disabled={data?.page === 1} style={styles.pagination} onPress={() => handlePagination('prev')}>
-        {data?.page === 1 ? null : <AntDesign  name="stepbackward" size={18} color={data?.page === 1 ? '#66666' : COLORS.primary} />}
+        <AntDesign  name="stepbackward" size={18} color={COLORS.primary} />
       <Text style={styles.textStyle}>Previous</Text>
       </TouchableOpacity>
         {/* } */}
