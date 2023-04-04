@@ -14,7 +14,7 @@ const Header = ({info, note}: any) => {
            <View>
                 <FastImage
                     style={styles.image}
-                    defaultSource={info?.icon}
+                    defaultSource={require('../assets/images/placeholder.png')}
                     source={{
                         uri: info?.image,
                         priority: FastImage.priority.normal,
