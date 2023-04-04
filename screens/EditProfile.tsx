@@ -23,6 +23,7 @@ import DatePicker from 'react-native-date-picker';
 import {updateProfile, getProfile} from '../slice/AuthSlice';
 import {Notifier, NotifierComponents} from 'react-native-notifier';
 import moment from 'moment';
+import FastImage from 'react-native-fast-image';
 
 const EditProfile = ({navigation}: any) => {
   const dispatch = useAppDispatch();
@@ -151,7 +152,15 @@ const EditProfile = ({navigation}: any) => {
           <Text style={{...FONTS.h4, fontSize: hp(15), fontWeight: '400', color: '#232323', textAlign: 'center'}}>Upload New Image</Text>
           </Pressable>
           <Pressable style={GlobalStyle.profileCircle2}>
-            <Image source={{uri: imgUri }} style={styles.icons} />
+          <FastImage
+                    style={styles.icons}
+                    defaultSource={require('../assets/images/placeholder.png')}
+                    source={{
+                        uri: imgUri,
+                        priority: FastImage.priority.normal,
+                    }}
+                    resizeMode={FastImage.resizeMode.cover}
+                />
           </Pressable>
           <View>
             <Text style={{...FONTS.h3, fontSize: hp(18), fontWeight: '600', color: COLORS.primary, textAlign: 'center', textTransform: 'capitalize'}}>{getUserInfo?.firstName} {getUserInfo?.lastName}</Text>
