@@ -23,12 +23,12 @@ const initialState = {
 
 export const createUsd = createAsyncThunk(
   'zend/createUsd',
-  async (payload: CreateUsd, {rejectWithValue}) => {
+  async (payload: {data: CreateUsd, userId: string}, {rejectWithValue}) => {
     
     try {
       const response = await postRequest(
-        `${config.transaction_url}/zend-usd/create?userID=637e1e4d043ba0a69089bd2c`,
-        payload,
+        `${config.transaction_url}/zend-usd/create?userID=${payload?.userId}`,
+        payload?.data,
       );
       if (response?.status === 200) {
         return response?.data
@@ -42,17 +42,22 @@ export const createUsd = createAsyncThunk(
 
 export const verifyOrganisation = createAsyncThunk(
     'zend/verifyOrganisation',
-    async (payload: {CACNumber: string,registeredName: string, isUpload: boolean}, {rejectWithValue}) => {
+    async (payload: {userId: string,CACNumber: string,registeredName: string, isCacUploaded: boolean, isMemoUploaded: boolean,cacFile: string, memoFile: string}, {rejectWithValue}) => {
       const data = {
         CACNumber: payload?.CACNumber,
         registeredName: payload?.registeredName,
         CACDocument: {
-            isUploaded: payload?.isUpload
-        }
+          isUploaded: payload?.isCacUploaded,
+          file: payload?.cacFile,
+        },
+        articleOfMemorandum: {
+          isUploaded: payload?.isMemoUploaded,
+          file: payload?.memoFile,
+        },
       }
       try {
         const response = await postRequest(
-          `${config.api_base_url}/users/organization/verify?userID=637e1e4d043ba0a69089bd2c`,
+          `${config.api_base_url}/users/organization/verify?userID=${payload?.userId}`,
           data,
         );
         if (response?.status === 200) {

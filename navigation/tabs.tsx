@@ -20,7 +20,8 @@ import { hp } from "../utils/helper";
 const Tab = createBottomTabNavigator()
 
 
-const TabBarCustomButton = ({children, onPress}: any) => {
+const TabBarCustomButton = ({children,isActiveIcon, onPress}: any) => {
+
   return (
     <TouchableOpacity
         style={{
@@ -34,8 +35,11 @@ const TabBarCustomButton = ({children, onPress}: any) => {
         }}
         onPress={onPress}
     >
+        {
+            isActiveIcon ? children : <ArrowIcon width={24} height={24} />
+        }
 {/* {children} */}
-<ArrowIcon width={24} height={24} />
+{/* <ArrowIcon width={24} height={24} /> */}
     </TouchableOpacity>
   )
 }
@@ -120,7 +124,7 @@ const Tabs = () => {
                         return (
                             <TabIcon 
                                 focused={focused}
-                                icon={tradeStatusInfo ? icons.trade : icons.trade}
+                                icon={tradeStatusInfo ? icons.close : icons.trade}
                                 isTrade={true}
                                 label="Trade"
                             />
@@ -129,6 +133,7 @@ const Tabs = () => {
                     tabBarButton: (props) => (
                         <TabBarCustomButton 
                             {...props}
+                            isActiveIcon={tradeStatusInfo ? true : false}
                             onPress={() => tradeTabButtonHandler()}
                         />
                     )

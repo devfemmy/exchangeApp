@@ -22,6 +22,13 @@ const MainLayout = ({children}: any) => {
 
     const tradeAction = [
         {
+            id: 0,
+            header: "Transfer",
+            title: "Transfer between your balances",
+            icon: 'external-link',
+            navigationScreen: "Transfer",
+        },
+        {
             id: 1,
             header: "Deposit",
             title: "Deposit crypto to another wallet",

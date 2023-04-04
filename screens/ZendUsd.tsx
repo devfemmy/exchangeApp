@@ -4,8 +4,11 @@ import {
   StyleSheet,
   ScrollView,
   TouchableOpacity,
+  Modal,
 } from 'react-native';
-import React, {useState} from 'react';
+import { useIsFocused } from '@react-navigation/native';
+import React, {useEffect, useState, useCallback} from 'react';
+import DocumentPicker from "react-native-document-picker"
 import GlobalStyle from '../utils/globalStyle';
 import HeaderComponent from '../components/HeaderComponent';
 import {COLORS, FONTS} from '../utils/constants/theme';
@@ -16,28 +19,55 @@ import {TextInput} from '../components/TextInput';
 import {useFormik} from 'formik';
 import {CompanyVerificationSchema} from '../utils/schemas';
 import {CompanyVerificationFormData} from '../utils/types';
-import {useAppDispatch} from '../app/hooks';
+import {useAppDispatch, useAppSelector} from '../app/hooks';
 import {verifyOrganisation} from '../slice/ZendSlice';
 import {Notifier, NotifierComponents} from 'react-native-notifier';
 import {launchImageLibrary} from 'react-native-image-picker';
+import { userState } from '../slice/AuthSlice';
+import KycLogo from "../assets/svg/kyclogo.svg"
 
 const ZendUsd = ({navigation}: any) => {
   const dispatch = useAppDispatch();
   const [loader, setLoader] = useState(false);
   const [imgUriCac, setImageUriCac] = useState<any>();
   const [imgUriMemo, setImageUriMemo] = useState<any>();
+  const [modalVisible, setModalVisible] = useState(false)
+  const isFocused = useIsFocused();
+
+  const userStateInfo = useAppSelector(userState);
+  const getUserInfo = userStateInfo?.userData
+  ? userStateInfo?.userData
+  : userStateInfo;
+
+
+
+  useEffect(() => {
+      if(getUserInfo?.isKycVerified) {
+        setModalVisible(false)
+      }
+      else {
+        setModalVisible(true)
+      }
+  }, [getUserInfo?.isKycVerified, isFocused])
 
   const initialValues: CompanyVerificationFormData = {
     CACNumber: '',
     registeredName: '',
   };
 
+  const handleVisible = () => {
+    setModalVisible(false)
+  }
   const handleSubmitData = async (data: any) => {
     setLoader(true);
     const payload = {
       CACNumber: data?.CACNumber,
       registeredName: data?.registeredName,
-      isUpload: true,
+        isCacUploaded: true,
+        cacFile: imgUriCac?.uri,
+        isMemoUploaded: true,
+        memoFile: imgUriMemo,
+        userId: getUserInfo?.id
     };
     try {
       var response = await dispatch(verifyOrganisation(payload));
@@ -100,37 +130,57 @@ const ZendUsd = ({navigation}: any) => {
 
 
 
-    const imagePickerHandlerMemo = async() => {
-      const options: any = {
-        quality: 1.0,
-        maxWidth: 500,
-        mediaType: 'photo',
-        includeBase64: true,
-        maxHeight: 500,
-        storageOptions: {
-          skipBackup: true,
-        },
-      };
-      launchImageLibrary(options, async (response: any) => {
-        // const path = await this.normalizePath(response.uri);
-        // const imageUri = await RNFetchBlob.fs.readFile(path, 'base64');
-        if (response.didCancel) {
-          //('User cancelled photo picker');
-        } else if (response.error) {
-          //('ImagePicker Error: ', response.error);
-        } else {
-          // const uri = response.uri;
-          const imageUri = response?.assets[0].uri;
-          const payload = {
-            fileName: response?.assets[0].fileName,
-            uri: imageUri
-          }
-          setImageUriMemo(payload);
-      
-        }
-      });
-    };
+    const imagePickerHandlerMemo = useCallback(async () => {
+      try {
+        const response = await DocumentPicker.pick({
+          presentationStyle: 'fullScreen',
+        });
+        setImageUriMemo(response[0]?.uri);
+      } catch (err) {
+        console.warn(err);
+      }
+    }, []);
 
+    // async() => {
+    //   const options: any = {
+    //     quality: 1.0,
+    //     maxWidth: 500,
+    //     mediaType: 'pdf',
+    //     includeBase64: true,
+    //     maxHeight: 500,
+    //     storageOptions: {
+    //       skipBackup: true,
+    //     },
+    //   };
+    //   launchImageLibrary(options, async (response: any) => {
+    //     // const path = await this.normalizePath(response.uri);
+    //     // const imageUri = await RNFetchBlob.fs.readFile(path, 'base64');
+    //     if (response.didCancel) {
+    //       //('User cancelled photo picker');
+    //     } else if (response.error) {
+    //       //('ImagePicker Error: ', response.error);
+    //     } else {
+    //       // const uri = response.uri;
+    //       const imageUri = response?.assets[0].uri;
+    //       const payload = {
+    //         fileName: response?.assets[0].fileName,
+    //         uri: imageUri
+    //       }
+    //       setImageUriMemo(payload);
+      
+    //     }
+    //   });
+    // };
+
+
+
+    const proceedKyc = () => {
+      setModalVisible(false)
+      if(!getUserInfo?.hasVerifiedPhoneNumber) {
+        return navigation.navigate("VerifyPhone")
+      }
+      return navigation.navigate("KycScreen")
+    }
 
 
   return (
@@ -147,31 +197,37 @@ const ZendUsd = ({navigation}: any) => {
 
         <TouchableOpacity onPress={imagePickerHandlerCac}>
           <View style={styles.div}>
-            <AntDesign name="addfolder" size={20} color={COLORS.gray} />
-            <Text style={{...FONTS.body5, color: COLORS.gray}}>
+            <AntDesign name="addfolder" size={20} color={COLORS.primary} />
+            <Text style={{...FONTS.body5, color: COLORS.primary}}>
               Upload CAC Document
+            </Text>
+            <Text style={{...FONTS.body5, color: COLORS.black}}>
+              Support file type JPEG, PNG, Max file 2mb
             </Text>
             <Text style={{...FONTS.body5, color: COLORS.gray}}>{imgUriCac ? imgUriCac?.fileName : null}</Text>
           </View>
         </TouchableOpacity>
         <TouchableOpacity onPress={imagePickerHandlerMemo}>
           <View style={styles.div2}>
-            <AntDesign name="addfolder" size={20} color={COLORS.gray} />
-            <Text style={{...FONTS.body5, color: COLORS.gray}}>
+            <AntDesign name="addfolder" size={20} color={COLORS.primary} />
+            <Text style={{...FONTS.body5, color: COLORS.primary}}>
               Upload Mermat (MEMORANDUM OF ARTICLES)
+            </Text>
+            <Text style={{...FONTS.body5, color: COLORS.black}}>
+              Support file type PDF, Max file 2mb
             </Text>
             <Text style={{...FONTS.body5, color: COLORS.gray}}>{imgUriMemo ? imgUriMemo?.fileName : null}</Text>
           </View>
         </TouchableOpacity>
         <TextInput
-          label={'Enter Name of Company'}
+          label={'Business Name'}
           value={values?.registeredName}
           onBlur={handleBlur('registeredName')}
           onChangeText={handleChange('registeredName')}
           errorMsg={touched.registeredName ? errors.registeredName : undefined}
         />
         <TextInput
-          label={'Enter Cac registration number'}
+          label={'Business Number'}
           value={values?.CACNumber}
           onBlur={handleBlur('CACNumber')}
           onChangeText={handleChange('CACNumber')}
@@ -182,6 +238,37 @@ const ZendUsd = ({navigation}: any) => {
           onPress={() => handleSubmit()}
           isLoading={loader}
         />
+
+
+<View>
+    <View style={styles.centeredView}>
+     <Modal
+       animationType="slide"
+       transparent={true}
+       visible={modalVisible}
+       onDismiss={() => {
+        handleVisible();
+       }}
+       onRequestClose={() => {
+         handleVisible();
+       }}>
+       <View style={styles.centeredView}>
+       <View style={styles.modalView}>
+           <View style={{justifyContent: 'center', alignItems: 'center'}}>
+           <KycLogo />
+            <Text style={{...FONTS.body3, textAlign: 'center',}}>You need to complete your KYC to continue</Text>
+           </View>
+
+           <View style={{marginTop: hp(25)}}>
+            <IconTextButton label="Proceed to Kyc" onPress={() => proceedKyc()} />
+           </View>
+
+         </View>
+       </View>
+       
+     </Modal>
+   </View>
+  </View>
       </ScrollView>
     </View>
   );
@@ -201,6 +288,33 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     marginBottom: hp(30),
+  },
+  centeredView: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: COLORS.transparentBlack
+  },
+  end: {
+    width: '100%',
+    justifyContent: 'flex-end',
+    alignItems: 'flex-end',
+  },
+  modalView: {
+    margin: 20,
+    // height: hp(600),
+    backgroundColor: 'white',
+    borderRadius: 20,
+    padding: 25,
+    width: '90%',
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5,
   },
   div2: {
     borderColor: COLORS.primary,

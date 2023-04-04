@@ -10,7 +10,6 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import { TextInput } from '../components/TextInput';
 import { hp, wp } from '../utils/helper';
 import IconTextButton from '../components/IconTextButton';
-import OTPTextView from 'react-native-otp-textinput';
 import SmoothPinCodeInput from 'react-native-smooth-pincode-input';
 import { useAppDispatch } from '../app/hooks';
 import { getWithdrawalOtp, submitExternalWithdraw, submitInternalWithdraw } from '../slice/TradeSlice';
@@ -58,7 +57,12 @@ const TwoFactorVerification = (props: any) => {
             var response = await dispatch(submitInternalWithdraw(payload));
             if (submitInternalWithdraw.fulfilled.match(response)){
                 setLoader(false);
-                return props?.navigation.navigate('SuccessScreen');
+                return props?.navigation.navigate("SuccessScreen",{
+                  params: {
+                    header: "Withdrawal has been submitted successfully",
+                    text: "Go to token transaction history for more info"
+                  }
+                })
             }
             else {
                 var errMsg = response?.payload as string;
@@ -95,7 +99,12 @@ const TwoFactorVerification = (props: any) => {
             var response = await dispatch(submitExternalWithdraw(payload));
             if (submitInternalWithdraw.fulfilled.match(response)){
                 setLoader(false);
-                return props?.navigation.navigate('SuccessScreen');
+                return props?.navigation.navigate("SuccessScreen",{
+                  params: {
+                    header: "Withdrawal has been submitted successfully",
+                    text: "Go to token transaction history for more info"
+                  }
+                })
             }
             else {
                 var errMsg = response?.payload as string;

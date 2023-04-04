@@ -34,7 +34,12 @@ export default function ChangePassword({navigation}: any) {
       const response = await dispatch(changePassword(payload));
       if (changePassword.fulfilled.match(response)){
         setLoader(false);
-        return navigation.navigate('SuccessScreen');
+        return navigation.navigate("SuccessScreen",{
+          params: {
+            header: "Password successfully changed",
+            text: "You have successfully changed your password"
+          }
+        })
       }
       else {
         var errMsg = response?.payload as string;

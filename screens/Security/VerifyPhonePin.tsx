@@ -6,7 +6,7 @@ import MainLayout from '../mainLayout';
 import { hp } from '../../utils/helper';
 import HeaderComponent from '../../components/HeaderComponent';
 import GlobalStyle from '../../utils/globalStyle';
-import OTPTextView from 'react-native-otp-textinput';
+
 import SmoothPinCodeInput from 'react-native-smooth-pincode-input';
 import IconTextButton from '../../components/IconTextButton';
 import { useAppDispatch } from '../../app/hooks';
@@ -61,7 +61,12 @@ export default function VerifyPhonePin(props: any) {
       var response = await dispatch(verifyPhoneNumberOtp(payload))
       if(verifyPhoneNumberOtp.fulfilled.match(response)){
           setLoader(false)
-          props?.navigation.navigate('SuccessScreen');
+          return props?.navigation.navigate("SuccessScreen",{
+            params: {
+              header: "Phone verification successfully",
+              text: "You have successfully verified your phone number"
+            }
+          })
       }
       else {
         var errMsg = response?.payload as string

@@ -25,13 +25,13 @@ import SwapHeader from '../components/SwapHeader';
 
 const SwapCard = (props: any) => {
   const [assetName, setAssetName] = useState<any>();
-  const [currencyIcon, setCurrencyIcon] = useState<any>(57);
+  const [currencyIcon, setCurrencyIcon] = useState<any>(58);
   const [currencyName, setCurrencyName] = useState('USDT');
   const [max, setMax] = useState('');
   const [openSelectTo, setOpenSelectTo] = useState(false);
   const [openSelectFrom, setOpenSelectFrom] = useState(false);
   const [selectedAssetsTo, setSelectedAssetsTo] = useState('BTC');
-  const [selectedIcon, setSelectedIcon] = useState<any>(45);
+  const [selectedIcon, setSelectedIcon] = useState<any>(46);
   const [selectedBalance, setSelectedBalance] = useState<any>(0);
   const tradingAccountInfo: any = useAppSelector(tradingAccount);
   const [assetData, setAssetData] = useState<any>();
@@ -39,6 +39,8 @@ const SwapCard = (props: any) => {
   const [amount, setAmount] = useState<any>();
 
   const [assetDataTo, setAssetDataTo] = useState<any>();
+
+
 
   const handleOpenSelectToOpen = () => {
     setOpenSelectTo(true);

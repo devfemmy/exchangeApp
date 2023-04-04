@@ -137,7 +137,12 @@ const Transfer = ({navigation}: any) => {
             setAssetDataTrad(head);
           }
         );
-        return navigation.navigate("SuccessScreen")
+        return navigation.navigate("SuccessScreen",{
+          params: {
+            header: "Transfer Successful",
+            text: `You have successfully ${number} ${selectedAssets} from your ${from} to ${to} account`
+          }
+        })
       }
       else {
         setLoader(false);

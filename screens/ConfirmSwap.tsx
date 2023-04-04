@@ -53,7 +53,12 @@ const ConfirmSwap = (props: any) => {
         var response = await dispatch(swapToken(payload))
         if(swapToken?.fulfilled.match(response)) {
             setLoader(false)
-          return props?.navigation.navigate("SuccessScreen")
+          return props?.navigation.navigate("SuccessScreen", {
+            params: {
+              header: "Swap Successful",
+              text: "Go to swap transaction history for more information"
+            }
+          })
         }
         else {
             setLoader(false);

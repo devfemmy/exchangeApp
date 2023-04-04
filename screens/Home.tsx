@@ -32,10 +32,9 @@ import {
   tradingAccount,
 } from '../slice/WalletSlice';
 import AntDesign from 'react-native-vector-icons/AntDesign';
-import EvilIcons from 'react-native-vector-icons/EvilIcons';
-
-
-
+import TransferIcon from '../assets/svg/transferMobile.svg';
+import io from "socket.io-client"
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Home = ({navigation}: any) => {
   const dispatch = useAppDispatch();
@@ -48,6 +47,46 @@ const Home = ({navigation}: any) => {
   const getUserInfo = userStateInfo?.userData
     ? userStateInfo?.userData
     : userStateInfo;
+
+
+    useEffect(() => {
+      const loadData = async () => {
+       const token =  await AsyncStorage.getItem('userInfo').then((req: any) => JSON.parse(req))
+
+        const socketUrl = io('https://websocket.zendwallet.com', {
+        auth: {
+          accessToken: token?.accessToken,
+        },
+      });
+
+      if (!socketUrl.connected) {
+        socketUrl.on("connect", () => {
+          socketUrl.emit("room", getUserInfo.id);
+        });
+  
+        socketUrl.on("message", (message) => {
+          dispatch(getTradingAccount()).then(gg => {
+            setTradingAccountInfo(gg?.payload)
+          }
+          );
+          dispatch(getFundingAccount()).then(gg =>
+            setFundingAccountInfo(gg?.payload),
+          );
+
+        });
+      }
+      socketUrl.on("roomError", (err) => {
+        console.log(err);
+        console.log(err instanceof Error);
+      });
+
+      }
+      loadData()
+    }, [])
+
+
+
+
 
     
 
@@ -121,16 +160,19 @@ const Home = ({navigation}: any) => {
       id: 1,
       name: 'Set Transaction Pin',
       status: getUserInfo?.hasSetPin ? 'Done' : 'Pending',
+      route: "ChangePin"
     },
     {
       id: 2,
       name: 'Verify your identity',
       status: getUserInfo?.isKycVerified ? 'Done' : 'Pending',
+      route: "KycScreen"
     },
     {
       id: 3,
       name: 'Verify phone number',
       status: getUserInfo?.hasVerifiedPhoneNumber ? 'Done' : 'Pending',
+      route: "VerifyPhone"
     },
   ];
 
@@ -189,7 +231,8 @@ const Home = ({navigation}: any) => {
                   <TouchableOpacity onPress={() => navigation.navigate("Transfer")}>
                     <View>
                       <View style={styles.externalLink}>
-                      <EvilIcons  name="external-link" size={40} color={COLORS.white} />
+                      {/* <EvilIcons  name="external-link" size={40} color={COLORS.white} /> */}
+                      <TransferIcon />
                       </View>
                       <Text style={[styles.txt, {...FONTS.body5, color:COLORS.white}]}>
                         Transfer
@@ -220,12 +263,14 @@ const Home = ({navigation}: any) => {
               ?.filter(info => info?.status === 'Pending')
               .map(data => {
                 return (
-                  <View style={styles.actionCard}>
+                 <TouchableOpacity onPress={() => navigation.navigate(data?.route)}>
+                   <View style={styles.actionCard}>
                     <Text style={[{...FONTS.body5, fontWeight: '600'}]}>{data?.name}</Text>
                     <Text style={[styles.tag, {...FONTS.body5, color: COLORS.white}]}>
                       {data?.status}
                     </Text>
                   </View>
+                 </TouchableOpacity>
                 );
               })}
 

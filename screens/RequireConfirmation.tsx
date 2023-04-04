@@ -14,7 +14,7 @@ import {generateSigninToken, verifySignin} from '../slice/AuthSlice';
 import {useAppDispatch} from '../app/hooks';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import SmoothPinCodeInput from 'react-native-smooth-pincode-input';
-import OTPTextView from 'react-native-otp-textinput';
+
 
 const RequireConfirmation = (props: any) => {
   const emailAddress = props?.route?.params?.params?.emailAddress;

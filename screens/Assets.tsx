@@ -26,6 +26,10 @@ import {getFundingAccount, getTradingAccount} from '../slice/WalletSlice';
 import MarketComponent from '../components/MarketComponent';
 import { algorand, avalanche, bitcoin, bitcoinCash, dogeCoin, ethereum, litecoin, okb, polygon, ripple, solana, steller, tether, tron, usd } from '../assets/images';
 import EvilIcons from 'react-native-vector-icons/EvilIcons';
+import FastImage from 'react-native-fast-image';
+import { userState } from '../slice/AuthSlice';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { io } from 'socket.io-client';
 
 const Assets = ({navigation}: any) => {
   const [type, setType] = useState('funding');
@@ -36,6 +40,47 @@ const Assets = ({navigation}: any) => {
   const dispatch = useAppDispatch();
   const [value, setValue] = useState<any>()
   const [refreshing, setRefreshing] = useState(false);
+  const userStateInfo = useAppSelector(userState);
+  const getUserInfo = userStateInfo?.userData
+  ? userStateInfo?.userData
+  : userStateInfo;
+
+
+  useEffect(() => {
+    const loadData = async () => {
+     const token =  await AsyncStorage.getItem('userInfo').then((req: any) => JSON.parse(req))
+
+      const socketUrl = io('https://websocket.zendwallet.com/balance', {
+      auth: {
+        accessToken: token?.accessToken,
+      },
+    });
+
+    if (!socketUrl.connected) {
+      socketUrl.on("connect", () => {
+        socketUrl.emit("room", getUserInfo.id);
+      });
+
+      socketUrl.on("message", (message) => {
+        dispatch(getTradingAccount()).then(gg => {
+          setTradingAccountInfo(gg?.payload)
+        }
+        );
+        dispatch(getFundingAccount()).then(gg => {
+          setFundingAccountInfo(gg?.payload)
+        }
+        );
+
+      });
+    }
+    socketUrl.on("roomError", (err) => {
+      console.log(err);
+      console.log(err instanceof Error);
+    });
+
+    }
+    loadData()
+  }, [])
 
   const newFundingAccount = fundingAccountInfo ? Object?.values(fundingAccountInfo) : [];
   const newFundingAccount2 = fundingAccountInfo ? Object?.keys(fundingAccountInfo) : [];
@@ -185,17 +230,26 @@ const Assets = ({navigation}: any) => {
         <ScrollView showsVerticalScrollIndicator={false} refreshControl={
               <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
             }>
-          <Text style={{...FONTS.h2, marginBottom: hp(5), fontWeight: '600'}}>Assets</Text>
+         
           <View style={GlobalStyle.rowBetween}>
-            <View style={{width: '60%'}}>
+            <View style={{width: '70%'}}>
+            <Text style={{...FONTS.h2, marginBottom: hp(-5), fontWeight: '600'}}>Assets</Text>
               <Text style={{...FONTS.body5, opacity: 0.7}}>
-                Buy, Sell and Swap all of the assets offered by our wallet
+                List of assets available on Zend wallet
               </Text>
             </View>
-            <View style={{backgroundColor: COLORS.primary, width: wp(50), borderRadius: hp(10), paddingVertical: hp(10),  justifyContent: 'center', alignItems: 'center'}}>
-              <TouchableOpacity onPress={() => navigation.navigate("Transfer")}>
-              <EvilIcons  name="external-link" size={40} color={COLORS.white} />
-              </TouchableOpacity>
+            <View style={{width: wp(50), borderRadius: hp(10),   justifyContent: 'center', alignItems: 'center'}}>
+            <View>
+                <FastImage
+                    style={styles.image}
+                    defaultSource={getUserInfo?.icon}
+                    source={{
+                        uri: getUserInfo?.image,
+                        priority: FastImage.priority.normal,
+                    }}
+                    resizeMode={FastImage.resizeMode.cover}
+                />
+            </View>
             </View>
           </View>
           <View style={styles.search}>
@@ -286,5 +340,10 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end', 
     alignItems: 'flex-end',
     width: "30%"
-  }
+  },
+  image: {
+    width: wp(50),
+    height: hp(50),
+    borderRadius: 50,
+},
 });

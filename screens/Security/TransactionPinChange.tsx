@@ -6,7 +6,7 @@ import MainLayout from '../mainLayout';
 import { hp } from '../../utils/helper';
 import HeaderComponent from '../../components/HeaderComponent';
 import GlobalStyle from '../../utils/globalStyle';
-import OTPTextView from 'react-native-otp-textinput';
+
 import SmoothPinCodeInput from 'react-native-smooth-pincode-input';
 import { TextInput } from '../../components/TextInput';
 import IconTextButton from '../../components/IconTextButton';
@@ -55,7 +55,12 @@ export default function ChangeTransactionPin({navigation}: any) {
         const response = await dispatch(updatePin(payload));
         if (updatePin.fulfilled.match(response)){
           setLoader(false);
-          return navigation.navigate('SuccessScreen');
+          return navigation.navigate("SuccessScreen",{
+            params: {
+              header: "Transaction Pin successfully changed",
+              text: "You have successfully changed your transaction pin"
+            }
+          })
         }
         else {
           var errMsg = response?.payload as string;
@@ -74,7 +79,12 @@ export default function ChangeTransactionPin({navigation}: any) {
         const response = await dispatch(changePin(payload));
         if (changePin.fulfilled.match(response)){
           setLoader(false);
-          return navigation.navigate('SuccessScreen');
+          return navigation.navigate("SuccessScreen",{
+            params: {
+              header: "Transaction pin successfully changed",
+              text: "You have successfully changed your transaction pin"
+            }
+          })
         }
         else {
           var errMsg = response?.payload as string;

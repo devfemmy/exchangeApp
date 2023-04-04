@@ -19,8 +19,8 @@ if(isTrade){
         source={icon}
         resizeMode="contain"
         style={{
-            width: 30,
-            height: 30,
+            width: 20,
+            height: 20,
             tintColor: COLORS.white,
             ...iconStyle,
         }}

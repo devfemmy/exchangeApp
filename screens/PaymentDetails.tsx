@@ -7,20 +7,26 @@ import {hp, wp} from '../utils/helper';
 import IconTextButton from '../components/IconTextButton';
 import Feather from 'react-native-vector-icons/Feather';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import { useAppDispatch } from '../app/hooks';
+import { useAppDispatch, useAppSelector } from '../app/hooks';
 import { createUsd } from '../slice/ZendSlice';
 import { Notifier, NotifierComponents } from 'react-native-notifier';
+import { userState } from '../slice/AuthSlice';
 
 
 const PaymentDetails = (props: any) => {
   const {amount, rate, country, amtToReceive,phoneNumber, beneficiaryName, beneficiaryAddress, beneficiaryEmail,invoiceInfo, swiftCode,bankAccount, bankName} = props?.route?.params?.params
   const [loader, setLoader] = useState(false)
   const dispatch = useAppDispatch()
-
+  const userStateInfo = useAppSelector(userState);
+  const getUserInfo = userStateInfo?.userData
+  ? userStateInfo?.userData
+  : userStateInfo;
+  
 
   const handleSubmit = async () => {
       setLoader(true)
       const payload = {
+        data: {
         swiftCode: swiftCode,
         amount: parseFloat(amount),
         charges: 0,
@@ -36,7 +42,9 @@ const PaymentDetails = (props: any) => {
         paymentInvoice: {
             isUploaded: true,
             file: invoiceInfo?.uri
-        }
+        },
+        },
+        userId: getUserInfo?.id
       }
       try{
         var response = await dispatch(createUsd(payload))

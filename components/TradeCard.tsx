@@ -9,6 +9,7 @@ import GlobalStyle from '../utils/globalStyle';
 import { COLORS, FONTS } from '../utils/constants/theme';
 import { hp } from '../utils/helper';
 import { useNavigation } from '@react-navigation/native';
+import EvilIcons from 'react-native-vector-icons/EvilIcons';
 
 const TradeCard = ( {data}: any) => {
     const navigation = useNavigation() as any;
@@ -21,14 +22,15 @@ const TradeCard = ( {data}: any) => {
         <View style={{width: '15%'}}>
         <View style={styles.img}>
             {icon === 'dollar' ?
-        <Fontisto size={22} name={icon} color={COLORS.primary} />  :
-        <AntDesign size={22} name={icon} color={COLORS.primary} />
+        <Fontisto size={20} name={icon} color={COLORS.black} />  :
+        icon === "external-link" ?  <EvilIcons  name={icon} size={30} color={COLORS.black} /> :
+        <AntDesign size={20} name={icon} color={COLORS.black} />
         }
         </View>
         </View>
         <View style={{width: '70%'}}>
         <Text style={{...FONTS.body3, color: COLORS.black, fontWeight: '500'}}>{header}</Text>
-        <Text style={{...FONTS.body4, color: COLORS.gray}}>{title}</Text>
+        <Text style={{...FONTS.body5, color: COLORS.gray}}>{title}</Text>
         </View>
         <View style={{width: '5%'}}>
         <Image source={stroke} />
@@ -50,15 +52,15 @@ const styles = StyleSheet.create({
         width: '100%',
         // flexDirection: 'row',
         // alignItems: 'center',
-        paddingVertical: hp(15),
+        paddingVertical: hp(12),
         borderBottomWidth: 1,
         borderBottomColor: 'rgba(128, 128, 128, 0.15)',
     },
     img: {
-        backgroundColor: COLORS.primary2,
+        backgroundColor: "rgb(226, 230, 253)",
         borderRadius: 25,
-        width: hp(50),
-        height: hp(50),
+        width: hp(40),
+        height: hp(40),
         marginRight: hp(15),
         justifyContent: 'center',
         alignItems: 'center',

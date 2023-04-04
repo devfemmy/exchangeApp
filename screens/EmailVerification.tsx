@@ -2,7 +2,7 @@
 import {View, Text, StyleSheet} from 'react-native';
 import React, {useState} from 'react';
 import AntDesign from 'react-native-vector-icons/AntDesign';
-import OTPInputView from '@twotalltotems/react-native-otp-input';
+import SmoothPinCodeInput from 'react-native-smooth-pincode-input';
 
 import {Notifier, NotifierComponents} from 'react-native-notifier';
 
@@ -72,19 +72,25 @@ const EmailVerification = (props: any) => {
         }}>{`Enter the OTP code sent to your email ${emailAddress}`}</Text>
 
       <View style={styles.otp}>
-        <OTPInputView
-          style={styles.otpInputView}
-          pinCount={6}
-          code={code}
-          onCodeChanged={code => {
-            setCode(code);
-          }}
-          editable
-          keyboardType="default"
-          autoFocusOnLoad
-          codeInputFieldStyle={styles.underlineStyleBase}
-          codeInputHighlightStyle={styles.underlineStyleHighLighted}
-        />
+         <SmoothPinCodeInput
+                cellStyle={{
+                  backgroundColor: COLORS.primary2,
+                  borderRadius: 5,
+                  color: COLORS.primary,
+                  borderWidth: 0,
+                  // width: hp(63),
+                  // height: hp(63),
+                }}
+                codeLength={6}
+                cellSize={40}
+                cellSpacing={20}
+                cellStyleFocused={{
+                  borderColor: COLORS.primary,
+                  borderBottomWidth: 4,
+                }}
+                value={code}
+                onTextChange={(value: string) => setCode(value)}
+              />
       </View>
       <View style={styles.bottom}>
         <IconTextButton
