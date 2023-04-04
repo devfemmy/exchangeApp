@@ -11,6 +11,7 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 import { TextInput } from '../components/TextInput';
 import IconTextButton from '../components/IconTextButton';
 import { COLORS, FONTS } from '../utils/constants/theme';
+import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 
 const ResetPassword = ({navigation}: any) => {
   const initialValues: ResetPasswordData = {
@@ -31,6 +32,7 @@ const { values, errors, touched, handleChange, handleSubmit, handleBlur } =
     });
   return (
     <View style={GlobalStyle.container}>
+    <KeyboardAwareScrollView showsVerticalScrollIndicator={false}>
        <ScrollView>
                 <View style={styles.top}>
                     <AntDesign onPress={() => navigation.goBack()} name="arrowleft" style={styles.icon} size={hp(20)} color={COLORS.gray2} />
@@ -86,6 +88,7 @@ const { values, errors, touched, handleChange, handleSubmit, handleBlur } =
                     </View>
                 </View>
             </ScrollView>
+            </KeyboardAwareScrollView>
     </View>
   )
 }

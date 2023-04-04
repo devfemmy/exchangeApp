@@ -22,6 +22,7 @@ import {
   tradingAccount,
 } from '../slice/WalletSlice';
 import SwapHeader from '../components/SwapHeader';
+import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 
 const SwapCard = (props: any) => {
   const [assetName, setAssetName] = useState<any>();
@@ -145,6 +146,7 @@ const SwapCard = (props: any) => {
 
   return (
     <View style={GlobalStyle.container}>
+      <KeyboardAwareScrollView showsVerticalScrollIndicator={false}>
       <View style={styles.centeredView}>
         <View style={styles.centeredView}>
           <View style={[styles.modalView, styles.top]}>
@@ -323,6 +325,8 @@ const SwapCard = (props: any) => {
           />
         </View>
       </View>
+      </KeyboardAwareScrollView>
+
     </View>
   );
 };

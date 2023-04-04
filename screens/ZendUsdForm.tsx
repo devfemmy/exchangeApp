@@ -20,6 +20,7 @@ import { UsdSchema } from '../utils/schemas';
 import { useFormik } from 'formik';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 
 const ZendUsdForm = (props: any) => {
@@ -187,7 +188,7 @@ const ZendUsdForm = (props: any) => {
   const sectionTwo = () => {
     return (
       <View>
-
+      <KeyboardAwareScrollView showsVerticalScrollIndicator={false}>
         <View style={styles.form}>
         <TextInput label={'Enter Beneficial Name'} value={values?.beneficiaryName}
               onBlur={handleBlur('beneficiaryName')}
@@ -235,11 +236,13 @@ const ZendUsdForm = (props: any) => {
             onPress={handleSubmit}
           />
         </View>
+        </KeyboardAwareScrollView>
       </View>
     );
   };
 
   return (
+    <KeyboardAwareScrollView>
     <ScrollView>
       <View style={GlobalStyle.container}>
          <View style={[GlobalStyle.rowBetween, {marginBottom: hp(20)}]}>
@@ -274,6 +277,7 @@ const ZendUsdForm = (props: any) => {
       </View>
       <InvoiceUploadModal modalVisible={openModal} setModalVisible={() => handleClose()} routeNext={(data: any) => routeNext(data)} />
     </ScrollView>
+    </KeyboardAwareScrollView>
   );
 };
 

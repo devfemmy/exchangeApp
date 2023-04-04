@@ -166,7 +166,7 @@ const searchTradData = !value
               <Text style={{...FONTS.body3}}>Token</Text>
               <Text style={{...FONTS.body3}}>Balance</Text>
             </View>
-            <ScrollView>{assets()}</ScrollView>
+            <ScrollView showsVerticalScrollIndicator={false}>{assets()}</ScrollView>
           </View>
         </View>
       </View>
