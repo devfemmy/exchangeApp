@@ -73,6 +73,7 @@ const EmailVerification = (props: any) => {
 
       <View style={styles.otp}>
          <SmoothPinCodeInput
+         keyboardType="default"
                 cellStyle={{
                   backgroundColor: COLORS.primary2,
                   borderRadius: 5,

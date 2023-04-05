@@ -181,6 +181,7 @@ const TwoFactorVerification = (props: any) => {
           </View> */}
           <View style={{alignItems: 'center', marginVertical: 10, marginBottom: 5}}>
             <SmoothPinCodeInput
+              keyboardType="default"
                 cellStyle={{
                   backgroundColor: COLORS.primary2,
                   borderRadius: 5,

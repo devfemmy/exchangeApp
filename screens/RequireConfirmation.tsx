@@ -122,6 +122,7 @@ const RequireConfirmation = (props: any) => {
       </View> */}
                 <View style={{alignItems: 'center', marginVertical: 25, marginBottom: 5}}>
             <SmoothPinCodeInput
+                keyboardType="default"
                 cellStyle={{
                   backgroundColor: COLORS.primary2,
                   borderRadius: 5,
