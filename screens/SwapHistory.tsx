@@ -188,13 +188,13 @@ const SwapHistory = ({navigation}: any) => {
       <FlatList 
         keyExtractor={item => item?.id}
         showsVerticalScrollIndicator={false}
+        contentContainerStyle={{flexGrow: 1}}
+        ListFooterComponent={swapData?.transactions?.length > 1 && <Pagination data={swapData?.transactions} handlePagination={(data:any) => handlePagination(data)} />}
         data={swapData?.transactions}
         renderItem={(item) => {
          return <TranHistoryCard data={item?.item} handlePress={(data: any) => handleModalOpen(data)} />;
         }}
       />
-           <Pagination data={swapData} handlePagination={(data:any) => handlePagination(data)} />
-
      </View>
 
      <SwapDetailModal modalVisible={modalVisible} setModalVisible={() => handleModalClose()} data={details} />

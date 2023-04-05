@@ -412,13 +412,13 @@ const AssetInfo = (props: any) => {
         <FlatList
          keyExtractor={(item) => item?.id}
          showsVerticalScrollIndicator={false}
+         ListFooterComponent={<Pagination data={assetTransactions} handlePagination={(data:any) => handlePagination(data)} />}
          data={filterTransaction}
          renderItem={(item) => {
           return <HistoryCard data={item?.item} handleClick={(data: any) => handleModalOpen(data)} />;
          }}
         />
       }
-           <Pagination data={assetTransactions} handlePagination={(data:any) => handlePagination(data)} />
 </View>
 
 <TransactionDetailModal modalVisible={modalVisible} setModalVisible={() => handleModalClose()} data={details} />
