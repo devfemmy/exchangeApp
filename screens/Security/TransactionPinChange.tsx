@@ -150,6 +150,7 @@ export default function ChangeTransactionPin({navigation}: any) {
              <Text style={{...FONTS.h3, fontWeight: '600'}}>Enter Pin</Text>
           <View style={{alignItems: 'center', marginVertical: 25}}>
             <SmoothPinCodeInput
+              keyboardType="default"
                 cellStyle={{
                   backgroundColor: COLORS.primary2,
                   borderRadius: 5,

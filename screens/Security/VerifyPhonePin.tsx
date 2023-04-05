@@ -105,6 +105,7 @@ export default function VerifyPhonePin(props: any) {
             /> */}
           <View style={{alignItems: 'center', marginVertical: 15}}>
             <SmoothPinCodeInput
+              keyboardType="default"
                 cellStyle={{
                   backgroundColor: COLORS.primary2,
                   borderRadius: 5,
