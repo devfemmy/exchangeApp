@@ -1,7 +1,8 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react-native/no-inline-styles */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { View, Text, StyleSheet } from 'react-native';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import GlobalStyle from '../utils/globalStyle';
 import HeaderComponent from '../components/HeaderComponent';
 import { COLORS, FONTS } from '../utils/constants/theme';
@@ -9,10 +10,27 @@ import { copyToClipboard, hp, wp } from '../utils/helper';
 import { List } from 'react-native-paper';
 import Feather from 'react-native-vector-icons/Feather';
 import { TouchableOpacity } from 'react-native';
+import { useAppDispatch, useAppSelector } from '../app/hooks';
+import { getReferrerCode } from '../slice/WalletSlice';
+import { userState } from '../slice/AuthSlice';
 
 
 const ReferAndEarn = ({navigation}: any) => {
-  let referralCode = 'de22e0d9';
+  let [referralCode, setReferralCode] = useState<any>();
+  const userStateInfo = useAppSelector(userState);
+  const dispatch = useAppDispatch()
+  const getUserInfo = userStateInfo?.userData
+  ? userStateInfo?.userData
+  : userStateInfo;
+
+  useEffect(() => {
+    const payload = {
+      userId: getUserInfo?.id
+    }
+    dispatch(getReferrerCode(payload)).then(pp => setReferralCode(pp?.payload?.data))
+  }, [])
+  
+
   return (
     <View style={GlobalStyle.container}>
      <HeaderComponent onPress={() => navigation?.goBack()} />
@@ -21,9 +39,9 @@ const ReferAndEarn = ({navigation}: any) => {
       <View style={[GlobalStyle.rowBetween, styles.card]}>
         <View>
         <Text style={{...FONTS.body5, textAlign: 'left', color: COLORS.gray}}>Referral Code</Text>
-          <Text style={{...FONTS.h2, fontWeight: '600', marginRight: hp(20)}}>{referralCode}</Text>
+          <Text style={{...FONTS.h2, fontWeight: '600', marginRight: hp(20)}}>{referralCode?.referralCode}</Text>
         </View>
-        <TouchableOpacity onPress={() => copyToClipboard(referralCode)}>
+        <TouchableOpacity onPress={() => copyToClipboard(referralCode?.referralCode)}>
           <Feather name="copy" color={COLORS.primary} size={20} />
         </TouchableOpacity>
       </View>

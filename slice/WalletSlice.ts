@@ -76,6 +76,17 @@ export const getAssetTransaction = createAsyncThunk(
     }
 )
 
+export const getReferrerCode = createAsyncThunk(
+    'wallet/getReferrerCode',
+    async (payload: {userId: string}) => {
+        var response = await getRequest(config.api_base_url + `/users/referral-code/generate?userID=${payload?.userId}`)
+       
+        if (response?.status === 200) {
+            return response?.data
+          }
+    }
+)
+
 export const getWalletNetwork = createAsyncThunk(
     'wallet/getWalletNetwork',
     async (payload: string) => {
@@ -150,7 +161,15 @@ export const walletSlice = createSlice({
         builder.addCase(getWalletNetwork.rejected, (state) => {
             state.loading = false
         })
-
+        builder.addCase(getReferrerCode.pending, (state) => {
+            state.loading = true;
+        }),
+            builder.addCase(getReferrerCode.fulfilled, (state, action) => {
+                state.loading = false
+            });
+        builder.addCase(getReferrerCode.rejected, (state) => {
+            state.loading = false
+        })
 
 
     },

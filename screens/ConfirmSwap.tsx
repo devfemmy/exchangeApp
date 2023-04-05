@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable semi */
 import {View, Text, StyleSheet, Image, ActivityIndicator} from 'react-native';
@@ -22,8 +23,24 @@ const ConfirmSwap = (props: any) => {
   const dispatch = useAppDispatch();
   const [quoteInfo, setQuoteInfo] = useState<any>();
   const [isFetching, setIsFetching] = useState(false);
+  const [isFetching2, setIsFetching2] = useState(false);
   const [loader, setLoader] = useState(false)
+  const [counter, setCounter] = React.useState(0);
 
+  useEffect(() => {
+    setIsFetching2(true);
+      counter > 0 && setTimeout(() => setCounter(counter - 1), 1000);
+      if (counter === 0) {
+        setIsFetching2(false);
+        setCounter(6);
+       }
+       else {
+
+       }
+    }, [counter]);
+
+    // setEmailLoader(true);
+    // setCounter(50);
 
   useEffect(() => {
     const payload = {
@@ -32,14 +49,17 @@ const ConfirmSwap = (props: any) => {
       fromCurrencyAmt: amount,
     };
 
-    setIsFetching(true);
     setInterval(() => {
       dispatch(getSwapQuote(payload)).then((pp: any) => {
         setQuoteInfo(pp?.payload);
-        setIsFetching(false);
+        setIsFetching(!isFetching);
       });
-    }, 1000);
+    }, 2000);
   }, [fromName, toName, amount]);
+
+
+
+
 
 
   const handleSwapToken = async () => {
@@ -114,8 +134,11 @@ const ConfirmSwap = (props: any) => {
         </View>
 
       <View style={{marginVertical: hp(20)}}>
-        {isFetching ? (
-          <Text style={{textAlign: 'center'}}>Fetching new rate</Text>
+        {counter < 3 ? (
+          <Text style={{textAlign: 'center'}}>
+            <Text>Fetching new rate </Text>
+            <Text style={{color: COLORS.primary}}>{counter}s</Text>
+          </Text>
         ) : (
           <View
             style={{

@@ -162,7 +162,10 @@ const TwoFactorVerification = (props: any) => {
              </TouchableOpacity>
              </View>
         </View>
-        {counter === 0 ? null : <Text style={{marginTop: hp(-15), fontSize: hp(10)}}>You can resend code in {counter}</Text>
+        {counter === 0 ? null : <Text style={{marginTop: hp(-15)}}>
+          <Text style={{fontSize: hp(10)}}>You can resend code in </Text>
+          <Text style={{fontSize: hp(10), color: COLORS.primary}}> {counter}</Text>
+        </Text>
 }
 
         <View style={styles.div}>

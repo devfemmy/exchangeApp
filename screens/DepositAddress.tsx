@@ -1,3 +1,5 @@
+/* eslint-disable quotes */
+/* eslint-disable comma-dangle */
 import {View, Text, StyleSheet, ScrollView} from 'react-native';
 import React from 'react';
 import GlobalStyle from '../utils/globalStyle';
@@ -8,11 +10,30 @@ import {copyToClipboard, hp, wp} from '../utils/helper';
 import Feather from 'react-native-vector-icons/Feather';
 import IconTextButton from '../components/IconTextButton';
 import {TouchableOpacity} from 'react-native-gesture-handler';
+import Share from 'react-native-share';
+
 
 const DepositAddress = (props: any) => {
   const {chain, address, memo} = props?.route?.params?.data;
   const {token, icon, currency} = props?.route?.params?.otherInfo;
 
+
+
+
+  const onShare = async () => {
+    const options = {
+      title: `Deposit Address for ${token}`,
+      message: `${address}`,
+    }
+
+    Share.open(options)
+    .then((res) => {
+      console.log(res);
+    })
+    .catch((err) => {
+      err && console.log(err);
+    })
+  }
 
 
   return (
@@ -111,7 +132,7 @@ const DepositAddress = (props: any) => {
             </TouchableOpacity>
           </View>
           <View style={styles.btn}>
-            <IconTextButton label="Share Address" />
+            <IconTextButton label="Share Address" onPress={onShare} />
           </View>
         </View>
       </View>

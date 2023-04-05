@@ -91,8 +91,8 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         marginBottom: hp(15),
         paddingBottom: hp(10),
-        borderColor: COLORS.lightGray3,
-        borderWidth: 1,
+        borderColor: "rgba(72, 95, 230, 0.5)",
+        borderWidth: 0.4,
         paddingVertical: hp(15),
         paddingHorizontal: hp(10),
         borderRadius: 10

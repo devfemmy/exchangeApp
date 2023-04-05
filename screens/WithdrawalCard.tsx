@@ -194,18 +194,20 @@ useEffect(() => {
  const handleMax = () => {
    setAmount(assetData?.availBal ? parseFloat(assetData?.availBal)?.toFixed(5)?.slice(0, -1) : '0');
    const bb = parseFloat(assetData?.availBal) * parseFloat(currentPrice) as any;
-   setUsdAmount(isNaN(bb) ? 0 : bb.toString());
+   const dc = bb?.toFixed(5)?.slice(0, -1);
+   setUsdAmount(isNaN(dc) ? 0 : dc.toString());
  };
 
  const handleAmountChange = (value: any) => {
   setAmount(value);
   const bb = parseFloat(value) * parseFloat(currentPrice);
-  setUsdAmount( isNaN(bb) ? 0 : bb?.toString());
+  const dc = bb?.toFixed(5)?.slice(0, -1);
+  setUsdAmount( isNaN(dc) ? 0 : dc?.toString());
  };
 
  const handleUsdAmountChange = (value: any) => {
   const bb = parseFloat(value) / parseFloat(currentPrice) as any;
-   setAmount(bb === 'Na' || isNaN(bb) ? 0 : parseFloat(bb)?.toFixed(5));
+   setAmount(bb === 'Na' || isNaN(bb) ? 0 : parseFloat(bb)?.toFixed(5)?.slice(0, -1));
   setUsdAmount(value);
  };
 

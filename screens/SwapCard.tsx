@@ -307,10 +307,15 @@ const SwapCard = (props: any) => {
             </View>
           </View>
           <View style={styles.bottom}>
-            <IconTextButton
+          <IconTextButton
               label="Get a Quote"
               onPress={() => confirmSwapDetail()}
             />
+            <View style={{justifyContent: 'center',flexDirection: 'row', alignItems: 'center'}}>
+              <AntDesign name='infocirlce' color={COLORS.primary} />
+              <Text style={{textAlign: 'center', marginLeft: hp(5), color: COLORS.primary, marginVertical: hp(10)}}>Only trading balance can be swapped</Text>
+            </View>
+             
           </View>
 
           <SwapTokenModal
@@ -394,6 +399,7 @@ const styles = StyleSheet.create({
   },
   bottom: {
     flex: 1,
+    marginTop: hp(-50)
   },
   card: {
     paddingHorizontal: hp(10),
