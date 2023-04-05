@@ -189,10 +189,20 @@ export const signInUser = createAsyncThunk(
 );
 
 export const getProfile = createAsyncThunk('auth/getProfile', async () => {
-  var profile = await AsyncStorage.getItem('userInfo').then((req: any) =>
-    JSON.parse(req),
-  );
-  return profile;
+  try {
+    // const response = await getRequest(
+    //   `${config.api_base_url}/users/details`,
+    // );
+    // if(response?.data?.data) {
+    //   await AsyncStorage.setItem('userInfo', JSON.stringify(response?.data?.data))
+    // }
+    var profile = await AsyncStorage.getItem('userInfo').then((req: any) =>
+       JSON.parse(req),)
+    return profile;
+
+  } catch (e: any) {
+   
+  }
 });
 
 export const updateProfile = createAsyncThunk(

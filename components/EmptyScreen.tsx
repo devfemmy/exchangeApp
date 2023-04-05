@@ -3,10 +3,11 @@ import React from 'react'
 
 import { FONTS } from '../utils/constants/theme'
 import Empty from "../assets/svg/empty.svg"
+import { hp } from '../utils/helper'
 
 const EmptyScreen = () => {
   return (
-    <View style={{alignItems: 'center'}}>
+    <View style={{alignItems: 'center', marginTop: hp(-30)}}>
    <Empty />
     <Text
       style={{

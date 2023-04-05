@@ -164,7 +164,7 @@ const TwoFactorVerification = (props: any) => {
         </View>
         {counter === 0 ? null : <Text style={{marginTop: hp(-15)}}>
           <Text style={{fontSize: hp(10)}}>You can resend code in </Text>
-          <Text style={{fontSize: hp(10), color: COLORS.primary}}> {counter}</Text>
+          <Text style={{fontSize: hp(10), color: COLORS.primary}}> {counter}s</Text>
         </Text>
 }
 
@@ -193,7 +193,7 @@ const TwoFactorVerification = (props: any) => {
                   // width: hp(63),
                   // height: hp(63),
                 }}
-                codeLength={6}
+                codeLength={4}
                 cellSize={50}
                 cellSpacing={8}
                 cellStyleFocused={{

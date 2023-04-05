@@ -1,3 +1,5 @@
+/* eslint-disable space-infix-ops */
+/* eslint-disable radix */
 /* eslint-disable eol-last */
 /* eslint-disable semi */
 /* eslint-disable no-bitwise */
@@ -57,6 +59,8 @@ import { Notifier, NotifierComponents } from 'react-native-notifier';
   
     return {secureTextEntry, toggleEntry};
   };
+
+
   
 
  export const format = (num: any )=> String(num).replace(/(?<!\..*)(\d)(?=(?:\d{3})+(?:\.|$))/g, '$1,')
