@@ -1533,10 +1533,10 @@
     "@nodelib/fs.scandir" "2.1.5"
     fastq "^1.6.0"
 
-"@react-native-async-storage/async-storage@^1.17.11":
-  version "1.17.11"
-  resolved "https://registry.npmjs.org/@react-native-async-storage/async-storage/-/async-storage-1.17.11.tgz"
-  integrity sha512-bzs45n5HNcDq6mxXnSsOHysZWn1SbbebNxldBXCQs8dSvF8Aor9KCdpm+TpnnGweK3R6diqsT8lFhX77VX0NFw==
+"@react-native-async-storage/async-storage@^1.18.1":
+  version "1.18.1"
+  resolved "https://registry.yarnpkg.com/@react-native-async-storage/async-storage/-/async-storage-1.18.1.tgz#b1aea4f07fb1dba3325b857b770671517ddab221"
+  integrity sha512-70aFW8fVCKl+oA1AKPFDpE6s4t9pulj2QeLX+MabEmzfT3urd/3cckv45WJvtocdoIH/oXA3Y+YcCRJCcNa8mA==
   dependencies:
     merge-options "^3.0.4"
 
@@ -6497,9 +6497,10 @@ react-native-document-picker@^8.2.0:
   dependencies:
     invariant "^2.2.4"
 
-"react-native-dojah@https://github.com/SanchezQb/react-native-dojah":
-  version "0.1.0"
-  resolved "https://github.com/SanchezQb/react-native-dojah#5488f35401ba5119174db28f0318169280557ca4"
+react-native-dojah@^0.3.2:
+  version "0.3.2"
+  resolved "https://registry.yarnpkg.com/react-native-dojah/-/react-native-dojah-0.3.2.tgz#f1c7e4e33557613ef887de29a2c16c482ce4d25c"
+  integrity sha512-mu++2kjE3Ss+23rBrQXty6hGcg6qH99PIO3QQ4CsjOb8+BTQOtXx+evZYHiE4wLDaPUJ7D53tdciFBhquRVg9w==
 
 react-native-dotenv@^3.4.7:
   version "3.4.7"
@@ -6655,10 +6656,10 @@ react-native-vector-icons@^9.2.0:
     prop-types "^15.7.2"
     yargs "^16.1.1"
 
-react-native-webview@^11.26.1:
-  version "11.26.1"
-  resolved "https://registry.yarnpkg.com/react-native-webview/-/react-native-webview-11.26.1.tgz#658c09ed5162dc170b361e48c2dd26c9712879da"
-  integrity sha512-hC7BkxOpf+z0UKhxFSFTPAM4shQzYmZHoELa6/8a/MspcjEP7ukYKpuSUTLDywQditT8yI9idfcKvfZDKQExGw==
+react-native-webview@^12.0.1:
+  version "12.0.1"
+  resolved "https://registry.yarnpkg.com/react-native-webview/-/react-native-webview-12.0.1.tgz#ca59e66cd006de06dcc51789732d704fdc644979"
+  integrity sha512-vYO+nR8PuRZMx97Cuuqan5M0E9IoLT1Gh0YIlkXDPGF+OxREe88UpjD9Jgnc5re+DpTgw93LW0RONSGUlilBUw==
   dependencies:
     escape-string-regexp "2.0.0"
     invariant "2.2.4"
