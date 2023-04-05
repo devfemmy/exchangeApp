@@ -154,9 +154,10 @@ const KycScreen = ({navigation}: any) => {
 
 
     const handleDojah = () => {
+      console.log("i clicked")
       return (
         <>
-     
+     <DojahWidget />
         </>
         // <DojahWidget />
       )

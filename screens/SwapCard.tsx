@@ -15,7 +15,6 @@ import {getMarketPrice, marketInfo} from '../slice/TradeSlice';
 import IconTextButton from '../components/IconTextButton';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import SwapTokenModal from '../components/Modals/SwapTokenModal';
-import {tether} from '../assets/images';
 import {
   getTradingAccount,
   getTradingAccountByCurrency,
@@ -23,16 +22,19 @@ import {
 } from '../slice/WalletSlice';
 import SwapHeader from '../components/SwapHeader';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
+import { bitcoin, tether } from '../assets/images';
+
+
 
 const SwapCard = (props: any) => {
   const [assetName, setAssetName] = useState<any>();
-  const [currencyIcon, setCurrencyIcon] = useState<any>(58);
+  const [currencyIcon, setCurrencyIcon] = useState<any>(tether);
   const [currencyName, setCurrencyName] = useState('USDT');
   const [max, setMax] = useState('');
   const [openSelectTo, setOpenSelectTo] = useState(false);
   const [openSelectFrom, setOpenSelectFrom] = useState(false);
   const [selectedAssetsTo, setSelectedAssetsTo] = useState('BTC');
-  const [selectedIcon, setSelectedIcon] = useState<any>(46);
+  const [selectedIcon, setSelectedIcon] = useState<any>(bitcoin);
   const [selectedBalance, setSelectedBalance] = useState<any>(0);
   const tradingAccountInfo: any = useAppSelector(tradingAccount);
   const [assetData, setAssetData] = useState<any>();
