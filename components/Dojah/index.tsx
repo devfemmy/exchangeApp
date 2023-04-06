@@ -1,14 +1,15 @@
-import React from 'react'
-import Dojah from 'react-native-dojah'
+import React, { useEffect } from 'react';
+import Dojah from 'react-native-dojah';
 
 const DojahWidget = () => {
+  console.log('I AM HERE')
    /**
    *  This is your app ID
    * (go to your dashboard at
    * https://dojah.io/dashboard
    * to create an app and retrieve it)
    */
-   const appID = '6000604fb87ea60035ef41bb';
+   const appID = '6398a00bc3a43300361eb885';
 
    /**
     *  This is your account public key
@@ -16,16 +17,16 @@ const DojahWidget = () => {
     *  https://dojah.io/dashboard to
     *  retrieve it. You can also regenerate one)
     */
-   const publicKey = 'test_pk_TO6a57RT0v5QyhZmhbuLG8nZI';
- 
+   const publicKey = 'test_pk_uLc0qO4nTjSuCXkvvzOy4WPYL';
+
    /**
     *  This is the widget type you'd like to load
     *  (go to your dashboard at
     *  https://dojah.io/dashboard to enable different
     *  widget types)
     */
-   const type = 'liveness';
- 
+   const type = 'custom';
+
    /**
     *  These are the configuration options
     *  available to you are:
@@ -56,7 +57,7 @@ const DojahWidget = () => {
        {page: 'id', config: {passport: false, dl: true}},
      ],
    };
- 
+
    /**
     *  These are the user's data to verify, options
     *  available to you possible options are:
@@ -70,7 +71,7 @@ const DojahWidget = () => {
      last_name: '', // 'Nna'
      dob: '2022-05-01',
    };
- 
+
    /**
     *  These are the metadata options
     *  You can pass any values within the object
@@ -78,7 +79,7 @@ const DojahWidget = () => {
    const metadata = {
      user_id: '121',
    };
- 
+
    /**
     * @param {String} responseType
     * This method receives the type
@@ -96,25 +97,29 @@ const DojahWidget = () => {
      } else if (responseType === 'loading') {
      }
    };
- 
+   useEffect(() => {
+    console.log('WIDGET IS CALLED')
+    Dojah.hydrate(appID, publicKey);
+  }, [appID, publicKey]);
+
    /**
     *  The `ViewStyle` of the outermost `View` wrapping the Dojah container
     *  defaults to {width: '100%', height: '100%'}
     */
    const outerContainerStyle = {width: '100%', height: '100%'};
- 
+
    /**
     *  The `ViewStyle` of the `WebView` containing the Dojah connection
     *  This prop is passed to the WebView `style` prop
     */
    const style = {};
- 
+
    /**
     *  The `ViewStyle` of the innermost `View` within the WebView
     *  This prop is passed to the WebView `containerStyle` prop
     */
    const innerContainerStyle = {};
- 
+
    // The Doja library accepts 3 props and
    // initiliazes the doja widget and connect process
    return (
@@ -129,6 +134,6 @@ const DojahWidget = () => {
        innerContainerStyle={innerContainerStyle}
      />
    );
- }
+ };
 
-export default DojahWidget
+export default DojahWidget;

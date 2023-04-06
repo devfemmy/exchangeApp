@@ -1,5 +1,5 @@
 import {View, Text, ScrollView, StyleSheet} from 'react-native';
-import React from 'react';
+import React, { useEffect } from 'react';
 import GlobalStyle from '../utils/globalStyle';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 // import CountryPicker from 'react-native-country-picker-modal';
@@ -10,7 +10,7 @@ import {hp, wp} from '../utils/helper';
 // import {SelectInput} from '../components/SelectInput';
 // import {TextInput} from '../components/TextInput';
 import IconTextButton from '../components/IconTextButton';
-import DojahWidget from '../components/Dojah';
+import Dojah from 'react-native-dojah';
 // import UploadCard from '../components/UploadCard';
 // import { PhoneNumberData } from '../utils/types';
 // import { useFormik } from 'formik';
@@ -151,17 +151,116 @@ const KycScreen = ({navigation}: any) => {
     //         </View>
     //     )
     // }
+    const appID = '6398a00bc3a43300361eb885';
 
+    /**
+     *  This is your account public key
+     *  (go to your dashboard at
+     *  https://dojah.io/dashboard to
+     *  retrieve it. You can also regenerate one)
+     */
+    const publicKey = 'test_pk_uLc0qO4nTjSuCXkvvzOy4WPYL';
 
-    const handleDojah = () => {
-      console.log("i clicked")
-      return (
-        <>
-     <DojahWidget />
-        </>
-        // <DojahWidget />
-      )
-    }
+    /**
+     *  This is the widget type you'd like to load
+     *  (go to your dashboard at
+     *  https://dojah.io/dashboard to enable different
+     *  widget types)
+     */
+    const type = 'custom';
+
+    /**
+     *  These are the configuration options
+     *  available to you are:
+     *  {debug: BOOL, pages: ARRAY[{page: STRING, config: OBJECT}]}
+     *
+     *  The config object is as defined below
+     *
+     *  NOTE: The otp and selfie options are only
+     *  available to the `verification` widget
+     */
+    const config = {
+      debug: true,
+      pages: [
+        {page: 'phone-number', config: {verification: false}},
+        {page: 'address'},
+        {
+          page: 'government-data',
+          config: {
+            bvn: true,
+            nin: false,
+            dl: false,
+            mobile: false,
+            otp: false,
+            selfie: false,
+          },
+        },
+        {page: 'selfie'},
+        {page: 'id', config: {passport: false, dl: true}},
+      ],
+    };
+
+    /**
+     *  These are the user's data to verify, options
+     *  available to you possible options are:
+     *  {first_name: STRING, last_name: STRING, dob: DATE STRING}
+     *
+     *  NOTE: Passing all the values will automatically skip
+     *  the user-data page (thus the commented out `last_name`)
+     */
+    const userData = {
+      first_name: 'Chijioke',
+      last_name: '', // 'Nna'
+      dob: '2022-05-01',
+    };
+
+    /**
+     *  These are the metadata options
+     *  You can pass any values within the object
+     */
+    const metadata = {
+      user_id: '121',
+    };
+
+    /**
+     * @param {String} responseType
+     * This method receives the type
+     * The type can only be one of:
+     * loading, begin, success, error, close
+     * @param {String} data
+     * This is the data from doja
+     */
+    const response = (responseType, data) => {
+      console.log(responseType, data);
+      if (responseType === 'success') {
+      } else if (responseType === 'error') {
+      } else if (responseType === 'close') {
+      } else if (responseType === 'begin') {
+      } else if (responseType === 'loading') {
+      }
+    };
+    useEffect(() => {
+     console.log('WIDGET IS CALLED');
+     Dojah.hydrate(appID, publicKey);
+   }, [appID, publicKey]);
+
+    /**
+     *  The `ViewStyle` of the outermost `View` wrapping the Dojah container
+     *  defaults to {width: '100%', height: '100%'}
+     */
+    const outerContainerStyle = {width: '100%', height: '100%'};
+
+    /**
+     *  The `ViewStyle` of the `WebView` containing the Dojah connection
+     *  This prop is passed to the WebView `style` prop
+     */
+    const style = {};
+
+    /**
+     *  The `ViewStyle` of the innermost `View` within the WebView
+     *  This prop is passed to the WebView `containerStyle` prop
+     */
+    const innerContainerStyle = {};
 
   return (
     <View style={GlobalStyle.container}>
@@ -184,10 +283,20 @@ const KycScreen = ({navigation}: any) => {
             {/* <View style={{width: type === 1 ? "50%" : "100%", borderBottomWidth: 1,paddingBottom: hp(10), borderBottomColor: COLORS.primary}}>
                 <Text style={{...FONTS.body4}}>{type === 1 ? "1/2" : "2/2"}</Text>
             </View> */}
-             <View style={{width: "50%", borderBottomWidth: 1,paddingBottom: hp(10), borderBottomColor: COLORS.primary}}>
+             <View style={{width: '50%', borderBottomWidth: 1,paddingBottom: hp(10), borderBottomColor: COLORS.primary}}>
                 <Text style={{...FONTS.body4}}>Level 2</Text>
             </View>
           </View>
+          <Dojah
+            response={response}
+            appID={appID}
+            publicKey={publicKey}
+            config={config}
+            type={type}
+            outerContainerStyle={outerContainerStyle}
+            style={style}
+            innerContainerStyle={innerContainerStyle}
+          />
 
          {/* {
             type === 1 && sectionOne()
@@ -197,7 +306,7 @@ const KycScreen = ({navigation}: any) => {
          } */}
 
 <Text style={{...FONTS.body4, color: COLORS.gray, marginTop: hp(10)}}>On this level, you will provided the neccessary documents as stated below to complete this process.</Text>
-       
+
        <View style={{marginTop: hp(20)}}>
        <View style={styles.div2}>
           <Text style={{fontSize: hp(40), marginRight: hp(5), marginTop: hp(-5)}}>{'\u2022'}</Text>
@@ -230,10 +339,24 @@ const KycScreen = ({navigation}: any) => {
        </View>
         </ScrollView>
       </View>
+      <View>
+      {/* <Dojah
+        appID={appID}
+        publicKey={publicKey}
+        type={type}
+        userData={userData}
+        metadata={metadata}
+        config={config}
+        response={response}
+        outerContainerStyle={outerContainerStyle}
+        style={style}
+        innerContainerStyle={innerContainerStyle}
+      /> */}
+      </View>
 
       <View style={styles.bottom}>
         {/* <IconTextButton label={type === 1 ? "Save and Continue" : "Complete"} onPress={type === 1 ? () => setType(type + 1) : () => {}} /> */}
-        <IconTextButton label={"Begin Process"} onPress={() => handleDojah()} />
+        {/* <IconTextButton label={"Begin Process"} onPress={() => handleDojah()} /> */}
       </View>
     </View>
   );
@@ -290,7 +413,7 @@ const styles = StyleSheet.create({
   },
   bottom: {
     flex: 1,
-    marginTop: hp(20)
+    marginTop: hp(20),
   },
   container: {
     justifyContent: 'center',
