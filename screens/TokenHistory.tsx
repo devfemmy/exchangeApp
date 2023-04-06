@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { View, Text, StyleSheet, Pressable, ScrollView, FlatList } from 'react-native'
+import { View, Text, StyleSheet, Pressable, ScrollView, FlatList, RefreshControl } from 'react-native'
 import React, {useEffect, useState} from 'react'
 import GlobalStyle from '../utils/globalStyle'
 import { COLORS, FONTS } from '../utils/constants/theme'
@@ -24,6 +24,7 @@ const TokenHistory = ({navigation}: any) => {
   const [value, setValue] = useState("")
   const [type, setType] = useState('all');
   const [page, setPage] = useState(1)
+  const [refreshing, setRefreshing] = useState(false);
 
   const handleModalClose = () => {
     setModalVisible(false);
@@ -54,6 +55,20 @@ const TokenHistory = ({navigation}: any) => {
     setPage(transactionData?.page - 1) 
    }
   }
+
+  const onRefresh = React.useCallback(() => {
+    setRefreshing(true);
+    const payload = {
+      page: page, 
+      status: (type === "success" || type === "incoming" || type === "pending" || type === "failed") ? type : "", 
+      id: value?.length <= 0 ? "" : value,
+      type: (type === "all" || type === "success" || type === "incoming" || type === "pending" || type === "failed")  ? "" : type,
+    }
+  dispatch(getTransactionHistory(payload)).then((pp: any) => setTransactionData(pp?.payload))
+    setTimeout(() => {
+      setRefreshing(false);
+    }, 2000);
+  }, []);
 
 
   return (
@@ -269,6 +284,9 @@ const TokenHistory = ({navigation}: any) => {
       <FlatList 
         keyExtractor={item => item?.id}
         showsVerticalScrollIndicator={false}
+        refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+        }
         ListFooterComponent={transactionData?.transactions?.length > 1 && <Pagination data={transactionData} handlePagination={(data:any) => handlePagination(data)} />}
         data={transactionData?.transactions}
         renderItem={(item) => {

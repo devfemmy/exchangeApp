@@ -87,6 +87,9 @@ export const verifySignin = createAsyncThunk(
     if (response?.status === 200) {
       // var profile = await AsyncStorage.getItem('keepInfo').then((req: any) => JSON.parse(req))
       await AsyncStorage.setItem('userInfo', JSON.stringify(response?.data))
+     if(response?.data?.accessToken){
+      await AsyncStorage.setItem('token', response?.data?.accessToken)
+     }
      // return profile
      return response?.data;
     }
@@ -116,6 +119,9 @@ export const confirmEmail = createAsyncThunk(
     if (response?.status === 200) {
       var profile = await AsyncStorage.getItem('keepInfo').then((req: any) => JSON.parse(req))
       await AsyncStorage.setItem('userInfo', JSON.stringify(profile))
+      if(profile?.accessToken){
+        await AsyncStorage.setItem('token', profile?.accessToken)
+       }
       return profile
       //return response?.data?.data;
     }
@@ -322,6 +328,9 @@ export const AuthSlice = createSlice({
           if (!action?.payload?.data?.requiresConfirmation) {
             (state.userInfo = action.payload?.data);
             AsyncStorage.setItem("userInfo", JSON.stringify(action.payload?.data))
+            if(action?.payload?.data?.accessToken){
+              AsyncStorage.setItem('token', action?.payload?.data?.accessToken)
+             }
           }
 
         },
@@ -477,6 +486,10 @@ export const AuthSlice = createSlice({
           state.loading = false;
           (state.userInfo = action.payload?.data);
           AsyncStorage.setItem("userInfo", JSON.stringify(action.payload?.data))
+          if(action?.payload?.data?.accessToken){
+           AsyncStorage.setItem('token',action?.payload?.data?.accessToken)
+           }
+
         },
       );
     builder.addCase(verifySignin.rejected, (state, action) => {

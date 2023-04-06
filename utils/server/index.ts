@@ -16,11 +16,11 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export const getRequest = async (url: string) => {
 
-    const token =  await AsyncStorage.getItem('userInfo').then((req: any) => JSON.parse(req))
+    const token =  await AsyncStorage.getItem('token')
 
     var response = await axios.get(url, {
         headers: {
-          authorization: `Bearer ${token?.accessToken}`,
+          authorization: `Bearer ${token}`,
         },
       })
       if(response?.status === 200){
@@ -37,11 +37,11 @@ export const getRequestNoToken = async (url: string) => {
 }
 
 export const postRequest =  async (url: string, payload?: any) => {
-  const token =  await AsyncStorage.getItem('userInfo').then((req: any) => JSON.parse(req))
+  const token =  await AsyncStorage.getItem('token')
 
   var res = await axios.post(url, payload, {
     headers: {
-      authorization: `Bearer ${token?.accessToken}`,
+      authorization: `Bearer ${token}`,
     }
   })
   if(res?.status === 200){
@@ -51,11 +51,11 @@ export const postRequest =  async (url: string, payload?: any) => {
 }
 
 export const updateRequest =  async (url: string, payload?: any) => {
-  const token =  await AsyncStorage.getItem('userInfo').then((req: any) => JSON.parse(req))
+  const token =  await AsyncStorage.getItem('token')
 
   var res = await axios.put(url, payload, {
     headers: {
-      authorization: `Bearer ${token?.accessToken}`,
+      authorization: `Bearer ${token}`,
     }
   })
   if(res?.status === 200){
@@ -69,11 +69,11 @@ export const deleteRequest = (url: string, payload?: any) => {
 }
 
 export const deleteRequestNoPayload = async (url: string) => {
-  const token =  await AsyncStorage.getItem('userInfo').then((req: any) => JSON.parse(req))
+  const token =  await AsyncStorage.getItem('token')
 
   return axios.delete(url, {
     headers: {
-      authorization: `Bearer ${token?.accessToken}`,
+      authorization: `Bearer ${token}`,
     },
   })
 }

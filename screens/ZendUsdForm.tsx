@@ -81,6 +81,16 @@ const ZendUsdForm = (props: any) => {
         },
       });
     }
+    if(usdBal < 1000) {
+      return  Notifier.showNotification({
+        title: 'Error',
+        description: "Minimum Usd transfer is 1000USD",
+        Component: NotifierComponents.Alert,
+        componentProps: {
+          alertType: 'error',
+        },
+      });
+    }
     setType(type + 1)
   }
 

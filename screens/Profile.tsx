@@ -51,6 +51,7 @@ const Profile = ({navigation}: any) => {
 
   useEffect(() => {
     const loadData = async () => {
+      const token = await AsyncStorage.getItem('token')
       dispatch(getProfile());
     };
     loadData();

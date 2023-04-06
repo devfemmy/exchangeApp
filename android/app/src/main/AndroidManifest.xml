@@ -6,6 +6,8 @@
 <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
 <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
 <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+<uses-permission android:name=" android.permission.WRITE_EXTERNAL_STORAGE"/>
+<uses-permission android:name=" android.permission.READ_EXTERNAL_STORAGE"/>
 
     <application
       android:name=".MainApplication"
@@ -13,6 +15,7 @@
       android:icon="@mipmap/app_logo"
       android:roundIcon="@mipmap/app_logo"
       android:allowBackup="false"
+      android:requestLegacyExternalStorage="true"
       android:theme="@style/AppTheme">
       <activity
         android:name=".MainActivity"
