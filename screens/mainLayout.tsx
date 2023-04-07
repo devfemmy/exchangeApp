@@ -10,7 +10,7 @@ import { tradeStatus } from '../slice/TradeSlice'
 
 import TradeCard from '../components/TradeCard'
 import { hp } from '../utils/helper'
-
+import TransferIcon from '../assets/svg/transferMobile2.svg';
 
 const MainLayout = ({children}: any) => {
 
@@ -25,7 +25,7 @@ const MainLayout = ({children}: any) => {
             id: 0,
             header: "Transfer",
             title: "Transfer between your balances",
-            icon: 'external-link',
+            icon: <TransferIcon />,
             navigationScreen: "Transfer",
         },
         {

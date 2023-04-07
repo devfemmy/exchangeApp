@@ -41,8 +41,8 @@ const MarketComponent = ({info, navigation,type}: any) => {
       </View>
    
      <View style={{justifyContent: 'flex-end', alignItems: 'flex-end', width: "30%"}}>
-                 <Text style={{...FONTS.h3,color: COLORS.lightBlack}}>{`${format(info?.availBalance ? parseFloat(info?.availBalance)?.toFixed(5).slice(0, -1) : 0)}`}</Text>
-                 <Text style={{...FONTS.h3,color: COLORS.lightBlack}}>{`$${format(info?.balUsd ? parseFloat(info?.balUsd)?.toFixed(3).slice(0, -1) : 0)}`}</Text>
+                 <Text style={{...FONTS.h3,color: COLORS.lightBlack}}>{info?.availBalance % 1 === 0 ? `${format(info?.availBalance ? parseFloat(info?.availBalance) : 0)}`   : `${format(info?.availBalance ? parseFloat(info?.availBalance)?.toFixed(5).slice(0, -1) : 0)}`}</Text>
+                 <Text style={{...FONTS.h3,color: COLORS.lightBlack}}>{info?.balUsd % 1 === 0 ? `$${format(info?.balUsd ? parseFloat(info?.balUsd) : 0)}` : `$${format(info?.balUsd ? parseFloat(info?.balUsd)?.toFixed(3).slice(0, -1) : 0)}`}</Text>
                  </View>
     </View>
   </TouchableOpacity>

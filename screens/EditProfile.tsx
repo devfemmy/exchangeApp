@@ -61,14 +61,14 @@ const EditProfile = ({navigation}: any) => {
       userId: getUserInfo?._id,
       image: "data:image/jpeg;base64," + base64Img,
     };
-  
+
     setLoader(true);
     try {
       var response = (await dispatch(updateProfile(payload))) as any;
       if (updateProfile.fulfilled.match(response)) {
         setLoader(false);
         dispatch(getProfile());
-        let msg = response?.payload?.message as string;
+        let msg = "User updated successfully";
         Notifier.showNotification({
           title: 'Success',
           description: msg,

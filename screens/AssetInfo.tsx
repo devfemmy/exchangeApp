@@ -117,7 +117,9 @@ const AssetInfo = (props: any) => {
           </Text>
           <Text style={{textAlign: 'center', fontWeight: '600', ...FONTS.h1, color: COLORS.black, marginVertical: hp(5)}}>
           {`${assetData === undefined ? 0 :
-              `${format(
+              `${assetData[asset?.toUpperCase()]?.balance % 1 === 0 ?
+                  format(parseFloat(assetData[asset?.toUpperCase()]?.balance))
+                : format(
                 parseFloat(assetData[asset?.toUpperCase()]?.balance || 0).toFixed(4),
               )}`}`}
 
@@ -135,7 +137,11 @@ const AssetInfo = (props: any) => {
             </Text>
             <Text style={{...FONTS.body3, color: COLORS.black, textAlign: 'center'}}>
               {assetData &&
-                `${format(
+                `${
+                  assetData[asset?.toUpperCase()]?.availBal % 1 === 0 ?
+                 format(parseFloat(assetData[asset?.toUpperCase()]?.availBal))
+                  :
+                  format(
                   parseFloat(assetData[asset?.toUpperCase()]?.availBal || 0).toFixed(
                     4,
                   ),
@@ -158,7 +164,11 @@ const AssetInfo = (props: any) => {
                 color: COLORS.black,
               }}>
               {assetData &&
-                `${format(
+                `${
+                  assetData[asset?.toUpperCase()]?.pendingBal % 1 === 0 ?
+                    format(parseFloat(assetData[asset?.toUpperCase()]?.pendingBal))
+                  :
+                  format(
                   parseFloat(
                     assetData[asset?.toUpperCase()]?.pendingBal || 0
                   ).toFixed(4),
