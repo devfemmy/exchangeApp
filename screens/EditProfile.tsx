@@ -36,7 +36,7 @@ const EditProfile = ({navigation}: any) => {
   const getUserInfo = userStateInfo?.userData ? userStateInfo?.userData : userStateInfo;
 
   const [imgUri, setImageUri] = useState(getUserInfo?.image);
-  const [base64Img, setBase64] = useState(getUserInfo?.image);
+  const [base64Img, setBase64] = useState('');
   const [gender, setGender] = useState(getUserInfo?.gender);
   const [date, setDate] = useState(getUserInfo?.dateOfBirth === 'Invalid date' ? new Date('1999-03-30') : new Date(getUserInfo?.dateOfBirth));
   const [open, setOpen] = useState(false);
@@ -50,7 +50,7 @@ const EditProfile = ({navigation}: any) => {
     gender: gender,
     phone: getUserInfo?.phoneNumber,
     dob: '',
-    image: imgUri,
+    image: getUserInfo?.image,
   };
   const handleCredentialSubmit =  async (data: any) => {
     const payload = {
@@ -59,7 +59,7 @@ const EditProfile = ({navigation}: any) => {
       country: data?.country === "n/a" ? "" : data?.country ,
       houseAddress: data?.streetName, 
       userId: getUserInfo?._id,
-      image: "data:image/jpeg;base64," + base64Img,
+      image: base64Img === '' ? getUserInfo?.image : "data:image/jpeg;base64," + base64Img,
     };
 
     setLoader(true);
