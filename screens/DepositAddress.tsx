@@ -1,7 +1,7 @@
 /* eslint-disable quotes */
 /* eslint-disable comma-dangle */
 import {View, Text, StyleSheet, ScrollView} from 'react-native';
-import React from 'react';
+import React, {useRef} from 'react';
 import GlobalStyle from '../utils/globalStyle';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import {COLORS, FONTS} from '../utils/constants/theme';
@@ -11,32 +11,41 @@ import Feather from 'react-native-vector-icons/Feather';
 import IconTextButton from '../components/IconTextButton';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import Share from 'react-native-share';
-
+import RNFetchBlob from 'rn-fetch-blob';
 
 const DepositAddress = (props: any) => {
   const {chain, address, memo} = props?.route?.params?.data;
   const {token, icon, currency} = props?.route?.params?.otherInfo;
-
-
+  const ref =  useRef();
 
 
   const onShare = async () => {
-    const options = {
-      title: `Deposit Address for ${token}`,
-      message: `${address}`,
-    }
-
-    Share.open(options)
-    .then((res) => {
-      console.log(res);
+    ref.current.toDataURL((data: any) => {
+      var info = 'data:image/png;base64,' + data;
+      if(address) {
+        const options = {
+          type: 'image/jpg',
+          title: `Share Address for ${token}`,
+          message: info,
+          url: info,
+        }
+        Share.open(options)
+        .then((res) => {
+          console.log(res);
+        })
+        .catch((err) => {
+          err && console.log(err);
+        })
+      }
+      
     })
-    .catch((err) => {
-      err && console.log(err);
-    })
+      
+  
   }
 
 
   return (
+
     <View style={GlobalStyle.container}>
       <View style={GlobalStyle.rowBetween}>
         <AntDesign
@@ -57,6 +66,7 @@ const DepositAddress = (props: any) => {
                 logo={icon}
       logoSize={50}
       logoBackgroundColor='transparent'
+      getRef={ref}
               />
           </View>
           <View>
@@ -137,6 +147,7 @@ const DepositAddress = (props: any) => {
         </View>
       </View>
     </View>
+ 
   );
 };
 

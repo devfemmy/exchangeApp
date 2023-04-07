@@ -10,7 +10,7 @@ import {TextInput} from '../components/TextInput';
 import IconTextButton from '../components/IconTextButton';
 import InvoiceUploadModal from '../components/Modals/InvoiceUploadModal';
 import SelectDropdowns from '../components/SelectDropdowns';
-import CountryList from '../utils/constants/Countries';
+// import CountryList from '../utils/constants/Countries';
 import { useAppDispatch } from '../app/hooks';
 import { getRate } from '../slice/ZendSlice';
 import { getTradingAccountByCurrency } from '../slice/WalletSlice';
@@ -33,6 +33,7 @@ const ZendUsdForm = (props: any) => {
   const [usdBal, setUsdBal] = useState<any>("")
   const [amount, setAmount] = useState<any>("")
   const [dataInfo, setDataInfo] = useState<any>()
+  const [restCountry, setRestCountry] = useState<any>([])
 
   useEffect(() => {
     dispatch(getRate()).then(dd => setRate(dd?.payload?.data?.rate))
@@ -40,6 +41,7 @@ const ZendUsdForm = (props: any) => {
       setUsdBal(dd?.payload ? dd?.payload["USDT"]?.availBal : "0" )
     }
     );
+    fetch("https://restcountries.com/v3.1/all").then(dd => dd?.json()).then(pp => setRestCountry(pp))
   }, [])
 
   const initialValues: UsdFormData = {
@@ -63,18 +65,41 @@ const ZendUsdForm = (props: any) => {
 
   }
 
-  const listofCountries = CountryList?.map((data, i )=> {
+  // const listofCountries = CountryList?.map((data, i )=> {
+  //   return restCountry?.map((info: any) => {
+  //     return data === info?.name?.official &&  {
+  //       id: i + 1,
+  //       name: data,
+  //       image: info?.flags?.png
+  //     }
+  //   })
+  // })
+
+  const listofCountries = restCountry?.map((info: any, i: any) => {
     return {
       id: i + 1,
-      name: data
+      name: info?.name?.common,
+      image: info?.flags?.png
     }
   })
+
+  console.log(listofCountries)
 
   const handleContinue = () => {
     if(parseFloat(amount) > usdBal) {
       return  Notifier.showNotification({
         title: 'Error',
         description: "Insufficient Balance",
+        Component: NotifierComponents.Alert,
+        componentProps: {
+          alertType: 'error',
+        },
+      });
+    }
+    if(usdBal < 1000) {
+      return  Notifier.showNotification({
+        title: 'Error',
+        description: "Minimum Usd transfer is 1000USD",
         Component: NotifierComponents.Alert,
         componentProps: {
           alertType: 'error',

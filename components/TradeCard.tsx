@@ -24,7 +24,7 @@ const TradeCard = ( {data}: any) => {
             {icon === 'dollar' ?
         <Fontisto size={20} name={icon} color={COLORS.black} />  :
         icon === "external-link" ?  <EvilIcons  name={icon} size={30} color={COLORS.black} /> :
-        <AntDesign size={20} name={icon} color={COLORS.black} />
+        header === "Transfer" ? icon : <AntDesign size={20} name={icon} color={COLORS.black} />
         }
         </View>
         </View>

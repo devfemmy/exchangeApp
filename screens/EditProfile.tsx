@@ -24,6 +24,7 @@ import {updateProfile, getProfile} from '../slice/AuthSlice';
 import {Notifier, NotifierComponents} from 'react-native-notifier';
 import moment from 'moment';
 import FastImage from 'react-native-fast-image';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const EditProfile = ({navigation}: any) => {
   const dispatch = useAppDispatch();
@@ -33,7 +34,7 @@ const EditProfile = ({navigation}: any) => {
   const [, setCountry] = useState(null);
 
   const getUserInfo = userStateInfo?.userData ? userStateInfo?.userData : userStateInfo;
-  console.log('getUserInfo?.dateOfBirth', getUserInfo)
+
   const [imgUri, setImageUri] = useState(getUserInfo?.image);
   const [base64Img, setBase64] = useState(getUserInfo?.image);
   const [gender, setGender] = useState(getUserInfo?.gender);
@@ -55,18 +56,19 @@ const EditProfile = ({navigation}: any) => {
     const payload = {
       dateOfBirth: moment(date).format('YYYY-MM-DD'),
       gender: gender,
-      country: data?.country,
-      houseAddress: data?.streetName,
+      country: data?.country === "n/a" ? "" : data?.country ,
+      houseAddress: data?.streetName, 
       userId: getUserInfo?._id,
-      image: '',
+      image: "data:image/jpeg;base64," + base64Img,
     };
+
     setLoader(true);
     try {
       var response = (await dispatch(updateProfile(payload))) as any;
       if (updateProfile.fulfilled.match(response)) {
         setLoader(false);
         dispatch(getProfile());
-        let msg = response?.payload?.message as string;
+        let msg = "User updated successfully";
         Notifier.showNotification({
           title: 'Success',
           description: msg,
@@ -78,8 +80,6 @@ const EditProfile = ({navigation}: any) => {
       } else {
         var errMsg = response?.payload as string;
         setLoader(false);
-        console.log('response', response.payload);
-
         Notifier.showNotification({
           title: 'Error',
           description: errMsg,
@@ -92,6 +92,7 @@ const EditProfile = ({navigation}: any) => {
     } catch (e) {}
   };
 
+ 
 
   const { values, errors, touched, handleChange, handleSubmit, handleBlur } =
     useFormik({
@@ -123,7 +124,7 @@ const EditProfile = ({navigation}: any) => {
           //('ImagePicker Error: ', response.error);
         } else {
           // const uri = response.uri;
-          console.log('response', response?.assets[0].uri);
+
           const imageUri = response?.assets[0].uri;
           const base64Image = response?.assets[0].base64;
           setBase64(base64Image);

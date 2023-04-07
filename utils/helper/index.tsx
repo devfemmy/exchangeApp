@@ -60,7 +60,6 @@ import { Notifier, NotifierComponents } from 'react-native-notifier';
     return {secureTextEntry, toggleEntry};
   };
 
-
   
 
  export const format = (num: any )=> String(num).replace(/(?<!\..*)(\d)(?=(?:\d{3})+(?:\.|$))/g, '$1,')
