@@ -44,10 +44,11 @@ const SelectDropdowns = ({label, data, selected, setSelected, dob, onPress}: any
              <ScrollView>
               {
                 data?.map((info: any) => {
+                  console.log(info?.image)
                   return <TouchableOpacity onPress={() => handleSelected(info)} key={info?.id}>
                     <View style={styles.modalP}>
-                    {info?.image && <Image source={{uri: info?.image}} />}
-                    <Text style={{...FONTS.h4, fontWeight: '700', textTransform: 'capitalize', textAlign: !info?.image ? 'center' : 'left' ,  color: COLORS.primary}}>{info?.name}</Text>
+                    {info?.image && <Image source={{uri: info?.image}} style={{width: 20, height: 20, marginRight: 10}} />}
+                    <Text style={{...FONTS.body5, fontWeight: '700', textTransform: 'capitalize', textAlign: !info?.image ? 'center' : 'left' ,  color: COLORS.primary}}>{info?.name}</Text>
                   </View>
                   </TouchableOpacity>;
                 })
@@ -105,6 +106,7 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
   modalP: {
+    flexDirection: 'row',
     padding: hp(20),
     backgroundColor: COLORS.primary2,
     marginVertical: hp(5),
