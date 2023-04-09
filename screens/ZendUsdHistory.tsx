@@ -8,6 +8,7 @@ import {
   ScrollView,
   FlatList,
   Modal,
+  RefreshControl
 } from 'react-native';
 import React, {useEffect, useState} from 'react';
 import GlobalStyle from '../utils/globalStyle';
@@ -31,6 +32,7 @@ const ZendUsdHistory = ({navigation}: any) => {
   const [value, setValue] = useState('');
   const dispatch = useAppDispatch();
   const userStateInfo = useAppSelector(userState);
+  const [refreshing, setRefreshing] = useState(false);
   const [usdData, setUsdData] = useState<any>(null);
   const [modalOpen, setModalOpen] = useState(false);
   const [dataInfo, setDataInfo] = useState<any>();
@@ -50,6 +52,20 @@ const ZendUsdHistory = ({navigation}: any) => {
     };
     dispatch(getUsdHistory(payload)).then(pp => setUsdData(pp?.payload?.data));
   }, [type, value]);
+
+  const onRefresh = React.useCallback(() => {
+    setRefreshing(true);
+    const payload = {
+      page: 1,
+      status: type === 'all' ? '' : type === 'pending' ? 'submitted' : type,
+      id: value?.length <= 0 ? '' : value,
+      userId: getUserInfo?._id,
+    };
+    dispatch(getUsdHistory(payload)).then(pp => setUsdData(pp?.payload?.data));
+    setTimeout(() => {
+      setRefreshing(false);
+    }, 2000);
+  }, []);
 
   const handleModalOpen = (data: any) => {
     setModalOpen(true);
@@ -278,6 +294,10 @@ const ZendUsdHistory = ({navigation}: any) => {
         <FlatList
           keyExtractor={item => item?.id}
           showsVerticalScrollIndicator={false}
+          refreshControl={
+            <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+          }
+          contentContainerStyle={{flexGrow: 1}}
           data={usdData?.transactions}
           renderItem={({item}: any) => {
             return transactionCardBox(item);

@@ -76,7 +76,7 @@ const Login = ({navigation}: any) => {
       <View>
         {/* <HeaderComponent onPress={() => navigation.goBack()} /> */}
         <View style={styles.margin} />
-        <Text style={{...FONTS.h2}}>Log in</Text>
+        <Text style={{...FONTS.h2, fontWeight: '700'}}>Log in</Text>
         <Text style={[GlobalStyle.subTitle, {marginBottom: hp(5)}]}>
           Let’s get you started right away
         </Text>

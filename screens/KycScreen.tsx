@@ -17,12 +17,13 @@ import Dojah from 'react-native-dojah';
 // import { PhoneSchema } from '../utils/schemas';
 // import SelectDropdowns from '../components/SelectDropdowns';
 import config from '../slice/config';
-import {useAppSelector} from '../app/hooks';
-import {userState} from '../slice/AuthSlice';
+import {useAppDispatch, useAppSelector} from '../app/hooks';
+import {getUserDetail, userState} from '../slice/AuthSlice';
 import SuccessIcon from '../assets/svg/success.svg';
 
 const KycScreen = ({navigation}: any) => {
   const userStateInfo = useAppSelector(userState);
+  const dispatch = useAppDispatch()
   const getUserInfo = userStateInfo?.userData
     ? userStateInfo?.userData
     : userStateInfo;
@@ -31,140 +32,10 @@ const KycScreen = ({navigation}: any) => {
   useEffect(() => {
     if (getUserInfo?.isKycVerified) {
       setIsKycVerified(true);
+      dispatch(getUserDetail())
     }
   }, []);
-  // const [type, setType] = useState(1)
-  // const userStateInfo = useAppSelector(userState);
-  // const [countryCode, setCountryCode] = useState('NG');
-  // const [, setCountry] = useState(null);
-  // const initialValues: PhoneNumberData = {
-  //   phone: '',
-  // };
-  // const handleCredentialSubmit = (data: any) => {
-  //   console.log('HandleSubmit');
-  // };
-  // const { values, errors, touched, handleChange, handleSubmit, handleBlur } =
-  //   useFormik({
-  //     initialValues,
-  //     validationSchema: PhoneSchema,
-  //     onSubmit: (data: PhoneNumberData) => handleCredentialSubmit(data),
-  //   });
-  // const onSelect = (country: any) => {
-  //   setCountryCode(country.cca2);
-  //   setCountry(country);
-  // };
-  // const getUserInfo = userStateInfo?.userData
-  //   ? userStateInfo?.userData
-  //   : userStateInfo;
-
-  // const [selectedKin, setSelectedKin] = useState("")
-  // const [selectedVerifyType, setSelectedVerifyType] = useState("")
-
-  // const sectionOne = () => {
-  //     return (
-  //         <View>
-  //              <View style={styles.container}>
-  //         {/* <View style={GlobalStyle.profileCircle2}>
-  //           <Image source={{uri: getUserInfo?.image}} style={styles.icons} />
-  //         </View>
-  //         <View
-  //           style={{
-  //             backgroundColor: COLORS.primary2,
-  //             padding: hp(10),
-  //             borderRadius: 10,
-  //           }}>
-  //           <Text style={{...FONTS.body4, color: COLORS.primary}}>
-  //             Upload a Selfie
-  //           </Text>
-  //         </View> */}
-  //       </View>
-  //       <View style={GlobalStyle.rowBetweenNoCenter}>
-  //         <View style={styles.countryPicker}>
-  //           <CountryPicker
-  //             withCallingCode
-  //             withFlag
-  //             withFilter
-  //             countryCode={countryCode}
-  //             onSelect={onSelect}
-  //             visible={false}
-  //           />
-  //         </View>
-  //         <View style={{width: '89%',}}>
-  //           <TextInput
-  //           label={'Phone Number'}
-  //           value={values.phone}
-  //           onBlur={handleBlur('phone')}
-  //           onChangeText={handleChange('phone')}
-  //           errorMsg={touched.phone ? errors.phone : undefined}
-  //         />
-  //         </View>
-  //     </View>
-
-  //       {/* <View style={styles.form}>
-  //         <SelectInput placeholder="Date of Birth" />
-  //         <SelectInput placeholder="Nationality" />
-  //         <TextInput label="State" />
-  //         <TextInput label="Street Name" />
-  //         <SelectInput placeholder="Gender" />
-  //         <SelectInput placeholder="Marital Status" />
-  //       </View> */}
-  //         </View>
-  //     )
-  // }
-
-  // const sectionTwo = () => {
-  //     return (
-  //         <View>
-
-  //       <View style={styles.form}>
-  //       <TextInput label="Name Next of Kin" />
-  //         <SelectDropdowns
-  //             label="Next of Kin Relationship"
-  //             data={[
-  //               {
-  //                 id: 1,
-  //                 name: "Father"
-  //               },
-  //               {
-  //                 id: 2,
-  //                 name: "Sibling"
-  //               },
-  //               {
-  //                 id: 3,
-  //                 name: "Friend"
-  //               }
-  //             ]}
-  //             selected={selectedKin}
-  //             setSelected={(value: any) => setSelectedKin(value)}
-  //           />
-
-  //         <TextInput label="Next of kin Address" />
-  //         <SelectDropdowns
-  //             label="Verification Type ID"
-  //             data={[
-  //               {
-  //                 id: 1,
-  //                 name: "Voter's Card"
-  //               },
-  //               {
-  //                 id: 2,
-  //                 name: "National ID Card"
-  //               },
-  //               {
-  //                 id: 3,
-  //                 name: "Passport"
-  //               }
-  //             ]}
-  //             selected={selectedVerifyType}
-  //             setSelected={(value: any) => setSelectedVerifyType(value)}
-  //           />
-
-  //         <TextInput label="Verification Number" />
-  //         <UploadCard header="Upload scanned ID" />
-  //       </View>
-  //         </View>
-  //     )
-  // }
+ 
   const appID = config.dojah_appId_key;
 
   /**
@@ -250,6 +121,7 @@ const KycScreen = ({navigation}: any) => {
     console.log('kyc response', responseType, data);
     if (responseType === 'success') {
       setIsKycVerified(true);
+      dispatch(getUserDetail())
     } else if (responseType === 'error') {
     } else if (responseType === 'close') {
     } else if (responseType === 'begin') {

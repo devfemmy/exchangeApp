@@ -83,110 +83,14 @@ const CreateAccount = ({navigation}: any) => {
     });
 
   return (
-    // <View style={[GlobalStyle.container, styles.div]}>
-    //   <View style={styles.top}>
-    //     <AntDesign
-    //       onPress={() => navigation.goBack()}
-    //       name="arrowleft"
-    //       style={styles.icon}
-    //       size={hp(20)}
-    //       color={COLORS.gray2}
-    //     />
-    //     <Text style={{...FONTS.h2}}>Welcome Zend Wallet</Text>
-    //     <Text style={{...FONTS.h3, marginVertical: hp(15)}}>
-    //       Create Account
-    //     </Text>
-    //     <Text
-    //       style={{...FONTS.body5, color: COLORS.gray, marginBottom: hp(15)}}>
-    //       Your account creation will be fast and swift. Kindly provide your
-    //       email address
-    //     </Text>
-
-    //     <TextInput
-    //       label={'Email'}
-    //       value={values.email}
-    //       onBlur={handleBlur('email')}
-    //       onChangeText={handleChange('email')}
-    //       errorMsg={touched.email ? errors.email : undefined}
-    //     />
-
-    //     <View style={[styles.row, {marginVertical: hp(15)}]}>
-    //       {cookieSelected ? (
-    //         <TouchableOpacity onPress={() => setCookieSelected(false)}>
-    //           <View style={styles.coloredBox}></View>
-    //         </TouchableOpacity>
-    //       ) : (
-    //         <TouchableOpacity onPress={() => setCookieSelected(true)}>
-    //           <View style={styles.box}></View>
-    //         </TouchableOpacity>
-    //       )}
-
-    //       <View
-    //         style={{
-    //           flexDirection: 'row',
-    //           alignItems: 'center',
-    //           marginLeft: hp(10),
-    //         }}>
-    //         <Text>
-    //           <Text style={{...FONTS.body4, color: COLORS.gray}}>I Certify that i am</Text>
-    //           <Text style={{...FONTS.body4, color: COLORS.primary}}>
-    //             18 years{' '}
-    //           </Text>
-    //           <Text style={{...FONTS.body4, color: COLORS.gray}}>of age or older </Text>
-    //         </Text>
-    //       </View>
-    //     </View>
-
-    //     <View style={[styles.row, {marginVertical: hp(2)}]}>
-    //       {cookieSelected ? (
-    //         <TouchableOpacity onPress={() => setCookieSelected(false)}>
-    //           <View style={styles.coloredBox}></View>
-    //         </TouchableOpacity>
-    //       ) : (
-    //         <TouchableOpacity onPress={() => setCookieSelected(true)}>
-    //           <View style={styles.box}></View>
-    //         </TouchableOpacity>
-    //       )}
-
-    //       <View
-    //         style={{
-    //           flexDirection: 'row',
-    //           alignItems: 'center',
-    //           marginLeft: hp(10),
-    //           width: wp(400),
-    //         }}>
-    //         <Text>
-    //           <Text style={{...FONTS.body4, color: COLORS.gray}}>I agree to privacy policy </Text>
-    //           <Text style={{...FONTS.body4, color: COLORS.primary}}>
-    //             cookies policy {'\n'} and terms and conditions.
-    //           </Text>
-    //         </Text>
-    //       </View>
-    //     </View>
-    //   </View>
-    //   <View style={styles.bottom}>
-    //     <View style={styles.btnContainer}>
-    //       <IconTextButton
-    //         label="Create Account"
-    //         onPress={handleSubmit}
-    //         isLoading={loader}
-    //       />
-    //     </View>
-    //     <TouchableOpacity onPress={() => navigation.navigate('Login')}>
-    //       <View style={[styles.span]}>
-    //         <Text style={{...FONTS.body5}}>Already have an account ?</Text>
-    //         <Text style={{...FONTS.body5, marginLeft: 5}}>Log in</Text>
-    //       </View>
-    //     </TouchableOpacity>
-    //   </View>
-    // </View>
+  
     <View style={GlobalStyle.container}>
       <KeyboardAwareScrollView showsVerticalScrollIndicator={false}>
         <ScrollView showsVerticalScrollIndicator={false}>
           <HeaderComponent onPress={() => navigation.goBack()} />
           <View>
             <View style={styles.rowBtw}>
-              <Text style={{...FONTS.h2}}>Create Account</Text>
+              <Text style={{...FONTS.h2,fontWeight: '700'}}>Create Account</Text>
               <View />
             </View>
 

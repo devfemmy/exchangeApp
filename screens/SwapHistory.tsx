@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { View, Text, StyleSheet, FlatList, ScrollView, Pressable } from 'react-native'
+import { View, Text, StyleSheet, FlatList, ScrollView, Pressable, RefreshControl } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import GlobalStyle from '../utils/globalStyle'
 import { COLORS, FONTS } from '../utils/constants/theme'
@@ -22,6 +22,7 @@ const SwapHistory = ({navigation}: any) => {
   const [value, setValue] = useState("")
   const [type, setType] = useState('all');
   const [page, setPage] = useState(1)
+  const [refreshing, setRefreshing] = useState(false);
 
   const handleModalClose = () => {
     setModalVisible(false);
@@ -41,6 +42,19 @@ const SwapHistory = ({navigation}: any) => {
       }
     dispatch(getSwapHistory(payload)).then((pp: any)=> setSwapData(pp?.payload))
   }, [type, value, page])
+
+  const onRefresh = React.useCallback(() => {
+    setRefreshing(true);
+    const payload = {
+      page: page, 
+      status: type === "all" ? "" : type, 
+      id: value?.length <= 0 ? "" : value
+    }
+  dispatch(getSwapHistory(payload)).then((pp: any)=> setSwapData(pp?.payload))
+    setTimeout(() => {
+      setRefreshing(false);
+    }, 2000);
+  }, []);
 
  
   const handlePagination = (data: any) => {
@@ -188,8 +202,11 @@ const SwapHistory = ({navigation}: any) => {
       <FlatList 
         keyExtractor={item => item?.id}
         showsVerticalScrollIndicator={false}
+        refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+        }
         contentContainerStyle={{flexGrow: 1}}
-        ListFooterComponent={swapData?.transactions?.length > 1 && <Pagination data={swapData?.transactions} handlePagination={(data:any) => handlePagination(data)} />}
+        ListFooterComponent={swapData?.transactions?.length > 1 ? <Pagination data={swapData?.transactions} handlePagination={(data:any) => handlePagination(data)} /> : null}
         data={swapData?.transactions}
         renderItem={(item) => {
          return <TranHistoryCard data={item?.item} handlePress={(data: any) => handleModalOpen(data)} />;

@@ -14,6 +14,8 @@ import EmptyScreen from '../components/EmptyScreen'
 import TransactionDetailModal from '../components/Modals/TransactionDetail'
 import HistoryCard from '../components/HistoryCard'
 import Pagination from '../components/Pagination'
+import AntDesign from 'react-native-vector-icons/AntDesign'
+import { TouchableOpacity } from 'react-native-gesture-handler'
 
 
 const TokenHistory = ({navigation}: any) => {
@@ -40,11 +42,21 @@ const TokenHistory = ({navigation}: any) => {
     const payload = {
         page: page, 
         status: (type === "success" || type === "incoming" || type === "pending" || type === "failed") ? type : "", 
-        id: value?.length <= 0 ? "" : value,
+        id: "",
         type: (type === "all" || type === "success" || type === "incoming" || type === "pending" || type === "failed")  ? "" : type,
       }
     dispatch(getTransactionHistory(payload)).then((pp: any) => setTransactionData(pp?.payload))
-  }, [type, value, page])
+  }, [type, page])
+
+  const onButtonClicked = () => {
+    const payload = {
+      page: page, 
+      status: (type === "success" || type === "incoming" || type === "pending" || type === "failed") ? type : "", 
+      id: value?.length <= 0 ? "" : value,
+      type: (type === "all" || type === "success" || type === "incoming" || type === "pending" || type === "failed")  ? "" : type,
+    }
+  dispatch(getTransactionHistory(payload)).then((pp: any) => setTransactionData(pp?.payload))
+  }
 
 
   const handlePagination = (data: any) => {
@@ -268,14 +280,21 @@ const TokenHistory = ({navigation}: any) => {
       </View>
      <View style={styles.hr}></View>
 
-     <View>
-              <TextInput
+     <View style={GlobalStyle.rowStart}>
+             <View style={{width: '85%'}}>
+             <TextInput
                 label={'Search transaction by id'}
                 value={value}
                 onChangeText={(value: any) => setValue(value)}
                 searchInput
                 style={{backgroundColor: COLORS.ldPrimary}}
               />
+             </View>
+              <View style={styles.box}>
+               <TouchableOpacity onPress={() => onButtonClicked()}>
+               <AntDesign name="search1" color={COLORS.white} size={20} />
+               </TouchableOpacity>
+              </View>
             </View>
             {
         transactionData?.transactions?.length < 1 && <EmptyScreen />
@@ -287,7 +306,7 @@ const TokenHistory = ({navigation}: any) => {
         refreshControl={
           <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
         }
-        ListFooterComponent={transactionData?.transactions?.length > 1 && <Pagination data={transactionData} handlePagination={(data:any) => handlePagination(data)} />}
+        ListFooterComponent={transactionData?.transactions?.length > 1 ? <Pagination data={transactionData} handlePagination={(data:any) => handlePagination(data)} /> : null}
         data={transactionData?.transactions}
         renderItem={(item) => {
          return <HistoryCard data={item?.item} handleClick={(data: any) => handleModalOpen(data)} />;
@@ -330,4 +349,14 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         borderRadius: 50,
       },
+      box: {
+        backgroundColor: COLORS.primary,
+        width: '15%',
+        height: 50,
+        marginTop: hp(-14),
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderRadius: 10,
+        marginLeft: 5
+      }
 })

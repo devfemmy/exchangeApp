@@ -83,7 +83,6 @@ const ZendUsdForm = (props: any) => {
     }
   })
 
-  console.log(listofCountries)
 
   const handleContinue = () => {
     if(parseFloat(amount) > usdBal) {
