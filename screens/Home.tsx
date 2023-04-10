@@ -211,7 +211,7 @@ const Home = ({navigation}: any) => {
               </Text>
               <Text
                 style={[styles.txt, {...FONTS.largeTitle, fontWeight: '600',color: COLORS.white}]}>
-                {show ? `$${format(totalAssetBalanceUsd ? totalAssetBalanceUsd?.toFixed(2) : 0)}` : '$-------'}
+                {show ? `$${format(totalAssetBalanceUsd ? totalAssetBalanceUsd.toString().match(/^-?\d+(?:\.\d{0,2})?/)[0] : 0)}` : '$-------'}
               </Text>
               <Text style={[styles.txt, {...FONTS.body5, color: COLORS.white}]}>
                 {totalAssetBalanceBtc ? totalAssetBalanceBtc?.toFixed(5) : 0} btc

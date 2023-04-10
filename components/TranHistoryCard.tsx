@@ -51,13 +51,18 @@ const TranHistoryCard = ({data, handlePress}: any) => {
           justifyContent: 'flex-end',
           alignItems: 'flex-end',
         }}>
-        <Text
+        {/* <Text
           style={{
             ...FONTS.body5,
             fontWeight: '600',
           }}>{`${format(
           parseFloat(data?.toCurrencyAmt).toFixed(5).slice(0, -1)
-        )}`}</Text>
+        )}`}</Text> */}
+                <Text
+          style={{
+            ...FONTS.body5,
+            fontWeight: '600',
+          }}>{data?.toCurrencyAmt.toString().match(/^-?\d+(?:\.\d{0,4})?/)[0]}</Text>
         <Text
           style={{
             ...FONTS.body5,
