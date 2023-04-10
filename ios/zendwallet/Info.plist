@@ -41,7 +41,9 @@
 	<string>App requires access to Photo Library to allow you to to choose a profile picture from your photo library.</string>
 	  <key>NSCameraUsageDescription</key>
   <string>App requires access to camera to allow you take a photo</string>
-  <key>NSLocationAlwaysUsageDescription</key>
+  <key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+  <string>App requires your location to be able to complete your KYC</string>
+	  <key>NSLocationAlwaysUsageDescription</key>
   <string>App requires your location to be able to complete your KYC</string>
   <key>NSLocationWhenInUseUsageDescription</key>
   <string>App requires your location to be able to complete your KYC</string>
