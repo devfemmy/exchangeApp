@@ -8,6 +8,7 @@ import {
   FlatList,
   Pressable,
   ScrollView,
+  RefreshControl
 } from 'react-native';
 import React, {useState, useEffect} from 'react';
 import GlobalStyle from '../utils/globalStyle';
@@ -36,6 +37,7 @@ const AssetInfo = (props: any) => {
   const asset = props.route?.params?.currency;
   const assetType = props.route?.params?.assetType;
   const iconData = props.route?.params?.icon;
+  const [refreshing, setRefreshing] = useState(false);
   const [type, setType] = useState('all');
   const [modalVisible, setModalVisible] = useState(false);
   const [details, setDetails] = useState<any>();
@@ -82,6 +84,22 @@ const AssetInfo = (props: any) => {
     );
   }, [asset, type, page]);
 
+  const onRefresh = React.useCallback(() => {
+    setRefreshing(true);
+    const payload = {
+      page: page,
+      currency: asset,
+      type: type,
+    };
+
+    dispatch(getAssetTransaction(payload)).then(dd =>
+      setAssetTransaction(dd?.payload),
+    );
+    setTimeout(() => {
+      setRefreshing(false);
+    }, 2000);
+  }, []);
+
 
   const filterTransaction = assetTransactions?.transactions?.filter((data: any) => data?._id?.toLowerCase().includes(value?.toLowerCase()))
 
@@ -120,7 +138,7 @@ const AssetInfo = (props: any) => {
               `${assetData[asset?.toUpperCase()]?.balance % 1 === 0 ?
                   format(parseFloat(assetData[asset?.toUpperCase()]?.balance))
                 : format(
-                parseFloat(assetData[asset?.toUpperCase()]?.balance || 0).toFixed(4),
+                parseFloat(assetData[asset?.toUpperCase()]?.balance || 0).toFixed(5).slice(0, -1),
               )}`}`}
 
           </Text>
@@ -143,8 +161,8 @@ const AssetInfo = (props: any) => {
                   :
                   format(
                   parseFloat(assetData[asset?.toUpperCase()]?.availBal || 0).toFixed(
-                    4,
-                  ),
+                    5
+                  ).slice(0, -1),
                 )} ${asset?.toUpperCase()} `}
             </Text>
           </View>
@@ -171,7 +189,7 @@ const AssetInfo = (props: any) => {
                   format(
                   parseFloat(
                     assetData[asset?.toUpperCase()]?.pendingBal || 0
-                  ).toFixed(4),
+                  ).toFixed(5).slice(0, -1),
                 )}`}
             </Text>
           </View>
@@ -422,6 +440,9 @@ const AssetInfo = (props: any) => {
         <FlatList
          keyExtractor={(item) => item?.id}
          showsVerticalScrollIndicator={false}
+         refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+        }
          ListFooterComponent={<Pagination data={assetTransactions} handlePagination={(data:any) => handlePagination(data)} />}
          data={filterTransaction}
          renderItem={(item) => {

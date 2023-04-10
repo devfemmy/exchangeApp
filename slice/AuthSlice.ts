@@ -196,15 +196,24 @@ export const signInUser = createAsyncThunk(
 
 export const getProfile = createAsyncThunk('auth/getProfile', async () => {
   try {
-    // const response = await getRequest(
-    //   `${config.api_base_url}/users/details`,
-    // );
-    // if(response?.data?.data) {
-    //   await AsyncStorage.setItem('userInfo', JSON.stringify(response?.data?.data))
-    // }
     var profile = await AsyncStorage.getItem('userInfo').then((req: any) =>
        JSON.parse(req),)
     return profile;
+
+  } catch (e: any) {
+   
+  }
+});
+
+export const getUserDetail = createAsyncThunk('auth/getUserDetail', async () => {
+  try {
+    const response = await getRequest(
+      `${config.api_base_url}/users/details`,
+    );
+    if(response?.status === 200) {
+      await AsyncStorage.setItem('userInfo', JSON.stringify(response?.data?.data))
+      return response?.data?.data
+    }
 
   } catch (e: any) {
    
@@ -526,6 +535,19 @@ export const AuthSlice = createSlice({
         },
       );
     builder.addCase(getUserByUsername.rejected, (state, action) => {
+      (state.loading = false), (state.error = action.error.message);
+    });
+    builder.addCase(getUserDetail.pending, (state, action) => {
+      state.loading = true;
+    }),
+      builder.addCase(getUserDetail.fulfilled,
+        (state, action: PayloadAction<any>) => {
+          state.loading = false;
+          (state.userData = action.payload);
+          state.userInfo = action.payload
+        },
+      );
+    builder.addCase(getUserDetail.rejected, (state, action) => {
       (state.loading = false), (state.error = action.error.message);
     });
   },

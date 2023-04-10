@@ -1,5 +1,6 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { View, Text, StyleSheet, Image } from 'react-native';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { stroke } from '../assets/images';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
@@ -10,14 +11,26 @@ import { COLORS, FONTS } from '../utils/constants/theme';
 import { hp } from '../utils/helper';
 import { useNavigation } from '@react-navigation/native';
 import EvilIcons from 'react-native-vector-icons/EvilIcons';
+import { useAppDispatch, useAppSelector } from '../app/hooks';
+import { getUserDetail, userState } from '../slice/AuthSlice';
 
 const TradeCard = ( {data}: any) => {
     const navigation = useNavigation() as any;
     const {icon, header, title, navigationScreen, comingSoon} = data;
+    const userStateInfo = useAppSelector(userState);
+    const dispatch = useAppDispatch()
+    const getUserInfo = userStateInfo?.userData
+    ? userStateInfo?.userData
+    : userStateInfo;
+
+    useEffect(() => {
+        dispatch(getUserDetail())
+    }, [])
+
 
   return (
    <View style={styles.row}>
-    <TouchableOpacity onPress={comingSoon ? () => {} : () => navigation?.navigate(navigationScreen)}>
+    <TouchableOpacity onPress={comingSoon ? () => {} : (getUserInfo?.organization &&  navigationScreen === "ZendUsd") ? () => navigation?.navigate("ZendUsdForm") : () => navigation?.navigate(navigationScreen)}>
      <View style={[GlobalStyle.rowBetween, styles.view]}>
         <View style={{width: '15%'}}>
         <View style={styles.img}>
