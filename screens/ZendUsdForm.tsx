@@ -10,7 +10,7 @@ import {TextInput} from '../components/TextInput';
 import IconTextButton from '../components/IconTextButton';
 import InvoiceUploadModal from '../components/Modals/InvoiceUploadModal';
 import SelectDropdowns from '../components/SelectDropdowns';
-// import CountryList from '../utils/constants/Countries';
+import CountryList from '../utils/constants/Countries';
 import { useAppDispatch } from '../app/hooks';
 import { getRate } from '../slice/ZendSlice';
 import { getTradingAccountByCurrency } from '../slice/WalletSlice';
@@ -75,13 +75,23 @@ const ZendUsdForm = (props: any) => {
   //   })
   // })
 
-  const listofCountries = restCountry?.map((info: any, i: any) => {
+  // const listofCountries = restCountry?.map((info: any, i: any) => {
+  //   return {
+  //     id: i + 1,
+  //     name: info?.name?.common,
+  //     image: info?.flags?.png
+  //   }
+  // })
+
+  const listofCountries = CountryList?.map((info: any, i: any) => {
     return {
       id: i + 1,
-      name: info?.name?.common,
-      image: info?.flags?.png
+      name: info?.name,
+      code: info?.code
     }
   })
+
+
 
 
   const handleContinue = () => {
@@ -140,7 +150,7 @@ const ZendUsdForm = (props: any) => {
           </View>
           <View style={GlobalStyle.rowStart}>
             <Text style={{...FONTS.body4, color: COLORS.gray}}>Balance: </Text>
-            <Text style={{...FONTS.body4, fontWeight: '600'}}>{format(parseFloat(usdBal)?.toFixed(3).slice(0,-1))} USDT</Text>
+            <Text style={{...FONTS.body4, fontWeight: '600'}}>{format( !usdBal ? 0 : parseFloat(usdBal)?.toFixed(3).slice(0,-1))} USDT</Text>
           </View>
         </View>
 
@@ -156,6 +166,7 @@ const ZendUsdForm = (props: any) => {
             data={listofCountries}  
             selected={selectedCountry}
             setSelected={(value: any) => setSelectedCountry(value)}
+            search
           />
           <TextInput label={'Enter amount you want to send'} value={amount} onChangeText={(value) => setAmount(value)} />
         </View>

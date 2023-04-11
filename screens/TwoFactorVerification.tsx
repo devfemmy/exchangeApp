@@ -80,6 +80,7 @@ const TwoFactorVerification = (props: any) => {
         catch (e) {
             setLoader(false);
         }
+
     };
 
     const handleSubmitExternal = async () => {
@@ -97,7 +98,7 @@ const TwoFactorVerification = (props: any) => {
         setLoader(true);
         try {
             var response = await dispatch(submitExternalWithdraw(payload));
-            if (submitInternalWithdraw.fulfilled.match(response)){
+            if (submitExternalWithdraw?.fulfilled?.match(response)){
                 setLoader(false);
                 return props?.navigation.navigate("SuccessScreen",{
                   params: {
