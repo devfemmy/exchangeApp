@@ -19,17 +19,16 @@ const DepositAddress = (props: any) => {
   const ref =  useRef();
 
 
-  const onShare = async () => {
-    ref.current.toDataURL((data: any) => {
-      var info = 'data:image/png;base64,' + data;
+  const onShare = () => {
+    ref.current.toDataURL(async (data: any) => {
+      var info = 'data:image/jpeg;base64,/' + data;
       if(address) {
         const options = {
-          type: 'image/jpg',
           title: `Share Address for ${token}`,
-          message: info,
+          message: `Share Address for ${token}`,
           url: info,
         }
-        Share.open(options)
+       await Share.open(options)
         .then((res) => {
           console.log(res);
         })
