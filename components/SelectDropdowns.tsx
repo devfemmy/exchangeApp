@@ -1,18 +1,22 @@
-import { View, Text, StyleSheet, Modal, TouchableOpacity, ScrollView, Image } from 'react-native';
+import { View, Text, StyleSheet, Modal, TouchableOpacity, ScrollView } from 'react-native';
 import React, { useState } from 'react';
 import { hp } from '../utils/helper';
 import { COLORS, FONTS } from '../utils/constants/theme';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import GlobalStyle from '../utils/globalStyle';
+import CountryFlag from "react-native-country-flag";
+import { TextInput } from '../components/TextInput'
 
-const SelectDropdowns = ({label, data, selected, setSelected, dob, onPress}: any) => {
+const SelectDropdowns = ({label, data, selected, setSelected, dob, onPress, search}: any) => {
   const [modalVisible, setModalVisible] = useState(false);
+  const [value, setValue] = useState("");
 
-
-  const handleSelected = (data: any) => {
-    setSelected(data?.name);
+  const handleSelected = (info: any) => {
+    setSelected(info?.name);
     setModalVisible(false);
   };
+
+  const filterSearch = data?.filter((dd: any) => dd?.name?.toLowerCase().includes(value?.toLowerCase()))
 
 
   return (
@@ -40,18 +44,39 @@ const SelectDropdowns = ({label, data, selected, setSelected, dob, onPress}: any
               </TouchableOpacity>
 
               <Text style={{...FONTS.h3, textAlign: 'center', marginBottom: hp(20)}}>{label}</Text>
-
+              {
+                search && <View style={{width: '100%'}}>
+                <TextInput
+                   label={'Search country'}
+                   value={value}
+                   onChangeText={(value: any) => setValue(value)}
+                   searchInput
+                   style={{backgroundColor: COLORS.ldPrimary}}
+                 />
+                </View>
+              }
              <ScrollView>
               {
-                data?.map((info: any) => {
-                  console.log(info?.image)
-                  return <TouchableOpacity onPress={() => handleSelected(info)} key={info?.id}>
-                    <View style={styles.modalP}>
-                    {info?.image && <Image source={{uri: info?.image}} style={{width: 20, height: 20, marginRight: 10}} />}
-                    <Text style={{...FONTS.body5, fontWeight: '700', textTransform: 'capitalize', textAlign: !info?.image ? 'center' : 'left' ,  color: COLORS.primary}}>{info?.name}</Text>
-                  </View>
-                  </TouchableOpacity>;
-                })
+               search ?
+               filterSearch?.map((info: any) => {
+                return <TouchableOpacity onPress={() => handleSelected(info)} key={info?.id}>
+                  <View style={styles.modalP}>
+                 
+                  {info?.code &&  <CountryFlag isoCode={info?.code} size={25} style={{width: 20, height: 20, marginRight: 10}} />}
+                  <Text style={{...FONTS.body5, fontWeight: '700', textTransform: 'uppercase', textAlign: !info?.code? 'center' : 'left' ,  color: COLORS.primary}}>{info?.name}</Text>
+                </View>
+                </TouchableOpacity>;
+              })
+              :
+              data?.map((info: any) => {
+                return <TouchableOpacity onPress={() => handleSelected(info)} key={info?.id}>
+                  <View style={styles.modalP}>
+                 
+                  {info?.code &&  <CountryFlag isoCode={info?.code} size={25} style={{width: 20, height: 20, marginRight: 10}} />}
+                  <Text style={{...FONTS.body5, fontWeight: '700', textTransform: 'uppercase', textAlign: !info?.code? 'center' : 'left' ,  color: COLORS.primary}}>{info?.name}</Text>
+                </View>
+                </TouchableOpacity>;
+              })
               }
              </ScrollView>
             </View>

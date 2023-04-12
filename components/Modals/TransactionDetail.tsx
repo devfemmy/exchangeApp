@@ -90,8 +90,8 @@ const TransactionDetailModal = ({modalVisible, setModalVisible, data}: any) => {
                   Transaction ID:
                 </Text>
                <View style={GlobalStyle.rowBetween}>
-               <Text style={{...FONTS.body3, marginRight: hp(30), width: wp(220)}}>{data?.type === 'internal' ? data?.billId : data?.txId}</Text>
-               <Feather name="copy" size={20} onPress={() => copyToClipboard(data?.type === 'internal' ? data?.billId : data?.txId)} />
+               <Text style={{...FONTS.body3, marginRight: hp(30), width: wp(220)}}>{data?.billId || data?.txId || data?.wdId}</Text>
+               <Feather name="copy" size={20} onPress={() => copyToClipboard(data?.billId || data?.txId || data?.wdId)} />
                </View>
               </View>
 

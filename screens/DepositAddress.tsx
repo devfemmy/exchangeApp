@@ -11,7 +11,7 @@ import Feather from 'react-native-vector-icons/Feather';
 import IconTextButton from '../components/IconTextButton';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import Share from 'react-native-share';
-import RNFetchBlob from 'rn-fetch-blob';
+import ViewShot from "react-native-view-shot";
 
 const DepositAddress = (props: any) => {
   const {chain, address, memo} = props?.route?.params?.data;

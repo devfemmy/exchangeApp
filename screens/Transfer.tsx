@@ -141,7 +141,7 @@ const Transfer = ({navigation}: any) => {
         return navigation.navigate("SuccessScreen",{
           params: {
             header: "Transfer Successful",
-            text: `You have successfully ${number} ${selectedAssets} from your ${from} to ${to} account`
+            text: `You have successfully transfer ${number} ${selectedAssets} from your ${from} to ${to} account`
           }
         })
       }
