@@ -12,7 +12,6 @@
 		0516837519DF4028BF61F5AA /* Poppins-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9A53C2A01B8E4318A4D48299 /* Poppins-Regular.ttf */; };
 		0C80B921A6F3F58F76C31292 /* libPods-zendwallet.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5DCACB8F33CDC322A6C60F78 /* libPods-zendwallet.a */; };
 		13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.mm */; };
-		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		336F93BEE99242C795AA7729 /* Poppins-ExtraBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BD447F4BD35A4B9E8C5BC0C8 /* Poppins-ExtraBoldItalic.ttf */; };
 		4665BBAD00D848F689B48177 /* Poppins-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2F6AF4FDFC9A43C29518B2F5 /* Poppins-Italic.ttf */; };
@@ -24,10 +23,11 @@
 		70612EB637EE4ECE863B6ED1 /* Poppins-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 63C39D0680A04C6584E9CD1F /* Poppins-Bold.ttf */; };
 		7699B88040F8A987B510C191 /* libPods-zendwallet-zendwalletTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 19F6CBCC0A4E27FBF8BF4A61 /* libPods-zendwallet-zendwalletTests.a */; };
 		7EABA7EFCE564B979B73530B /* Poppins-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 71E30EE1704346DA8BF926AC /* Poppins-Light.ttf */; };
-		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		9A85159A092849F686060471 /* Poppins-LightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2BA8BE38BA554249B9176C32 /* Poppins-LightItalic.ttf */; };
 		9D901B71EE4344BAB7CEC809 /* Poppins-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1A47188441BB4A4A93D60F12 /* Poppins-SemiBold.ttf */; };
 		ABECF3DFD51A4885851A029B /* Poppins-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8BB40B837D82470B9423E954 /* Poppins-ExtraBold.ttf */; };
+		CE2C9C5129E6BA7C00701269 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CE2C9C5029E6BA7C00701269 /* Launch Screen.storyboard */; };
+		CE2C9C5429E6BD3000701269 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CE2C9C5329E6BD3000701269 /* Images.xcassets */; };
 		CEB5340E29963BD000F0054A /* Fontisto.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CEB533FE29963BD000F0054A /* Fontisto.ttf */; };
 		CEB5340F29963BD000F0054A /* Octicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CEB533FF29963BD000F0054A /* Octicons.ttf */; };
 		CEB5341029963BD000F0054A /* Feather.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CEB5340029963BD000F0054A /* Feather.ttf */; };
@@ -68,7 +68,6 @@
 		13B07F961A680F5B00A75B9A /* zendwallet.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = zendwallet.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = zendwallet/AppDelegate.h; sourceTree = "<group>"; };
 		13B07FB01A68108700A75B9A /* AppDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = AppDelegate.mm; path = zendwallet/AppDelegate.mm; sourceTree = "<group>"; };
-		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = zendwallet/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = zendwallet/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = zendwallet/main.m; sourceTree = "<group>"; };
 		153D39AE46654D0C91B6E8A0 /* Poppins-BlackItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Poppins-BlackItalic.ttf"; path = "../assets/fonts/Poppins-BlackItalic.ttf"; sourceTree = "<group>"; };
@@ -86,7 +85,6 @@
 		63C39D0680A04C6584E9CD1F /* Poppins-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Poppins-Bold.ttf"; path = "../assets/fonts/Poppins-Bold.ttf"; sourceTree = "<group>"; };
 		71E30EE1704346DA8BF926AC /* Poppins-Light.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Poppins-Light.ttf"; path = "../assets/fonts/Poppins-Light.ttf"; sourceTree = "<group>"; };
 		7341C7B65BBD45DB81433B92 /* Poppins-SemiBoldItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Poppins-SemiBoldItalic.ttf"; path = "../assets/fonts/Poppins-SemiBoldItalic.ttf"; sourceTree = "<group>"; };
-		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = zendwallet/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		89C6BE57DB24E9ADA2F236DE /* Pods-zendwallet-zendwalletTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-zendwallet-zendwalletTests.release.xcconfig"; path = "Target Support Files/Pods-zendwallet-zendwalletTests/Pods-zendwallet-zendwalletTests.release.xcconfig"; sourceTree = "<group>"; };
 		8B35022CB6914A1D83C958B2 /* Poppins-ExtraLightItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Poppins-ExtraLightItalic.ttf"; path = "../assets/fonts/Poppins-ExtraLightItalic.ttf"; sourceTree = "<group>"; };
 		8BB40B837D82470B9423E954 /* Poppins-ExtraBold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Poppins-ExtraBold.ttf"; path = "../assets/fonts/Poppins-ExtraBold.ttf"; sourceTree = "<group>"; };
@@ -95,6 +93,8 @@
 		AFE79C2227754DFA963E193B /* Poppins-BoldItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Poppins-BoldItalic.ttf"; path = "../assets/fonts/Poppins-BoldItalic.ttf"; sourceTree = "<group>"; };
 		BD447F4BD35A4B9E8C5BC0C8 /* Poppins-ExtraBoldItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Poppins-ExtraBoldItalic.ttf"; path = "../assets/fonts/Poppins-ExtraBoldItalic.ttf"; sourceTree = "<group>"; };
 		CD28887A92FE48849D40F5A6 /* Poppins-ExtraLight.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Poppins-ExtraLight.ttf"; path = "../assets/fonts/Poppins-ExtraLight.ttf"; sourceTree = "<group>"; };
+		CE2C9C5029E6BA7C00701269 /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
+		CE2C9C5329E6BD3000701269 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = zendwallet/Images.xcassets; sourceTree = "<group>"; };
 		CEB533FE29963BD000F0054A /* Fontisto.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Fontisto.ttf; sourceTree = "<group>"; };
 		CEB533FF29963BD000F0054A /* Octicons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Octicons.ttf; sourceTree = "<group>"; };
 		CEB5340029963BD000F0054A /* Feather.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Feather.ttf; sourceTree = "<group>"; };
@@ -154,13 +154,13 @@
 		13B07FAE1A68108700A75B9A /* zendwallet */ = {
 			isa = PBXGroup;
 			children = (
+				CE2C9C5329E6BD3000701269 /* Images.xcassets */,
 				CEB533FD29963BD000F0054A /* Fonts */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.mm */,
-				13B07FB51A68108700A75B9A /* Images.xcassets */,
 				13B07FB61A68108700A75B9A /* Info.plist */,
-				81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */,
 				13B07FB71A68108700A75B9A /* main.m */,
+				CE2C9C5029E6BA7C00701269 /* Launch Screen.storyboard */,
 			);
 			name = zendwallet;
 			sourceTree = "<group>";
@@ -363,8 +363,6 @@
 			files = (
 				CEB5340F29963BD000F0054A /* Octicons.ttf in Resources */,
 				CEB5341529963BD000F0054A /* Foundation.ttf in Resources */,
-				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
-				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				CEB5341229963BD000F0054A /* FontAwesome5_Brands.ttf in Resources */,
 				CEB5340E29963BD000F0054A /* Fontisto.ttf in Resources */,
 				CEB5341B29963BD000F0054A /* EvilIcons.ttf in Resources */,
@@ -372,6 +370,7 @@
 				CEB5341829963BD000F0054A /* FontAwesome5_Regular.ttf in Resources */,
 				CEB5341329963BD000F0054A /* MaterialCommunityIcons.ttf in Resources */,
 				CEB5341729963BD000F0054A /* FontAwesome5_Solid.ttf in Resources */,
+				CE2C9C5429E6BD3000701269 /* Images.xcassets in Resources */,
 				CEB5341129963BD000F0054A /* Entypo.ttf in Resources */,
 				CEB5341929963BD000F0054A /* FontAwesome.ttf in Resources */,
 				CEB5341629963BD000F0054A /* Ionicons.ttf in Resources */,
@@ -381,6 +380,7 @@
 				CEB5341429963BD000F0054A /* AntDesign.ttf in Resources */,
 				F48FFE29A018476DB662C8CC /* Poppins-Black.ttf in Resources */,
 				04EEE098E9024D1CAD3C25AC /* Poppins-BlackItalic.ttf in Resources */,
+				CE2C9C5129E6BA7C00701269 /* Launch Screen.storyboard in Resources */,
 				70612EB637EE4ECE863B6ED1 /* Poppins-Bold.ttf in Resources */,
 				F566560DAE1E4BEFBD6BA1D6 /* Poppins-BoldItalic.ttf in Resources */,
 				ABECF3DFD51A4885851A029B /* Poppins-ExtraBold.ttf in Resources */,
