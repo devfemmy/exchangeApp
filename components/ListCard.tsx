@@ -4,13 +4,14 @@ import { hp } from '../utils/helper';
 
 import { stroke } from '../assets/images';
 import { FONTS } from '../utils/constants/theme';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 
 const ListCard = ({ data, id, handlePress, logOut}: any) => {
 
   return (
-    <View key={id} style={styles.container}>
-    <Pressable onPress={data?.name === 'Sign Out' ? logOut : handlePress}>
+    <TouchableOpacity onPress={data?.name === 'Sign Out' ? logOut : handlePress} key={id} style={styles.container}>
+    <TouchableOpacity onPress={data?.name === 'Sign Out' ? logOut : handlePress}>
         <View style={styles.rowBtw}>
             <View style={styles.row}>
                 {data?.icon}
@@ -21,9 +22,9 @@ const ListCard = ({ data, id, handlePress, logOut}: any) => {
             }
 
         </View>
-    </Pressable>
+    </TouchableOpacity>
 
-</View>
+</TouchableOpacity>
   );
 };
 
@@ -34,8 +35,8 @@ const styles = StyleSheet.create({
         backgroundColor: 'white',
         borderBottomColor: '#E0E0E0',
         borderBottomWidth: 0.3,
-         paddingVertical: hp(10),
-        marginBottom: hp(20),
+         paddingVertical: hp(20),
+        // paddingBottom: hp(20),
     },
     txt: {
         marginLeft: hp(10),

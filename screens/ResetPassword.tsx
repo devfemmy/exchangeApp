@@ -12,6 +12,7 @@ import { TextInput } from '../components/TextInput';
 import IconTextButton from '../components/IconTextButton';
 import { COLORS, FONTS } from '../utils/constants/theme';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
+import HeaderComponent from '../components/HeaderComponent';
 
 const ResetPassword = ({navigation}: any) => {
   const initialValues: ResetPasswordData = {
@@ -35,7 +36,8 @@ const { values, errors, touched, handleChange, handleSubmit, handleBlur } =
     <KeyboardAwareScrollView showsVerticalScrollIndicator={false}>
        <ScrollView>
                 <View style={styles.top}>
-                    <AntDesign onPress={() => navigation.goBack()} name="arrowleft" style={styles.icon} size={hp(20)} color={COLORS.gray2} />
+                <HeaderComponent onPress={() => navigation.goBack()} />
+                    {/* <AntDesign onPress={() => navigation.goBack()} name="arrowleft" style={styles.icon} size={hp(20)} color={COLORS.gray2} /> */}
 
                     <Text style={{...FONTS.h2}}>Reset Password</Text>
 

@@ -11,6 +11,7 @@ import IconTextButton from '../components/IconTextButton';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { hp, wp } from '../utils/helper';
 import { COLORS, FONTS } from '../utils/constants/theme';
+import HeaderComponent from '../components/HeaderComponent';
 
 const ForgetPassword = ({navigation}: any) => {
   const initialValues: ForgetPasswordFormData = {
@@ -31,7 +32,9 @@ const ForgetPassword = ({navigation}: any) => {
   return (
     <View style={[GlobalStyle.container, styles.div]}>
         <View style={styles.top}>
-        <AntDesign onPress={() => navigation.goBack()} name="arrowleft" style={styles.icon} size={hp(20)} color={COLORS.gray2} />
+        {/* <AntDesign onPress={() => navigation.goBack()} name="arrowleft" style={styles.icon} size={hp(20)} color={COLORS.gray2} />
+         */}
+          <HeaderComponent onPress={() => navigation.goBack()} />
 
         <Text style={{...FONTS.h2}}>Forget Password</Text>
 

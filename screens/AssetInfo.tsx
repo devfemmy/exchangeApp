@@ -115,11 +115,13 @@ const AssetInfo = (props: any) => {
   return (
     <View style={GlobalStyle.container}>
       <View style={GlobalStyle.rowBetween}>
+        <TouchableOpacity  onPress={() => props.navigation.goBack()}>
         <AntDesign
           name="arrowleft"
           size={hp(25)}
           onPress={() => props.navigation.goBack()}
         />
+        </TouchableOpacity>
         <Text style={{...FONTS.h2, fontWeight: '600'}}>{assetName}</Text>
         <Image source={iconData} style={styles.icon} />
       </View>

@@ -5,11 +5,12 @@ import { hp } from '../utils/helper';
 import { stroke } from '../assets/images';
 import { FONTS } from '../utils/constants/theme';
 import { Switch } from 'react-native-paper';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 const ListCardItem = ({ data, id, handlePress, icon, isSwitchOn, onToggleSwitch }: any) => {
 
   return (
-    <View key={id} style={styles.container}>
+    <TouchableOpacity onPress={data?.name !== 'Allow Biometrics' ? handlePress : null} key={id} style={styles.container}>
     <Pressable onPress={data?.name !== 'Allow Biometrics' ? handlePress : null}>
         <View style={styles.rowBtw}>
             <View style={styles.row}>
@@ -25,7 +26,7 @@ const ListCardItem = ({ data, id, handlePress, icon, isSwitchOn, onToggleSwitch 
         </View>
     </Pressable>
 
-</View>
+</TouchableOpacity>
   );
 };
 
@@ -36,8 +37,8 @@ const styles = StyleSheet.create({
         backgroundColor: 'white',
         borderBottomColor: '#E0E0E0',
         borderBottomWidth: 0.3,
-         paddingVertical: hp(10),
-        marginBottom: hp(20),
+        //  paddingVertical: hp(10),
+         paddingVertical: hp(20),
     },
     txt: {
         marginLeft: hp(10),

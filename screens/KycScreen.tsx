@@ -20,6 +20,7 @@ import config from '../slice/config';
 import {useAppDispatch, useAppSelector} from '../app/hooks';
 import {getUserDetail, userState} from '../slice/AuthSlice';
 import SuccessIcon from '../assets/svg/success.svg';
+import HeaderComponent from '../components/HeaderComponent';
 
 const KycScreen = ({navigation}: any) => {
   const userStateInfo = useAppSelector(userState);
@@ -157,13 +158,14 @@ const KycScreen = ({navigation}: any) => {
     <View style={GlobalStyle.container}>
       <View style={styles.top}>
         <ScrollView showsVerticalScrollIndicator={false}>
-          <AntDesign
+        <HeaderComponent onPress={() => navigation.goBack()} />
+          {/* <AntDesign
             onPress={() => navigation.goBack()}
             name="arrowleft"
             style={styles.icon}
             size={hp(20)}
             color={COLORS.gray2}
-          />
+          /> */}
 
           <Text style={{...FONTS.h2, fontWeight: '700'}}>KYC Verification</Text>
           <Text style={{...FONTS.body4, color: COLORS.gray, width: wp(250)}}>

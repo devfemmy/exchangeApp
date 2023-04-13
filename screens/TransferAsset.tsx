@@ -6,12 +6,15 @@ import {COLORS, FONTS} from '../utils/constants/theme';
 import {hp, wp} from '../utils/helper';
 import { tether } from '../assets/images';
 import IconTextButton from '../components/IconTextButton';
+import HeaderComponent from '../components/HeaderComponent';
 
 const TransferAsset = ({navigation}: any) => {
   return (
     <View style={GlobalStyle.container}>
       <View style={GlobalStyle.rowBetween}>
-        <AntDesign name="arrowleft" size={hp(25)} onPress={() => navigation?.goBack()} />
+        {/* <AntDesign name="arrowleft" size={hp(25)} onPress={() => navigation?.goBack()} />
+         */}
+          <HeaderComponent onPress={() => navigation.goBack()} />
         <Text style={{...FONTS.h3, fontWeight: '600'}}>Transfer Asset</Text>
         <View />
       </View>

@@ -47,11 +47,13 @@ const DepositAddress = (props: any) => {
 
     <View style={GlobalStyle.container}>
       <View style={GlobalStyle.rowBetween}>
+        <TouchableOpacity onPress={() => props.navigation.goBack()}>
         <AntDesign
           name="arrowleft"
           size={30}
           onPress={() => props?.navigation.goBack()}
         />
+        </TouchableOpacity>
         <Text style={{...FONTS.h3, fontWeight: '600'}}>Deposit {token}</Text>
         <View></View>
       </View>
