@@ -26,6 +26,7 @@ import {launchImageLibrary} from 'react-native-image-picker';
 import { userState } from '../slice/AuthSlice';
 import KycLogo from "../assets/svg/kyclogo.svg";
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
+import { getTradeStatus } from '../slice/TradeSlice';
 
 const ZendUsd = ({navigation}: any) => {
   const dispatch = useAppDispatch();
@@ -34,7 +35,7 @@ const ZendUsd = ({navigation}: any) => {
   const [imgUriMemo, setImageUriMemo] = useState<any>();
   const [modalVisible, setModalVisible] = useState(false)
   const isFocused = useIsFocused();
-
+  const tradeStatusInfo = useAppSelector(tradeStatus)
   const userStateInfo = useAppSelector(userState);
   const getUserInfo = userStateInfo?.userData
   ? userStateInfo?.userData
@@ -177,6 +178,7 @@ const ZendUsd = ({navigation}: any) => {
 
     const proceedKyc = () => {
       setModalVisible(false)
+      dispatch(getTradeStatus(!tradeStatusInfo))
       if(!getUserInfo?.hasVerifiedPhoneNumber) {
         return navigation.navigate("VerifyPhone")
       }

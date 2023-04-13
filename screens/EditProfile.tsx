@@ -151,10 +151,10 @@ const EditProfile = ({navigation}: any) => {
           {/* <View style={GlobalStyle.level}>
             <Text style={{...FONTS.h4, color: '#4F4F4F', fontWeight: '500'}}>Beginner</Text>
           </View> */}
-          <Pressable style={styles.buttonStyle}  onPress={imagePickerHandler} >
+          {/* <Pressable style={styles.buttonStyle}   >
           <Text style={{...FONTS.h4, fontSize: hp(15), fontWeight: '400', color: '#232323', textAlign: 'center'}}>Upload New Image</Text>
-          </Pressable>
-          <Pressable style={GlobalStyle.profileCircle2}>
+          </Pressable> */}
+          <Pressable style={GlobalStyle.profileCircle2} onPress={imagePickerHandler}>
           <FastImage
                     style={styles.icons}
                     defaultSource={require('../assets/images/placeholder.png')}

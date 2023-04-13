@@ -35,6 +35,7 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 import TransferIcon from '../assets/svg/transferMobile.svg';
 import io from "socket.io-client"
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import config from '../slice/config';
 
 const Home = ({navigation}: any) => {
   const dispatch = useAppDispatch();
@@ -51,11 +52,11 @@ const Home = ({navigation}: any) => {
 
     useEffect(() => {
       const loadData = async () => {
-       const token =  await AsyncStorage.getItem('userInfo').then((req: any) => JSON.parse(req))
+        const token =  await AsyncStorage.getItem('token')
 
-        const socketUrl = io('https://websocket.zendwallet.com', {
+        const socketUrl = io(config.websocket_url, {
         auth: {
-          accessToken: token?.accessToken,
+          accessToken: token,
         },
       });
 
