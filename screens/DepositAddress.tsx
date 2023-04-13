@@ -21,7 +21,7 @@ const DepositAddress = (props: any) => {
 
   const onShare = () => {
     ref.current.toDataURL(async (data: any) => {
-      var info = 'data:image/jpeg;base64,/' + data;
+      var info = 'data:image/jpeg;base64,' + data;
       if(address) {
         const options = {
           title: `Share Address for ${token}`,

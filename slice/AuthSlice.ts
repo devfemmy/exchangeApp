@@ -33,6 +33,7 @@ export const createUser = createAsyncThunk(
       lastName: payload?.lastName,
       username: payload?.username,
     };
+
     try {
       const response = await postRequest(
         `${config.api_base_url}/auth/sign-up/user?clientType=browser`,
@@ -72,8 +73,11 @@ export const verifyEmail = createAsyncThunk(
     if (response?.status === 200) {
       var profile = await AsyncStorage.getItem('keepInfo').then((req: any) => JSON.parse(req))
       await AsyncStorage.setItem('userInfo', JSON.stringify(profile))
+      if(profile?.accessToken){
+        await AsyncStorage.setItem('token', profile?.accessToken)
+       }
       return profile
-     // return response?.data?.data;
+
     }
   },
 );

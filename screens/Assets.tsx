@@ -30,6 +30,7 @@ import FastImage from 'react-native-fast-image';
 import { userState } from '../slice/AuthSlice';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { io } from 'socket.io-client';
+import config from '../slice/config';
 
 const Assets = ({navigation}: any) => {
   const [type, setType] = useState('funding');
@@ -48,11 +49,10 @@ const Assets = ({navigation}: any) => {
 
   useEffect(() => {
     const loadData = async () => {
-     const token =  await AsyncStorage.getItem('userInfo').then((req: any) => JSON.parse(req))
-
-      const socketUrl = io('https://websocket.zendwallet.com/balance', {
+     const token =  await AsyncStorage.getItem('token')
+      const socketUrl = io(`${config.websocket_url}/balance`, {
       auth: {
-        accessToken: token?.accessToken,
+        accessToken: token,
       },
     });
 
@@ -62,6 +62,7 @@ const Assets = ({navigation}: any) => {
       });
 
       socketUrl.on("message", (message) => {
+      
         dispatch(getTradingAccount()).then(gg => {
           setTradingAccountInfo(gg?.payload)
         }

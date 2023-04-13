@@ -238,7 +238,7 @@ useEffect(() => {
 
               <View>
                 <Text style={{ ...FONTS.body3}}>
-                  Balance: {assetData?.availBal ? format(parseFloat(assetData?.availBal)) : 0} {currencyName?.toUpperCase()}
+                  Balance: {(assetData?.availBal && assetData?.availBal % 1 === 0) ? format(parseFloat(assetData?.availBal)) : (assetData?.availBal && assetData?.availBal % 1 !== 0) ? format(parseFloat(assetData?.availBal).toFixed(5).slice(0, -1)) : 0} {currencyName?.toUpperCase()}
                 </Text>
               </View>
             </View>
