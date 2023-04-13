@@ -14,6 +14,7 @@ import {generateSigninToken, verifySignin} from '../slice/AuthSlice';
 import {useAppDispatch} from '../app/hooks';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import SmoothPinCodeInput from 'react-native-smooth-pincode-input';
+import HeaderComponent from '../components/HeaderComponent';
 
 
 const RequireConfirmation = (props: any) => {
@@ -91,13 +92,14 @@ const RequireConfirmation = (props: any) => {
 
   return (
     <View style={GlobalStyle.container}>
-      <AntDesign
+      {/* <AntDesign
         onPress={() => props.navigation.goBack()}
         name="arrowleft"
         style={styles.icon}
         size={hp(20)}
         color={COLORS.gray2}
-      />
+      /> */}
+       <HeaderComponent onPress={() => navigation.goBack()} />
 
       <Text style={{...FONTS.h2, fontWeight: '600'}}>Verify New Device</Text>
 

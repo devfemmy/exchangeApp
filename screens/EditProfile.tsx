@@ -25,6 +25,7 @@ import {Notifier, NotifierComponents} from 'react-native-notifier';
 import moment from 'moment';
 import FastImage from 'react-native-fast-image';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import HeaderComponent from '../components/HeaderComponent';
 
 const EditProfile = ({navigation}: any) => {
   const dispatch = useAppDispatch();
@@ -142,8 +143,8 @@ const EditProfile = ({navigation}: any) => {
     <View style={[GlobalStyle.container, styles.div]}>
        <KeyboardAwareScrollView showsVerticalScrollIndicator={false}>
         <ScrollView showsVerticalScrollIndicator={false} style={styles.top}>
-        <AntDesign onPress={() => navigation.goBack()} name="arrowleft" style={styles.icon} size={hp(20)} color={COLORS.gray2} />
-
+        {/* <AntDesign onPress={() => navigation.goBack()} name="arrowleft" style={styles.icon} size={hp(20)} color={COLORS.gray2} /> */}
+         <HeaderComponent onPress={() => navigation.goBack()} />
         <Text style={{...FONTS.h2, fontWeight: '700'}}>Edit Profile</Text>
 
         <View style={styles.container}>
