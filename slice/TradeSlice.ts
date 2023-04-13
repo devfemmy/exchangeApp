@@ -6,6 +6,7 @@
 /* eslint-disable no-trailing-spaces */
 
 import {createAsyncThunk, createSlice, PayloadAction} from '@reduxjs/toolkit';
+import { boolean, string } from 'yup';
 
 import type {RootState} from '../app/store';
 import {getRequest, postRequest} from '../utils/server';
@@ -15,10 +16,18 @@ const initialState = {
   isTradeVisible: false,
   loading: false,
   marketData: null,
+  mode: true,
 };
 
 export const getTradeStatus = createAsyncThunk(
   'trade/getTradeStatus',
+  async (payload: boolean) => {
+    return payload;
+  },
+);
+
+export const getModeStatus = createAsyncThunk(
+  'trade/getModeStatus',
   async (payload: boolean) => {
     return payload;
   },
@@ -225,6 +234,18 @@ export const tradeSlice = createSlice({
     builder.addCase(getTradeStatus.rejected, state => {
       state.loading = false;
     });
+    builder.addCase(getModeStatus.pending, state => {
+      state.loading = true;
+    }),
+      builder.addCase(
+        getModeStatus.fulfilled,
+        (state, action: PayloadAction<any>) => {
+          (state.loading = false), (state.mode = action.payload);
+        },
+      );
+    builder.addCase(getModeStatus.rejected, state => {
+      state.loading = false;
+    });
     builder.addCase(getMarketPrice.pending, state => {
       state.loading = true;
     }),
@@ -329,6 +350,7 @@ export const tradeSlice = createSlice({
 
 // Other code such as selectors can use the imported `RootState` type
 export const tradeStatus = (state: RootState) => state.trade?.isTradeVisible;
+export const modeStatus = (state: RootState) => state.trade?.mode;
 export const marketInfo = (state: RootState) => state.trade?.marketData;
 
 export default tradeSlice.reducer;

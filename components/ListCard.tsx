@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, Pressable, Image } from 'react-native';
+import { View, Text, StyleSheet, Image } from 'react-native';
 import React from 'react';
 import { hp } from '../utils/helper';
 
@@ -7,15 +7,15 @@ import { FONTS } from '../utils/constants/theme';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
 
-const ListCard = ({ data, id, handlePress, logOut}: any) => {
+const ListCard = ({ data, id, handlePress, logOut,modeInfo}: any) => {
 
   return (
-    <TouchableOpacity onPress={data?.name === 'Sign Out' ? logOut : handlePress} key={id} style={styles.container}>
+    <TouchableOpacity onPress={data?.name === 'Sign Out' ? logOut : handlePress} key={id} style={[styles.container,{backgroundColor: modeInfo ? "white" : "black"}]}>
     <TouchableOpacity onPress={data?.name === 'Sign Out' ? logOut : handlePress}>
         <View style={styles.rowBtw}>
             <View style={styles.row}>
                 {data?.icon}
-                <Text style={{...FONTS.body3, marginLeft: hp(10)}}>{data?.name}</Text>
+                <Text style={{...FONTS.body3, color: modeInfo ? "black" : "white", marginLeft: hp(10)}}>{data?.name}</Text>
             </View>
              {
                 (data?.name !== 'Sign Out' && !data?.type) && <Image source={stroke} style={styles.img} />

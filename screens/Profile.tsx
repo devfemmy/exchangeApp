@@ -33,11 +33,13 @@ import SecuritySafe from '../assets/svg/security-safe.svg';
 import SupportDark from '../assets/svg/24-supportdark.svg';
 import SignOutDark from '../assets/svg/logoutdark.svg';
 import LogOuts from "../assets/svg/logout.svg"
+import { modeStatus } from '../slice/TradeSlice';
 
 const Profile = ({navigation}: any) => {
   const dispatch = useAppDispatch();
   const userStateInfo = useAppSelector(userState);
   const [modalVisible, setModalVisible] = useState(false);
+  const modeInfo = useAppSelector(modeStatus);
 
   const getUserInfo = userStateInfo?.userData
     ? userStateInfo?.userData
@@ -98,11 +100,11 @@ const Profile = ({navigation}: any) => {
 
   return (
     <MainLayout>
-      <View style={GlobalStyle.container}>
-        <View style={styles.container}>
+      <View style={[GlobalStyle.container,{backgroundColor: modeInfo ? "white" : "black"}]}>
+        <View style={[styles.container,{backgroundColor: modeInfo ? "white" : "black"}]}>
           <ScrollView showsVerticalScrollIndicator={false}>
             <Text
-              style={{...FONTS.h2, marginBottom: hp(25), fontWeight: '600'}}>
+              style={{...FONTS.h2, marginBottom: hp(25), fontWeight: '600',color: modeInfo ? "black" : "white"}}>
               Account Settings
             </Text>
 
@@ -141,6 +143,7 @@ const Profile = ({navigation}: any) => {
                   <ListCard
                     id={i}
                     data={data}
+                    modeInfo={modeInfo}
                     handlePress={() => navigation.navigate(data?.route)
                     }
                     logOut={() => setModalVisible(true)}

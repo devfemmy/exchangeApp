@@ -12,7 +12,7 @@ import { Home, Assets, Profile, Transaction } from "../screens";
 import { COLORS} from "../utils/constants/theme"
 import icons from "../utils/constants/icons";
 import { useAppDispatch, useAppSelector } from "../app/hooks";
-import { getTradeStatus, tradeStatus } from "../slice/TradeSlice";
+import { getTradeStatus, modeStatus, tradeStatus } from "../slice/TradeSlice";
 import ArrowIcon from '../assets/svg/arrow1.svg';
 import { hp } from "../utils/helper";
 
@@ -48,7 +48,7 @@ const Tabs = () => {
   const dispatch = useAppDispatch()
 
   const tradeStatusInfo = useAppSelector(tradeStatus)
-
+  const modeInfo = useAppSelector(modeStatus);
 
   const tradeTabButtonHandler = () => {
     dispatch(getTradeStatus(!tradeStatusInfo))
@@ -63,6 +63,7 @@ const Tabs = () => {
                   height: 120,
                   borderTopColor: COLORS.primary,
                   borderTopWidth: 2,
+                  backgroundColor: modeInfo ? "white" : "black"
                 }
             }}
         >

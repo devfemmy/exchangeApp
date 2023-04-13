@@ -10,6 +10,7 @@ import {
   Pressable,
   TouchableOpacity,
   RefreshControl,
+
 } from 'react-native';
 import React, {useState, useEffect} from 'react';
 
@@ -24,7 +25,7 @@ import {arrowDown, arrowUp, eye, swaps} from '../assets/images';
 import Header from '../components/Header';
 import {COLORS, FONTS} from '../utils/constants/theme';
 import {tokenBalanceData} from '../utils/constants/tokenList';
-import {getMarketPrice, marketInfo} from '../slice/TradeSlice';
+import {getMarketPrice, marketInfo, modeStatus} from '../slice/TradeSlice';
 import {
   fundingAccount,
   getFundingAccount,
@@ -40,6 +41,7 @@ import config from '../slice/config';
 const Home = ({navigation}: any) => {
   const dispatch = useAppDispatch();
   const userStateInfo = useAppSelector(userState);
+  const modeInfo = useAppSelector(modeStatus);
   const marketInfos = useAppSelector(marketInfo) as any;
   const [show, setShow] = useState(false);
   const [tradingAccountInfo, setTradingAccountInfo] = useState<any>();
@@ -48,6 +50,8 @@ const Home = ({navigation}: any) => {
   const getUserInfo = userStateInfo?.userData
     ? userStateInfo?.userData
     : userStateInfo;
+
+
 
 
     useEffect(() => {
@@ -178,17 +182,18 @@ const Home = ({navigation}: any) => {
   ];
 
 
+
   return (
     <MainLayout>
-      <View style={GlobalStyle.container}>
+      <View style={[GlobalStyle.container, {backgroundColor: modeInfo ? "white" : "black"}]}>
         <View style={styles.container}>
-          <Header info={getUserInfo} note={greetUser()} />
+          <Header info={getUserInfo} note={greetUser()} modeInfo={modeInfo} />
           <ScrollView
             showsVerticalScrollIndicator={false}
             refreshControl={
               <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
             }>
-            <View style={styles.card}>
+            <View style={[styles.card, {backgroundColor: modeInfo ? "#485FE6" : "#12248726"}]}>
               <View style={styles.eyeDiv}>
                 {show ? (
                    <Pressable onPress={() => setShow(!show)}>
@@ -256,7 +261,7 @@ const Home = ({navigation}: any) => {
             {(!getUserInfo?.hasSetPin ||
               !getUserInfo?.isKycVerified ||
               !getUserInfo?.hasVerifiedPhoneNumber) &&
-            <Text style={[{...FONTS.h4, fontWeight: '600', marginVertical: hp(15)}]}>
+            <Text style={[{...FONTS.h4, fontWeight: '600', marginVertical: hp(15),color: modeInfo ? "black" : "white"}]}>
               Pending Action
             </Text>
             }
@@ -276,7 +281,7 @@ const Home = ({navigation}: any) => {
               })}
 
               
-            <Text style={[{...FONTS.h3, fontWeight: "600", marginTop: hp(25), marginBottom: hp(5)}]}>
+            <Text style={[{...FONTS.h3, fontWeight: "600", marginTop: hp(25),color: modeInfo ? "black" : "white", marginBottom: hp(5)}]}>
               My Assets
             </Text>
 
@@ -301,12 +306,12 @@ const Home = ({navigation}: any) => {
                             style={styles.icons}
                           />
                           <View style={{marginLeft: hp(10)}}>
-                            <Text style={{...FONTS.h3, color: COLORS.lightBlack, fontWeight:"500"}}>
+                            <Text style={{...FONTS.h3, color: modeInfo ? COLORS.lightBlack : "white", fontWeight:"500"}}>
                               {data?.name}
                             </Text>
                             <Text
                               style={{
-                                ...FONTS.h5, color: COLORS.lightBlack,
+                                ...FONTS.h5, color: modeInfo ? COLORS.lightBlack : "white",
                                 textTransform: 'uppercase',
                               }}>
                               {info?.currency}
@@ -319,7 +324,7 @@ const Home = ({navigation}: any) => {
                             alignItems: 'flex-end',
                           }}>
                           <Text
-                            style={{...FONTS.h3, color: COLORS.lightBlack, fontWeight:"500"}}>{`$${format(
+                            style={{...FONTS.h3, color: modeInfo ? COLORS.lightBlack : "white", fontWeight:"500"}}>{`$${format(
                             data?.current_price.toFixed(2),
                           )}`}</Text>
                           <Text

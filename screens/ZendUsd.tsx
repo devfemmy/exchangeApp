@@ -26,7 +26,7 @@ import {launchImageLibrary} from 'react-native-image-picker';
 import { userState } from '../slice/AuthSlice';
 import KycLogo from "../assets/svg/kyclogo.svg";
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
-import { getTradeStatus } from '../slice/TradeSlice';
+import { getTradeStatus, tradeStatus } from '../slice/TradeSlice';
 
 const ZendUsd = ({navigation}: any) => {
   const dispatch = useAppDispatch();
