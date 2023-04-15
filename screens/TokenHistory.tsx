@@ -6,8 +6,8 @@ import { COLORS, FONTS } from '../utils/constants/theme'
 import { hp, wp } from '../utils/helper'
 import HeaderComponent from '../components/HeaderComponent'
 
-import { useAppDispatch } from '../app/hooks'
-import { getTransactionHistory } from '../slice/TradeSlice'
+import { useAppDispatch, useAppSelector } from '../app/hooks'
+import { getTransactionHistory, modeStatus } from '../slice/TradeSlice'
 import { TextInput } from '../components/TextInput'
 import EmptyScreen from '../components/EmptyScreen'
 
@@ -27,7 +27,7 @@ const TokenHistory = ({navigation}: any) => {
   const [type, setType] = useState('all');
   const [page, setPage] = useState(1)
   const [refreshing, setRefreshing] = useState(false);
-
+  const modeInfo = useAppSelector(modeStatus);
   const handleModalClose = () => {
     setModalVisible(false);
     setDetails(null);
@@ -84,7 +84,7 @@ const TokenHistory = ({navigation}: any) => {
 
 
   return (
-    <View style={GlobalStyle.container}>
+    <View style={[GlobalStyle.container, {backgroundColor: modeInfo ? "white" : "#1a202c"}]}>
               <View style={styles.margin} />
               <HeaderComponent onPress={() => navigation.goBack()} /> 
       <Text style={{...FONTS.h3, fontWeight: '600'}}>Token Transactions</Text>

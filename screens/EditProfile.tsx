@@ -26,6 +26,7 @@ import moment from 'moment';
 import FastImage from 'react-native-fast-image';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import HeaderComponent from '../components/HeaderComponent';
+import { modeStatus } from '../slice/TradeSlice';
 
 const EditProfile = ({navigation}: any) => {
   const dispatch = useAppDispatch();
@@ -33,7 +34,7 @@ const EditProfile = ({navigation}: any) => {
   const userStateInfo = useAppSelector(userState);
   const [countryCode, setCountryCode] = useState('NG');
   const [, setCountry] = useState(null);
-
+  const modeInfo = useAppSelector(modeStatus);
   const getUserInfo = userStateInfo?.userData ? userStateInfo?.userData : userStateInfo;
 
   const [imgUri, setImageUri] = useState(getUserInfo?.image);
@@ -140,7 +141,7 @@ const EditProfile = ({navigation}: any) => {
     };
 
   return (
-    <View style={[GlobalStyle.container, styles.div]}>
+    <View style={[GlobalStyle.container, styles.div, {backgroundColor: modeInfo ? "white" : "#1a202c"}]}>
        <KeyboardAwareScrollView showsVerticalScrollIndicator={false}>
         <ScrollView showsVerticalScrollIndicator={false} style={styles.top}>
         {/* <AntDesign onPress={() => navigation.goBack()} name="arrowleft" style={styles.icon} size={hp(20)} color={COLORS.gray2} /> */}

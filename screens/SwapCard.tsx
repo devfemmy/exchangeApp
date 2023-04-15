@@ -11,7 +11,7 @@ import {tokenBalanceData} from '../utils/constants/tokenList';
 import GlobalStyle from '../utils/globalStyle';
 import {ScrollView} from 'react-native-gesture-handler';
 import {useAppDispatch, useAppSelector} from '../app/hooks';
-import {getMarketPrice, marketInfo} from '../slice/TradeSlice';
+import {getMarketPrice, marketInfo, modeStatus} from '../slice/TradeSlice';
 import IconTextButton from '../components/IconTextButton';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import SwapTokenModal from '../components/Modals/SwapTokenModal';
@@ -40,7 +40,7 @@ const SwapCard = (props: any) => {
   const [assetData, setAssetData] = useState<any>();
   const dispatch = useAppDispatch();
   const [amount, setAmount] = useState<any>();
-
+  const modeInfo = useAppSelector(modeStatus);
   const [assetDataTo, setAssetDataTo] = useState<any>();
 
 
@@ -147,7 +147,7 @@ const SwapCard = (props: any) => {
   };
 
   return (
-    <View style={GlobalStyle.container}>
+    <View style={[GlobalStyle.container, {backgroundColor: modeInfo ? "white" : "#1a202c"}]}>
       <KeyboardAwareScrollView showsVerticalScrollIndicator={false}>
       <View style={styles.centeredView}>
         <View style={styles.centeredView}>

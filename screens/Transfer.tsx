@@ -23,12 +23,12 @@ import {ScrollView} from 'react-native-gesture-handler';
 import GlobalStyle from '../utils/globalStyle';
 import HeaderComponent from '../components/HeaderComponent';
 import SwapTokenModal from '../components/Modals/SwapTokenModal';
-import {useAppDispatch} from '../app/hooks';
+import {useAppDispatch, useAppSelector} from '../app/hooks';
 import {
   getFundingAccountByCurrency,
   getTradingAccountByCurrency,
 } from '../slice/WalletSlice';
-import { transferToken } from '../slice/TradeSlice';
+import { modeStatus, transferToken } from '../slice/TradeSlice';
 import { Notifier, NotifierComponents } from 'react-native-notifier';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 
@@ -44,7 +44,7 @@ const Transfer = ({navigation}: any) => {
   const [assetDataFund, setAssetDataFund] = useState<any>();
   const [assetDataTrad, setAssetDataTrad] = useState<any>();
   const [loader, setLoader] = useState(false);
-
+  const modeInfo = useAppSelector(modeStatus);
 
   useEffect(() => {
     if (selectedAssets !== 'Select Token') {
@@ -164,7 +164,7 @@ const Transfer = ({navigation}: any) => {
   };
 
   return (
-    <View style={GlobalStyle.container}>
+    <View style={[GlobalStyle.container, {backgroundColor: modeInfo ? "white" : "#1a202c"}]}>
       <View style={styles.centeredView}>
         <View style={styles.centeredView}>
         <KeyboardAwareScrollView showsVerticalScrollIndicator={false}>

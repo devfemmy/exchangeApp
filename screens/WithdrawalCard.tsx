@@ -11,7 +11,7 @@ import {tokenBalanceData} from '../utils/constants/tokenList';
 import GlobalStyle from '../utils/globalStyle';
 import {ScrollView} from 'react-native-gesture-handler';
 import {useAppDispatch, useAppSelector} from '../app/hooks';
-import {getMarketPrice, getWithdrawalFee, marketInfo} from '../slice/TradeSlice';
+import {getMarketPrice, getWithdrawalFee, marketInfo, modeStatus} from '../slice/TradeSlice';
 import IconTextButton from '../components/IconTextButton';
 import { SelectInput } from '../components/SelectInput';
 import { getFundingAccount, getWalletNetwork } from '../slice/WalletSlice';
@@ -25,7 +25,7 @@ const WithdrawalCard = (props: any) => {
   const assetName = props.route?.params?.info?.token;
   const currencyIcon = props.route?.params?.info?.icon;
   const currencyName = props.route?.params?.info?.currency;
-
+  const modeInfo = useAppSelector(modeStatus);
   const [walletType, setWalletType] = useState('');
   const [walletNetwork, setWalletNetwork] = useState('');
   const [assetData, setAssetData] = useState<any>();
@@ -215,7 +215,7 @@ useEffect(() => {
 
 
   return (
-    <View style={GlobalStyle.container}>
+    <View style={[GlobalStyle.container, {backgroundColor: modeInfo ? "white" : "#1a202c"}]}>
       <View style={styles.centeredView}>
         <View style={styles.centeredView}>
           <View style={[styles.modalView, styles.top]}>

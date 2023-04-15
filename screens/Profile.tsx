@@ -16,7 +16,7 @@ import React, {useState, useEffect} from 'react';
 import MainLayout from './mainLayout';
 import GlobalStyle from '../utils/globalStyle';
 import {useAppDispatch, useAppSelector} from '../app/hooks';
-import {getProfile, signOutUser, userState} from '../slice/AuthSlice';
+import {deleteUserAccount, getProfile, signOutUser, userState} from '../slice/AuthSlice';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import IconTextButton from '../components/IconTextButton';
 import {hp, wp} from '../utils/helper';
@@ -34,11 +34,13 @@ import SupportDark from '../assets/svg/24-supportdark.svg';
 import SignOutDark from '../assets/svg/logoutdark.svg';
 import LogOuts from "../assets/svg/logout.svg"
 import { modeStatus } from '../slice/TradeSlice';
+import { Notifier, NotifierComponents } from 'react-native-notifier';
 
 const Profile = ({navigation}: any) => {
   const dispatch = useAppDispatch();
   const userStateInfo = useAppSelector(userState);
   const [modalVisible, setModalVisible] = useState(false);
+  const [modalDeleteVisible, setModalDeleteVisible] = useState(false);
   const modeInfo = useAppSelector(modeStatus);
 
   const getUserInfo = userStateInfo?.userData
@@ -92,19 +94,51 @@ const Profile = ({navigation}: any) => {
     },
     {
       id: 6,
+      name: 'Delete Account',
+      icon: <UserDark />,
+      route: 'SignOut',
+    },
+    {
+      id: 7,
       name: 'Sign Out',
       icon: <SignOutDark />,
       route: 'SignOut',
     },
   ];
 
+  const deleteUser = async () => {
+    const payload = {
+      id: getUserInfo?.id
+    }
+    try {
+      var response = await dispatch(deleteUserAccount(payload))
+      if(deleteUserAccount.fulfilled.match(response)){
+        logOut()
+      }
+      else {
+        var errMsg = response?.payload as string
+        Notifier.showNotification({
+          title: 'Error',
+          description: errMsg,
+          Component: NotifierComponents.Alert,
+          componentProps: {
+            alertType: 'error',
+          },
+        });
+      }
+    }
+    catch(e) {
+      console.log({e})
+    }
+  }
+
   return (
     <MainLayout>
-      <View style={[GlobalStyle.container,{backgroundColor: modeInfo ? "white" : "black"}]}>
-        <View style={[styles.container,{backgroundColor: modeInfo ? "white" : "black"}]}>
+      <View style={[GlobalStyle.container,{backgroundColor: modeInfo ? "white" : "#1a202c"}]}>
+        <View style={[styles.container,{backgroundColor: modeInfo ? "white" : "#1a202c"}]}>
           <ScrollView showsVerticalScrollIndicator={false}>
             <Text
-              style={{...FONTS.h2, marginBottom: hp(25), fontWeight: '600',color: modeInfo ? "black" : "white"}}>
+              style={{...FONTS.h2, marginBottom: hp(25), fontWeight: '600',color: modeInfo ? "#1a202c" : "white"}}>
               Account Settings
             </Text>
 
@@ -146,7 +180,7 @@ const Profile = ({navigation}: any) => {
                     modeInfo={modeInfo}
                     handlePress={() => navigation.navigate(data?.route)
                     }
-                    logOut={() => setModalVisible(true)}
+                    logOut={ data?.name === "Sign Out" ? () => setModalVisible(true) : () => setModalDeleteVisible(true)}
                   />
                 );
               })}
@@ -160,8 +194,8 @@ const Profile = ({navigation}: any) => {
                 onRequestClose={() => {
                   setModalVisible(false);
                 }}>
-                <View style={styles.centeredView}>
-                  <View style={styles.modalView}>
+                <View style={[styles.centeredView]}>
+                  <View style={[styles.modalView,{backgroundColor: modeInfo ? "white" : "#1a202c"}]}>
                     <TouchableOpacity onPress={() => setModalVisible(false)}>
                       <View style={styles.end}>
                         <AntDesign name="close" size={30} />
@@ -175,6 +209,38 @@ const Profile = ({navigation}: any) => {
                       <TouchableOpacity onPress={() => logOut()}>
                       <View style={{backgroundColor: COLORS.red, width: wp(100), padding: hp(10), borderRadius: hp(5)}}>
                         <Text style={{textAlign: 'center',...FONTS.h3, color: COLORS.white }}>Logout</Text>
+                      </View>
+                      </TouchableOpacity>
+                    </View>
+                  </View>
+                </View>
+              </Modal>
+            </View>
+
+
+            <View style={styles.centeredView}>
+              <Modal
+                animationType="slide"
+                transparent={true}
+                visible={modalDeleteVisible}
+                onRequestClose={() => {
+                  setModalDeleteVisible(false);
+                }}>
+                <View style={[styles.centeredView]}>
+                  <View style={[styles.modalView, {backgroundColor: modeInfo ? "white" : "#1a202c"}]}>
+                    <TouchableOpacity onPress={() => setModalDeleteVisible(false)}>
+                      <View style={styles.end}>
+                        <AntDesign name="close" size={30} />
+                      </View>
+                    </TouchableOpacity>
+
+                    <View style={{justifyContent: 'center', alignItems: 'center'}}>
+                      <LogOuts  />
+                      <Text style={{...FONTS.h3, fontWeight: '700', marginVertical: hp(10)}}>Confirm Account Delete</Text>
+                      <Text style={{...FONTS.body4, marginBottom: hp(10)}}>Are you sure about this?</Text>
+                      <TouchableOpacity onPress={() => deleteUser()}>
+                      <View style={{backgroundColor: COLORS.red, width: wp(150), padding: hp(10), borderRadius: hp(5)}}>
+                        <Text style={{textAlign: 'center',...FONTS.h3, color: COLORS.white }}>Delete Account</Text>
                       </View>
                       </TouchableOpacity>
                     </View>

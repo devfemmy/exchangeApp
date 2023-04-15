@@ -26,7 +26,7 @@ import {launchImageLibrary} from 'react-native-image-picker';
 import { userState } from '../slice/AuthSlice';
 import KycLogo from "../assets/svg/kyclogo.svg";
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
-import { getTradeStatus, tradeStatus } from '../slice/TradeSlice';
+import { getTradeStatus, modeStatus, tradeStatus } from '../slice/TradeSlice';
 
 const ZendUsd = ({navigation}: any) => {
   const dispatch = useAppDispatch();
@@ -37,6 +37,7 @@ const ZendUsd = ({navigation}: any) => {
   const isFocused = useIsFocused();
   const tradeStatusInfo = useAppSelector(tradeStatus)
   const userStateInfo = useAppSelector(userState);
+  const modeInfo = useAppSelector(modeStatus);
   const getUserInfo = userStateInfo?.userData
   ? userStateInfo?.userData
   : userStateInfo;
@@ -187,7 +188,7 @@ const ZendUsd = ({navigation}: any) => {
 
 
   return (
-    <View style={GlobalStyle.container}>
+    <View style={[GlobalStyle.container, {backgroundColor: modeInfo ? "white" : "#1a202c"}]}>
       <HeaderComponent onPress={() => navigation.goBack()} />
       <KeyboardAwareScrollView showsVerticalScrollIndicator={false}>
       <ScrollView>

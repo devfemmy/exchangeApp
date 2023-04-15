@@ -7,10 +7,15 @@ import {hp} from '../utils/helper';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import Entypo from 'react-native-vector-icons/Entypo';
 import PrepaidCard from '../components/PrepaidCard';
+import { useAppSelector } from '../app/hooks';
+import { modeStatus } from '../slice/TradeSlice';
 
 const ZendPrepaid = ({navigation}: any) => {
+  const modeInfo = useAppSelector(modeStatus);
+
+  
   return (
-    <View style={GlobalStyle.container}>
+    <View style={[GlobalStyle.container, {backgroundColor: modeInfo ? "white" : "#1a202c"}]}>
       <SwapHeader
         header="History"
         handlePress={() => navigation?.navigate('ZendPrepaidHistory')}

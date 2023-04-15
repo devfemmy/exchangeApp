@@ -13,9 +13,11 @@ import SwapIcon from '../assets/svg/swap.svg';
 import HistoryIcon from '../assets/svg/bitcoin-convert.svg';
 import UsdIcon from '../assets/svg/usd.svg';
 import TransIcon from '..//assets/svg/transaction-minus.svg'
+import { useAppSelector } from '../app/hooks'
+import { modeStatus } from '../slice/TradeSlice'
 
 const Transaction = () => {
-
+  const modeInfo = useAppSelector(modeStatus);
   const transactionArray = [
     {
       id: 2,
@@ -55,7 +57,7 @@ const Transaction = () => {
 
   return (
     <MainLayout>
-    <View style={GlobalStyle.container}>
+    <View style={[GlobalStyle.container, {backgroundColor: modeInfo ? "white" : "#1a202c"}]}>
     <ScrollView showsVerticalScrollIndicator={false}>
           <Text style={{...FONTS.h2, fontWeight: '600', marginBottom: hp(5)}}>Transactions</Text>
           <Text style={{...FONTS.body4, color: COLORS.gray, marginBottom: hp(30), width: wp(200)}}>

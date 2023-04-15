@@ -11,8 +11,8 @@ import { TextInput } from '../components/TextInput';
 import { hp, wp } from '../utils/helper';
 import IconTextButton from '../components/IconTextButton';
 import SmoothPinCodeInput from 'react-native-smooth-pincode-input';
-import { useAppDispatch } from '../app/hooks';
-import { getWithdrawalOtp, submitExternalWithdraw, submitInternalWithdraw } from '../slice/TradeSlice';
+import { useAppDispatch, useAppSelector } from '../app/hooks';
+import { getWithdrawalOtp, modeStatus, submitExternalWithdraw, submitInternalWithdraw } from '../slice/TradeSlice';
 import { Notifier, NotifierComponents } from 'react-native-notifier';
 
 
@@ -27,7 +27,7 @@ const TwoFactorVerification = (props: any) => {
     const memo = props?.route?.params?.params?.memo;
     const [emailLoader, setEmailLoader] = useState(false);
     const [loader, setLoader] = useState(false);
-
+    const modeInfo = useAppSelector(modeStatus);
     const [messageId, setMessageId] = useState<any>('');
     const [pin, setPin] = useState<any>('');
     const dispatch = useAppDispatch();
@@ -139,7 +139,7 @@ const TwoFactorVerification = (props: any) => {
 
 
   return (
-    <View style={GlobalStyle.container}>
+    <View style={[GlobalStyle.container, {backgroundColor: modeInfo ? "white" : "#1a202c"}]}>
         <HeaderComponent onPress={() => props?.navigation.goBack()} />
       <Text style={{...FONTS.h2, fontWeight: '600'}}>2FA Verification</Text>
       <Text style={{...FONTS.body5, fontWeight: '500', color: COLORS.gray}}>Just making sure its you </Text>

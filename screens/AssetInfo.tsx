@@ -17,7 +17,7 @@ import {COLORS, FONTS} from '../utils/constants/theme';
 import {format, hp, wp} from '../utils/helper';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 
-import {useAppDispatch} from '../app/hooks';
+import {useAppDispatch, useAppSelector} from '../app/hooks';
 import {
   getAssetTransaction,
   getFundingAccountByCurrency,
@@ -30,6 +30,7 @@ import TransactionDetailModal from '../components/Modals/TransactionDetail';
 
 import { TextInput } from '../components/TextInput';
 import Pagination from '../components/Pagination';
+import { modeStatus } from '../slice/TradeSlice';
 
 const AssetInfo = (props: any) => {
   const [assetData, setAssetData] = useState<any>();
@@ -43,6 +44,7 @@ const AssetInfo = (props: any) => {
   const [details, setDetails] = useState<any>();
   const [value, setValue] = useState("")
   const [page, setPage] = useState(1)
+  const modeInfo = useAppSelector(modeStatus);
 
   const handleModalClose = () => {
     setModalVisible(false);
@@ -113,7 +115,7 @@ const AssetInfo = (props: any) => {
    }
 
   return (
-    <View style={GlobalStyle.container}>
+    <View style={[GlobalStyle.container,{backgroundColor: modeInfo ? "white" : "#1a202c"}]}>
       <View style={GlobalStyle.rowBetween}>
         <TouchableOpacity  onPress={() => props.navigation.goBack()}>
         <AntDesign

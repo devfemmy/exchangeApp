@@ -6,15 +6,18 @@ import { hp } from '../utils/helper';
 import IconTextButton from "../components/IconTextButton";
 
 import SuccessIcon from '../assets/svg/success.svg';
+import { useAppSelector } from '../app/hooks';
+import { modeStatus } from '../slice/TradeSlice';
 // import HeaderComponent from '../components/HeaderComponent';
 
 const SuccessScreen = (props: any) => {
   const header = props?.route?.params?.params?.header
   const text = props?.route?.params?.params?.text
+  const modeInfo = useAppSelector(modeStatus);
 
 
   return (
-    <View style={[GlobalStyle.container, {flex: 1}]}>
+    <View style={[GlobalStyle.container, {flex: 1, backgroundColor: modeInfo ? "white" : "#1a202c"}]}>
       {/* <HeaderComponent onPress={() => navigation.goBack()} /> */}
       <View style={styles.div}>
       <View style={{justifyContent: 'center', alignItems: 'center', marginBottom: hp(-70)}}>

@@ -10,7 +10,7 @@ import {tokenBalanceData} from '../utils/constants/tokenList';
 import GlobalStyle from '../utils/globalStyle';
 import {ScrollView} from 'react-native-gesture-handler';
 import {useAppDispatch, useAppSelector} from '../app/hooks';
-import {getMarketPrice, marketInfo} from '../slice/TradeSlice';
+import {getMarketPrice, marketInfo, modeStatus} from '../slice/TradeSlice';
 import DepositModal from '../components/Modals/DepositModal';
 import {
   fundingAccount,
@@ -44,7 +44,7 @@ const Deposit = ({navigation}: any) => {
   const [networks, setNetworks] = useState<any>();
   const dispatch = useAppDispatch();
   const [otherInfo, setOtherInfo] = useState<any>();
-
+  const modeInfo = useAppSelector(modeStatus);
   const tradingAccountInfo: any = useAppSelector(fundingAccount);
 
 
@@ -179,7 +179,7 @@ const Deposit = ({navigation}: any) => {
   };
 
   return (
-    <View style={GlobalStyle.container}>
+    <View style={[GlobalStyle.container, {backgroundColor: modeInfo ? "white" : "#1a202c"}]}>
       <View style={styles.centeredView}>
         <View style={styles.centeredView}>
           <View style={styles.modalView}>

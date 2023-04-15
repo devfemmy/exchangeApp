@@ -4,10 +4,15 @@ import GlobalStyle from '../utils/globalStyle';
 import HeaderComponent from '../components/HeaderComponent';
 import {FONTS} from '../utils/constants/theme';
 import {hp} from '../utils/helper';
+import { useAppSelector } from '../app/hooks';
+import { modeStatus } from '../slice/TradeSlice';
 
 const Instructions = ({navigation}: any) => {
+  const modeInfo = useAppSelector(modeStatus);
+
+  
   return (
-    <View style={GlobalStyle.container}>
+    <View style={[GlobalStyle.container, {backgroundColor: modeInfo ? "white" : "#1a202c"}]}>
       <HeaderComponent onPress={() => navigation.goBack()} />
       <Text style={{...FONTS.h3, fontWeight: '600'}}>Instructions</Text>
 

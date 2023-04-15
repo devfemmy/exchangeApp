@@ -11,13 +11,14 @@ import Feather from 'react-native-vector-icons/Feather';
 import IconTextButton from '../components/IconTextButton';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import Share from 'react-native-share';
-import ViewShot from "react-native-view-shot";
+import { useAppSelector } from '../app/hooks';
+import { modeStatus } from '../slice/TradeSlice';
 
 const DepositAddress = (props: any) => {
   const {chain, address, memo} = props?.route?.params?.data;
   const {token, icon, currency} = props?.route?.params?.otherInfo;
   const ref =  useRef();
-
+  const modeInfo = useAppSelector(modeStatus);
 
   const onShare = () => {
     ref.current.toDataURL(async (data: any) => {
@@ -45,7 +46,7 @@ const DepositAddress = (props: any) => {
 
   return (
 
-    <View style={GlobalStyle.container}>
+    <View style={[GlobalStyle.container, {backgroundColor: modeInfo ? "white" : "#1a202c"}]}>
       <View style={GlobalStyle.rowBetween}>
         <TouchableOpacity onPress={() => props.navigation.goBack()}>
         <AntDesign

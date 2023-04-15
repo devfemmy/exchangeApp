@@ -5,14 +5,17 @@ import { COLORS, FONTS } from '../utils/constants/theme'
 
 import { hp, wp } from '../utils/helper'
 import HeaderComponent from '../components/HeaderComponent'
-import TranHistoryCard from '../components/TranHistoryCard'
+import { useAppSelector } from '../app/hooks'
+import { modeStatus } from '../slice/TradeSlice'
 
 
 const ZendPrepaidHistory = ({navigation}: any) => {
     const [type, setType] = useState('all');
+    const modeInfo = useAppSelector(modeStatus);
 
+    
   return (
-    <View style={GlobalStyle.container}>
+    <View style={[GlobalStyle.container, {backgroundColor: modeInfo ? "white" : "#1a202c"}]}>
               <View style={styles.margin} />
               <HeaderComponent onPress={() => navigation.goBack()} /> 
       <Text style={{...FONTS.h3, fontWeight: '600'}}>Zend Prepaid History</Text>

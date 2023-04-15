@@ -9,10 +9,14 @@ import {TextInput} from '../components/TextInput';
 import UploadCard from '../components/UploadCard';
 import IconTextButton from '../components/IconTextButton';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
+import { useAppSelector } from '../app/hooks';
+import { modeStatus } from '../slice/TradeSlice';
 
 const GiftCard = ({navigation}: any) => {
+  const modeInfo = useAppSelector(modeStatus);
+  
   return (
-    <View style={GlobalStyle.container}>
+    <View style={[GlobalStyle.container, {backgroundColor: modeInfo ? "white" : "#1a202c"}]}>
       <KeyboardAwareScrollView showsVerticalScrollIndicator={false}>
       <ScrollView showsVerticalScrollIndicator={false}>
         <View>

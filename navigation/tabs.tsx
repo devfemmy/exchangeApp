@@ -63,7 +63,7 @@ const Tabs = () => {
                   height: 120,
                   borderTopColor: COLORS.primary,
                   borderTopWidth: 2,
-                  backgroundColor: modeInfo ? "white" : "black"
+                  backgroundColor: modeInfo ? "white" : "#1a202c"
                 }
             }}
         >

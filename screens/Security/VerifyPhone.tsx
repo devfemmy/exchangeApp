@@ -11,9 +11,10 @@ import { PhoneNumberData } from '../../utils/types';
 import { useFormik } from 'formik';
 import { PhoneSchema } from '../../utils/schemas';
 import IconTextButton from '../../components/IconTextButton';
-import { useAppDispatch } from '../../app/hooks';
+import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import { VerifyPhonenumber } from '../../slice/AuthSlice';
 import { Notifier, NotifierComponents } from 'react-native-notifier';
+import { modeStatus } from '../../slice/TradeSlice';
 
 export default function VerifyPhone({navigation}: any) {
   const [countryCode, setCountryCode] = useState('NG');
@@ -23,6 +24,7 @@ export default function VerifyPhone({navigation}: any) {
   const initialValues: PhoneNumberData = {
     phone: '',
   };
+  const modeInfo = useAppSelector(modeStatus);
 
   const handleCredentialSubmit = async (data: any) => {
     const payload = {
@@ -85,7 +87,7 @@ export default function VerifyPhone({navigation}: any) {
     setCountry(country);
   };
   return (
-    <View style={[GlobalStyle.container]}>
+    <View style={[GlobalStyle.container,{backgroundColor: modeInfo ? "white" : "#1a202c"}]}>
       <MainLayout>
         <ScrollView>
           <HeaderComponent onPress={() => navigation.goBack()} />

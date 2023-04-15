@@ -6,8 +6,8 @@ import { COLORS, FONTS } from '../utils/constants/theme'
 import { hp, wp } from '../utils/helper'
 import HeaderComponent from '../components/HeaderComponent'
 import TranHistoryCard from '../components/TranHistoryCard'
-import { useAppDispatch } from '../app/hooks'
-import { getSwapHistory } from '../slice/TradeSlice'
+import { useAppDispatch, useAppSelector } from '../app/hooks'
+import { getSwapHistory, modeStatus } from '../slice/TradeSlice'
 import SwapDetailModal from '../components/Modals/SwapDetail'
 import { TextInput } from '../components/TextInput'
 import EmptyScreen from '../components/EmptyScreen'
@@ -23,7 +23,7 @@ const SwapHistory = ({navigation}: any) => {
   const [type, setType] = useState('all');
   const [page, setPage] = useState(1)
   const [refreshing, setRefreshing] = useState(false);
-
+  const modeInfo = useAppSelector(modeStatus);
   const handleModalClose = () => {
     setModalVisible(false);
     setDetails(null);
@@ -67,7 +67,7 @@ const SwapHistory = ({navigation}: any) => {
    }
 
   return (
-    <View style={GlobalStyle.container}>
+    <View style={[GlobalStyle.container, {backgroundColor: modeInfo ? "white" : "#1a202c"}]}>
               <View style={styles.margin} />
               <HeaderComponent onPress={() => navigation.goBack()} /> 
       <Text style={{...FONTS.h2, fontWeight: '600'}}>Swap History</Text>

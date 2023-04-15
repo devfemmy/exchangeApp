@@ -13,7 +13,8 @@ import { TextInput } from '../../components/TextInput';
 import IconTextButton from '../../components/IconTextButton';
 import { changePassword } from '../../slice/AuthSlice';
 import { Notifier, NotifierComponents } from 'react-native-notifier';
-import { useAppDispatch } from '../../app/hooks';
+import { useAppDispatch, useAppSelector } from '../../app/hooks';
+import { modeStatus } from '../../slice/TradeSlice';
 
 export default function ChangePassword({navigation}: any) {
   const initialValues: changePasswordData = {
@@ -23,7 +24,7 @@ export default function ChangePassword({navigation}: any) {
   };
   const [loader, setLoader] = useState(false);
   const dispatch = useAppDispatch();
-
+  const modeInfo = useAppSelector(modeStatus);
   const handleCredentialSubmit =  async (data: any) => {
     setLoader(true);
     const payload = {
@@ -80,7 +81,7 @@ export default function ChangePassword({navigation}: any) {
     },
   });
   return (
-    <View style={[GlobalStyle.container]}>
+    <View style={[GlobalStyle.container,{backgroundColor: modeInfo ? "white" : "#1a202c"}]}>
       <MainLayout>
         <ScrollView>
           <HeaderComponent onPress={() => navigation.goBack()} />

@@ -6,7 +6,7 @@ import { View, Animated, Dimensions } from 'react-native'
 import React, { useEffect } from 'react'
 import { COLORS, SIZES, } from '../utils/constants/theme'
 import { useAppSelector } from '../app/hooks'
-import { tradeStatus } from '../slice/TradeSlice'
+import { modeStatus, tradeStatus } from '../slice/TradeSlice'
 
 import TradeCard from '../components/TradeCard'
 import { hp } from '../utils/helper'
@@ -15,7 +15,7 @@ import TransferIcon from '../assets/svg/transferMobile2.svg';
 const MainLayout = ({children}: any) => {
 
     const tradeStatusInfo = useAppSelector(tradeStatus)
-
+    const modeInfo = useAppSelector(modeStatus);
 
     const modalAnimatedValue = React.useRef(new Animated.Value(0)).current;
 
@@ -117,7 +117,7 @@ const MainLayout = ({children}: any) => {
             // width: "100%",
             borderRadius: 30,
             padding: SIZES.padding,
-            backgroundColor: COLORS.white,
+            backgroundColor: modeInfo ? "white" : "#1a202c",
             // marginHorizontal: hp(20),
             width: Dimensions.get('window').width/1.07,
         }}

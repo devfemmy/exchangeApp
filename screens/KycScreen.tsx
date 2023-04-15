@@ -2,7 +2,6 @@
 import {View, Text, ScrollView, StyleSheet} from 'react-native';
 import React, {useEffect, useState} from 'react';
 import GlobalStyle from '../utils/globalStyle';
-import AntDesign from 'react-native-vector-icons/AntDesign';
 // import CountryPicker from 'react-native-country-picker-modal';
 import {COLORS, FONTS} from '../utils/constants/theme';
 import {hp, wp} from '../utils/helper';
@@ -21,10 +20,12 @@ import {useAppDispatch, useAppSelector} from '../app/hooks';
 import {getUserDetail, userState} from '../slice/AuthSlice';
 import SuccessIcon from '../assets/svg/success.svg';
 import HeaderComponent from '../components/HeaderComponent';
+import { modeStatus } from '../slice/TradeSlice';
 
 const KycScreen = ({navigation}: any) => {
   const userStateInfo = useAppSelector(userState);
   const dispatch = useAppDispatch()
+  const modeInfo = useAppSelector(modeStatus);
   const getUserInfo = userStateInfo?.userData
     ? userStateInfo?.userData
     : userStateInfo;
@@ -155,7 +156,7 @@ const KycScreen = ({navigation}: any) => {
 
 
   return (
-    <View style={GlobalStyle.container}>
+    <View style={[GlobalStyle.container, {backgroundColor: modeInfo ? "white" : "#1a202c"}]}>
       <View style={styles.top}>
         <ScrollView showsVerticalScrollIndicator={false}>
         <HeaderComponent onPress={() => navigation.goBack()} />

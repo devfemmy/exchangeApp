@@ -9,8 +9,8 @@ import {COLORS, FONTS} from '../utils/constants/theme';
 import {hp, wp} from '../utils/helper';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import IconTextButton from '../components/IconTextButton';
-import {useAppDispatch} from '../app/hooks';
-import {getSwapQuote, swapToken} from '../slice/TradeSlice';
+import {useAppDispatch, useAppSelector} from '../app/hooks';
+import {getSwapQuote, modeStatus, swapToken} from '../slice/TradeSlice';
 import { Notifier, NotifierComponents } from 'react-native-notifier';
 
 
@@ -26,6 +26,7 @@ const ConfirmSwap = (props: any) => {
   const [isFetching2, setIsFetching2] = useState(false);
   const [loader, setLoader] = useState(false)
   const [counter, setCounter] = React.useState(0);
+  const modeInfo = useAppSelector(modeStatus);
 
   useEffect(() => {
     setIsFetching2(true);
@@ -99,7 +100,7 @@ const ConfirmSwap = (props: any) => {
   }
 
   return (
-    <View style={GlobalStyle.container}>
+    <View style={[GlobalStyle.container, {backgroundColor: modeInfo ? "white" : "#1a202c"}]}>
       <HeaderComponent onPress={() => props?.navigation.goBack()} />
       <Text style={{...FONTS.h2, fontWeight: '700'}}>Confirm Swap</Text>
       <Text style={{...FONTS.body5}}>Kindly confirm this transaction</Text>

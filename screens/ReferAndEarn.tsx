@@ -13,6 +13,7 @@ import { TouchableOpacity } from 'react-native';
 import { useAppDispatch, useAppSelector } from '../app/hooks';
 import { getReferrerCode } from '../slice/WalletSlice';
 import { userState } from '../slice/AuthSlice';
+import { modeStatus } from '../slice/TradeSlice';
 
 
 const ReferAndEarn = ({navigation}: any) => {
@@ -22,6 +23,7 @@ const ReferAndEarn = ({navigation}: any) => {
   const getUserInfo = userStateInfo?.userData
   ? userStateInfo?.userData
   : userStateInfo;
+  const modeInfo = useAppSelector(modeStatus);
 
   useEffect(() => {
     const payload = {
@@ -32,7 +34,7 @@ const ReferAndEarn = ({navigation}: any) => {
   
 
   return (
-    <View style={GlobalStyle.container}>
+    <View style={[GlobalStyle.container, {backgroundColor: modeInfo ? "white" : "#1a202c"}]}>
      <HeaderComponent onPress={() => navigation?.goBack()} />
 
       <View>

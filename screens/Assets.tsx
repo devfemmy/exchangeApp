@@ -19,7 +19,7 @@ import IconTextButton from '../components/IconTextButton';
 import {TextInput} from '../components/TextInput';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import {tokenBalanceData} from '../utils/constants/tokenList';
-import {getMarketPrice, marketInfo} from '../slice/TradeSlice';
+import {getMarketPrice, marketInfo, modeStatus} from '../slice/TradeSlice';
 import {useAppDispatch, useAppSelector} from '../app/hooks';
 
 import {getFundingAccount, getTradingAccount} from '../slice/WalletSlice';
@@ -35,6 +35,7 @@ import config from '../slice/config';
 const Assets = ({navigation}: any) => {
   const [type, setType] = useState('funding');
   const marketInfos = useAppSelector(marketInfo) as any;
+  const modeInfo = useAppSelector(modeStatus);
   const [transferModal, setTransferModal] = useState(false);
   const [tradingAccountInfo, setTradingAccountInfo] = useState<any>();
   const [fundingAccountInfo, setFundingAccountInfo] = useState<any>();
@@ -229,7 +230,7 @@ const Assets = ({navigation}: any) => {
 
   return (
     <MainLayout>
-      <View style={GlobalStyle.container}>
+      <View style={[GlobalStyle.container, {backgroundColor: modeInfo ? "white" : "#1a202c"}]}>
         <ScrollView showsVerticalScrollIndicator={false} refreshControl={
               <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
             }>

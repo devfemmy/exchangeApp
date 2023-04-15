@@ -17,7 +17,7 @@ import {copyToClipboard, hp, wp} from '../utils/helper';
 import HeaderComponent from '../components/HeaderComponent';
 import {TextInput} from '../components/TextInput';
 import {useAppDispatch, useAppSelector} from '../app/hooks';
-import {getUsdHistory} from '../slice/TradeSlice';
+import {getUsdHistory, modeStatus} from '../slice/TradeSlice';
 import {userState} from '../slice/AuthSlice';
 import EmptyScreen from '../components/EmptyScreen';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
@@ -36,6 +36,7 @@ const ZendUsdHistory = ({navigation}: any) => {
   const [usdData, setUsdData] = useState<any>(null);
   const [modalOpen, setModalOpen] = useState(false);
   const [dataInfo, setDataInfo] = useState<any>();
+  const modeInfo = useAppSelector(modeStatus);
   // const [page, setPage] = useState(1)
 
 
@@ -162,7 +163,7 @@ const ZendUsdHistory = ({navigation}: any) => {
  
 
   return (
-    <View style={GlobalStyle.container}>
+    <View style={[GlobalStyle.container, {backgroundColor: modeInfo ? "white" : "#1a202c"}]}>
       <View style={styles.margin} />
       <HeaderComponent onPress={() => navigation.goBack()} />
       <Text style={{...FONTS.h3, fontWeight: '600'}}>Zend Usd History</Text>

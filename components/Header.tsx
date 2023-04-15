@@ -42,7 +42,7 @@ const Header = ({info, note, modeInfo}: any) => {
               ...FONTS.body3,
               fontWeight: '600',
               textTransform: 'capitalize',
-              color: modeInfo ? "black" : "white"
+              color: modeInfo ? "#1a202c" : "white"
             }}>
             {info?.username}
           </Text>
@@ -50,7 +50,7 @@ const Header = ({info, note, modeInfo}: any) => {
             {info?.status}
           </Text>
         </View>
-        <Text style={{...FONTS.body5,color: modeInfo ? "black" : "white"}}>{note}</Text>
+        <Text style={{...FONTS.body5,color: modeInfo ? "#1a202c" : "white"}}>{note}</Text>
       </View>
         </View>
 

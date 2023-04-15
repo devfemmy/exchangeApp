@@ -12,10 +12,11 @@ import PassswordIcon from '../../assets/svg/password-check.svg';
 import ListCardItem from '../../components/ListCardItem';
 import { useAppSelector } from '../../app/hooks';
 import { userState } from '../../slice/AuthSlice';
+import { modeStatus } from '../../slice/TradeSlice';
 
 export default function Security({navigation}: any) {
   const userStateInfo = useAppSelector(userState);
-
+  const modeInfo = useAppSelector(modeStatus);
   const getUserInfo = userStateInfo?.userData
     ? userStateInfo?.userData
     : userStateInfo;
@@ -29,7 +30,6 @@ export default function Security({navigation}: any) {
     },
   });
 
-  console.log({getUserInfo})
   const RouteInfo = [
     {
       id: 2,
@@ -63,7 +63,7 @@ export default function Security({navigation}: any) {
 
   const onToggleSwitch = () => setIsSwitchOn(!isSwitchOn);
   return (
-    <View style={[GlobalStyle.container]}>
+    <View style={[GlobalStyle.container,{backgroundColor: modeInfo ? "white" : "#1a202c"}]}>
       <MainLayout>
         <ScrollView>
           <HeaderComponent onPress={() => navigation.goBack()} />

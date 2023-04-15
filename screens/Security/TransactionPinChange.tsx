@@ -13,6 +13,7 @@ import IconTextButton from '../../components/IconTextButton';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import { changePin, updatePin, userState } from '../../slice/AuthSlice';
 import { Notifier, NotifierComponents } from 'react-native-notifier';
+import { modeStatus } from '../../slice/TradeSlice';
 
 export default function ChangeTransactionPin({navigation}: any) {
   const [password, setPassword] = useState<any>();
@@ -21,7 +22,7 @@ export default function ChangeTransactionPin({navigation}: any) {
   const dispatch = useAppDispatch();
   const userStateInfo = useAppSelector(userState);
   const getUserInfo = userStateInfo?.userData ? userStateInfo?.userData : userStateInfo;
-
+  const modeInfo = useAppSelector(modeStatus);
 
 
   const handleSubmit = async () => {
@@ -125,7 +126,7 @@ export default function ChangeTransactionPin({navigation}: any) {
     },
   });
   return (
-    <View style={[GlobalStyle.container]}>
+    <View style={[GlobalStyle.container,{backgroundColor: modeInfo ? "white" : "#1a202c"}]}>
       <MainLayout>
         <ScrollView>
           <HeaderComponent onPress={() => navigation.goBack()} />

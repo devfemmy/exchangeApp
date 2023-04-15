@@ -10,15 +10,15 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 const ListCard = ({ data, id, handlePress, logOut,modeInfo}: any) => {
 
   return (
-    <TouchableOpacity onPress={data?.name === 'Sign Out' ? logOut : handlePress} key={id} style={[styles.container,{backgroundColor: modeInfo ? "white" : "black"}]}>
-    <TouchableOpacity onPress={data?.name === 'Sign Out' ? logOut : handlePress}>
+    <TouchableOpacity onPress={data?.route === 'SignOut' ? logOut : handlePress} key={id} style={[styles.container,{backgroundColor: modeInfo ? "white" : "#1a202c"}]}>
+    <TouchableOpacity onPress={data?.route === 'SignOut'  ? logOut : handlePress}>
         <View style={styles.rowBtw}>
             <View style={styles.row}>
                 {data?.icon}
-                <Text style={{...FONTS.body3, color: modeInfo ? "black" : "white", marginLeft: hp(10)}}>{data?.name}</Text>
+                <Text style={{...FONTS.body3, color: modeInfo ? "#1a202c" : "white", marginLeft: hp(10)}}>{data?.name}</Text>
             </View>
              {
-                (data?.name !== 'Sign Out' && !data?.type) && <Image source={stroke} style={styles.img} />
+                (data?.route !== 'SignOut' && !data?.type) && <Image source={stroke} style={styles.img} />
             }
 
         </View>

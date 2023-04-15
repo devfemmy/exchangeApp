@@ -156,6 +156,18 @@ export const getUserByUsername = createAsyncThunk(
   },
 );
 
+export const deleteUserAccount = createAsyncThunk(
+  'auth/deleteUserAccount',
+  async (payload: {id: string;}) => {
+    const response = await getRequest(
+      `${config.api_base_url}/users/${payload?.id}`,
+    );
+    if (response?.status === 200) {
+      return response?.data;
+    }
+  },
+);
+
 export const VerifyPhonenumber = createAsyncThunk(
   'auth/VerifyPhonenumber',
   async (payload: {phoneNumber: string}, {rejectWithValue}) => {
@@ -552,6 +564,17 @@ export const AuthSlice = createSlice({
         },
       );
     builder.addCase(getUserDetail.rejected, (state, action) => {
+      (state.loading = false), (state.error = action.error.message);
+    });
+    builder.addCase(deleteUserAccount.pending, (state, action) => {
+      state.loading = true;
+    }),
+      builder.addCase(deleteUserAccount.fulfilled,
+        (state, action: PayloadAction<any>) => {
+          state.loading = false;
+        },
+      );
+    builder.addCase(deleteUserAccount.rejected, (state, action) => {
       (state.loading = false), (state.error = action.error.message);
     });
   },

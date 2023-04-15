@@ -10,7 +10,7 @@ import {tokenBalanceData} from '../utils/constants/tokenList';
 import GlobalStyle from '../utils/globalStyle';
 import {ScrollView} from 'react-native-gesture-handler';
 import {useAppDispatch, useAppSelector} from '../app/hooks';
-import {getMarketPrice, marketInfo} from '../slice/TradeSlice';
+import {getMarketPrice, marketInfo, modeStatus} from '../slice/TradeSlice';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import AssetsComponent from '../components/AssetsComponent';
 import HeaderComponent from '../components/HeaderComponent';
@@ -21,6 +21,7 @@ const Swap = ({navigation}: any) => {
   const [value, setValue] = useState('');
   const marketInfos = useAppSelector(marketInfo) as any;
   const tradingAccountInfo: any = useAppSelector(fundingAccount)
+  const modeInfo = useAppSelector(modeStatus);
 
   const newTradingAccount = tradingAccountInfo
   ? Object?.values(tradingAccountInfo)
@@ -139,7 +140,7 @@ const searchTradData = !value
   };
 
   return (
-    <View style={GlobalStyle.container}>
+    <View style={[GlobalStyle.container, {backgroundColor: modeInfo ? "white" : "#1a202c"}]}>
       <View style={styles.centeredView}>
         <View style={styles.centeredView}>
           <View style={styles.modalView}>

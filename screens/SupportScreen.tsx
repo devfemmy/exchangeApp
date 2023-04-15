@@ -9,10 +9,12 @@ import ChatWootWidget from '@chatwoot/react-native-widget';
 import config from '../slice/config'
 import { useAppSelector } from '../app/hooks'
 import { userState } from '../slice/AuthSlice'
+import { modeStatus } from '../slice/TradeSlice'
 
 const SupportScreen = ({navigation}: any) => {
   const [showWidget, toggleWidget] = useState(false);
   const userStateInfo = useAppSelector(userState);
+  const modeInfo = useAppSelector(modeStatus);
   const getUserInfo = userStateInfo?.userData
   ? userStateInfo?.userData
   : userStateInfo;
@@ -32,7 +34,7 @@ const SupportScreen = ({navigation}: any) => {
 
   
   return (
-    <View style={GlobalStyle.container}>
+    <View style={[GlobalStyle.container, {backgroundColor: modeInfo ? "white" : "#1a202c"}]}>
         <HeaderComponent onPress={() => navigation.goBack()} />
       <Text style={{...FONTS.h2, fontWeight: '600'}}>Reach out to Us</Text>
       <Text style={{...FONTS.body5, color: COLORS.gray, marginTop: hp(10), marginBottom: hp(30)}}>We love to hear from you and we will always be available to help!</Text>

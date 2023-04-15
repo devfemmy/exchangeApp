@@ -1,16 +1,19 @@
 import {View, Text, Image, StyleSheet} from 'react-native';
 import React from 'react';
 import GlobalStyle from '../utils/globalStyle';
-import AntDesign from 'react-native-vector-icons/AntDesign';
 import {COLORS, FONTS} from '../utils/constants/theme';
 import {hp, wp} from '../utils/helper';
 import { tether } from '../assets/images';
 import IconTextButton from '../components/IconTextButton';
 import HeaderComponent from '../components/HeaderComponent';
+import { useAppSelector } from '../app/hooks';
+import { modeStatus } from '../slice/TradeSlice';
 
 const TransferAsset = ({navigation}: any) => {
+  const modeInfo = useAppSelector(modeStatus);
+  
   return (
-    <View style={GlobalStyle.container}>
+    <View style={[GlobalStyle.container, {backgroundColor: modeInfo ? "white" : "#1a202c"}]}>
       <View style={GlobalStyle.rowBetween}>
         {/* <AntDesign name="arrowleft" size={hp(25)} onPress={() => navigation?.goBack()} />
          */}

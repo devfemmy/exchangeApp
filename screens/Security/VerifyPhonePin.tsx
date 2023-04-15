@@ -9,16 +9,17 @@ import GlobalStyle from '../../utils/globalStyle';
 
 import SmoothPinCodeInput from 'react-native-smooth-pincode-input';
 import IconTextButton from '../../components/IconTextButton';
-import { useAppDispatch } from '../../app/hooks';
+import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import { verifyPhoneNumberOtp } from '../../slice/AuthSlice';
 import { Notifier, NotifierComponents } from 'react-native-notifier';
+import { modeStatus } from '../../slice/TradeSlice';
 
 export default function VerifyPhonePin(props: any) {
   const dispatch = useAppDispatch()
   const [loader, setLoader] = useState(false)
   const phone = props?.route?.params?.params?.phone
   const [token, setToken] = useState<any>()
-
+  const modeInfo = useAppSelector(modeStatus);
   
   const styles = StyleSheet.create({
     textStyle: {
@@ -89,7 +90,7 @@ export default function VerifyPhonePin(props: any) {
 
 
   return (
-    <View style={[GlobalStyle.container]}>
+    <View style={[GlobalStyle.container,{backgroundColor: modeInfo ? "white" : "#1a202c"}]}>
       <MainLayout>
         <ScrollView>
           <HeaderComponent onPress={() => props?.navigation.goBack()} />

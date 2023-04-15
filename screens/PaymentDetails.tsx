@@ -11,6 +11,7 @@ import { useAppDispatch, useAppSelector } from '../app/hooks';
 import { createUsd } from '../slice/ZendSlice';
 import { Notifier, NotifierComponents } from 'react-native-notifier';
 import { userState } from '../slice/AuthSlice';
+import { modeStatus } from '../slice/TradeSlice';
 
 
 const PaymentDetails = (props: any) => {
@@ -21,7 +22,7 @@ const PaymentDetails = (props: any) => {
   const getUserInfo = userStateInfo?.userData
   ? userStateInfo?.userData
   : userStateInfo;
-  
+  const modeInfo = useAppSelector(modeStatus);
 
   const handleSubmit = async () => {
       setLoader(true)
@@ -72,7 +73,7 @@ const PaymentDetails = (props: any) => {
 
 
   return (
-    <ScrollView showsVerticalScrollIndicator={false} style={GlobalStyle.container}>
+    <ScrollView showsVerticalScrollIndicator={false} style={[GlobalStyle.container, {backgroundColor: modeInfo ? "white" : "#1a202c"}]}>
       <View>
       <HeaderComponent onPress={() => props?.navigation.goBack()} />
       <Text style={{...FONTS.h3, fontWeight: '600'}}>

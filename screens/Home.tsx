@@ -185,7 +185,7 @@ const Home = ({navigation}: any) => {
 
   return (
     <MainLayout>
-      <View style={[GlobalStyle.container, {backgroundColor: modeInfo ? "white" : "black"}]}>
+      <View style={[GlobalStyle.container, {backgroundColor: modeInfo ? "white" : "#1a202c"}]}>
         <View style={styles.container}>
           <Header info={getUserInfo} note={greetUser()} modeInfo={modeInfo} />
           <ScrollView
@@ -261,7 +261,7 @@ const Home = ({navigation}: any) => {
             {(!getUserInfo?.hasSetPin ||
               !getUserInfo?.isKycVerified ||
               !getUserInfo?.hasVerifiedPhoneNumber) &&
-            <Text style={[{...FONTS.h4, fontWeight: '600', marginVertical: hp(15),color: modeInfo ? "black" : "white"}]}>
+            <Text style={[{...FONTS.h4, fontWeight: '600', marginVertical: hp(15),color: modeInfo ? "#1a202c" : "white"}]}>
               Pending Action
             </Text>
             }
@@ -281,7 +281,7 @@ const Home = ({navigation}: any) => {
               })}
 
               
-            <Text style={[{...FONTS.h3, fontWeight: "600", marginTop: hp(25),color: modeInfo ? "black" : "white", marginBottom: hp(5)}]}>
+            <Text style={[{...FONTS.h3, fontWeight: "600", marginTop: hp(25),color: modeInfo ? "#1a202c" : "white", marginBottom: hp(5)}]}>
               My Assets
             </Text>
 

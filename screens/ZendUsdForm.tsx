@@ -11,7 +11,7 @@ import IconTextButton from '../components/IconTextButton';
 import InvoiceUploadModal from '../components/Modals/InvoiceUploadModal';
 import SelectDropdowns from '../components/SelectDropdowns';
 import CountryList from '../utils/constants/Countries';
-import { useAppDispatch } from '../app/hooks';
+import { useAppDispatch, useAppSelector } from '../app/hooks';
 import { getRate } from '../slice/ZendSlice';
 import { getTradingAccountByCurrency } from '../slice/WalletSlice';
 import { Notifier, NotifierComponents } from 'react-native-notifier';
@@ -21,6 +21,7 @@ import { useFormik } from 'formik';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import { modeStatus } from '../slice/TradeSlice';
 
 
 const ZendUsdForm = (props: any) => {
@@ -34,6 +35,7 @@ const ZendUsdForm = (props: any) => {
   const [amount, setAmount] = useState<any>("")
   const [dataInfo, setDataInfo] = useState<any>()
   const [restCountry, setRestCountry] = useState<any>([])
+  const modeInfo = useAppSelector(modeStatus);
 
   useEffect(() => {
     dispatch(getRate()).then(dd => setRate(dd?.payload?.data?.rate))
@@ -279,7 +281,7 @@ const ZendUsdForm = (props: any) => {
   return (
     <KeyboardAwareScrollView>
     <ScrollView>
-      <View style={GlobalStyle.container}>
+      <View style={[GlobalStyle.container, {backgroundColor: modeInfo ? "white" : "#1a202c"}]}>
          <View style={[GlobalStyle.rowBetween, {marginBottom: hp(20)}]}>
               <AntDesign
                 name="arrowleft"
