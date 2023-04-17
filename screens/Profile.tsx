@@ -93,15 +93,15 @@ const Profile = ({navigation}: any) => {
       route: 'ReferAndEarn',
     },
     {
-      id: 6,
-      name: 'Delete Account',
-      icon: <UserDark />,
-      route: 'SignOut',
-    },
-    {
       id: 7,
       name: 'Sign Out',
       icon: <SignOutDark />,
+      route: 'SignOut',
+    },
+    {
+      id: 6,
+      name: 'Delete Account',
+      icon: <SecuritySafe />,
       route: 'SignOut',
     },
   ];

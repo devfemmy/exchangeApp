@@ -58,6 +58,7 @@ const CreateAccount = ({navigation}: any) => {
           });
         });
       } else {
+        console.log('response message', response);
         var errMsg = response?.payload as string;
         setLoader(false);
         Notifier.showNotification({

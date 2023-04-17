@@ -51,7 +51,7 @@ const ForgetPassword = ({navigation}: any) => {
        </View>
 
         <View style={styles.btnContainer}>
-          <IconTextButton label="Send Recovery Link" handlePress={handleSubmit}/>
+          <IconTextButton label="Send Recovery Link" onPress={handleSubmit}/>
         </View>
       </View>
 

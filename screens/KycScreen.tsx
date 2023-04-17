@@ -21,6 +21,7 @@ import {getUserDetail, userState} from '../slice/AuthSlice';
 import SuccessIcon from '../assets/svg/success.svg';
 import HeaderComponent from '../components/HeaderComponent';
 import { modeStatus } from '../slice/TradeSlice';
+import {check, PERMISSIONS, RESULTS} from 'react-native-permissions';
 
 const KycScreen = ({navigation}: any) => {
   const userStateInfo = useAppSelector(userState);
@@ -120,7 +121,7 @@ const KycScreen = ({navigation}: any) => {
    * This is the data from doja
    */
   const response = (responseType: any, data: any) => {
-    console.log('kyc response', responseType, data);
+    console.log('kyc response 111', responseType);
     if (responseType === 'success') {
       setIsKycVerified(true);
       dispatch(getUserDetail())
@@ -189,7 +190,7 @@ const KycScreen = ({navigation}: any) => {
           </View>
           <View>
             {!isKycVerified ? (
-              <View>
+              <ScrollView style={styles.dojahContainer} showsVerticalScrollIndicator={false}>
                 <Dojah
                   response={response}
                   appID={appID}
@@ -262,7 +263,7 @@ const KycScreen = ({navigation}: any) => {
                     <Text style={{...FONTS.body3}}> Valid Address</Text>
                   </View>
                 </View>
-              </View>
+              </ScrollView>
             ) : (
               <View>
                 <View>
@@ -369,6 +370,9 @@ const styles = StyleSheet.create({
     width: '100%',
     height: '100%',
     borderRadius: 50,
+  },
+  dojahContainer: {
+    flex: 1
   },
   form: {},
 });
