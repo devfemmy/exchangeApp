@@ -8,6 +8,30 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 
 
 const ListCard = ({ data, id, handlePress, logOut,modeInfo}: any) => {
+    const styles = StyleSheet.create({
+        container: {
+            backgroundColor: 'white',
+            borderBottomColor: '#E0E0E0',
+            borderBottomWidth: 0.3,
+             paddingVertical: hp(20),
+            // paddingBottom: hp(20),
+        },
+        txt: {
+            marginLeft: hp(10),
+        },
+        rowBtw: {
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+        },
+        row: {
+            flexDirection: 'row',
+            alignItems: 'center',
+        },
+        img: {
+    
+        },
+    });
 
   return (
     <TouchableOpacity onPress={data?.route === 'SignOut' ? logOut : handlePress} key={id} style={[styles.container,{backgroundColor: modeInfo ? "white" : "#1a202c"}]}>
@@ -15,7 +39,7 @@ const ListCard = ({ data, id, handlePress, logOut,modeInfo}: any) => {
         <View style={styles.rowBtw}>
             <View style={styles.row}>
                 {data?.icon}
-                <Text style={{...FONTS.body3, color: modeInfo ? "#1a202c" : "white", marginLeft: hp(10)}}>{data?.name}</Text>
+                <Text style={{...FONTS.body3, color: id !== 6 ? "#1a202c" : "red", marginLeft: hp(10)}}>{data?.name}</Text>
             </View>
              {
                 (data?.route !== 'SignOut' && !data?.type) && <Image source={stroke} style={styles.img} />
@@ -30,27 +54,3 @@ const ListCard = ({ data, id, handlePress, logOut,modeInfo}: any) => {
 
 export default ListCard;
 
-const styles = StyleSheet.create({
-    container: {
-        backgroundColor: 'white',
-        borderBottomColor: '#E0E0E0',
-        borderBottomWidth: 0.3,
-         paddingVertical: hp(20),
-        // paddingBottom: hp(20),
-    },
-    txt: {
-        marginLeft: hp(10),
-    },
-    rowBtw: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-    },
-    row: {
-        flexDirection: 'row',
-        alignItems: 'center',
-    },
-    img: {
-
-    },
-});
