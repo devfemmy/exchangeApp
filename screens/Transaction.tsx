@@ -57,10 +57,10 @@ const Transaction = () => {
 
   return (
     <MainLayout>
-    <View style={[GlobalStyle.container, {backgroundColor: modeInfo ? "white" : "#1a202c"}]}>
+    <View style={[GlobalStyle.container, {backgroundColor: modeInfo ? "white" : COLORS.darkMode}]}>
     <ScrollView showsVerticalScrollIndicator={false}>
-          <Text style={{...FONTS.h2, fontWeight: '600', marginBottom: hp(5)}}>Transactions</Text>
-          <Text style={{...FONTS.body4, color: COLORS.gray, marginBottom: hp(30), width: wp(200)}}>
+          <Text style={{...FONTS.h2, fontWeight: '600', marginBottom: hp(5),color: modeInfo ? COLORS.lightBlack : COLORS.white}}>Transactions</Text>
+          <Text style={{...FONTS.body4, color: modeInfo ? COLORS.gray : COLORS.white, marginBottom: hp(30), width: wp(200)}}>
           Kindly select the transaction category you are looking for
             </Text>
             {

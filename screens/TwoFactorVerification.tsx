@@ -139,14 +139,14 @@ const TwoFactorVerification = (props: any) => {
 
 
   return (
-    <View style={[GlobalStyle.container, {backgroundColor: modeInfo ? "white" : "#1a202c"}]}>
+    <View style={[GlobalStyle.container, {backgroundColor: modeInfo ? "white" : COLORS.darkMode}]}>
         <HeaderComponent onPress={() => props?.navigation.goBack()} />
-      <Text style={{...FONTS.h2, fontWeight: '600'}}>2FA Verification</Text>
+      <Text style={{...FONTS.h2, fontWeight: '600',color:modeInfo ? COLORS.black : COLORS.white}}>2FA Verification</Text>
       <Text style={{...FONTS.body5, fontWeight: '500', color: COLORS.gray}}>Just making sure its you </Text>
       <Text style={{...FONTS.body5, fontWeight: '500', color: COLORS.gray}}>We send an OTP to your email, kindly enter it below </Text>
 
         <View style={styles.div}>
-            <Text>Email code</Text>
+            <Text style={{color:modeInfo ? COLORS.black : COLORS.white}}>Email code</Text>
              <View style={GlobalStyle.rowStart}>
             <View style={styles.input}>
             <TextInput
@@ -164,13 +164,13 @@ const TwoFactorVerification = (props: any) => {
              </View>
         </View>
         {counter === 0 ? null : <Text style={{marginTop: hp(-15)}}>
-          <Text style={{fontSize: hp(10)}}>You can resend code in </Text>
+          <Text style={{fontSize: hp(10),color:modeInfo ? COLORS.black : COLORS.white}}>You can resend code in </Text>
           <Text style={{fontSize: hp(10), color: COLORS.primary}}> {counter}s</Text>
         </Text>
 }
 
         <View style={styles.div}>
-            <Text>Transaction Pin</Text>
+            <Text style={{color:modeInfo ? COLORS.black : COLORS.white}}>Transaction Pin</Text>
              <View style={GlobalStyle.rowStart}>
             <View style={styles.input}>
             {/* <View style={{marginVertical: 8,}}>

@@ -5,7 +5,7 @@ import FastImage from 'react-native-fast-image';
 import { format, hp, wp } from '../utils/helper';
 import { COLORS, FONTS } from '../utils/constants/theme';
 
-const MarketComponent = ({info, navigation,type}: any) => {
+const MarketComponent = ({info, navigation,type, modeInfo}: any) => {
 
   return (
     <TouchableOpacity
@@ -30,10 +30,10 @@ const MarketComponent = ({info, navigation,type}: any) => {
         resizeMode={FastImage.resizeMode.cover}
     />
         <View style={{marginLeft: hp(10)}}>
-          <Text style={{...FONTS.body3, color: COLORS.lightBlack, fontWeight: '600'}}>
+          <Text style={{...FONTS.body4, color: modeInfo ? COLORS.lightBlack : COLORS.white, fontWeight: '600'}}>
             {info?.token}
           </Text>
-          <Text style={{...FONTS.body4, color: COLORS.lightBlack, textTransform: 'uppercase'}}>
+          <Text style={{...FONTS.body4, color: modeInfo ? COLORS.lightBlack : COLORS.white, textTransform: 'uppercase'}}>
             {info?.currency}
           </Text>
         </View>
@@ -41,8 +41,8 @@ const MarketComponent = ({info, navigation,type}: any) => {
       </View>
    
      <View style={{justifyContent: 'flex-end', alignItems: 'flex-end', width: "30%"}}>
-                 <Text style={{...FONTS.h3,color: COLORS.lightBlack}}>{info?.availBalance % 1 === 0 ? `${format(info?.availBalance ? parseFloat(info?.availBalance) : 0)}`   : `${format(info?.availBalance ? parseFloat(info?.availBalance)?.toFixed(5).slice(0, -1) : 0)}`}</Text>
-                 <Text style={{...FONTS.h3,color: COLORS.lightBlack}}>{info?.balUsd % 1 === 0 ? `$${format(info?.balUsd ? parseFloat(info?.balUsd) : 0)}` : `$${format(info?.balUsd ? parseFloat(info?.balUsd)?.toFixed(3).slice(0, -1) : 0)}`}</Text>
+                 <Text style={{...FONTS.h3,color: modeInfo ? COLORS.lightBlack : COLORS.white}}>{info?.availBalance % 1 === 0 ? `${format(info?.availBalance ? parseFloat(info?.availBalance) : 0)}`   : `${format(info?.availBalance ? parseFloat(info?.availBalance)?.toFixed(5).slice(0, -1) : 0)}`}</Text>
+                 <Text style={{...FONTS.h3,color: modeInfo ? COLORS.lightBlack : COLORS.white}}>{info?.balUsd % 1 === 0 ? `$${format(info?.balUsd ? parseFloat(info?.balUsd) : 0)}` : `$${format(info?.balUsd ? parseFloat(info?.balUsd)?.toFixed(3).slice(0, -1) : 0)}`}</Text>
                  </View>
     </View>
   </TouchableOpacity>

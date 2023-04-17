@@ -185,7 +185,7 @@ const Home = ({navigation}: any) => {
 
   return (
     <MainLayout>
-      <View style={[GlobalStyle.container, {backgroundColor: modeInfo ? "white" : "#1a202c"}]}>
+      <View style={[GlobalStyle.container, {backgroundColor: modeInfo ? "white" : COLORS.darkMode}]}>
         <View style={styles.container}>
           <Header info={getUserInfo} note={greetUser()} modeInfo={modeInfo} />
           <ScrollView
@@ -261,7 +261,7 @@ const Home = ({navigation}: any) => {
             {(!getUserInfo?.hasSetPin ||
               !getUserInfo?.isKycVerified ||
               !getUserInfo?.hasVerifiedPhoneNumber) &&
-            <Text style={[{...FONTS.h4, fontWeight: '600', marginVertical: hp(15),color: modeInfo ? "#1a202c" : "white"}]}>
+            <Text style={[{...FONTS.h4, fontWeight: '600', marginVertical: hp(15),color: modeInfo ? COLORS.darkMode : "white"}]}>
               Pending Action
             </Text>
             }
@@ -281,7 +281,7 @@ const Home = ({navigation}: any) => {
               })}
 
               
-            <Text style={[{...FONTS.h3, fontWeight: "600", marginTop: hp(25),color: modeInfo ? "#1a202c" : "white", marginBottom: hp(5)}]}>
+            <Text style={[{...FONTS.h3, fontWeight: "600", marginTop: hp(25),color: modeInfo ? COLORS.darkMode : "white", marginBottom: hp(5)}]}>
               My Assets
             </Text>
 
@@ -306,12 +306,12 @@ const Home = ({navigation}: any) => {
                             style={styles.icons}
                           />
                           <View style={{marginLeft: hp(10)}}>
-                            <Text style={{...FONTS.h3, color: modeInfo ? COLORS.lightBlack : "white", fontWeight:"500"}}>
+                            <Text style={{...FONTS.h3, color: modeInfo ? COLORS.lightBlack : COLORS.white, fontWeight:"500"}}>
                               {data?.name}
                             </Text>
                             <Text
                               style={{
-                                ...FONTS.h5, color: modeInfo ? COLORS.lightBlack : "white",
+                                ...FONTS.h5, color: modeInfo ? COLORS.lightBlack : COLORS.white,
                                 textTransform: 'uppercase',
                               }}>
                               {info?.currency}

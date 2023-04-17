@@ -34,7 +34,7 @@ const SupportScreen = ({navigation}: any) => {
 
   
   return (
-    <View style={[GlobalStyle.container, {backgroundColor: modeInfo ? "white" : "#1a202c"}]}>
+    <View style={[GlobalStyle.container, {backgroundColor: modeInfo ? "white" : COLORS.darkMode}]}>
         <HeaderComponent onPress={() => navigation.goBack()} />
       <Text style={{...FONTS.h2, fontWeight: '600'}}>Reach out to Us</Text>
       <Text style={{...FONTS.body5, color: COLORS.gray, marginTop: hp(10), marginBottom: hp(30)}}>We love to hear from you and we will always be available to help!</Text>

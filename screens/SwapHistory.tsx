@@ -67,10 +67,10 @@ const SwapHistory = ({navigation}: any) => {
    }
 
   return (
-    <View style={[GlobalStyle.container, {backgroundColor: modeInfo ? "white" : "#1a202c"}]}>
+    <View style={[GlobalStyle.container, {backgroundColor: modeInfo ? "white" : COLORS.darkMode}]}>
               <View style={styles.margin} />
               <HeaderComponent onPress={() => navigation.goBack()} /> 
-      <Text style={{...FONTS.h2, fontWeight: '600'}}>Swap History</Text>
+      <Text style={{...FONTS.h2, fontWeight: '600',color:modeInfo ? COLORS.black : COLORS.white}}>Swap History</Text>
      
      <View style={styles.hr}></View>
 

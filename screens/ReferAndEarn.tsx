@@ -34,7 +34,7 @@ const ReferAndEarn = ({navigation}: any) => {
   
 
   return (
-    <View style={[GlobalStyle.container, {backgroundColor: modeInfo ? "white" : "#1a202c"}]}>
+    <View style={[GlobalStyle.container, {backgroundColor: modeInfo ? "white" : COLORS.darkMode}]}>
      <HeaderComponent onPress={() => navigation?.goBack()} />
 
       <View>

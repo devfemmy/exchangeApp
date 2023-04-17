@@ -199,7 +199,7 @@ const Assets = ({navigation}: any) => {
   const showFundingAssets = () => {
     return searchData?.map((info: any) => {
     return marketInfos?.map((data: any) => {
-      return info?.currency === data?.symbol && <MarketComponent info={info} type="funding" marketData={data} navigation={navigation} action={(data: any) => fundingAssets(data)} />
+      return info?.currency === data?.symbol && <MarketComponent info={info} type="funding" marketData={data} modeInfo={modeInfo} navigation={navigation} action={(data: any) => fundingAssets(data)} />
     });
   })
   };
@@ -223,22 +223,22 @@ const Assets = ({navigation}: any) => {
   const showTradingAssets = () => {
     return searchTradData?.map((info: any) => {
       return marketInfos?.map((data: any) => {
-        return info?.currency === data?.symbol && <MarketComponent info={info} type="trading" navigation={navigation} marketData={data} action={(data: any) => tradingAssets(data)} />
+        return info?.currency === data?.symbol && <MarketComponent modeInfo={modeInfo} info={info} type="trading" navigation={navigation} marketData={data} action={(data: any) => tradingAssets(data)} />
       });
     })
   };
 
   return (
     <MainLayout>
-      <View style={[GlobalStyle.container, {backgroundColor: modeInfo ? "white" : "#1a202c"}]}>
+      <View style={[GlobalStyle.container, {backgroundColor: modeInfo ? COLORS.white : COLORS.darkMode}]}>
         <ScrollView showsVerticalScrollIndicator={false} refreshControl={
               <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
             }>
          
           <View style={GlobalStyle.rowBetween}>
             <View style={{width: '70%'}}>
-            <Text style={{...FONTS.h2, marginBottom: hp(-5), fontWeight: '600'}}>Assets</Text>
-              <Text style={{...FONTS.body5, opacity: 0.7}}>
+            <Text style={{...FONTS.h2, marginBottom: hp(-5), fontWeight: '600',color: modeInfo ? COLORS.lightBlack : COLORS.white}}>Assets</Text>
+              <Text style={{...FONTS.body5, opacity: 0.7,color: modeInfo ? COLORS.lightBlack : COLORS.white}}>
                 List of assets available on Zend wallet
               </Text>
             </View>
@@ -301,10 +301,10 @@ const Assets = ({navigation}: any) => {
             </View>
           </View>
           <View style={[GlobalStyle.rowBetween, {marginVertical: hp(25)}]}>
-            <Text style={{...FONTS.body3, color: COLORS.gray, width: "30%"}}>
+            <Text style={{...FONTS.body3, color: modeInfo ? COLORS.gray: COLORS.white, width: "30%"}}>
               Tokens
             </Text>
-            <Text style={{...FONTS.body3, color: COLORS.gray, textAlign: 'right', width: "30%"}}>
+            <Text style={{...FONTS.body3, color: modeInfo ? COLORS.gray: COLORS.white, textAlign: 'right', width: "30%"}}>
               Assets
             </Text>
           </View>

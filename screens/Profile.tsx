@@ -98,12 +98,12 @@ const Profile = ({navigation}: any) => {
       icon: <SignOutDark />,
       route: 'SignOut',
     },
-    {
-      id: 6,
-      name: 'Delete Account',
-      icon: <SecuritySafe />,
-      route: 'SignOut',
-    },
+    // {
+    //   id: 6,
+    //   name: 'Delete Account',
+    //   icon: <SecuritySafe />,
+    //   route: 'SignOut',
+    // },
   ];
 
   const deleteUser = async () => {
@@ -134,11 +134,11 @@ const Profile = ({navigation}: any) => {
 
   return (
     <MainLayout>
-      <View style={[GlobalStyle.container,{backgroundColor: modeInfo ? "white" : "#1a202c"}]}>
-        <View style={[styles.container,{backgroundColor: modeInfo ? "white" : "#1a202c"}]}>
+      <View style={[GlobalStyle.container,{backgroundColor: modeInfo ? "white" : COLORS.darkMode}]}>
+        <View style={[styles.container,{backgroundColor: modeInfo ? "white" : COLORS.darkMode}]}>
           <ScrollView showsVerticalScrollIndicator={false}>
             <Text
-              style={{...FONTS.h2, marginBottom: hp(25), fontWeight: '600',color: modeInfo ? "#1a202c" : "white"}}>
+              style={{...FONTS.h2, marginBottom: hp(25), fontWeight: '600',color: modeInfo ? COLORS.darkMode : "white"}}>
               Account Settings
             </Text>
 
@@ -195,17 +195,17 @@ const Profile = ({navigation}: any) => {
                   setModalVisible(false);
                 }}>
                 <View style={[styles.centeredView]}>
-                  <View style={[styles.modalView,{backgroundColor: modeInfo ? "white" : "#1a202c"}]}>
+                  <View style={[styles.modalView,{backgroundColor: modeInfo ? "white" : COLORS.darkMode}]}>
                     <TouchableOpacity onPress={() => setModalVisible(false)}>
                       <View style={styles.end}>
-                        <AntDesign name="close" size={30} />
+                        <AntDesign name="close" size={30} color={modeInfo ? COLORS.black : COLORS.white} />
                       </View>
                     </TouchableOpacity>
 
                     <View style={{justifyContent: 'center', alignItems: 'center'}}>
                       <LogOuts  />
-                      <Text style={{...FONTS.h3, fontWeight: '700', marginVertical: hp(10)}}>Confirm Logout</Text>
-                      <Text style={{...FONTS.body4, marginBottom: hp(10)}}>Are you sure about this?</Text>
+                      <Text style={{...FONTS.h3, fontWeight: '700', marginVertical: hp(10),color: modeInfo ? COLORS.black : COLORS.white}}>Confirm Logout</Text>
+                      <Text style={{...FONTS.body4, marginBottom: hp(10),color: modeInfo ? COLORS.black : COLORS.white}}>Are you sure about this?</Text>
                       <TouchableOpacity onPress={() => logOut()}>
                       <View style={{backgroundColor: COLORS.red, width: wp(100), padding: hp(10), borderRadius: hp(5)}}>
                         <Text style={{textAlign: 'center',...FONTS.h3, color: COLORS.white }}>Logout</Text>
@@ -218,36 +218,7 @@ const Profile = ({navigation}: any) => {
             </View>
 
 
-            <View style={styles.centeredView}>
-              <Modal
-                animationType="slide"
-                transparent={true}
-                visible={modalDeleteVisible}
-                onRequestClose={() => {
-                  setModalDeleteVisible(false);
-                }}>
-                <View style={[styles.centeredView]}>
-                  <View style={[styles.modalView, {backgroundColor: modeInfo ? "white" : "#1a202c"}]}>
-                    <TouchableOpacity onPress={() => setModalDeleteVisible(false)}>
-                      <View style={styles.end}>
-                        <AntDesign name="close" size={30} />
-                      </View>
-                    </TouchableOpacity>
-
-                    <View style={{justifyContent: 'center', alignItems: 'center'}}>
-                      <LogOuts  />
-                      <Text style={{...FONTS.h3, fontWeight: '700', marginVertical: hp(10)}}>Confirm Account Delete</Text>
-                      <Text style={{...FONTS.body4, marginBottom: hp(10)}}>Are you sure about this?</Text>
-                      <TouchableOpacity onPress={() => deleteUser()}>
-                      <View style={{backgroundColor: COLORS.red, width: wp(150), padding: hp(10), borderRadius: hp(5)}}>
-                        <Text style={{textAlign: 'center',...FONTS.h3, color: COLORS.white }}>Delete Account</Text>
-                      </View>
-                      </TouchableOpacity>
-                    </View>
-                  </View>
-                </View>
-              </Modal>
-            </View>
+         
           </ScrollView>
         </View>
       </View>

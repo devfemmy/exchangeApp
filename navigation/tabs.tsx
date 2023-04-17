@@ -63,7 +63,7 @@ const Tabs = () => {
                   height: 120,
                   borderTopColor: COLORS.primary,
                   borderTopWidth: 2,
-                  backgroundColor: modeInfo ? "white" : "#1a202c"
+                  backgroundColor: modeInfo ? "white" : COLORS.darkMode
                 }
             }}
         >
@@ -78,6 +78,7 @@ const Tabs = () => {
                             focused={focused}
                             icon={icons.home}
                             label="Home"
+                            modeInfo={modeInfo}
                         />
                     )  
                     // }
@@ -103,6 +104,7 @@ const Tabs = () => {
                                 focused={focused}
                                 icon={icons.briefcase}
                                 label="Assets"
+                                modeInfo={modeInfo}
                             />
                         )
                         // }
@@ -128,6 +130,7 @@ const Tabs = () => {
                                 icon={tradeStatusInfo ? icons.close : icons.trade}
                                 isTrade={true}
                                 label="Trade"
+                                modeInfo={modeInfo}
                             />
                         )
                     },
@@ -151,6 +154,7 @@ const Tabs = () => {
                                 focused={focused}
                                 icon={icons.market}
                                 label="Transaction"
+                                modeInfo={modeInfo}
                             />
                         )
                         // }
@@ -176,6 +180,7 @@ const Tabs = () => {
                                 focused={focused}
                                 icon={icons.profile}
                                 label="Profile"
+                                modeInfo={modeInfo}
                             />
                         ) 
                         // }

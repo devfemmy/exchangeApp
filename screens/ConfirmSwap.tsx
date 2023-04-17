@@ -99,15 +99,16 @@ const ConfirmSwap = (props: any) => {
     }
   }
 
+
   return (
-    <View style={[GlobalStyle.container, {backgroundColor: modeInfo ? "white" : "#1a202c"}]}>
+    <View style={[GlobalStyle.container, {backgroundColor: modeInfo ?COLORS.white : COLORS.darkMode}]}>
       <HeaderComponent onPress={() => props?.navigation.goBack()} />
-      <Text style={{...FONTS.h2, fontWeight: '700'}}>Confirm Swap</Text>
-      <Text style={{...FONTS.body5}}>Kindly confirm this transaction</Text>
+      <Text style={{...FONTS.h2, fontWeight: '700',color:modeInfo ? COLORS.black : COLORS.white}}>Confirm Swap</Text>
+      <Text style={{...FONTS.body5, color:modeInfo ? COLORS.black : COLORS.white}}>Kindly confirm this transaction</Text>
       <View style={styles.div}>
         <View style={styles.div2}>
           <Image source={fromIcon} style={styles.icon} />
-          <AntDesign name="swap" size={20} />
+          <AntDesign name="swap" size={20} color={modeInfo ? COLORS.black : COLORS.white} />
           <Image source={toIcon} style={styles.icon} />
         </View>
       </View>
@@ -130,14 +131,14 @@ const ConfirmSwap = (props: any) => {
       </View>
 
       <View style={[GlobalStyle.rowBetween, {paddingVertical: hp(10)}]}>
-          <Text>Rate</Text>
-          <Text style={{color: COLORS.primary, fontWeight: '600'}}>{quoteInfo?.rate}</Text>
+          <Text style={{color:modeInfo ? COLORS.black : COLORS.white}}>Rate</Text>
+          <Text style={{color:modeInfo ? COLORS.primary : COLORS.white, fontWeight: '600'}}>{quoteInfo?.rate}</Text>
         </View>
 
       <View style={{marginVertical: hp(20)}}>
         {counter < 3 ? (
           <Text style={{textAlign: 'center'}}>
-            <Text>Fetching new rate </Text>
+            <Text style={{color:modeInfo ? COLORS.black : COLORS.white}}>Fetching new rate </Text>
             <Text style={{color: COLORS.primary}}>{counter}s</Text>
           </Text>
         ) : (
@@ -148,7 +149,7 @@ const ConfirmSwap = (props: any) => {
               alignItems: 'center',
             }}>
             <ActivityIndicator color={COLORS.black} />
-            <Text> Getting best rate</Text>
+            <Text style={{color:modeInfo ? COLORS.black : COLORS.white}}> Getting best rate</Text>
           </View>
         )}
       </View>

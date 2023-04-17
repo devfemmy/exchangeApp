@@ -19,11 +19,15 @@ import {
   import { hp, wp} from '../../utils/helper';
 
 import { useNavigation } from '@react-navigation/native';
+import { useAppSelector } from '../../app/hooks';
+import { modeStatus } from '../../slice/TradeSlice';
 
   
   const DepositModal = ({modalVisible, setModalVisible, networks, otherInfo}: any) => {
     const navigation = useNavigation() as any
+    const modeInfo = useAppSelector(modeStatus);
 
+    
     const handleAction = (data: any) => {
         setModalVisible()
        return navigation.navigate("DepositAddress", {
@@ -45,10 +49,10 @@ import { useNavigation } from '@react-navigation/native';
             setModalVisible();
           }}>
           <View style={styles.centeredView}>
-            <View style={styles.modalView}>
+            <View style={[styles.modalView, {backgroundColor: modeInfo ? COLORS.white : COLORS.darkMode}]}>
               <TouchableOpacity onPress={() => setModalVisible()}>
                 <View style={styles.end}>
-                  <AntDesign name="close" size={30} />
+                  <AntDesign name="close" size={30} color={modeInfo ? COLORS.black : COLORS.white} />
                 </View>
               </TouchableOpacity>
   

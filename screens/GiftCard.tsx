@@ -16,7 +16,7 @@ const GiftCard = ({navigation}: any) => {
   const modeInfo = useAppSelector(modeStatus);
   
   return (
-    <View style={[GlobalStyle.container, {backgroundColor: modeInfo ? "white" : "#1a202c"}]}>
+    <View style={[GlobalStyle.container, {backgroundColor: modeInfo ? "white" : COLORS.darkMode}]}>
       <KeyboardAwareScrollView showsVerticalScrollIndicator={false}>
       <ScrollView showsVerticalScrollIndicator={false}>
         <View>

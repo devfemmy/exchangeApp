@@ -3,7 +3,7 @@ import React from 'react';
 import { hp } from '../utils/helper';
 
 import { stroke } from '../assets/images';
-import { FONTS } from '../utils/constants/theme';
+import { COLORS, FONTS } from '../utils/constants/theme';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
 
@@ -34,12 +34,12 @@ const ListCard = ({ data, id, handlePress, logOut,modeInfo}: any) => {
     });
 
   return (
-    <TouchableOpacity onPress={data?.route === 'SignOut' ? logOut : handlePress} key={id} style={[styles.container,{backgroundColor: modeInfo ? "white" : "#1a202c"}]}>
+    <TouchableOpacity onPress={data?.route === 'SignOut' ? logOut : handlePress} key={id} style={[styles.container,{backgroundColor: modeInfo ? "white" : COLORS.darkMode}]}>
     <TouchableOpacity onPress={data?.route === 'SignOut'  ? logOut : handlePress}>
         <View style={styles.rowBtw}>
             <View style={styles.row}>
                 {data?.icon}
-                <Text style={{...FONTS.body3, color: id !== 6 ? "#1a202c" : "red", marginLeft: hp(10)}}>{data?.name}</Text>
+                <Text style={{...FONTS.body3, color: modeInfo ? COLORS.black : COLORS.white , marginLeft: hp(10)}}>{data?.name}</Text>
             </View>
              {
                 (data?.route !== 'SignOut' && !data?.type) && <Image source={stroke} style={styles.img} />

@@ -147,7 +147,7 @@ const SwapCard = (props: any) => {
   };
 
   return (
-    <View style={[GlobalStyle.container, {backgroundColor: modeInfo ? "white" : "#1a202c"}]}>
+    <View style={[GlobalStyle.container, {backgroundColor: modeInfo ? "white" : COLORS.darkMode}]}>
       <KeyboardAwareScrollView showsVerticalScrollIndicator={false}>
       <View style={styles.centeredView}>
         <View style={styles.centeredView}>
@@ -157,8 +157,8 @@ const SwapCard = (props: any) => {
               handlePress={() => props?.navigation.navigate('SwapHistory')}
             />
 
-            <Text style={{...FONTS.h2, textAlign: 'left'}}>Swap</Text>
-            <Text style={{...FONTS.body5, textAlign: 'left'}}>
+            <Text style={{...FONTS.h2, textAlign: 'left',color:modeInfo ? COLORS.black : COLORS.white}}>Swap</Text>
+            <Text style={{...FONTS.body5, textAlign: 'left',color:modeInfo ? COLORS.black : COLORS.white}}>
               Which crypto do you want to swap for
             </Text>
 

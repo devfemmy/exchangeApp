@@ -14,8 +14,11 @@ import {copyToClipboard, format, hp, wp} from '../../utils/helper';
 import GlobalStyle from '../../utils/globalStyle';
 import Feather from 'react-native-vector-icons/Feather';
 import moment from 'moment';
+import { useAppSelector } from '../../app/hooks';
+import { modeStatus } from '../../slice/TradeSlice';
 
 const SwapDetailModal = ({modalVisible, setModalVisible, data}: any) => {
+  const modeInfo = useAppSelector(modeStatus);
 
 
   return (
@@ -29,15 +32,15 @@ const SwapDetailModal = ({modalVisible, setModalVisible, data}: any) => {
           setModalVisible();
         }}>
         <View style={styles.centeredView}>
-          <View style={styles.modalView}>
+          <View style={[styles.modalView, {backgroundColor: modeInfo ? COLORS.white : COLORS.darkMode}]}>
             <TouchableOpacity onPress={() => setModalVisible()}>
               <View style={styles.end}>
-                <AntDesign name="close" size={30} />
+                <AntDesign name="close" size={30} color={modeInfo ? COLORS.black : COLORS.white} />
               </View>
             </TouchableOpacity>
 
             <Text
-              style={{...FONTS.body4, textAlign: 'center', fontWeight: '700', marginBottom: hp(20)}}>
+              style={{...FONTS.body4, textAlign: 'center', fontWeight: '700', marginBottom: hp(20),color:modeInfo ? COLORS.black : COLORS.white}}>
               Transaction Details
             </Text>
 
@@ -57,10 +60,10 @@ const SwapDetailModal = ({modalVisible, setModalVisible, data}: any) => {
                   />
                 </View>
                 <View>
-                  <Text style={{textTransform: 'capitalize', ...FONTS.body4}}>
+                  <Text style={{textTransform: 'capitalize', ...FONTS.body4, color:modeInfo ? COLORS.black : COLORS.white}}>
                     Swap
                   </Text>
-                  <Text style={{...FONTS.body5, color: COLORS.gray}}>
+                  <Text style={{...FONTS.body5, color:modeInfo ? COLORS.gray : COLORS.white}}>
                   {data?.fromCurrency +  '-' + data?.toCurrency}
                   </Text>
                 </View>
@@ -70,11 +73,11 @@ const SwapDetailModal = ({modalVisible, setModalVisible, data}: any) => {
                 <Text
                   style={{
                     textTransform: 'capitalize',
-                    ...FONTS.body4,color: COLORS.gray,
+                    ...FONTS.body4,color:modeInfo ? COLORS.gray : COLORS.white
                   }}>
                   Amount Received:
                 </Text>
-                <Text style={{...FONTS.body4}}>
+                <Text style={{...FONTS.body4,color:modeInfo ? COLORS.black : COLORS.white}}>
                  {format(parseFloat(data?.toCurrencyAmt).toFixed(5).slice(0, -1))} {data?.toCurrency?.toUpperCase()}
                 </Text>
               </View>
@@ -82,13 +85,13 @@ const SwapDetailModal = ({modalVisible, setModalVisible, data}: any) => {
               <View style={styles.mt}>
                 <Text
                   style={{
-                    ...FONTS.body4,color: COLORS.gray,
+                    ...FONTS.body4,color:modeInfo ? COLORS.gray : COLORS.white
                   }}>
                   Transaction ID:
                 </Text>
                <View style={GlobalStyle.rowBetween}>
-               <Text style={{...FONTS.body4, marginRight: hp(30)}}>{data?.ordId}</Text>
-               <Feather name="copy" size={20} onPress={() => copyToClipboard(data?.ordId)} />
+               <Text style={{...FONTS.body4, marginRight: hp(30),color:modeInfo ? COLORS.black : COLORS.white}}>{data?.ordId}</Text>
+               <Feather name="copy" color={modeInfo ? COLORS.black : COLORS.white} size={20} onPress={() => copyToClipboard(data?.ordId)} />
                </View>
               </View>
 
@@ -97,25 +100,25 @@ const SwapDetailModal = ({modalVisible, setModalVisible, data}: any) => {
                 <Text
                   style={{
                     textTransform: 'capitalize',
-                    ...FONTS.body4,color: COLORS.gray,
+                    ...FONTS.body4,color:modeInfo ? COLORS.gray : COLORS.white
                   }}>
                   From:
                 </Text>
-                <Text style={{...FONTS.body4}}>
+                <Text style={{...FONTS.body4,color:modeInfo ? COLORS.black : COLORS.white}}>
                   {format(parseFloat(data?.fromCurrencyAmt)?.toFixed(5).slice(0, -1))} {data?.fromCurrency?.toUpperCase()}
                 </Text>
               </View>
-                  <AntDesign name="swap" size={20} />
+                  <AntDesign name="swap" size={20} color={modeInfo ? COLORS.black : COLORS.white} />
                   <View style={styles.mt}>
                 <Text
                   style={{
                     textTransform: 'capitalize',
                     textAlign: 'right',
-                    ...FONTS.body4,color: COLORS.gray,
+                    ...FONTS.body4,color:modeInfo ? COLORS.gray : COLORS.white
                   }}>
                   To:
                 </Text>
-                <Text style={{...FONTS.body4}}>
+                <Text style={{...FONTS.body4,color:modeInfo ? COLORS.black : COLORS.white}}>
                 {format(parseFloat(data?.toCurrencyAmt)?.toFixed(5).slice(0, -1))} {data?.toCurrency?.toUpperCase()}
                 </Text>
               </View>
@@ -125,11 +128,11 @@ const SwapDetailModal = ({modalVisible, setModalVisible, data}: any) => {
                 <Text
                   style={{
                     textTransform: 'capitalize',
-                    ...FONTS.body4,color: COLORS.gray,
+                    ...FONTS.body4,color:modeInfo ? COLORS.gray : COLORS.white
                   }}>
                  Conversion Rate:
                 </Text>
-                <Text style={{...FONTS.body4, textTransform: 'capitalize'}}>
+                <Text style={{...FONTS.body4, textTransform: 'capitalize',color:modeInfo ? COLORS.black : COLORS.white}}>
                 {data?.rate}
                 </Text>
               </View>
@@ -138,11 +141,11 @@ const SwapDetailModal = ({modalVisible, setModalVisible, data}: any) => {
                 <Text
                   style={{
                     textTransform: 'capitalize',
-                    ...FONTS.body4,color: COLORS.gray,
+                    ...FONTS.body4,color:modeInfo ? COLORS.gray : COLORS.white
                   }}>
                  Fee:
                 </Text>
-                <Text style={{...FONTS.body4, textTransform: 'capitalize'}}>
+                <Text style={{...FONTS.body4, textTransform: 'capitalize',color:modeInfo ? COLORS.black : COLORS.white}}>
                 {format(parseFloat(data?.fee)?.toFixed(7).slice(0, -1))}
                 </Text>
               </View>
@@ -153,11 +156,11 @@ const SwapDetailModal = ({modalVisible, setModalVisible, data}: any) => {
                 <Text
                   style={{
                     textTransform: 'capitalize',
-                    ...FONTS.body4,color: COLORS.gray,
+                    ...FONTS.body4,color:modeInfo ? COLORS.gray : COLORS.white
                   }}>
                   Date:
                 </Text>
-                <Text style={{...FONTS.body4, textTransform: 'capitalize', fontSize: hp(11)}}>
+                <Text style={{...FONTS.body4, textTransform: 'capitalize', fontSize: hp(11),color:modeInfo ? COLORS.black : COLORS.white}}>
                 {moment(data?.timeStamp).format('MMMM Do YYYY, h:mm:ss a')}
                 </Text>
               </View>
@@ -166,7 +169,7 @@ const SwapDetailModal = ({modalVisible, setModalVisible, data}: any) => {
                 <Text
                   style={{
                     textTransform: 'capitalize',
-                    ...FONTS.body4,color: COLORS.gray,
+                    ...FONTS.body4,color:modeInfo ? COLORS.gray : COLORS.white
                   }}>
                   Transaction Status:
                 </Text>
@@ -175,8 +178,6 @@ const SwapDetailModal = ({modalVisible, setModalVisible, data}: any) => {
                 </Text>
               </View>
              </View>
-
-
             </View>
           </View>
         </View>

@@ -15,7 +15,7 @@ const ListCardItem = ({ data, id, handlePress, icon, isSwitchOn, onToggleSwitch 
         <View style={styles.rowBtw}>
             <View style={styles.row}>
                 <View>{icon}</View>
-                <Text style={{...FONTS.body3, marginLeft: hp(15), color: '#4F4F4F'}}>{data?.name}</Text>
+                <Text style={{...FONTS.body3, marginLeft: hp(15), color: data?.route === "DeleteAccount" ? "red" : '#4F4F4F'}}>{data?.name}</Text>
             </View>
             <View>
             {

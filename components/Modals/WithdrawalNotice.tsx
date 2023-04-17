@@ -7,11 +7,12 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 import { COLORS, FONTS } from '../../utils/constants/theme';
 import { hp, wp } from '../../utils/helper';
 import FastImage from 'react-native-fast-image';
-import { useAppDispatch } from '../../app/hooks';
+import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import { getUserByUsername } from '../../slice/AuthSlice';
 import GlobalStyle from '../../utils/globalStyle';
 import { useNavigation } from '@react-navigation/native';
 import { Notifier, NotifierComponents } from 'react-native-notifier';
+import { modeStatus } from '../../slice/TradeSlice';
 
 
 const WithdrawalNotice = ({modalVisible, setModalVisible, data}: any) => {
@@ -20,6 +21,7 @@ const WithdrawalNotice = ({modalVisible, setModalVisible, data}: any) => {
    // const getUserInfo = userStateInfo?.userData ? userStateInfo?.userData : userStateInfo
     const dispatch = useAppDispatch()
     const [userDetail, setUserDetail] = useState<any>()
+    const modeInfo = useAppSelector(modeStatus);
 
 
     useEffect(() => {
@@ -63,10 +65,10 @@ const WithdrawalNotice = ({modalVisible, setModalVisible, data}: any) => {
             setModalVisible();
           }}>
           <View style={styles.centeredView}>
-            <View style={styles.modalView}>
+            <View style={[styles.modalView, {backgroundColor: modeInfo ? COLORS.white : COLORS.darkMode}]}>
               <TouchableOpacity onPress={() => setModalVisible()}>
                 <View style={styles.end}>
-                  <AntDesign name="close" size={30} />
+                  <AntDesign name="close" size={30} color={modeInfo ? COLORS.black : COLORS.white} />
                 </View>
               </TouchableOpacity>
   
@@ -83,15 +85,15 @@ const WithdrawalNotice = ({modalVisible, setModalVisible, data}: any) => {
                 resizeMode={FastImage.resizeMode.cover}
             />
               }
-                <Text style={{...FONTS.h3, textAlign: 'center', marginVertical: hp(20), fontWeight: '600'}}>Are you sure you want to withdraw into this {data?.walletType === "Zend Pay" ? "Zend User account?" : "External Wallet?"}  </Text>
+                <Text style={{...FONTS.h3, textAlign: 'center', marginVertical: hp(20), fontWeight: '600',color:modeInfo ? COLORS.black : COLORS.white}}>Are you sure you want to withdraw into this {data?.walletType === "Zend Pay" ? "Zend User account?" : "External Wallet?"}  </Text>
                 
                
             </View> 
                {
                 data?.walletType === "Zend Pay" ?
                 <Text style={{marginBottom: hp(20)}}>
-                <Text style={{...FONTS.body3, color: COLORS.gray}}>Address: </Text>
-                <Text style={{...FONTS.body3, fontWeight: 'bold'}}>{data?.user}</Text>
+                <Text style={{...FONTS.body3, color:modeInfo ? COLORS.gray : COLORS.white}}>Address: </Text>
+                <Text style={{...FONTS.body3, fontWeight: 'bold',color:modeInfo ? COLORS.black : COLORS.white}}>{data?.user}</Text>
             </Text>
             :
             <View>

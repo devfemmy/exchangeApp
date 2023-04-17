@@ -163,10 +163,10 @@ const ZendUsdHistory = ({navigation}: any) => {
  
 
   return (
-    <View style={[GlobalStyle.container, {backgroundColor: modeInfo ? "white" : "#1a202c"}]}>
+    <View style={[GlobalStyle.container, {backgroundColor: modeInfo ? "white" : COLORS.darkMode}]}>
       <View style={styles.margin} />
       <HeaderComponent onPress={() => navigation.goBack()} />
-      <Text style={{...FONTS.h3, fontWeight: '600'}}>Zend Usd History</Text>
+      <Text style={{...FONTS.h3, fontWeight: '600',color:modeInfo ? COLORS.black : COLORS.white}}>Zend Usd History</Text>
       <View
         style={[
           GlobalStyle.rowStart,
@@ -319,10 +319,10 @@ const ZendUsdHistory = ({navigation}: any) => {
               handleModalClose();
             }}>
             <View style={styles.centeredView}>
-              <View style={styles.modalView}>
+              <View style={[styles.modalView, {backgroundColor: modeInfo ? COLORS.white : COLORS.darkMode}]}>
                 <TouchableOpacity onPress={() => handleModalClose()}>
                   <View style={styles.end}>
-                    <AntDesign name="close" size={30} />
+                    <AntDesign name="close" size={30} color={modeInfo ? COLORS.black : COLORS.white}  />
                   </View>
                 </TouchableOpacity>
                 <Text
@@ -331,6 +331,7 @@ const ZendUsdHistory = ({navigation}: any) => {
                     textAlign: 'center',
                     fontWeight: '700',
                     marginBottom: hp(20),
+                    color:modeInfo ? COLORS.black : COLORS.white
                   }}>
                   Transaction Details
                 </Text>
@@ -372,28 +373,29 @@ const ZendUsdHistory = ({navigation}: any) => {
                       </View>
                       <View>
                         <Text
-                          style={{textTransform: 'uppercase', ...FONTS.body4}}>
+                          style={{textTransform: 'uppercase', ...FONTS.body4, color:modeInfo ? COLORS.black : COLORS.white}}>
                           ZEND USD
                         </Text>
                       </View>
                     </View>
                     <View>
-                      <Text style={{...FONTS.body5}}>Amount</Text>
-                      <Text style={{...FONTS.body5, fontWeight: '600'}}>
+                      <Text style={{...FONTS.body5, color:modeInfo ? COLORS.black : COLORS.white}}>Amount</Text>
+                      <Text style={{...FONTS.body5, fontWeight: '600',  color:modeInfo ? COLORS.black : COLORS.white}}>
                         ${dataInfo?.amount}
                       </Text>
                     </View>
                   </View>
 
                   <View>
-                    <Text style={{...FONTS.body5}}>Transaction ID</Text>
+                    <Text style={{...FONTS.body5, color:modeInfo ? COLORS.black : COLORS.white}}>Transaction ID</Text>
                     <View style={GlobalStyle.rowBetween}>
-                      <Text style={{...FONTS.body3, marginRight: hp(30), width: wp(200)}}>
+                      <Text style={{...FONTS.body3, marginRight: hp(30), width: wp(200), color:modeInfo ? COLORS.black : COLORS.white}}>
                         {dataInfo?._id}
                       </Text>
                       <Feather
                         name="copy"
                         size={20}
+                        color={modeInfo ? COLORS.black : COLORS.white}
                         onPress={() => copyToClipboard(dataInfo?._id)}
                       />
                     </View>
@@ -405,37 +407,37 @@ const ZendUsdHistory = ({navigation}: any) => {
                         style={{
                           textTransform: 'capitalize',
                           ...FONTS.body4,
-                          color: COLORS.gray,
+                          color:modeInfo ? COLORS.gray : COLORS.white
                         }}>
                         Rate:
                       </Text>
                       <Text
-                        style={{...FONTS.body3, textTransform: 'capitalize'}}>
+                        style={{...FONTS.body3, textTransform: 'capitalize', color:modeInfo ? COLORS.black : COLORS.white}}>
                         {dataInfo?.rate?.rate}
                       </Text>
                     </View>
                   </View>
 
                   <View style={{marginTop: hp(10)}}>
-                    <Text style={{...FONTS.h4, fontWeight: '600'}}>
+                    <Text style={{...FONTS.h4, fontWeight: '600', color:modeInfo ? COLORS.black : COLORS.white}}>
                       Beneficiary Details
                     </Text>
                     <View style={{borderColor: COLORS.lightGray3, borderWidth: 0.5, borderRadius: 8, padding: hp(10), marginTop: hp(5)}}>
                       <View style={[GlobalStyle.rowStart, {paddingVertical: hp(10)}]}>
-                        <Text style={{width: wp(100)}}>Name: </Text>
-                        <Text style={{...FONTS.body5, marginRight: hp(20), fontWeight: 'bold'}}>{dataInfo?.beneficiary?.name}</Text>
+                        <Text style={{width: wp(100), color:modeInfo ? COLORS.black : COLORS.white}}>Name: </Text>
+                        <Text style={{...FONTS.body5, marginRight: hp(20), fontWeight: 'bold', color:modeInfo ? COLORS.black : COLORS.white}}>{dataInfo?.beneficiary?.name}</Text>
                       </View>
                       <View style={[GlobalStyle.rowStart, {paddingVertical: hp(10)}]}>
-                        <Text style={{width: wp(100)}}>Account No: </Text>
-                        <Text style={{...FONTS.body5, marginRight: hp(20), fontWeight: 'bold'}}>{dataInfo?.beneficiary?.bankAccountNumber}</Text>
+                        <Text style={{width: wp(100), color:modeInfo ? COLORS.black : COLORS.white}}>Account No: </Text>
+                        <Text style={{...FONTS.body5, marginRight: hp(20), fontWeight: 'bold', color:modeInfo ? COLORS.black : COLORS.white}}>{dataInfo?.beneficiary?.bankAccountNumber}</Text>
                       </View>
                       <View style={[GlobalStyle.rowStart, {paddingVertical: hp(10)}]}>
-                        <Text style={{width: wp(100)}}>Country: </Text>
-                        <Text style={{...FONTS.body5, marginRight: hp(20), fontWeight: 'bold'}}>{dataInfo?.beneficiary?.country}</Text>
+                        <Text style={{width: wp(100), color:modeInfo ? COLORS.black : COLORS.white}}>Country: </Text>
+                        <Text style={{...FONTS.body5, marginRight: hp(20), fontWeight: 'bold', color:modeInfo ? COLORS.black : COLORS.white}}>{dataInfo?.beneficiary?.country}</Text>
                       </View>
                       <View style={[GlobalStyle.rowStart, {paddingVertical: hp(10)}]}>
-                        <Text style={{width: wp(100)}}>Bank Name: </Text>
-                        <Text style={{...FONTS.body5, marginRight: hp(20), fontWeight: 'bold'}}>{dataInfo?.beneficiary?.bankName}</Text>
+                        <Text style={{width: wp(100), color:modeInfo ? COLORS.black : COLORS.white}}>Bank Name: </Text>
+                        <Text style={{...FONTS.body5, marginRight: hp(20), fontWeight: 'bold', color:modeInfo ? COLORS.black : COLORS.white}}>{dataInfo?.beneficiary?.bankName}</Text>
                       </View>
                     </View>
                   </View>
@@ -446,12 +448,12 @@ const ZendUsdHistory = ({navigation}: any) => {
                         style={{
                           textTransform: 'capitalize',
                           ...FONTS.body4,
-                          color: COLORS.gray,
+                          color:modeInfo ? COLORS.gray : COLORS.white
                         }}>
                         Date:
                       </Text>
                       <Text
-                        style={{...FONTS.body5, textTransform: 'capitalize'}}>
+                        style={{...FONTS.body5, textTransform: 'capitalize', color:modeInfo ? COLORS.black : COLORS.white}}>
                         {moment(dataInfo?.createdAt).format('MMMM Do YYYY, h:mm:ss a')}
                       </Text>
                     </View>
@@ -461,7 +463,7 @@ const ZendUsdHistory = ({navigation}: any) => {
                         style={{
                           textTransform: 'capitalize',
                           ...FONTS.body4,
-                          color: COLORS.gray,
+                          color:modeInfo ? COLORS.gray : COLORS.white
                         }}>
                         Transaction Status:
                       </Text>

@@ -157,7 +157,7 @@ const KycScreen = ({navigation}: any) => {
 
 
   return (
-    <View style={[GlobalStyle.container, {backgroundColor: modeInfo ? "white" : "#1a202c"}]}>
+    <View style={[GlobalStyle.container, {backgroundColor: modeInfo ? "white" : COLORS.darkMode}]}>
       <View style={styles.top}>
         <ScrollView showsVerticalScrollIndicator={false}>
         <HeaderComponent onPress={() => navigation.goBack()} />

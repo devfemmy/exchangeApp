@@ -188,14 +188,14 @@ const ZendUsd = ({navigation}: any) => {
 
 
   return (
-    <View style={[GlobalStyle.container, {backgroundColor: modeInfo ? "white" : "#1a202c"}]}>
+    <View style={[GlobalStyle.container, {backgroundColor: modeInfo ? COLORS.white : COLORS.darkMode}]}>
       <HeaderComponent onPress={() => navigation.goBack()} />
       <KeyboardAwareScrollView showsVerticalScrollIndicator={false}>
       <ScrollView>
-        <Text style={{...FONTS.h3, fontWeight: '600'}}>
+        <Text style={{...FONTS.h3, fontWeight: '600',color:modeInfo ? COLORS.black : COLORS.white}}>
           Welcome to Zend USD
         </Text>
-        <Text style={{...FONTS.body4, marginTop: hp(20), color: COLORS.gray}}>
+        <Text style={{...FONTS.body4, marginTop: hp(20), color:modeInfo ? COLORS.gray : COLORS.white}}>
           Welcome to zend USD, before you can carry out any transactions you
           have to upload your company CAC Document
         </Text>
@@ -258,10 +258,10 @@ const ZendUsd = ({navigation}: any) => {
          handleVisible();
        }}>
        <View style={styles.centeredView}>
-       <View style={styles.modalView}>
+       <View style={[styles.modalView, {backgroundColor:modeInfo ? COLORS.white : COLORS.darkMode}]}>
            <View style={{justifyContent: 'center', alignItems: 'center'}}>
            <KycLogo />
-            <Text style={{...FONTS.body3, textAlign: 'center',}}>You need to complete your KYC to continue</Text>
+            <Text style={{...FONTS.body3, textAlign: 'center',color:modeInfo ? COLORS.black : COLORS.white}}>You need to complete your KYC to continue</Text>
            </View>
 
            <View style={{marginTop: hp(25)}}>

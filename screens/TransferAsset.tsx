@@ -13,7 +13,7 @@ const TransferAsset = ({navigation}: any) => {
   const modeInfo = useAppSelector(modeStatus);
   
   return (
-    <View style={[GlobalStyle.container, {backgroundColor: modeInfo ? "white" : "#1a202c"}]}>
+    <View style={[GlobalStyle.container, {backgroundColor: modeInfo ? "white" : COLORS.darkMode}]}>
       <View style={GlobalStyle.rowBetween}>
         {/* <AntDesign name="arrowleft" size={hp(25)} onPress={() => navigation?.goBack()} />
          */}

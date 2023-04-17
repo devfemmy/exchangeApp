@@ -15,7 +15,7 @@ const ZendPrepaid = ({navigation}: any) => {
 
   
   return (
-    <View style={[GlobalStyle.container, {backgroundColor: modeInfo ? "white" : "#1a202c"}]}>
+    <View style={[GlobalStyle.container, {backgroundColor: modeInfo ? "white" : COLORS.darkMode}]}>
       <SwapHeader
         header="History"
         handlePress={() => navigation?.navigate('ZendPrepaidHistory')}

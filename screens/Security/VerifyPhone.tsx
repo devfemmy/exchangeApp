@@ -87,7 +87,7 @@ export default function VerifyPhone({navigation}: any) {
     setCountry(country);
   };
   return (
-    <View style={[GlobalStyle.container,{backgroundColor: modeInfo ? "white" : "#1a202c"}]}>
+    <View style={[GlobalStyle.container,{backgroundColor: modeInfo ? "white" : COLORS.darkMode}]}>
       <MainLayout>
         <ScrollView>
           <HeaderComponent onPress={() => navigation.goBack()} />

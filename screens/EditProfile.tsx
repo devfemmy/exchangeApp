@@ -141,7 +141,7 @@ const EditProfile = ({navigation}: any) => {
     };
 
   return (
-    <View style={[GlobalStyle.container, styles.div, {backgroundColor: modeInfo ? "white" : "#1a202c"}]}>
+    <View style={[GlobalStyle.container, styles.div, {backgroundColor: modeInfo ? "white" : COLORS.darkMode}]}>
        <KeyboardAwareScrollView showsVerticalScrollIndicator={false}>
         <ScrollView showsVerticalScrollIndicator={false} style={styles.top}>
         {/* <AntDesign onPress={() => navigation.goBack()} name="arrowleft" style={styles.icon} size={hp(20)} color={COLORS.gray2} /> */}

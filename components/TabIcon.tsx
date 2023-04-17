@@ -6,7 +6,8 @@ import React from 'react'
 import { FONTS, COLORS } from '../utils/constants/theme'
 
 
-const TabIcon = ({focused, icon, iconStyle, label, isTrade}: any) => {
+const TabIcon = ({focused, icon, iconStyle, label, isTrade, modeInfo}: any) => {
+  console.log({modeInfo})
 if(isTrade){
     return (
         <View style={[styles.container,{
@@ -36,11 +37,11 @@ if(isTrade){
         style={{
             width: 25,
             height: 25,
-            tintColor: focused ? COLORS.primary : COLORS.lightPrimary,
+            tintColor: (focused && modeInfo) ? COLORS.primary : (focused && !modeInfo) ? "white" : COLORS.lightPrimary,
             ...iconStyle,
         }}
       />
-      <Text style={[styles.text, { ...FONTS.h5, color: focused ? COLORS.primary : COLORS.lightPrimary}]}>{label}</Text>
+      <Text style={[styles.text, { ...FONTS.h5, color: (focused && modeInfo) ? COLORS.primary : (focused && !modeInfo) ? "white" : COLORS.lightPrimary}]}>{label}</Text>
     </View>
   )
 }

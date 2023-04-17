@@ -215,29 +215,29 @@ useEffect(() => {
 
 
   return (
-    <View style={[GlobalStyle.container, {backgroundColor: modeInfo ? "white" : "#1a202c"}]}>
+    <View style={[GlobalStyle.container, {backgroundColor: modeInfo ? COLORS.white : COLORS.darkMode}]}>
       <View style={styles.centeredView}>
         <View style={styles.centeredView}>
           <View style={[styles.modalView, styles.top]}>
             <TouchableOpacity onPress={() => props?.navigation.goBack()}>
               <View style={styles.end}>
-                <AntDesign name="arrowleft" size={30} />
+                <AntDesign name="arrowleft" size={30} color={modeInfo ? COLORS.black : COLORS.white} />
               </View>
             </TouchableOpacity>
 
-            <Text style={{...FONTS.h2, textAlign: 'left'}}>Withdraw</Text>
+            <Text style={{...FONTS.h2, textAlign: 'left',color:modeInfo ? COLORS.black : COLORS.white}}>Withdraw</Text>
 
 
             <View style={[GlobalStyle.rowBetween, {marginTop: hp(20)}]}>
               <View style={GlobalStyle.rowStart}>
                 <Image source={currencyIcon} style={styles.icon} />
-                <Text style={{textTransform: 'capitalize', ...FONTS.body3}}>
+                <Text style={{textTransform: 'capitalize', ...FONTS.body3,color:modeInfo ? COLORS.black : COLORS.white}}>
                   {assetName}
                 </Text>
               </View>
 
               <View>
-                <Text style={{ ...FONTS.body3}}>
+                <Text style={{ ...FONTS.body3,color:modeInfo ? COLORS.black : COLORS.white}}>
                   Balance: {(assetData?.availBal && assetData?.availBal % 1 === 0) ? format(parseFloat(assetData?.availBal)) : (assetData?.availBal && assetData?.availBal % 1 !== 0) ? format(parseFloat(assetData?.availBal).toFixed(5).slice(0, -1)) : 0} {currencyName?.toUpperCase()}
                 </Text>
               </View>

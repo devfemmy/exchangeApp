@@ -90,7 +90,7 @@ export default function VerifyPhonePin(props: any) {
 
 
   return (
-    <View style={[GlobalStyle.container,{backgroundColor: modeInfo ? "white" : "#1a202c"}]}>
+    <View style={[GlobalStyle.container,{backgroundColor: modeInfo ? "white" : COLORS.darkMode}]}>
       <MainLayout>
         <ScrollView>
           <HeaderComponent onPress={() => props?.navigation.goBack()} />

@@ -164,7 +164,7 @@ const Transfer = ({navigation}: any) => {
   };
 
   return (
-    <View style={[GlobalStyle.container, {backgroundColor: modeInfo ? "white" : "#1a202c"}]}>
+    <View style={[GlobalStyle.container, {backgroundColor: modeInfo ? COLORS.white : COLORS.darkMode}]}>
       <View style={styles.centeredView}>
         <View style={styles.centeredView}>
         <KeyboardAwareScrollView showsVerticalScrollIndicator={false}>
@@ -172,7 +172,7 @@ const Transfer = ({navigation}: any) => {
             <View style={styles.modalView}>
               <HeaderComponent onPress={() => navigation.goBack()} />
               <Text
-                style={{...FONTS.h2, fontWeight: '600', textAlign: 'left'}}>
+                style={{...FONTS.h2, fontWeight: '600', textAlign: 'left',color: modeInfo ? COLORS.black : COLORS.white}}>
                 Transfer Assets
               </Text>
               <Text

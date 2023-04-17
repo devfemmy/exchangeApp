@@ -11,6 +11,7 @@ import Feather from 'react-native-vector-icons/Feather';
 import IconTextButton from '../components/IconTextButton';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import Share from 'react-native-share';
+import { captureRef } from 'react-native-view-shot';
 import { useAppSelector } from '../app/hooks';
 import { modeStatus } from '../slice/TradeSlice';
 
@@ -19,97 +20,92 @@ const DepositAddress = (props: any) => {
   const {token, icon, currency} = props?.route?.params?.otherInfo;
   const ref =  useRef();
   const modeInfo = useAppSelector(modeStatus);
+  const viewRef = useRef()
 
-  const onShare = () => {
-    ref.current.toDataURL(async (data: any) => {
-      var info = 'data:image/jpeg;base64,' + data;
-      if(address) {
-        const options = {
-          title: `Share Address for ${token}`,
-          message: `Share Address for ${token}`,
-          url: info,
-        }
-       await Share.open(options)
-        .then((res) => {
-          console.log(res);
-        })
-        .catch((err) => {
-          err && console.log(err);
-        })
-      }
-      
-    })
-      
-  
+
+  const onShare = async () => {
+    try {
+      const uri = await captureRef(viewRef, {
+        format: 'png',
+        quality: 0.7
+      })
+
+      await Share.open({url: uri})
+    }
+    catch(e) {
+      console.log(e)
+    }
   }
 
 
   return (
 
-    <View style={[GlobalStyle.container, {backgroundColor: modeInfo ? "white" : "#1a202c"}]}>
+    <View style={[GlobalStyle.container, {backgroundColor: modeInfo ? "white" : COLORS.darkMode}]}>
       <View style={GlobalStyle.rowBetween}>
         <TouchableOpacity onPress={() => props.navigation.goBack()}>
         <AntDesign
           name="arrowleft"
           size={30}
+          color={modeInfo ? COLORS.black : COLORS.white}
           onPress={() => props?.navigation.goBack()}
         />
         </TouchableOpacity>
-        <Text style={{...FONTS.h3, fontWeight: '600'}}>Deposit {token}</Text>
+        <Text style={{...FONTS.h3, fontWeight: '600',color: modeInfo ? COLORS.black : COLORS.white}}>Deposit {token}</Text>
         <View></View>
       </View>
 
-      <View style={styles.top}>
+      <View style={styles.top} ref={viewRef}>
         <ScrollView showsVerticalScrollIndicator={false}>
           <View style={styles.barCode}>
                <QRCode
                 value={address}
                 size={200}
                 logo={icon}
-      logoSize={50}
-      logoBackgroundColor='transparent'
-      getRef={ref}
+                logoSize={50}
+                logoBackgroundColor='transparent'
               />
           </View>
           <View>
             <View style={styles.service}>
-              <Text style={{...FONTS.body4, color: COLORS.gray}}>
+              <Text style={{...FONTS.body4, color: modeInfo ? COLORS.gray : COLORS.white}}>
                 Wallet Address
               </Text>
               <View style={GlobalStyle.rowStart}>
-                <Text style={{...FONTS.h4,fontWeight: '600', marginRight: hp(20), width:wp(250)}}>
+                <Text style={{...FONTS.h4,fontWeight: '600', marginRight: hp(20), width:wp(250),color: modeInfo ? COLORS.black : COLORS.white}}>
                   {address}
                 </Text>
                 <Feather
                   name="copy"
                   size={20}
+                  color={modeInfo ? COLORS.black : COLORS.white}
                   onPress={() => copyToClipboard(address)}
                 />
               </View>
             </View>
             {
               memo &&   <View style={styles.service}>
-              <Text style={{...FONTS.body4, color: COLORS.gray}}>
+              <Text style={{...FONTS.body4, color: modeInfo ? COLORS.gray : COLORS.white}}>
                 Memo
               </Text>
               <View style={GlobalStyle.rowStart}>
-                <Text style={{...FONTS.h4,fontWeight: '600', marginRight: hp(20)}}>
+                <Text style={{...FONTS.h4,fontWeight: '600', marginRight: hp(20),color: modeInfo ? COLORS.black : COLORS.white}}>
                   {memo}
                 </Text>
                 <Feather
                   name="copy"
                   size={20}
+                  color={modeInfo ? COLORS.black : COLORS.white}
                   onPress={() => copyToClipboard(memo)}
                 />
               </View>
             </View>
             }
             <View style={styles.service}>
-              <Text style={{...FONTS.body4, color: COLORS.gray}}>
+              <Text style={{...FONTS.body4, color: modeInfo ? COLORS.gray : COLORS.white}}>
                 Network
               </Text>
               <View style={GlobalStyle.rowStart}>
-                <Text style={{...FONTS.h4,fontWeight: '600', marginRight: hp(20)}}>{chain}</Text>
+                <Text style={{...FONTS.h4,fontWeight: '600',color: modeInfo ? COLORS.black : COLORS.white, marginRight: hp(20)}}>{chain}</Text>
               </View>
             </View>
             <View style={styles.card}>

@@ -13,10 +13,12 @@ import { useNavigation } from '@react-navigation/native';
 import EvilIcons from 'react-native-vector-icons/EvilIcons';
 import { useAppDispatch, useAppSelector } from '../app/hooks';
 import { getUserDetail, userState } from '../slice/AuthSlice';
+import { modeStatus } from '../slice/TradeSlice';
 
 const TradeCard = ( {data}: any) => {
     const navigation = useNavigation() as any;
     const {icon, header, title, navigationScreen, comingSoon} = data;
+    const modeInfo = useAppSelector(modeStatus);
     const userStateInfo = useAppSelector(userState);
     const dispatch = useAppDispatch()
     const getUserInfo = userStateInfo?.userData
@@ -42,7 +44,7 @@ const TradeCard = ( {data}: any) => {
         </View>
         </View>
         <View style={{width: '70%'}}>
-        <Text style={{...FONTS.body3, color: COLORS.black, fontWeight: '500'}}>{header}</Text>
+        <Text style={{...FONTS.body3, color: modeInfo ? COLORS.black : COLORS.white, fontWeight: '500'}}>{header}</Text>
         <Text style={{...FONTS.body5, color: COLORS.gray}}>{title}</Text>
         </View>
         <View style={{width: '5%'}}>

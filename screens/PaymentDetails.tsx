@@ -73,10 +73,10 @@ const PaymentDetails = (props: any) => {
 
 
   return (
-    <ScrollView showsVerticalScrollIndicator={false} style={[GlobalStyle.container, {backgroundColor: modeInfo ? "white" : "#1a202c"}]}>
+    <ScrollView showsVerticalScrollIndicator={false} style={[GlobalStyle.container, {backgroundColor: modeInfo ? "white" : COLORS.darkMode}]}>
       <View>
       <HeaderComponent onPress={() => props?.navigation.goBack()} />
-      <Text style={{...FONTS.h3, fontWeight: '600'}}>
+      <Text style={{...FONTS.h3, fontWeight: '600', color:modeInfo ? COLORS.black : COLORS.white}}>
         Confirm Payment Details
       </Text>
       <Text style={{...FONTS.body5, color: COLORS.gray}}>
@@ -85,38 +85,40 @@ const PaymentDetails = (props: any) => {
 
       <View style={{marginTop: hp(10)}}>
         <View style={[GlobalStyle.rowBetween, {marginVertical: hp(10)}]}>
-          <Text style={{...FONTS.body4, color: COLORS.gray}}>Country</Text>
+          <Text style={{...FONTS.body4, color:modeInfo ? COLORS.gray : COLORS.white}}>Country</Text>
           <Text
             style={{
               ...FONTS.body4,
               fontWeight: '600',
               width: wp(200),
               textAlign: 'right',
+              color:modeInfo ? COLORS.black : COLORS.white
             }}>
             {country}
           </Text>
         </View>
 
         <View style={[GlobalStyle.rowBetween, {marginVertical: hp(10)}]}>
-          <Text style={{...FONTS.body4, color: COLORS.gray}}>
+          <Text style={{...FONTS.body4, color:modeInfo ? COLORS.gray : COLORS.white}}>
             Amount you want to send
           </Text>
-          <Text style={{...FONTS.body4, fontWeight: '600'}}>${amount}</Text>
+          <Text style={{...FONTS.body4, fontWeight: '600',color:modeInfo ? COLORS.black : COLORS.white}}>${amount}</Text>
         </View>
         <View style={[GlobalStyle.rowBetween, {marginVertical: hp(10)}]}>
-          <Text style={{...FONTS.body4, color: COLORS.gray}}>Rate</Text>
+          <Text style={{...FONTS.body4, color:modeInfo ? COLORS.gray : COLORS.white}}>Rate</Text>
           <Text
             style={{
               ...FONTS.body4,
               fontWeight: '600',
               width: wp(200),
               textAlign: 'right',
+              color:modeInfo ? COLORS.black : COLORS.white
             }}>
             {rate}
           </Text>
         </View>
         <View style={[GlobalStyle.rowBetween, {marginVertical: hp(10)}]}>
-          <Text style={{...FONTS.body4, color: COLORS.gray}}>
+          <Text style={{...FONTS.body4, color:modeInfo ? COLORS.gray : COLORS.white}}>
             Beneficiary Name
           </Text>
           <Text
@@ -125,12 +127,13 @@ const PaymentDetails = (props: any) => {
               fontWeight: '600',
               width: wp(200),
               textAlign: 'right',
+              color:modeInfo ? COLORS.black : COLORS.white
             }}>
             {beneficiaryName}
           </Text>
         </View>
         <View style={[GlobalStyle.rowBetween, {marginVertical: hp(10)}]}>
-          <Text style={{...FONTS.body4, color: COLORS.gray}}>
+          <Text style={{...FONTS.body4, color:modeInfo ? COLORS.gray : COLORS.white}}>
             Beneficiary Address
           </Text>
           <Text
@@ -139,24 +142,26 @@ const PaymentDetails = (props: any) => {
               fontWeight: '600',
               width: wp(200),
               textAlign: 'right',
+              color:modeInfo ? COLORS.black : COLORS.white
             }}>
            {beneficiaryAddress}
           </Text>
         </View>
         <View style={[GlobalStyle.rowBetween, {marginVertical: hp(10)}]}>
-          <Text style={{...FONTS.body4, color: COLORS.gray}}>Bank Name</Text>
+          <Text style={{...FONTS.body4, color:modeInfo ? COLORS.gray : COLORS.white}}>Bank Name</Text>
           <Text
             style={{
               ...FONTS.body4,
               fontWeight: '600',
               width: wp(200),
               textAlign: 'right',
+              color:modeInfo ? COLORS.black : COLORS.white
             }}>
            {bankName}
           </Text>
         </View>
         <View style={[GlobalStyle.rowBetween, {marginVertical: hp(10)}]}>
-          <Text style={{...FONTS.body4, color: COLORS.gray}}>
+          <Text style={{...FONTS.body4, color:modeInfo ? COLORS.gray : COLORS.white}}>
             Account Number
           </Text>
           <Text
@@ -165,30 +170,33 @@ const PaymentDetails = (props: any) => {
               fontWeight: '600',
               width: wp(200),
               textAlign: 'right',
+              color:modeInfo ? COLORS.black : COLORS.white
             }}>
             {bankAccount}
           </Text>
         </View>
         <View style={[GlobalStyle.rowBetween, {marginVertical: hp(10)}]}>
-          <Text style={{...FONTS.body4, color: COLORS.gray}}>Beneficiary Email</Text>
+          <Text style={{...FONTS.body4, color:modeInfo ? COLORS.gray : COLORS.white}}>Beneficiary Email</Text>
           <Text
             style={{
               ...FONTS.body4,
               fontWeight: '600',
               width: wp(200),
               textAlign: 'right',
+              color:modeInfo ? COLORS.black : COLORS.white
             }}>
             {beneficiaryEmail}
           </Text>
         </View>
         <View style={[GlobalStyle.rowBetween, {marginVertical: hp(10)}]}>
-          <Text style={{...FONTS.body4, color: COLORS.gray}}>Swift Code</Text>
+          <Text style={{...FONTS.body4, color:modeInfo ? COLORS.gray : COLORS.white}}>Swift Code</Text>
           <Text
             style={{
               ...FONTS.body4,
               fontWeight: '600',
               width: wp(200),
               textAlign: 'right',
+              color:modeInfo ? COLORS.black : COLORS.white
             }}>
            {swiftCode}
           </Text>

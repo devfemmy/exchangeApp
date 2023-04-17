@@ -17,14 +17,14 @@ const SuccessScreen = (props: any) => {
 
 
   return (
-    <View style={[GlobalStyle.container, {flex: 1, backgroundColor: modeInfo ? "white" : "#1a202c"}]}>
+    <View style={[GlobalStyle.container, {flex: 1, backgroundColor: modeInfo ? "white" : COLORS.darkMode}]}>
       {/* <HeaderComponent onPress={() => navigation.goBack()} /> */}
       <View style={styles.div}>
       <View style={{justifyContent: 'center', alignItems: 'center', marginBottom: hp(-70)}}>
       <SuccessIcon />
       </View>
         <Text style={{...FONTS.h2, textAlign: 'center', fontWeight: 'bold', textTransform: 'uppercase', color: COLORS.successGreen, marginVertical: hp(30)}}>{header}</Text>
-        <Text style={{...FONTS.body4, textAlign: 'center', marginTop: hp(-20)}}>{text}</Text>
+        <Text style={{...FONTS.body4, textAlign: 'center', marginTop: hp(-20), color: modeInfo ? COLORS.black : COLORS.white}}>{text}</Text>
       </View> 
      <View style={styles.div2}>
      <IconTextButton label="Continue" onPress={() => props?.navigation.navigate("MainLayout")} />

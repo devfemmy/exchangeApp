@@ -6,21 +6,26 @@ import { COLORS } from '../utils/constants/theme'
 import { hp } from '../utils/helper'
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
 import { useNavigation } from '@react-navigation/native'
+import { useAppSelector } from '../app/hooks'
+import { modeStatus } from '../slice/TradeSlice'
 
 const SwapHeader = ({header, handlePress}: any) => {
     const navigation = useNavigation() as any
+    const modeInfo = useAppSelector(modeStatus);
 
+    
   return (
     <View style={[GlobalStyle.rowBetween, {marginBottom: hp(20)}]}>
               <AntDesign
                 name="arrowleft"
                 size={hp(20)}
+                color={modeInfo ? COLORS.black : COLORS.white}
                 onPress={() => navigation.goBack()}
               />
               <TouchableOpacity onPress={() => handlePress()}>
                 <View style={styles.swap}>
-                  <Text style={{marginRight: hp(5)}}>{header}</Text>
-                  <MaterialIcons name="history" size={20} />
+                  <Text style={{marginRight: hp(5), color:modeInfo ? COLORS.black : COLORS.white}}>{header}</Text>
+                  <MaterialIcons name="history" size={20} color={modeInfo ? COLORS.black : COLORS.white} />
                 </View>
               </TouchableOpacity>
             </View>

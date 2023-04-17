@@ -145,19 +145,19 @@ const ZendUsdForm = (props: any) => {
               style={{
                 ...FONTS.body4,
                 fontWeight: '600',
-                color: COLORS.grayBlack,
+                color:modeInfo ? COLORS.grayBlack : COLORS.white
               }}>
               Tether
             </Text>
           </View>
           <View style={GlobalStyle.rowStart}>
-            <Text style={{...FONTS.body4, color: COLORS.gray}}>Balance: </Text>
-            <Text style={{...FONTS.body4, fontWeight: '600'}}>{format( !usdBal ? 0 : parseFloat(usdBal)?.toFixed(3).slice(0,-1))} USDT</Text>
+            <Text style={{...FONTS.body4, color:modeInfo ? COLORS.gray : COLORS.white}}>Balance: </Text>
+            <Text style={{...FONTS.body4, fontWeight: '600',color:modeInfo ? COLORS.black : COLORS.white}}>{format( !usdBal ? 0 : parseFloat(usdBal)?.toFixed(3).slice(0,-1))} USDT</Text>
           </View>
         </View>
 
         <View style={GlobalStyle.rowStart}>
-            <Text style={{...FONTS.body4, color: COLORS.gray}}>Rate </Text>
+            <Text style={{...FONTS.body4, color:modeInfo ? COLORS.gray : COLORS.white}}>Rate </Text>
             <Text style={{...FONTS.body4, color: COLORS.primary}}>1.00 USDT = {rate?.rate} USD</Text>
           </View>
 
@@ -193,6 +193,7 @@ const ZendUsdForm = (props: any) => {
               ...FONTS.body4,
               textAlign: 'center',
               marginVertical: hp(20),
+              color:modeInfo ? COLORS.black : COLORS.white
             }}>
             Transfer may take up to 48hrs
           </Text>
@@ -265,6 +266,7 @@ const ZendUsdForm = (props: any) => {
               ...FONTS.body4,
               textAlign: 'center',
               marginVertical: hp(20),
+              color:modeInfo ? COLORS.grayBlack : COLORS.white
             }}>
             Transfer may take up to 48hrs
           </Text>
@@ -279,26 +281,27 @@ const ZendUsdForm = (props: any) => {
   };
 
   return (
-    <KeyboardAwareScrollView>
+    <KeyboardAwareScrollView style={{backgroundColor: modeInfo ? COLORS.white : COLORS.darkMode}}>
     <ScrollView>
-      <View style={[GlobalStyle.container, {backgroundColor: modeInfo ? "white" : "#1a202c"}]}>
+      <View style={[GlobalStyle.container, {backgroundColor: modeInfo ? COLORS.white : COLORS.darkMode}]}>
          <View style={[GlobalStyle.rowBetween, {marginBottom: hp(20)}]}>
               <AntDesign
                 name="arrowleft"
                 size={hp(20)}
+                color={modeInfo ? COLORS.black : COLORS.white}
                 onPress={type === 1 ? () => props?.navigation.goBack() : () => setType(type - 1)}
               />
               <TouchableOpacity onPress={() => props?.navigation.navigate('Instructions')}>
                 <View style={styles.swap}>
-                  <Text style={{marginRight: hp(5)}}>Instructions</Text>
-                  <MaterialIcons name="history" size={20} />
+                  <Text style={{marginRight: hp(5),color:modeInfo ? COLORS.black : COLORS.white}}>Instructions</Text>
+                  <MaterialIcons name="history" size={20} color={modeInfo ? COLORS.black : COLORS.white} />
                 </View>
               </TouchableOpacity>
             </View>
         <View style={GlobalStyle.rowBetween}>
           <View>
             <Text
-              style={{...FONTS.h3, fontWeight: '600', marginBottom: hp(10)}}>
+              style={{...FONTS.h3, fontWeight: '600', marginBottom: hp(10),color:modeInfo ? COLORS.black : COLORS.white}}>
               Zend USD
             </Text>
             <Text style={{...FONTS.body5, color: COLORS.gray}}>

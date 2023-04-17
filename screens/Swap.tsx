@@ -45,18 +45,18 @@ const Swap = ({navigation}: any) => {
   };
 
   return (
-    <View style={[GlobalStyle.container, {backgroundColor: modeInfo ? "white" : "#1a202c"}]}>
+    <View style={[GlobalStyle.container, {backgroundColor: modeInfo ? COLORS.white : COLORS.darkMode}]}>
       <View style={styles.centeredView}>
         <View style={styles.centeredView}>
           <View style={styles.modalView}>
           <SwapHeader header="Swap History" handlePress={() => navigation.navigate("SwapHistory")} />
 
-            <Text style={{...FONTS.h2, fontWeight: '600', textAlign: 'left'}}>Swap</Text>
+            <Text style={{...FONTS.h2, fontWeight: '600', textAlign: 'left', color:modeInfo ? COLORS.black : COLORS.white}}>Swap</Text>
             <Text
               style={{
                 ...FONTS.body4,
                 textAlign: 'left',
-                color: COLORS.gray,
+                color:modeInfo ? COLORS.gray : COLORS.white
               }}>
               Select token you want to swap
             </Text>

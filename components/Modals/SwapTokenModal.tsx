@@ -40,6 +40,7 @@ import {
   tron,
   usd,
 } from '../../assets/images';
+import { modeStatus } from '../../slice/TradeSlice';
 
 const SwapTokenModal = ({
   modalVisible,
@@ -49,6 +50,7 @@ const SwapTokenModal = ({
   transferType,
 }: any) => {
   const [value, setValue] = useState('');
+  const modeInfo = useAppSelector(modeStatus);
 
   const tradingAccountInfo: any = useAppSelector(tradingAccount);
   const fundingAccountInfo: any = useAppSelector(fundingAccount);
@@ -388,14 +390,14 @@ const SwapTokenModal = ({
             setModalVisible();
           }}>
           <View style={styles.centeredView}>
-            <View style={styles.modalView}>
+            <View style={[styles.modalView, {backgroundColor: modeInfo ? COLORS.white : COLORS.darkMode}]}>
               <TouchableOpacity onPress={() => setModalVisible()}>
                 <View style={styles.end}>
-                  <AntDesign name="close" size={30} />
+                  <AntDesign name="close" size={30} color={modeInfo ? COLORS.black : COLORS.white} />
                 </View>
               </TouchableOpacity>
 
-              <Text style={{...FONTS.h3, textAlign: 'center'}}>
+              <Text style={{...FONTS.h3, textAlign: 'center',color:modeInfo ? COLORS.black : COLORS.white}}>
                 Select Token
               </Text>
               <View style={styles.search}>
@@ -408,8 +410,8 @@ const SwapTokenModal = ({
                 />
               </View>
               <View style={[GlobalStyle.rowBetween, {marginVertical: hp(5)}]}>
-              <Text style={{...FONTS.body3}}>Token</Text>
-              <Text style={{...FONTS.body3}}>Balance</Text>
+              <Text style={{...FONTS.body3,color:modeInfo ? COLORS.black : COLORS.white}}>Token</Text>
+              <Text style={{...FONTS.body3,color:modeInfo ? COLORS.black : COLORS.white}}>Balance</Text>
             </View>
               <ScrollView>{assets()}</ScrollView>
             </View>

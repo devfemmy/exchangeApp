@@ -4,8 +4,13 @@ import { COLORS, FONTS } from '../../utils/constants/theme';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import { success } from '../../assets/images';
 import { hp } from '../../utils/helper';
+import { useAppSelector } from '../../app/hooks';
+import { modeStatus } from '../../slice/TradeSlice';
 
 const SuccessModal = ({visible, handleVisible}: any) => {
+  const modeInfo = useAppSelector(modeStatus);
+
+  
   return (
     <View>
     <View style={styles.centeredView}>
@@ -20,10 +25,10 @@ const SuccessModal = ({visible, handleVisible}: any) => {
          handleVisible(false);
        }}>
        <View style={styles.centeredView}>
-       <View style={styles.modalView}>
+       <View style={[styles.modalView, {backgroundColor: modeInfo ? COLORS.white : COLORS.darkMode}]}>
            <TouchableOpacity onPress={() => handleVisible(false)}>
              <View style={styles.end}>
-               <AntDesign name="close" size={30} />
+               <AntDesign name="close" size={30} color={modeInfo ? COLORS.black : COLORS.white} />
              </View>
            </TouchableOpacity>
 

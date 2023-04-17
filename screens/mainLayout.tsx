@@ -117,7 +117,7 @@ const MainLayout = ({children}: any) => {
             // width: "100%",
             borderRadius: 30,
             padding: SIZES.padding,
-            backgroundColor: modeInfo ? "white" : "#1a202c",
+            backgroundColor: modeInfo ? "white" : COLORS.darkMode,
             // marginHorizontal: hp(20),
             width: Dimensions.get('window').width/1.07,
         }}

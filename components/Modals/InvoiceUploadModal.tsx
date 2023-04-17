@@ -15,9 +15,12 @@ import GlobalStyle from '../../utils/globalStyle';
 import {launchImageLibrary} from 'react-native-image-picker';
 import UploadCard from '../UploadCard';
 import { Notifier, NotifierComponents } from 'react-native-notifier';
+import { useAppSelector } from '../../app/hooks';
+import { modeStatus } from '../../slice/TradeSlice';
 
 const InvoiceUploadModal = ({modalVisible, setModalVisible, routeNext}: any) => {
   const [invoiceImg, setInvoiceImg] = useState<any>();
+  const modeInfo = useAppSelector(modeStatus);
 
 
   const imagePickerHandler = async() => {
@@ -79,10 +82,10 @@ const InvoiceUploadModal = ({modalVisible, setModalVisible, routeNext}: any) => 
             setModalVisible();
           }}>
           <View style={styles.centeredView}>
-            <View style={styles.modalView}>
+            <View style={[styles.modalView, {backgroundColor: modeInfo ? COLORS.white : COLORS.darkMode}]}>
               <TouchableOpacity onPress={() => setModalVisible()}>
                 <View style={styles.end}>
-                  <AntDesign name="close" size={30} />
+                  <AntDesign name="close" size={30} color={modeInfo ? COLORS.black : COLORS.white} />
                 </View>
               </TouchableOpacity>
 

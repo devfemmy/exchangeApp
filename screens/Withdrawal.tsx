@@ -140,12 +140,12 @@ const searchTradData = !value
   };
 
   return (
-    <View style={[GlobalStyle.container, {backgroundColor: modeInfo ? "white" : "#1a202c"}]}>
+    <View style={[GlobalStyle.container, {backgroundColor: modeInfo ? "white" : COLORS.darkMode}]}>
       <View style={styles.centeredView}>
         <View style={styles.centeredView}>
           <View style={styles.modalView}>
             <HeaderComponent onPress={() => navigation.goBack()} />
-            <Text style={{...FONTS.h2,fontWeight: '600', textAlign: 'left'}}>Withdraw</Text>
+            <Text style={{...FONTS.h2,fontWeight: '600', textAlign: 'left',color:modeInfo ? COLORS.black : COLORS.white}}>Withdraw</Text>
             <Text
               style={{
                 ...FONTS.body4,
@@ -164,8 +164,8 @@ const searchTradData = !value
               />
             </View>
             <View style={[GlobalStyle.rowBetween, {marginVertical: hp(5)}]}>
-              <Text style={{...FONTS.body3}}>Token</Text>
-              <Text style={{...FONTS.body3}}>Balance</Text>
+              <Text style={{...FONTS.body3, color:modeInfo ? COLORS.black : COLORS.white}}>Token</Text>
+              <Text style={{...FONTS.body3,color:modeInfo ? COLORS.black : COLORS.white}}>Balance</Text>
             </View>
             <ScrollView showsVerticalScrollIndicator={false}>{assets()}</ScrollView>
           </View>

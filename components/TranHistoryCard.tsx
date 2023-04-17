@@ -4,11 +4,15 @@ import React from 'react'
 import AntDesign from 'react-native-vector-icons/AntDesign'
 import GlobalStyle from '../utils/globalStyle'
 import { COLORS, FONTS } from '../utils/constants/theme'
-import { format, hp, wp } from '../utils/helper'
+import { hp, wp } from '../utils/helper'
 import moment from 'moment'
+import { useAppSelector } from '../app/hooks'
+import { modeStatus } from '../slice/TradeSlice'
 
 const TranHistoryCard = ({data, handlePress}: any) => {
+  const modeInfo = useAppSelector(modeStatus);
 
+  
   return (
     <TouchableOpacity onPress={() => handlePress(data)}>
     <View style={styles.actionCard2}>
@@ -17,13 +21,13 @@ const TranHistoryCard = ({data, handlePress}: any) => {
           <AntDesign name='swap' size={20} color={COLORS.darkGreen} />
         </View>
         <View style={{marginLeft: hp(10), width: wp(90)}}>
-          <Text style={{...FONTS.body3}}>
+          <Text style={{...FONTS.body3, color:modeInfo ? COLORS.black : COLORS.white}}>
            {data?.fromCurrency}
           </Text>
           <Text
             style={{
               ...FONTS.body5,
-              color: COLORS.gray,
+              color:modeInfo ? COLORS.gray : COLORS.white,
               fontSize: hp(10)
             }}>
               {moment(data?.timeStamp).format('MMMM Do YYYY')}
@@ -33,13 +37,13 @@ const TranHistoryCard = ({data, handlePress}: any) => {
       <View style={[GlobalStyle.rowStart, {width: wp(70)}]}>
 
         <View style={{marginLeft: hp(10)}}>
-          <Text style={{...FONTS.body5, textAlign: 'center'}}>
+          <Text style={{...FONTS.body5, textAlign: 'center',color:modeInfo ? COLORS.black : COLORS.white}}>
            To
           </Text>
           <Text
             style={{
               ...FONTS.body5,
-              color: COLORS.gray,
+              color:modeInfo ? COLORS.gray : COLORS.white,
               textAlign: 'center'
             }}>
               {data?.toCurrency}
@@ -62,6 +66,7 @@ const TranHistoryCard = ({data, handlePress}: any) => {
           style={{
             ...FONTS.body5,
             fontWeight: '600',
+            color:modeInfo ? COLORS.black : COLORS.white
           }}>{data?.toCurrencyAmt.toString().match(/^-?\d+(?:\.\d{0,4})?/)[0]}</Text>
         <Text
           style={{

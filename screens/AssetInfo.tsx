@@ -115,16 +115,17 @@ const AssetInfo = (props: any) => {
    }
 
   return (
-    <View style={[GlobalStyle.container,{backgroundColor: modeInfo ? "white" : "#1a202c"}]}>
+    <View style={[GlobalStyle.container,{backgroundColor: modeInfo ? COLORS.white : COLORS.darkMode}]}>
       <View style={GlobalStyle.rowBetween}>
         <TouchableOpacity  onPress={() => props.navigation.goBack()}>
         <AntDesign
           name="arrowleft"
           size={hp(25)}
+          color={modeInfo ? COLORS.lightBlack : COLORS.white}
           onPress={() => props.navigation.goBack()}
         />
         </TouchableOpacity>
-        <Text style={{...FONTS.h2, fontWeight: '600'}}>{assetName}</Text>
+        <Text style={{...FONTS.h2, fontWeight: '600', color: modeInfo ? COLORS.lightBlack : COLORS.white}}>{assetName}</Text>
         <Image source={iconData} style={styles.icon} />
       </View>
       <View style={styles.walletCard}>
@@ -252,7 +253,8 @@ const AssetInfo = (props: any) => {
                 style={{
                   ...FONTS.h5,
                   textAlign: 'center',
-                  color: type === 'all' ? COLORS.primary : 'rgb(128, 128, 128)',
+                  color: type === 'all' && modeInfo ? COLORS.primary : type === 'all' && !modeInfo ? COLORS.primary : COLORS.gray1
+                 // color: type === 'all' ? COLORS.primary : 'rgb(128, 128, 128)',
                 }}>
                 All
               </Text>
@@ -278,8 +280,9 @@ const AssetInfo = (props: any) => {
                 style={{
                   ...FONTS.h5,
                   textAlign: 'center',
-                  color:
-                    type === 'withdraw' ? COLORS.primary : COLORS.gray1,
+                  color: type === 'withdraw' && modeInfo ? COLORS.primary : type === 'withdraw' && !modeInfo ? COLORS.primary : COLORS.gray1
+                  // color:
+                  //   type === 'withdraw' ? COLORS.primary : COLORS.gray1,
                 }}>
                 Withdraw
               </Text>
@@ -305,8 +308,7 @@ const AssetInfo = (props: any) => {
                 style={{
                   ...FONTS.h5,
                   textAlign: 'center',
-                  color:
-                    type === 'deposit' ? COLORS.primary : COLORS.gray,
+                  color: type === 'deposit' && modeInfo ? COLORS.primary : type === 'deposit' && !modeInfo ? COLORS.primary : COLORS.gray1
                 }}>
                 Deposit
               </Text>
@@ -332,8 +334,7 @@ const AssetInfo = (props: any) => {
                 style={{
                   ...FONTS.h5,
                   textAlign: 'center',
-                  color:
-                    type === 'successful' ? COLORS.primary : COLORS.gray,
+                  color: type === 'successful' && modeInfo ? COLORS.primary : type === 'successful' && !modeInfo ? COLORS.primary : COLORS.gray1
                 }}>
                 Successful
               </Text>
@@ -359,8 +360,7 @@ const AssetInfo = (props: any) => {
                 style={{
                   ...FONTS.h5,
                   textAlign: 'center',
-                  color:
-                    type === 'incoming' ? COLORS.primary : COLORS.gray,
+                  color: type === 'incoming' && modeInfo ? COLORS.primary : type === 'incoming' && !modeInfo ? COLORS.primary : COLORS.gray1
                 }}>
                 Incoming
               </Text>
@@ -387,8 +387,7 @@ const AssetInfo = (props: any) => {
                 style={{
                   ...FONTS.h5,
                   textAlign: 'center',
-                  color:
-                    type === 'pending' ? COLORS.primary : COLORS.gray,
+                  color: type === 'pending' && modeInfo ? COLORS.primary : type === 'pending' && !modeInfo ? COLORS.primary : COLORS.gray1
                 }}>
                 Pending
               </Text>
@@ -415,7 +414,7 @@ const AssetInfo = (props: any) => {
                 style={{
                   ...FONTS.h5,
                   textAlign: 'center',
-                  color: type === 'failed' ? COLORS.primary : COLORS.gray,
+                  color: type === 'failed' && modeInfo ? COLORS.primary : type === 'failed' && !modeInfo ? COLORS.primary : COLORS.gray1
                 }}>
                 Failed
               </Text>

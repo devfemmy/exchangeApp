@@ -6,11 +6,14 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 import GlobalStyle from '../utils/globalStyle';
 import CountryFlag from "react-native-country-flag";
 import { TextInput } from '../components/TextInput'
+import { useAppSelector } from '../app/hooks';
+import { modeStatus } from '../slice/TradeSlice';
 
 const SelectDropdowns = ({label, data, selected, setSelected, dob, onPress, search}: any) => {
   const [modalVisible, setModalVisible] = useState(false);
   const [value, setValue] = useState("");
-
+  const modeInfo = useAppSelector(modeStatus);
+  
   const handleSelected = (info: any) => {
     setSelected(info?.name);
     setModalVisible(false);
@@ -36,14 +39,14 @@ const SelectDropdowns = ({label, data, selected, setSelected, dob, onPress, sear
             setModalVisible(false);
           }}>
           <View style={styles.centeredView}>
-            <View style={styles.modalView}>
+            <View style={[styles.modalView, {backgroundColor:modeInfo ? COLORS.white : COLORS.darkMode}]}>
               <TouchableOpacity onPress={() => setModalVisible(false)}>
                 <View style={styles.end}>
-                  <AntDesign name="close" size={30} />
+                  <AntDesign name="close" size={30} color={modeInfo ? COLORS.black : COLORS.white} />
                 </View>
               </TouchableOpacity>
 
-              <Text style={{...FONTS.h3, textAlign: 'center', marginBottom: hp(20)}}>{label}</Text>
+              <Text style={{...FONTS.h3, textAlign: 'center', marginBottom: hp(20),color:modeInfo ? COLORS.black : COLORS.white}}>{label}</Text>
               {
                 search && <View style={{width: '100%'}}>
                 <TextInput

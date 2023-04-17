@@ -7,10 +7,12 @@ import { COLORS, FONTS } from '../utils/constants/theme';
 import { format, hp } from '../utils/helper';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import moment from 'moment';
+import { modeStatus } from '../slice/TradeSlice';
+import { useAppSelector } from '../app/hooks';
 
 const HistoryCard = ({data, handleClick}: any) => {
     const {transactionType,currency, timeStamp, amount, status} = data;
-
+    const modeInfo = useAppSelector(modeStatus);
 
   return (
    <TouchableOpacity onPress={() => handleClick(data)}>
@@ -21,15 +23,15 @@ const HistoryCard = ({data, handleClick}: any) => {
         </View>
         <View>
             <Text>
-            <Text style={{textTransform: 'capitalize', ...FONTS.body4}}>{transactionType}</Text>
-            <Text style={{...FONTS.body4 }}> {currency?.toUpperCase()}</Text>
+            <Text style={{textTransform: 'capitalize', ...FONTS.body4, color: modeInfo ? COLORS.lightBlack : COLORS.white}}>{transactionType}</Text>
+            <Text style={{...FONTS.body4,color: modeInfo ? COLORS.lightBlack : COLORS.white }}> {currency?.toUpperCase()}</Text>
             </Text>
-            <Text  style={{...FONTS.body5,fontSize: hp(11)}}>{moment(timeStamp).format('MMMM Do YYYY, h:mm:ss a')}</Text>
+            <Text  style={{...FONTS.body5,fontSize: hp(11),color: modeInfo ? COLORS.lightBlack : COLORS.white}}>{moment(timeStamp).format('MMMM Do YYYY, h:mm:ss a')}</Text>
         </View>
       </View>
 
       <View>
-            <Text  style={{fontWeight: '600', ...FONTS.body4}}>{amount % 1 === 0 ? format(parseFloat(amount)) : amount.toString().match(/^-?\d+(?:\.\d{0,4})?/)[0]} {currency}</Text>
+            <Text  style={{fontWeight: '600', ...FONTS.body4,color: modeInfo ? COLORS.lightBlack : COLORS.white}}>{amount % 1 === 0 ? format(parseFloat(amount)) : amount.toString().match(/^-?\d+(?:\.\d{0,4})?/)[0]} {currency}</Text>
             <Text style={{textTransform: "capitalize",textAlign: 'right',...FONTS.body4, color: status === 'success' ? COLORS.darkGreen : status === 'submitted' ? COLORS.orange : COLORS.orange}}>{status}</Text>
         </View>
 
