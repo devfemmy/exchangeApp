@@ -102,7 +102,7 @@ const TokenHistory = ({navigation}: any) => {
               justifyContent: 'center',
               alignItems: 'center',
             }}>
-            <Pressable onPress={() => setType('all')}>
+            <TouchableOpacity onPress={() => setType('all')}>
               <Text
                 style={{
                   ...FONTS.h5,
@@ -111,7 +111,7 @@ const TokenHistory = ({navigation}: any) => {
                 }}>
                 All
               </Text>
-            </Pressable>
+            </TouchableOpacity>
           </View>
           <View
             style={{
@@ -128,7 +128,7 @@ const TokenHistory = ({navigation}: any) => {
                 justifyContent: 'center',
                 alignItems: 'center',
             }}>
-            <Pressable onPress={() => setType('withdraw')}>
+            <TouchableOpacity onPress={() => setType('withdraw')}>
               <Text
                 style={{
                   ...FONTS.h5,
@@ -138,7 +138,7 @@ const TokenHistory = ({navigation}: any) => {
                 }}>
                 Withdraw
               </Text>
-            </Pressable>
+            </TouchableOpacity>
           </View>
           <View
             style={{
@@ -155,7 +155,7 @@ const TokenHistory = ({navigation}: any) => {
                 justifyContent: 'center',
                 alignItems: 'center',
             }}>
-            <Pressable onPress={() => setType('deposit')}>
+            <TouchableOpacity onPress={() => setType('deposit')}>
               <Text
                 style={{
                   ...FONTS.h5,
@@ -165,7 +165,7 @@ const TokenHistory = ({navigation}: any) => {
                 }}>
                 Deposit
               </Text>
-            </Pressable>
+            </TouchableOpacity>
           </View>
           <View
             style={{
@@ -182,7 +182,7 @@ const TokenHistory = ({navigation}: any) => {
                 justifyContent: 'center',
                 alignItems: 'center',
             }}>
-            <Pressable onPress={() => setType('success')}>
+            <TouchableOpacity onPress={() => setType('success')}>
               <Text
                 style={{
                   ...FONTS.h5,
@@ -192,7 +192,7 @@ const TokenHistory = ({navigation}: any) => {
                 }}>
                 Successful
               </Text>
-            </Pressable>
+            </TouchableOpacity>
           </View>
           <View
             style={{
@@ -209,7 +209,7 @@ const TokenHistory = ({navigation}: any) => {
               justifyContent: 'center',
               alignItems: 'center',
             }}>
-            <Pressable onPress={() => setType('incoming')}>
+            <TouchableOpacity onPress={() => setType('incoming')}>
               <Text
                 style={{
                   ...FONTS.h5,
@@ -219,7 +219,7 @@ const TokenHistory = ({navigation}: any) => {
                 }}>
                 Incoming
               </Text>
-            </Pressable>
+            </TouchableOpacity>
           </View>
           <View
             style={{
@@ -237,7 +237,7 @@ const TokenHistory = ({navigation}: any) => {
               justifyContent: 'center',
               alignItems: 'center',
             }}>
-            <Pressable onPress={() => setType('pending')}>
+            <TouchableOpacity onPress={() => setType('pending')}>
               <Text
                 style={{
                   ...FONTS.h5,
@@ -247,7 +247,7 @@ const TokenHistory = ({navigation}: any) => {
                 }}>
                 Pending
               </Text>
-            </Pressable>
+            </TouchableOpacity>
           </View>
           <View
             style={{
@@ -265,7 +265,7 @@ const TokenHistory = ({navigation}: any) => {
                 justifyContent: 'center',
                 alignItems: 'center',
             }}>
-            <Pressable onPress={() => setType('failed')}>
+            <TouchableOpacity onPress={() => setType('failed')}>
               <Text
                 style={{
                   ...FONTS.h5,
@@ -274,7 +274,7 @@ const TokenHistory = ({navigation}: any) => {
                 }}>
                 Failed
               </Text>
-            </Pressable>
+            </TouchableOpacity>
           </View>
         </ScrollView>
       </View>

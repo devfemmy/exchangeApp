@@ -1,5 +1,5 @@
 /* eslint-disable no-sequences */
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native'
+import { View, Text, StyleSheet } from 'react-native'
 import React from 'react'
 import AntDesign from 'react-native-vector-icons/AntDesign'
 import GlobalStyle from '../utils/globalStyle'
@@ -8,6 +8,7 @@ import { hp, wp } from '../utils/helper'
 import moment from 'moment'
 import { useAppSelector } from '../app/hooks'
 import { modeStatus } from '../slice/TradeSlice'
+import { TouchableOpacity } from 'react-native-gesture-handler'
 
 const TranHistoryCard = ({data, handlePress}: any) => {
   const modeInfo = useAppSelector(modeStatus);

@@ -1,6 +1,6 @@
 
-import React from 'react'
-import { createStackNavigator } from "@react-navigation/stack";
+import React from 'react';
+import { CardStyleInterpolators, createStackNavigator } from '@react-navigation/stack';
 import { NavigationContainer } from '@react-navigation/native';
 import Login from '../screens/Login';
 import CreateAccount from '../screens/CreateAccount';
@@ -14,10 +14,13 @@ const Stack = createStackNavigator();
 
 const NoAuthComponennt = () => {
   return (
-    <NavigationContainer>
+    // <NavigationContainer>
     <Stack.Navigator
         screenOptions={{
-            headerShown: false
+            headerShown: false,
+            cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
+            animationEnabled: true,
+            animationTypeForReplace: 'push',
         }}
         initialRouteName={'Login'}
     >
@@ -36,7 +39,7 @@ const NoAuthComponennt = () => {
          <Stack.Screen
             name="ResetPassword"
             component={ResetPassword}
-        /> 
+        />
         <Stack.Screen
         name="EmailVerification"
         component={EmailVerification}
@@ -48,11 +51,11 @@ const NoAuthComponennt = () => {
     />
 
     </Stack.Navigator>
-</NavigationContainer>  
-   
-  )
-}
+// </NavigationContainer>
 
-export default NoAuthComponennt
+  );
+};
+
+export default NoAuthComponennt;
 
 

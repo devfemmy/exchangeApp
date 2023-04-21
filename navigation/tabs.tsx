@@ -2,9 +2,6 @@
 /* eslint-disable */
 
 import React from "react";
-import {
-    TouchableOpacity,
-} from "react-native"
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import {TabIcon} from "../components"
 import { Home, Assets, Profile, Transaction } from "../screens";
@@ -15,6 +12,7 @@ import { useAppDispatch, useAppSelector } from "../app/hooks";
 import { getTradeStatus, modeStatus, tradeStatus } from "../slice/TradeSlice";
 import ArrowIcon from '../assets/svg/arrow1.svg';
 import { hp } from "../utils/helper";
+import { TouchableOpacity } from "react-native-gesture-handler";
 
 
 const Tab = createBottomTabNavigator()
