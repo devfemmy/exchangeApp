@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, Modal, TouchableOpacity, ScrollView } from 'react-native';
+import { View, Text, StyleSheet, Modal, ScrollView } from 'react-native';
 import React, { useState } from 'react';
 import { hp } from '../utils/helper';
 import { COLORS, FONTS } from '../utils/constants/theme';
@@ -8,6 +8,7 @@ import CountryFlag from "react-native-country-flag";
 import { TextInput } from '../components/TextInput'
 import { useAppSelector } from '../app/hooks';
 import { modeStatus } from '../slice/TradeSlice';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 const SelectDropdowns = ({label, data, selected, setSelected, dob, onPress, search}: any) => {
   const [modalVisible, setModalVisible] = useState(false);

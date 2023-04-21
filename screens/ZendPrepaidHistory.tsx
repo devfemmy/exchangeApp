@@ -1,19 +1,20 @@
-import { View, Text, StyleSheet, Pressable, ScrollView, Image } from 'react-native'
-import React, {useState} from 'react'
-import GlobalStyle from '../utils/globalStyle'
-import { COLORS, FONTS } from '../utils/constants/theme'
+import { View, Text, StyleSheet, Pressable, ScrollView, Image } from 'react-native';
+import React, {useState} from 'react';
+import GlobalStyle from '../utils/globalStyle';
+import { COLORS, FONTS } from '../utils/constants/theme';
 
-import { hp, wp } from '../utils/helper'
-import HeaderComponent from '../components/HeaderComponent'
-import { useAppSelector } from '../app/hooks'
-import { modeStatus } from '../slice/TradeSlice'
+import { hp, wp } from '../utils/helper';
+import HeaderComponent from '../components/HeaderComponent';
+import { useAppSelector } from '../app/hooks';
+import { modeStatus } from '../slice/TradeSlice';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 
 const ZendPrepaidHistory = ({navigation}: any) => {
     const [type, setType] = useState('all');
     const modeInfo = useAppSelector(modeStatus);
 
-    
+
   return (
     <View style={[GlobalStyle.container, {backgroundColor: modeInfo ? "white" : COLORS.darkMode}]}>
               <View style={styles.margin} />
@@ -33,7 +34,7 @@ const ZendPrepaidHistory = ({navigation}: any) => {
               justifyContent: 'center',
               alignItems: 'center',
             }}>
-            <Pressable onPress={() => setType('all')}>
+            <TouchableOpacity onPress={() => setType('all')}>
               <Text
                 style={{
                   ...FONTS.h5,
@@ -42,7 +43,7 @@ const ZendPrepaidHistory = ({navigation}: any) => {
                 }}>
                 All
               </Text>
-            </Pressable>
+            </TouchableOpacity>
           </View>
           <View
             style={{
@@ -59,7 +60,7 @@ const ZendPrepaidHistory = ({navigation}: any) => {
                 justifyContent: 'center',
                 alignItems: 'center',
             }}>
-            <Pressable onPress={() => setType('withdraw')}>
+            <TouchableOpacity onPress={() => setType('withdraw')}>
               <Text
                 style={{
                   ...FONTS.h5,
@@ -69,7 +70,7 @@ const ZendPrepaidHistory = ({navigation}: any) => {
                 }}>
                 Withdraw
               </Text>
-            </Pressable>
+            </TouchableOpacity>
           </View>
           <View
             style={{
@@ -86,7 +87,7 @@ const ZendPrepaidHistory = ({navigation}: any) => {
                 justifyContent: 'center',
                 alignItems: 'center',
             }}>
-            <Pressable onPress={() => setType('deposit')}>
+            <TouchableOpacity onPress={() => setType('deposit')}>
               <Text
                 style={{
                   ...FONTS.h5,
@@ -96,7 +97,7 @@ const ZendPrepaidHistory = ({navigation}: any) => {
                 }}>
                 Deposit
               </Text>
-            </Pressable>
+            </TouchableOpacity>
           </View>
           <View
             style={{
@@ -113,7 +114,7 @@ const ZendPrepaidHistory = ({navigation}: any) => {
                 justifyContent: 'center',
                 alignItems: 'center',
             }}>
-            <Pressable onPress={() => setType('successful')}>
+            <TouchableOpacity onPress={() => setType('successful')}>
               <Text
                 style={{
                   ...FONTS.h5,
@@ -123,7 +124,7 @@ const ZendPrepaidHistory = ({navigation}: any) => {
                 }}>
                 Successful
               </Text>
-            </Pressable>
+            </TouchableOpacity>
           </View>
           <View
             style={{
@@ -140,7 +141,7 @@ const ZendPrepaidHistory = ({navigation}: any) => {
               justifyContent: 'center',
               alignItems: 'center',
             }}>
-            <Pressable onPress={() => setType('incoming')}>
+            <TouchableOpacity onPress={() => setType('incoming')}>
               <Text
                 style={{
                   ...FONTS.h5,
@@ -150,7 +151,7 @@ const ZendPrepaidHistory = ({navigation}: any) => {
                 }}>
                 Incoming
               </Text>
-            </Pressable>
+            </TouchableOpacity>
           </View>
           <View
             style={{
@@ -168,7 +169,7 @@ const ZendPrepaidHistory = ({navigation}: any) => {
               justifyContent: 'center',
               alignItems: 'center',
             }}>
-            <Pressable onPress={() => setType('pending')}>
+            <TouchableOpacity onPress={() => setType('pending')}>
               <Text
                 style={{
                   ...FONTS.h5,
@@ -178,7 +179,7 @@ const ZendPrepaidHistory = ({navigation}: any) => {
                 }}>
                 Pending
               </Text>
-            </Pressable>
+            </TouchableOpacity>
           </View>
           <View
             style={{
@@ -196,7 +197,7 @@ const ZendPrepaidHistory = ({navigation}: any) => {
                 justifyContent: 'center',
                 alignItems: 'center',
             }}>
-            <Pressable onPress={() => setType('failed')}>
+            <TouchableOpacity onPress={() => setType('failed')}>
               <Text
                 style={{
                   ...FONTS.h5,
@@ -205,7 +206,7 @@ const ZendPrepaidHistory = ({navigation}: any) => {
                 }}>
                 Failed
               </Text>
-            </Pressable>
+            </TouchableOpacity>
           </View>
         </ScrollView>
       </View> */}
@@ -216,10 +217,10 @@ const ZendPrepaidHistory = ({navigation}: any) => {
      {/* <TranHistoryCard header="Swap" /> */}
      </View>
     </View>
-  )
-}
+  );
+};
 
-export default ZendPrepaidHistory
+export default ZendPrepaidHistory;
 
 const styles = StyleSheet.create({
     margin: {
@@ -237,10 +238,10 @@ const styles = StyleSheet.create({
         marginVertical: 20,
       },
       hr: {
-        width: "100%",
+        width: '100%',
         height: hp(2),
         backgroundColor: COLORS.lightGray2,
-        marginVertical: hp(15)
+        marginVertical: hp(15),
       },
       actionCard2: {
         flexDirection: 'row',
@@ -257,4 +258,4 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         borderRadius: 50,
       },
-})
+});

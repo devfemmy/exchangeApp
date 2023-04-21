@@ -248,7 +248,7 @@ const AssetInfo = (props: any) => {
               justifyContent: 'center',
               alignItems: 'center',
             }}>
-            <Pressable onPress={() => setType('all')}>
+            <TouchableOpacity onPress={() => setType('all')}>
               <Text
                 style={{
                   ...FONTS.h5,
@@ -258,7 +258,7 @@ const AssetInfo = (props: any) => {
                 }}>
                 All
               </Text>
-            </Pressable>
+            </TouchableOpacity>
           </View>
           <View
             style={{
@@ -275,7 +275,7 @@ const AssetInfo = (props: any) => {
                 justifyContent: 'center',
                 alignItems: 'center',
             }}>
-            <Pressable onPress={() => setType('withdraw')}>
+            <TouchableOpacity onPress={() => setType('withdraw')}>
               <Text
                 style={{
                   ...FONTS.h5,
@@ -286,7 +286,7 @@ const AssetInfo = (props: any) => {
                 }}>
                 Withdraw
               </Text>
-            </Pressable>
+            </TouchableOpacity>
           </View>
           <View
             style={{
@@ -303,7 +303,7 @@ const AssetInfo = (props: any) => {
                 justifyContent: 'center',
                 alignItems: 'center',
             }}>
-            <Pressable onPress={() => setType('deposit')}>
+            <TouchableOpacity onPress={() => setType('deposit')}>
               <Text
                 style={{
                   ...FONTS.h5,
@@ -312,7 +312,7 @@ const AssetInfo = (props: any) => {
                 }}>
                 Deposit
               </Text>
-            </Pressable>
+            </TouchableOpacity>
           </View>
           <View
             style={{
@@ -329,7 +329,7 @@ const AssetInfo = (props: any) => {
                 justifyContent: 'center',
                 alignItems: 'center',
             }}>
-            <Pressable onPress={() => setType('successful')}>
+            <TouchableOpacity onPress={() => setType('successful')}>
               <Text
                 style={{
                   ...FONTS.h5,
@@ -338,7 +338,7 @@ const AssetInfo = (props: any) => {
                 }}>
                 Successful
               </Text>
-            </Pressable>
+            </TouchableOpacity>
           </View>
           <View
             style={{
@@ -355,7 +355,7 @@ const AssetInfo = (props: any) => {
               justifyContent: 'center',
               alignItems: 'center',
             }}>
-            <Pressable onPress={() => setType('incoming')}>
+            <TouchableOpacity onPress={() => setType('incoming')}>
               <Text
                 style={{
                   ...FONTS.h5,
@@ -364,7 +364,7 @@ const AssetInfo = (props: any) => {
                 }}>
                 Incoming
               </Text>
-            </Pressable>
+            </TouchableOpacity>
           </View>
           <View
             style={{
@@ -382,7 +382,7 @@ const AssetInfo = (props: any) => {
               justifyContent: 'center',
               alignItems: 'center',
             }}>
-            <Pressable onPress={() => setType('pending')}>
+            <TouchableOpacity onPress={() => setType('pending')}>
               <Text
                 style={{
                   ...FONTS.h5,
@@ -391,7 +391,7 @@ const AssetInfo = (props: any) => {
                 }}>
                 Pending
               </Text>
-            </Pressable>
+            </TouchableOpacity>
           </View>
           <View
             style={{
@@ -409,7 +409,7 @@ const AssetInfo = (props: any) => {
                 justifyContent: 'center',
                 alignItems: 'center',
             }}>
-            <Pressable onPress={() => setType('failed')}>
+            <TouchableOpacity onPress={() => setType('failed')}>
               <Text
                 style={{
                   ...FONTS.h5,
@@ -418,7 +418,7 @@ const AssetInfo = (props: any) => {
                 }}>
                 Failed
               </Text>
-            </Pressable>
+            </TouchableOpacity>
           </View>
         </ScrollView>
       </View>

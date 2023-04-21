@@ -1,9 +1,10 @@
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, Image } from 'react-native';
 import React from 'react';
 import GlobalStyle from '../utils/globalStyle';
 import FastImage from 'react-native-fast-image';
 import { format, hp, wp } from '../utils/helper';
 import { COLORS, FONTS } from '../utils/constants/theme';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 const MarketComponent = ({info, navigation,type, modeInfo}: any) => {
 
@@ -20,7 +21,7 @@ const MarketComponent = ({info, navigation,type, modeInfo}: any) => {
     }>
     <View style={styles.actionCard2}>
       <View style={[GlobalStyle.rowStart, {width: '30%'}]}>
-        <FastImage
+        {/* <FastImage
         style={styles.icons}
         defaultSource={info?.icon}
         source={{
@@ -28,7 +29,13 @@ const MarketComponent = ({info, navigation,type, modeInfo}: any) => {
             priority: FastImage.priority.normal,
         }}
         resizeMode={FastImage.resizeMode.cover}
-    />
+    /> */}
+            <Image
+          source={info?.icon}
+          resizeMode="cover"
+          style={styles.icons}
+        />
+    {/* <Image style={styles.icons} defaultSource={require('../assets/images/placeholder.png')}  source={{uri: info?.icon}} /> */}
         <View style={{marginLeft: hp(10)}}>
           <Text style={{...FONTS.body4, color: modeInfo ? COLORS.lightBlack : COLORS.white, fontWeight: '600'}}>
             {info?.token}

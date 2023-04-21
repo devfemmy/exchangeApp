@@ -141,30 +141,16 @@ const EditProfile = ({navigation}: any) => {
     };
 
   return (
-    <View style={[GlobalStyle.container, styles.div, {backgroundColor: modeInfo ? COLORS.white : COLORS.darkMode}]}>
+    <ScrollView style={[GlobalStyle.container, styles.div, {backgroundColor: modeInfo ? COLORS.white : COLORS.darkMode}]}>
        <KeyboardAwareScrollView showsVerticalScrollIndicator={false}>
-        <ScrollView showsVerticalScrollIndicator={false} style={styles.top}>
+        {/* <ScrollView showsVerticalScrollIndicator={false} style={styles.top}> */}
         {/* <AntDesign onPress={() => navigation.goBack()} name="arrowleft" style={styles.icon} size={hp(20)} color={COLORS.gray2} /> */}
          <HeaderComponent onPress={() => navigation.goBack()} />
         <Text style={{...FONTS.h2, fontWeight: '700',color: modeInfo ? COLORS.darkMode : COLORS.white}}>Edit Profile</Text>
 
         <View style={styles.container}>
-          {/* <View style={GlobalStyle.level}>
-            <Text style={{...FONTS.h4, color: '#4F4F4F', fontWeight: '500'}}>Beginner</Text>
-          </View> */}
-          {/* <Pressable style={styles.buttonStyle}   >
-          <Text style={{...FONTS.h4, fontSize: hp(15), fontWeight: '400', color: '#232323', textAlign: 'center'}}>Upload New Image</Text>
-          </Pressable> */}
           <Pressable style={GlobalStyle.profileCircle2} onPress={imagePickerHandler}>
-          <FastImage
-                    style={styles.icons}
-                    defaultSource={require('../assets/images/placeholder.png')}
-                    source={{
-                        uri: imgUri,
-                        priority: FastImage.priority.normal,
-                    }}
-                    resizeMode={FastImage.resizeMode.cover}
-                />
+                  <Image style={styles.icons} source={{uri: getUserInfo?.image}} defaultSource={require('../assets/images/placeholder.png')} />
           </Pressable>
           <View>
             <Text style={{...FONTS.h3, fontSize: hp(18), fontWeight: '600', color: COLORS.primary, textAlign: 'center', textTransform: 'capitalize'}}>{getUserInfo?.firstName} {getUserInfo?.lastName}</Text>
@@ -297,10 +283,10 @@ const EditProfile = ({navigation}: any) => {
         <View style={styles.btnContainer}>
           <IconTextButton isLoading={loader} label="Save Changes" onPress={handleSubmit}/>
         </View>
-      </ScrollView>
+      {/* </ScrollView> */}
 
       </KeyboardAwareScrollView>
-    </View>
+    </ScrollView>
   );
 };
 

@@ -4,7 +4,7 @@
 /* eslint-disable quotes */
 
 import React from 'react'
-import { createStackNavigator } from "@react-navigation/stack";
+import { CardStyleInterpolators, createStackNavigator } from "@react-navigation/stack";
 import { NavigationContainer } from '@react-navigation/native';
 import Tabs from "../navigation/tabs";
 import AssetInfo from '../screens/AssetInfo';
@@ -45,10 +45,14 @@ const Stack = createStackNavigator();
 
 const ContainerComponent = () => {
   return (
-    <NavigationContainer>
+    // <NavigationContainer>
     <Stack.Navigator
         screenOptions={{
-            headerShown: false
+            headerShown: false,
+            cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
+            animationEnabled: true,
+            animationTypeForReplace: 'push',
+            gestureEnabled: true,
         }}
         initialRouteName={'MainLayout'}
     >
@@ -185,7 +189,7 @@ const ContainerComponent = () => {
             component={VerifyPhonePin}
         />
     </Stack.Navigator>
-</NavigationContainer>
+// </NavigationContainer>
   )
 }
 

@@ -52,7 +52,7 @@ const MainLayout = ({children}: any) => {
         {
             id: 4,
             header: "Zend Prepaid",
-            title: "Change your crypto to giftcard",
+            title: "Convert prepaid to usdt",
             icon: 'sync',
             navigationScreen: "ZendPrepaidHistory",
         },
