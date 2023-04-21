@@ -7,6 +7,7 @@ import {APP_URL,APP_STAGING_URL,APP_STAGING_TRANSACTION_URL, APP_STAGING_WALLET_
 
 const endPointVersion = "Staging"
 
+
 const config = {
     api_base_url: endPointVersion === "Staging" ? APP_STAGING_URL : APP_URL,
     wallet_base_url:endPointVersion === "Staging" ? APP_STAGING_WALLET_URL : APP_WALLET_URL,

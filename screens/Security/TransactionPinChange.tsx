@@ -126,12 +126,12 @@ export default function ChangeTransactionPin({navigation}: any) {
     },
   });
   return (
-    <View style={[GlobalStyle.container,{backgroundColor: modeInfo ? "white" : COLORS.darkMode}]}>
+    <View style={[GlobalStyle.container,{backgroundColor: modeInfo ? COLORS.white : COLORS.darkMode}]}>
       <MainLayout>
         <ScrollView>
           <HeaderComponent onPress={() => navigation.goBack()} />
-          <Text style={{...FONTS.h2}}>Reset Transaction Pin</Text>
-          <Text style={styles.textStyle}>Protect all delecate informations on this application to prevents intruder</Text>
+          <Text style={{...FONTS.h2,color:modeInfo ? COLORS.darkMode : COLORS.white}}>Reset Transaction Pin</Text>
+          <Text style={[styles.textStyle, {color:modeInfo ? COLORS.darkMode : COLORS.white}]}>Protect all delecate informations on this application to prevents intruder</Text>
           <TextInput
               label="Enter login password"
               isPassword
@@ -148,7 +148,7 @@ export default function ChangeTransactionPin({navigation}: any) {
               keyboardType="numeric"
             />
           </View> */}
-             <Text style={{...FONTS.h3, fontWeight: '600'}}>Enter Pin</Text>
+             <Text style={{...FONTS.h3, fontWeight: '600',color:modeInfo ? COLORS.darkMode : COLORS.white}}>Enter Pin</Text>
           <View style={{alignItems: 'center', marginVertical: 25}}>
             <SmoothPinCodeInput
               keyboardType="default"

@@ -34,7 +34,7 @@ const ReferAndEarn = ({navigation}: any) => {
   
 
   return (
-    <View style={[GlobalStyle.container, {backgroundColor: modeInfo ? "white" : COLORS.darkMode}]}>
+    <View style={[GlobalStyle.container, {backgroundColor: modeInfo ? COLORS.white : COLORS.darkMode}]}>
      <HeaderComponent onPress={() => navigation?.goBack()} />
 
       <View>
@@ -47,33 +47,33 @@ const ReferAndEarn = ({navigation}: any) => {
           <Feather name="copy" color={COLORS.primary} size={20} />
         </TouchableOpacity>
       </View>
-        <Text style={{...FONTS.body5, textAlign: 'left', color: COLORS.gray, marginVertical: hp(10)}}>Terms and Conditions Apply</Text>
+        <Text style={{...FONTS.body5, textAlign: 'left', color:modeInfo ? COLORS.gray : COLORS.white, marginVertical: hp(10)}}>Terms and Conditions Apply</Text>
       </View>
 
         <View style={GlobalStyle.rowBetween}>
-        <Text style={{...FONTS.h2, fontSize: hp(20) }}>Refer a Friend</Text>
+        <Text style={{...FONTS.h2, fontSize: hp(20),color:modeInfo ? COLORS.black : COLORS.white }}>Refer a Friend</Text>
         </View>
-        <Text style={{...FONTS.body4, color: COLORS.gray, marginVertical: hp(10) }}>Earn $1 worth of TRON for every active user you refer</Text>
+        <Text style={{...FONTS.body4, color:modeInfo ? COLORS.gray : COLORS.white, marginVertical: hp(10) }}>Earn $1 worth of TRON for every active user you refer</Text>
         <List.Item
-    title={<Text style={{...FONTS.body3, color: COLORS.gray}}>Copy your referral Code</Text>}
-    description={<Text style={{...FONTS.body4, color: COLORS.gray}}>share with friends</Text>}
+    title={<Text style={{...FONTS.body3, color:modeInfo ? COLORS.gray : COLORS.white}}>Copy your referral Code</Text>}
+    description={<Text style={{...FONTS.body4, color:modeInfo ? COLORS.gray : COLORS.white}}>share with friends</Text>}
     left={(props:any )=> <View style={styles.circle}><Text style={{...FONTS.body3, color: COLORS.white}}>1</Text></View>}
   />
 
    <List.Item
-    title={<Text style={{...FONTS.body3, color: COLORS.gray}}>Friends register with your</Text>}
-    description={<Text style={{...FONTS.body4, color: COLORS.gray}}>referral code</Text>}
+    title={<Text style={{...FONTS.body3, color:modeInfo ? COLORS.gray : COLORS.white}}>Friends register with your</Text>}
+    description={<Text style={{...FONTS.body4, color:modeInfo ? COLORS.gray : COLORS.white}}>referral code</Text>}
     left={(props:any )=> <View style={styles.circle}><Text style={{...FONTS.body3, color: COLORS.white}}>2</Text></View>}
   />
    <List.Item
-    title={<Text style={{...FONTS.body3, color: COLORS.gray}}>User sign up and trade</Text>}
-    description={<Text style={{...FONTS.body5, color: COLORS.gray}}>crypto of atleast $100</Text>}
+    title={<Text style={{...FONTS.body3, color:modeInfo ? COLORS.gray : COLORS.white}}>User sign up and trade</Text>}
+    description={<Text style={{...FONTS.body5, color:modeInfo ? COLORS.gray : COLORS.white}}>crypto of atleast $100</Text>}
     left={(props:any )=> <View style={styles.circle}><Text style={{...FONTS.body3, color: COLORS.white}}>3</Text></View>}
   />
 
 <List.Item
-    title={<Text style={{...FONTS.body3, color: COLORS.gray}}>Get $1 TRON on first</Text>}
-    description={<Text style={{...FONTS.body5, color: COLORS.gray}}>completed transaction</Text>}
+    title={<Text style={{...FONTS.body3, color:modeInfo ? COLORS.gray : COLORS.white}}>Get $1 TRON on first</Text>}
+    description={<Text style={{...FONTS.body5, color:modeInfo ? COLORS.gray : COLORS.white}}>completed transaction</Text>}
     left={(props:any )=> <View style={styles.circle}><Text style={{...FONTS.body3, color: COLORS.white}}>4</Text></View>}
   />
     </View>

@@ -55,7 +55,7 @@ const Header = ({info, note, modeInfo}: any) => {
         </View>
 
 
-      {/* <View>
+      <View>
         <Switch
           trackColor={{false: '#767577', true: '#81b0ff'}}
           thumbColor={isEnabled ? '#f5dd4b' : '#f4f3f4'}
@@ -63,7 +63,7 @@ const Header = ({info, note, modeInfo}: any) => {
           onValueChange={toggleSwitch}
           value={isEnabled}
         />
-      </View> */}
+      </View>
     </View>
   );
 };

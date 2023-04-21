@@ -141,12 +141,12 @@ const EditProfile = ({navigation}: any) => {
     };
 
   return (
-    <View style={[GlobalStyle.container, styles.div, {backgroundColor: modeInfo ? "white" : COLORS.darkMode}]}>
+    <View style={[GlobalStyle.container, styles.div, {backgroundColor: modeInfo ? COLORS.white : COLORS.darkMode}]}>
        <KeyboardAwareScrollView showsVerticalScrollIndicator={false}>
         <ScrollView showsVerticalScrollIndicator={false} style={styles.top}>
         {/* <AntDesign onPress={() => navigation.goBack()} name="arrowleft" style={styles.icon} size={hp(20)} color={COLORS.gray2} /> */}
          <HeaderComponent onPress={() => navigation.goBack()} />
-        <Text style={{...FONTS.h2, fontWeight: '700'}}>Edit Profile</Text>
+        <Text style={{...FONTS.h2, fontWeight: '700',color: modeInfo ? COLORS.darkMode : COLORS.white}}>Edit Profile</Text>
 
         <View style={styles.container}>
           {/* <View style={GlobalStyle.level}>
@@ -168,7 +168,7 @@ const EditProfile = ({navigation}: any) => {
           </Pressable>
           <View>
             <Text style={{...FONTS.h3, fontSize: hp(18), fontWeight: '600', color: COLORS.primary, textAlign: 'center', textTransform: 'capitalize'}}>{getUserInfo?.firstName} {getUserInfo?.lastName}</Text>
-            <Text style={{...FONTS.h4, fontSize: hp(16), fontWeight: '400', color: '#808080', textAlign: 'center'}}>@{getUserInfo?.emailAddress}</Text>
+            <Text style={{...FONTS.h4, fontSize: hp(16), fontWeight: '400', color: '#808080', textAlign: 'center'}}>{getUserInfo?.emailAddress}</Text>
           </View>
         </View>
 

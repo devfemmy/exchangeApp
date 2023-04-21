@@ -169,7 +169,7 @@ const KycScreen = ({navigation}: any) => {
             color={COLORS.gray2}
           /> */}
 
-          <Text style={{...FONTS.h2, fontWeight: '700'}}>KYC Verification</Text>
+          <Text style={{...FONTS.h2, fontWeight: '700',color: modeInfo ? COLORS.darkMode : COLORS.white}}>KYC Verification</Text>
           <Text style={{...FONTS.body4, color: COLORS.gray, width: wp(250)}}>
             Complete your kyc process to increase your transaction limit
           </Text>
@@ -185,7 +185,7 @@ const KycScreen = ({navigation}: any) => {
                 paddingBottom: hp(10),
                 borderBottomColor: COLORS.primary,
               }}>
-              <Text style={{...FONTS.body4}}>Level 2</Text>
+              <Text style={{...FONTS.body4,color: modeInfo ? COLORS.darkMode : COLORS.white}}>Level 2</Text>
             </View>
           </View>
           <View>

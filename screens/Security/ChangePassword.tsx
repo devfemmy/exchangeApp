@@ -81,12 +81,12 @@ export default function ChangePassword({navigation}: any) {
     },
   });
   return (
-    <View style={[GlobalStyle.container,{backgroundColor: modeInfo ? "white" : COLORS.darkMode}]}>
+    <View style={[GlobalStyle.container,{backgroundColor: modeInfo ? COLORS.white : COLORS.darkMode}]}>
       <MainLayout>
         <ScrollView>
           <HeaderComponent onPress={() => navigation.goBack()} />
-          <Text style={{...FONTS.h2}}>Change Password</Text>
-          <Text style={styles.textStyle}>Your new Password must be different from the previous password</Text>
+          <Text style={{...FONTS.h2, color:modeInfo ? COLORS.darkMode : COLORS.white}}>Change Password</Text>
+          <Text style={[styles.textStyle, {color:modeInfo ? COLORS.darkMode : COLORS.white}]}>Your new Password must be different from the previous password</Text>
           <View style={{marginVertical: 8}}>
               <TextInput
                   label={'Old Password'}

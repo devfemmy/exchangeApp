@@ -102,16 +102,16 @@ const logOut = async () => {
 
   const onToggleSwitch = () => setIsSwitchOn(!isSwitchOn);
   return (
-    <View style={[GlobalStyle.container,{backgroundColor: modeInfo ? "white" : COLORS.darkMode}]}>
+    <View style={[GlobalStyle.container,{backgroundColor: modeInfo ? COLORS.white : COLORS.darkMode}]}>
       <MainLayout>
         <ScrollView>
           <HeaderComponent onPress={() => navigation.goBack()} />
-          <Text style={{...FONTS.h2}}>Security</Text>
-          <Text style={styles.textStyle}>Protect all delecate informations on this application to prevents intruder</Text>
+          <Text style={{...FONTS.h2,color: modeInfo ? COLORS.darkMode : COLORS.white}}>Security</Text>
+          <Text style={[styles.textStyle, {color: modeInfo ? COLORS.darkMode : COLORS.white}]}>Protect all delecate informations on this application to prevents intruder</Text>
           <View>
           {
             RouteInfo?.filter(a => !a?.isVerify)?.map((data, i) => {
-              return <ListCardItem onToggleSwitch={onToggleSwitch} isSwitchOn={isSwitchOn} icon={data?.icon} key={i} id={i} data={data} handlePress={data?.route === "DeleteAccount" ? () => setModalDeleteVisible(true) :() => navigation.navigate(data?.route)} logOut={(() => null)} />;
+              return <ListCardItem onToggleSwitch={onToggleSwitch} modeInfo={modeInfo} isSwitchOn={isSwitchOn} icon={data?.icon} key={i} id={i} data={data} handlePress={data?.route === "DeleteAccount" ? () => setModalDeleteVisible(true) :() => navigation.navigate(data?.route)} logOut={(() => null)} />;
             })
           }
         </View>

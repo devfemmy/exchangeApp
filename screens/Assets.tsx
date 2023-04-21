@@ -56,14 +56,13 @@ const Assets = ({navigation}: any) => {
         accessToken: token,
       },
     });
-
     if (!socketUrl.connected) {
       socketUrl.on("connect", () => {
         socketUrl.emit("room", getUserInfo.id);
       });
 
+
       socketUrl.on("message", (message) => {
-      
         dispatch(getTradingAccount()).then(gg => {
           setTradingAccountInfo(gg?.payload)
         }

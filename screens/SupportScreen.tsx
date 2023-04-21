@@ -1,4 +1,4 @@
-import { View, Text } from 'react-native'
+import { View, Text, Linking } from 'react-native'
 import React, { useState } from 'react'
 import GlobalStyle from '../utils/globalStyle'
 import HeaderComponent from '../components/HeaderComponent'
@@ -34,13 +34,13 @@ const SupportScreen = ({navigation}: any) => {
 
   
   return (
-    <View style={[GlobalStyle.container, {backgroundColor: modeInfo ? "white" : COLORS.darkMode}]}>
+    <View style={[GlobalStyle.container, {backgroundColor: modeInfo ? COLORS.white : COLORS.darkMode}]}>
         <HeaderComponent onPress={() => navigation.goBack()} />
-      <Text style={{...FONTS.h2, fontWeight: '600'}}>Reach out to Us</Text>
-      <Text style={{...FONTS.body5, color: COLORS.gray, marginTop: hp(10), marginBottom: hp(30)}}>We love to hear from you and we will always be available to help!</Text>
+      <Text style={{...FONTS.h2, fontWeight: '600',color:modeInfo ? COLORS.darkMode : COLORS.white}}>Reach out to Us</Text>
+      <Text style={{...FONTS.body5, color:modeInfo ? COLORS.gray : COLORS.white, marginTop: hp(10), marginBottom: hp(30)}}>We love to hear from you and we will always be available to help!</Text>
    <TouchableOpacity onPress={() => toggleWidget(true)}>
    <View style={{backgroundColor: COLORS.lightPrimary, padding: hp(15), borderRadius: 10}}>
-        <Text>Chat with us</Text>
+        <Text style={{color:modeInfo ? COLORS.darkMode : COLORS.white}}>Chat with us</Text>
     </View>
     {
         showWidget&&
@@ -54,6 +54,11 @@ const SupportScreen = ({navigation}: any) => {
             customAttributes={customAttributes}
           />
       }
+   </TouchableOpacity>
+   <TouchableOpacity onPress={() => Linking.openURL('mailto:support@zendwallet.com')}>
+   <View style={{backgroundColor: COLORS.lightPrimary, padding: hp(15), borderRadius: 10, marginTop: 20}}>
+        <Text style={{color:modeInfo ? COLORS.darkMode : COLORS.white}}>Send us a mail</Text>
+    </View>
    </TouchableOpacity>
     </View>
   )

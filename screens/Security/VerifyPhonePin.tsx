@@ -90,12 +90,12 @@ export default function VerifyPhonePin(props: any) {
 
 
   return (
-    <View style={[GlobalStyle.container,{backgroundColor: modeInfo ? "white" : COLORS.darkMode}]}>
+    <View style={[GlobalStyle.container,{backgroundColor: modeInfo ? COLORS.white : COLORS.darkMode}]}>
       <MainLayout>
         <ScrollView>
           <HeaderComponent onPress={() => props?.navigation.goBack()} />
-          <Text style={{...FONTS.h2}}>Verify your Phone Number</Text>
-          <Text style={styles.textStyle}>Enter the OTP code sent to your number 08140768378</Text>
+          <Text style={{...FONTS.h2, color:modeInfo ? COLORS.darkMode : COLORS.white}}>Verify your Phone Number</Text>
+          <Text style={[styles.textStyle, {color:modeInfo ? COLORS.darkMode : COLORS.white}]}>Enter the OTP code sent to your number 08140768378</Text>
           <View style={{marginVertical: 0, paddingHorizontal: 8}}>
             {/* <OTPTextView
               tintColor={COLORS.primary}
@@ -127,7 +127,7 @@ export default function VerifyPhonePin(props: any) {
               />
 
           </View>
-            <Text style={styles.textStyle2}>Didn’t get the code ? Resend</Text>
+            <Text style={[styles.textStyle2, {color:modeInfo ? COLORS.darkMode : COLORS.white}]}>Didn’t get the code ? Resend</Text>
             <View style={styles.btnContainer}>
           <IconTextButton label="Verify Phone Number" isLoading={loader} onPress={handleSubmit}/>
         </View>

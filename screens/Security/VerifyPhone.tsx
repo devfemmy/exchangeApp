@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
-import { FONTS } from '../../utils/constants/theme';
+import { COLORS, FONTS } from '../../utils/constants/theme';
 import CountryPicker from 'react-native-country-picker-modal';
 import MainLayout from '../mainLayout';
 import { hp } from '../../utils/helper';
@@ -87,12 +87,12 @@ export default function VerifyPhone({navigation}: any) {
     setCountry(country);
   };
   return (
-    <View style={[GlobalStyle.container,{backgroundColor: modeInfo ? "white" : COLORS.darkMode}]}>
+    <View style={[GlobalStyle.container,{backgroundColor: modeInfo ? COLORS.white : COLORS.darkMode}]}>
       <MainLayout>
         <ScrollView>
           <HeaderComponent onPress={() => navigation.goBack()} />
-          <Text style={{...FONTS.h2}}>What’s your Phone Number</Text>
-          <Text style={styles.textStyle}>Kindly Provide your phone number</Text>
+          <Text style={{...FONTS.h2,color:modeInfo ? COLORS.darkMode : COLORS.white}}>What’s your Phone Number</Text>
+          <Text style={[styles.textStyle, {color:modeInfo ? COLORS.darkMode : COLORS.white}]}>Kindly Provide your phone number</Text>
           <View style={GlobalStyle.rowBetweenNoCenter}>
             <View style={styles.countryPicker}>
               <CountryPicker
