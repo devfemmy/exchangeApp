@@ -2,10 +2,11 @@
 /* eslint-disable eol-last */
 /* eslint-disable comma-dangle */
 /* eslint-disable no-trailing-spaces */
-import {Text, TouchableOpacity, StyleSheet, ActivityIndicator } from 'react-native'
+import {Text, StyleSheet, ActivityIndicator } from 'react-native'
 import React from 'react'
 import {COLORS, FONTS, SIZES} from "../utils/constants/theme"
 import { hp } from '../utils/helper'
+import { TouchableOpacity } from 'react-native-gesture-handler'
 
 
 

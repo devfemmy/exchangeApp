@@ -244,7 +244,7 @@ const Assets = ({navigation}: any) => {
             </View>
             <View style={{width: wp(50), borderRadius: hp(10),   justifyContent: 'center', alignItems: 'center'}}>
             <View>
-                <FastImage
+                {/* <FastImage
                     style={styles.image}
                     defaultSource={getUserInfo?.icon}
                     source={{
@@ -252,7 +252,8 @@ const Assets = ({navigation}: any) => {
                         priority: FastImage.priority.normal,
                     }}
                     resizeMode={FastImage.resizeMode.cover}
-                />
+                /> */}
+                <Image style={styles.image} source={{uri: getUserInfo?.image}} defaultSource={require('../assets/images/placeholder.png')} />
             </View>
             </View>
           </View>
@@ -268,7 +269,7 @@ const Assets = ({navigation}: any) => {
                 borderBottomWidth: type === 'funding' ? 3 : 1,
                 paddingBottom: hp(5),
               }}>
-              <Pressable onPress={() => setType('funding')}>
+              <TouchableOpacity onPress={() => setType('funding')}>
                 <Text
                   style={{
                     ...FONTS.h3,
@@ -277,7 +278,7 @@ const Assets = ({navigation}: any) => {
                   }}>
                   Funding Balance
                 </Text>
-              </Pressable>
+              </TouchableOpacity>
             </View>
             <View
               style={{
@@ -287,7 +288,7 @@ const Assets = ({navigation}: any) => {
                 borderBottomWidth: type === 'trading' ? 3 : 1,
                 paddingBottom: hp(5),
               }}>
-              <Pressable onPress={() => setType('trading')}>
+              <TouchableOpacity onPress={() => setType('trading')}>
                 <Text
                   style={{
                     ...FONTS.h3,
@@ -297,7 +298,7 @@ const Assets = ({navigation}: any) => {
                   }}>
                   Trading Balance
                 </Text>
-              </Pressable>
+              </TouchableOpacity>
             </View>
           </View>
           <View style={[GlobalStyle.rowBetween, {marginVertical: hp(25)}]}>
