@@ -1,9 +1,10 @@
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
 import React from 'react';
 import GlobalStyle from '../utils/globalStyle';
 import { hp, wp } from '../utils/helper';
 import { COLORS } from '../utils/constants/theme';
 import AntDesign from 'react-native-vector-icons/AntDesign';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 const Pagination = ({data, handlePagination}: any) => {
   const styles = StyleSheet.create({

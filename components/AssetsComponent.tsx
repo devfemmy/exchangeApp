@@ -1,10 +1,11 @@
-import { View, Text, TouchableOpacity, StyleSheet, Image } from 'react-native';
+import { View, Text, StyleSheet, Image } from 'react-native';
 import React from 'react';
 
 import { COLORS, FONTS } from '../utils/constants/theme';
 import { format, hp, wp } from '../utils/helper';
 import GlobalStyle from '../utils/globalStyle';
 import FastImage from 'react-native-fast-image';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 const AssetsComponent = ({info, data, handleClick}: any) => {
 

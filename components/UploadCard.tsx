@@ -1,9 +1,10 @@
-import { View, Text, TouchableOpacity } from 'react-native'
+import { View, Text } from 'react-native'
 import React from 'react'
 import AntDesign from 'react-native-vector-icons/AntDesign'
 import { COLORS, FONTS } from '../utils/constants/theme'
 import { StyleSheet } from 'react-native'
 import { hp } from '../utils/helper'
+import { TouchableOpacity } from 'react-native-gesture-handler'
 
 const UploadCard = ({header, data, handlePress}: any) => {
   return (
