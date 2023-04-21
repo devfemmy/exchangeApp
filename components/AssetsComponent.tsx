@@ -1,4 +1,4 @@
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, Image } from 'react-native';
 import React from 'react';
 
 import { COLORS, FONTS } from '../utils/constants/theme';
@@ -16,7 +16,7 @@ const AssetsComponent = ({info, data, handleClick}: any) => {
     <TouchableOpacity onPress={() => handleClick(info, data)}>
     <View style={styles.actionCard2}>
       <View style={GlobalStyle.rowStart}>
-      <FastImage
+      {/* <FastImage
         style={styles.icons}
         defaultSource={info?.icon}
         source={{
@@ -24,7 +24,13 @@ const AssetsComponent = ({info, data, handleClick}: any) => {
             priority: FastImage.priority.normal,
         }}
         resizeMode={FastImage.resizeMode.cover}
-    />
+    /> */}
+            <Image
+          source={info?.icon}
+          resizeMode="cover"
+          style={styles.icons}
+        />
+    {/* <Image style={styles.icons} defaultSource={require('../assets/images/placeholder.png')} source={{uri: info?.icon}} /> */}
         <View style={{marginLeft: hp(10)}}>
           <Text style={{...FONTS.h3}}>
             {info?.token}

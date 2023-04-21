@@ -1,4 +1,4 @@
-import {View, StyleSheet, Text, TouchableOpacity, Switch} from 'react-native';
+import {View, StyleSheet, Text, Switch, Image} from 'react-native';
 import React, {useState} from 'react';
 import {hp, wp} from '../utils/helper';
 import {COLORS, FONTS} from '../utils/constants/theme';
@@ -7,6 +7,7 @@ import FastImage from 'react-native-fast-image';
 import GlobalStyle from '../utils/globalStyle';
 import { useAppDispatch } from '../app/hooks';
 import { getModeStatus } from '../slice/TradeSlice';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 
 const Header = ({info, note, modeInfo}: any) => {
@@ -18,13 +19,14 @@ const Header = ({info, note, modeInfo}: any) => {
     setIsEnabled(previousState => !previousState)
     dispatch(getModeStatus(isEnabled))
 };
+console.log('info image', info.image)
 
   return (
     <View style={GlobalStyle.rowBetween}>
         <View style={styles.row}>
         <TouchableOpacity onPress={() => navigation?.navigate('EditProfile')}>
         <View>
-          <FastImage
+          {/* <FastImage
             style={styles.image}
             defaultSource={require('../assets/images/placeholder.png')}
             source={{
@@ -32,7 +34,8 @@ const Header = ({info, note, modeInfo}: any) => {
               priority: FastImage.priority.normal,
             }}
             resizeMode={FastImage.resizeMode.cover}
-          />
+          /> */}
+          <Image source={{uri: info?.image}} style={styles.image} defaultSource={require('../assets/images/placeholder.png')}  />
         </View>
       </TouchableOpacity>
       <View style={styles.div}>
