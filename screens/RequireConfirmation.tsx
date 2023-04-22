@@ -1,6 +1,6 @@
 /* eslint-disable react-native/no-inline-styles */
 /* eslint-disable quotes */
-import {View, Text, StyleSheet} from 'react-native';
+import {View, Text, StyleSheet, Platform} from 'react-native';
 import React, {useState} from 'react';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 
@@ -15,9 +15,12 @@ import {useAppDispatch} from '../app/hooks';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import SmoothPinCodeInput from 'react-native-smooth-pincode-input';
 import HeaderComponent from '../components/HeaderComponent';
+import { useNavigation } from '@react-navigation/native';
+import OTPTextView from 'react-native-otp-textinput';
 
 
 const RequireConfirmation = (props: any) => {
+  const navigation = useNavigation();
   const emailAddress = props?.route?.params?.params?.emailAddress;
   const isNewAccount = props?.route?.params?.params?.newAccount;
   const [loader, setLoader] = useState(false);
@@ -111,40 +114,45 @@ const RequireConfirmation = (props: any) => {
             <Text>Enter the OTP code sent to your email </Text>
             <Text style={{color: COLORS.primary}}>{`${emailAddress?.substr(0,9)}***`}</Text>
         </Text>
+        {Platform.OS === 'android' ? 
+      (
+        <View style={styles.otp}>
+        <OTPTextView
+            tintColor={COLORS.primary}
+            textInputStyle={styles.textInputContainer}
+            handleTextChange={(text: string) => setCode(text)}
+            inputCount={6}
+            keyboardType="default"
+            returnKeyType="done"
+          />
+    </View>
+      ) : (
+        <View style={{alignItems: 'center', marginVertical: 25, marginBottom: 5}}>
+        <SmoothPinCodeInput
+            keyboardType="default"
+            cellStyle={{
+              backgroundColor: COLORS.primary2,
+              borderRadius: 5,
+              color: COLORS.primary,
+              borderWidth: 0,
+              // width: hp(63),
+              // height: hp(63),
+            }}
+            editable={true}
+            codeLength={6}
+            cellSize={50}
+            cellSpacing={8}
+            cellStyleFocused={{
+              borderColor: COLORS.primary,
+              borderBottomWidth: 4,
+            }}
+            value={code}
+            onTextChange={(value: string) => setCode(value)}
+          />
 
-      {/* <View style={styles.otp}>
-          <OTPTextView
-              tintColor={COLORS.primary}
-              textInputStyle={styles.textInputContainer}
-              handleTextChange={(text: string) => setCode(text)}
-              inputCount={6}
-              keyboardType="default"
-              returnKeyType="done"
-            />
-      </View> */}
-                <View style={{alignItems: 'center', marginVertical: 25, marginBottom: 5}}>
-            <SmoothPinCodeInput
-                keyboardType="default"
-                cellStyle={{
-                  backgroundColor: COLORS.primary2,
-                  borderRadius: 5,
-                  color: COLORS.primary,
-                  borderWidth: 0,
-                  // width: hp(63),
-                  // height: hp(63),
-                }}
-                codeLength={6}
-                cellSize={50}
-                cellSpacing={8}
-                cellStyleFocused={{
-                  borderColor: COLORS.primary,
-                  borderBottomWidth: 4,
-                }}
-                value={code}
-                onTextChange={(value: string) => setCode(value)}
-              />
-
-          </View>
+      </View>
+      ) 
+      }
       <View style={styles.bottom}>
        <TouchableOpacity onPress={() => resendCode()}>
          <Text style={{textAlign: 'center', color: COLORS.primary, marginVertical: hp(10)}}>Resend Code</Text>
