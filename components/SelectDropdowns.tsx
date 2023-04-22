@@ -24,10 +24,10 @@ const SelectDropdowns = ({label, data, selected, setSelected, dob, onPress, sear
 
 
   return (
-    <View style={styles.div}>
+    <View style={[styles.div, {backgroundColor: !modeInfo ? COLORS.darkMode : COLORS.primary2, borderColor: !modeInfo ? COLORS.white : COLORS.primary}]}>
       <TouchableOpacity style={GlobalStyle.rowBetween} onPress={dob ? onPress : () => setModalVisible(true)}>
-        <Text>{!selected ? label : selected}</Text>
-        <AntDesign name="down" size={15} />
+        <Text style={{color: !modeInfo ? COLORS.white : COLORS.black}}>{!selected ? label : selected}</Text>
+        <AntDesign name="down" size={15} color={!modeInfo ? COLORS.white : COLORS.black} />
       </TouchableOpacity>
 
       <View>
