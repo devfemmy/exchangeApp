@@ -263,7 +263,7 @@ const CountryList = [
     },
     {
         name: "United Kingdom",
-        code: 'uk'
+        code: 'gb'
     },
     {
         name: "United State",

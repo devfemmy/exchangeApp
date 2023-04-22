@@ -10,6 +10,8 @@ import GlobalStyle from '../utils//globalStyle'
 import {hp} from '../utils/helper';
 import {useSecureTextEntry} from '../utils/helper';
 import { COLORS, FONTS } from '../utils/constants/theme';
+import { useAppSelector } from '../app/hooks';
+import { modeStatus } from '../slice/TradeSlice';
 
 type InputProps = ComponentProps<typeof BaseInput> & {
   errorMsg?: string;
@@ -36,6 +38,10 @@ export const TextInput = memo(
     ...rest
   }: InputProps) => {
     const {secureTextEntry, toggleEntry} = useSecureTextEntry(isPassword);
+    const modeInfo = useAppSelector(modeStatus);
+
+
+    
     return (
       <View style={[styles.containerStyle, containerStyle]}>
         <BaseInput
@@ -47,16 +53,16 @@ export const TextInput = memo(
           autoCapitalize="none"
           autoCorrect={false}
           disabled={disabled}
-          textColor={"black"}
+          textColor={!modeInfo ? COLORS.white : 'black'}
           style={{ height: searchInput ? 40 : 60}}
-          outlineStyle={{borderWidth: 0.3, borderColor: '#485FE6'}}
+          outlineStyle={{borderWidth: 0.3, borderColor: !modeInfo ? COLORS.white : '#485FE6'}}
           outlineColor={searchInput ? "transparent" : '#485FE6'}
           theme={{
             roundness: searchInput ? 8 : 5,
             colors: {
-              primary: COLORS.primary,
-              background: searchInput ? COLORS.primary2 : COLORS.primary2,
-              text: searchInput ? COLORS.white : COLORS.white,
+              primary: !modeInfo ? COLORS.white : COLORS.primary,
+              background: !modeInfo ? COLORS.darkMode : COLORS.primary2,
+              text: !modeInfo ? COLORS.white : COLORS.white,
               placeholder: COLORS.gray,
             },
           }}

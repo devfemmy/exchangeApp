@@ -57,13 +57,16 @@ const DepositAddress = (props: any) => {
       <View style={styles.top} ref={viewRef}>
         <ScrollView showsVerticalScrollIndicator={false}>
           <View style={styles.barCode}>
-               <QRCode
+            <View style={{backgroundColor: modeInfo ? "transparent" : COLORS.white, padding: 10}}>
+              <QRCode
                 value={address}
                 size={200}
                 logo={icon}
                 logoSize={50}
                 logoBackgroundColor='transparent'
               />
+            </View>
+               
           </View>
           <View>
             <View style={styles.service}>
@@ -108,18 +111,18 @@ const DepositAddress = (props: any) => {
                 <Text style={{...FONTS.h4,fontWeight: '600',color: modeInfo ? COLORS.black : COLORS.white, marginRight: hp(20)}}>{chain}</Text>
               </View>
             </View>
-            <View style={styles.card}>
-              <Text style={{...FONTS.h4, fontWeight: '600'}}>Important Information</Text>
+            <View style={[styles.card, {backgroundColor: modeInfo ? COLORS.lightGray2 : COLORS.darkMode}]}>
+              <Text style={{...FONTS.h4, fontWeight: '600',  color: modeInfo ? COLORS.black : COLORS.white}}>Important Information</Text>
               <View style={styles.strt}>
-                <Text style={{fontSize: hp(20)}}>{'\u2022'}</Text>
-                <Text style={{...FONTS.body4, color: COLORS.gray}}>
+                <Text style={{fontSize: hp(20),color: modeInfo ? COLORS.black : COLORS.white}}>{'\u2022'}</Text>
+                <Text style={{...FONTS.body4, color: modeInfo ? COLORS.gray : COLORS.white}}>
                   {' '}
                   Send only {currency} to this address
                 </Text>
               </View>
               <View style={styles.strt}>
-                <Text style={{fontSize: hp(20)}}>{'\u2022'}</Text>
-                <Text style={{...FONTS.body4, color: COLORS.gray}}>
+                <Text style={{fontSize: hp(20),color: modeInfo ? COLORS.black : COLORS.white}}>{'\u2022'}</Text>
+                <Text style={{...FONTS.body4, color: modeInfo ? COLORS.gray : COLORS.white}}>
                   {' '}
                   Sending coin or token other than {currency} ({chain}) to this
                   address will result to lose of your crypto asset

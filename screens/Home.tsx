@@ -13,7 +13,7 @@ import {
 
 } from 'react-native';
 import React, {useState, useEffect} from 'react';
-
+import SkeletonPlaceholder from 'react-native-skeleton-placeholder';
 import MainLayout from './mainLayout';
 import GlobalStyle from '../utils/globalStyle';
 
@@ -188,6 +188,7 @@ const Home = ({navigation}: any) => {
       <View style={[GlobalStyle.container, {backgroundColor: modeInfo ? "white" : COLORS.darkMode}]}>
         <View style={styles.container}>
           <Header info={getUserInfo} note={greetUser()} modeInfo={modeInfo} />
+          
           <ScrollView
             showsVerticalScrollIndicator={false}
             refreshControl={

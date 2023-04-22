@@ -155,6 +155,10 @@ const EditProfile = ({navigation}: any) => {
           <View>
             <Text style={{...FONTS.h3, fontSize: hp(18), fontWeight: '600', color: COLORS.primary, textAlign: 'center', textTransform: 'capitalize'}}>{getUserInfo?.firstName} {getUserInfo?.lastName}</Text>
             <Text style={{...FONTS.h4, fontSize: hp(16), fontWeight: '400', color: '#808080', textAlign: 'center'}}>{getUserInfo?.emailAddress}</Text>
+          <Text>
+          <Text style={{...FONTS.h4, fontSize: hp(11), fontWeight: '400', color: '#808080', textAlign: 'center', fontStyle: 'italic'}}>Joined on:</Text>
+            <Text style={{...FONTS.h4, fontSize: hp(11), fontWeight: '400', color: '#808080', textAlign: 'center', fontStyle: 'italic'}}>{moment(getUserInfo?.createdAt).format('MMMM Do YYYY, h:mm:ss a')}</Text>
+          </Text>
           </View>
         </View>
 
@@ -162,7 +166,7 @@ const EditProfile = ({navigation}: any) => {
           <TextInput
               label={'First Name'}
               value={values.firstName}
-              disabled
+              editable={false}
               onBlur={handleBlur('firstName')}
               onChangeText={handleChange('firstName')}
               errorMsg={touched.firstName ? errors.firstName : undefined}
@@ -170,14 +174,14 @@ const EditProfile = ({navigation}: any) => {
           <TextInput
               label={'Last Name'}
               value={values.lastName}
-              disabled
+              editable={false}
               onBlur={handleBlur('lastName')}
               onChangeText={handleChange('lastName')}
               errorMsg={touched.lastName ? errors.lastName : undefined}
             />
           <TextInput
               label={'Email'}
-              disabled
+              editable={false}
               value={values.email}
               onBlur={handleBlur('emailAddress')}
               onChangeText={handleChange('emailAddress')}
@@ -185,7 +189,7 @@ const EditProfile = ({navigation}: any) => {
             />
             <TextInput
               label={'Username'}
-              disabled
+              editable={false}
               value={values.username}
               onBlur={handleBlur('username')}
               onChangeText={handleChange('username')}
@@ -266,7 +270,7 @@ const EditProfile = ({navigation}: any) => {
               <TextInput
               label={'Phone Number'}
               value={values.phone}
-              disabled
+              editable={false}
               onBlur={handleBlur('phone')}
               onChangeText={handleChange('phone')}
               errorMsg={touched.phone ? errors.phone : undefined}
@@ -276,8 +280,6 @@ const EditProfile = ({navigation}: any) => {
        </View>
        <View>
         
-       <Text style={{...FONTS.h4, fontSize: hp(15), fontWeight: '400', color: '#808080', textAlign: 'center', fontStyle: 'italic'}}>Joined on:</Text>
-            <Text style={{...FONTS.h4, fontSize: hp(15), fontWeight: '400', color: '#808080', textAlign: 'center', fontStyle: 'italic'}}>{moment(getUserInfo?.createdAt).format('MMMM Do YYYY, h:mm:ss a')}</Text>
        </View>
 
         <View style={styles.btnContainer}>
@@ -307,7 +309,7 @@ const styles = StyleSheet.create({
     marginVertical: hp(20),
   },
   top2: {
-    marginTop: hp(20),
+    marginTop: hp(0),
   },
   contain: {
     paddingHorizontal: wp(10),
@@ -336,6 +338,7 @@ const styles = StyleSheet.create({
   btnContainer: {
     marginVertical: hp(15),
     width: '100%',
+    marginBottom: 80,
   },
   span: {
     flexDirection: 'row',
