@@ -68,8 +68,9 @@ const Home = ({navigation}: any) => {
         socketUrl.on("connect", () => {
           socketUrl.emit("room", getUserInfo.id);
         });
-  
+
         socketUrl.on("message", (message) => {
+     
           dispatch(getTradingAccount()).then(gg => {
             setTradingAccountInfo(gg?.payload)
           }
@@ -77,7 +78,7 @@ const Home = ({navigation}: any) => {
           dispatch(getFundingAccount()).then(gg =>
             setFundingAccountInfo(gg?.payload),
           );
-
+          dispatch(getMarketPrice())
         });
       }
       socketUrl.on("roomError", (err) => {
@@ -104,7 +105,7 @@ const Home = ({navigation}: any) => {
   const [currentCount, setCount] = useState(1);
 
   const getMarketData = async () => {
-    await dispatch(getMarketPrice());
+    await dispatch(getMarketPrice())
   };
 
   const onRefresh = React.useCallback(() => {
@@ -128,6 +129,7 @@ const Home = ({navigation}: any) => {
     const id = setInterval(timer, 5000);
     return () => clearInterval(id);
   }, [currentCount]);
+
 
   useEffect(() => {
     dispatch(getTradingAccount()).then(gg =>
@@ -340,7 +342,7 @@ const Home = ({navigation}: any) => {
                             }}>{`${
                             data?.price_change_24h.toFixed(2) +
                             ' ' +
-                            `(${data?.price_change_percentage_24h.toFixed(2)})%`
+                            `(${data?.price_change_percentage_24h.toFixed(3).slice(0, -1)})%`
                           }`}</Text>
                         </View>
                       </View>

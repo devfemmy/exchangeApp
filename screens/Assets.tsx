@@ -63,6 +63,7 @@ const Assets = ({navigation}: any) => {
 
 
       socketUrl.on("message", (message) => {
+       
         dispatch(getTradingAccount()).then(gg => {
           setTradingAccountInfo(gg?.payload)
         }
@@ -227,6 +228,8 @@ const Assets = ({navigation}: any) => {
     })
   };
 
+
+
   return (
     <MainLayout>
       <View style={[GlobalStyle.container, {backgroundColor: modeInfo ? COLORS.white : COLORS.darkMode}]}>
@@ -264,7 +267,7 @@ const Assets = ({navigation}: any) => {
               style={{
                 width: '50%',
                 borderBottomColor:
-                  type === 'funding' ? COLORS.primary : COLORS.gray2,
+                (type === 'funding' && modeInfo) ? COLORS.primary : (type === "funding" && !modeInfo) ? COLORS.white : COLORS.gray2,
                 borderBottomWidth: type === 'funding' ? 3 : 1,
                 paddingBottom: hp(5),
               }}>
@@ -273,7 +276,7 @@ const Assets = ({navigation}: any) => {
                   style={{
                     ...FONTS.h3,
                     // textAlign: 'center',
-                    color: type === 'funding' ? COLORS.primary : COLORS.gray2,
+                    color: (type === 'funding' && modeInfo) ? COLORS.primary : (type === "funding" && !modeInfo) ? COLORS.white : COLORS.gray2,
                   }}>
                   Funding Balance
                 </Text>
@@ -283,7 +286,7 @@ const Assets = ({navigation}: any) => {
               style={{
                 width: '50%',
                 borderBottomColor:
-                  type === 'trading' ? COLORS.primary : COLORS.gray2,
+                 (type === 'trading' && modeInfo) ? COLORS.primary : (type === "trading" && !modeInfo) ? COLORS.white : COLORS.gray2,
                 borderBottomWidth: type === 'trading' ? 3 : 1,
                 paddingBottom: hp(5),
               }}>
@@ -293,7 +296,7 @@ const Assets = ({navigation}: any) => {
                     ...FONTS.h3,
                     textAlign: 'center',
                     color:
-                      type === 'trading' ? COLORS.primary : COLORS.gray2,
+                     (type === 'trading' && modeInfo) ? COLORS.primary : (type === "trading" && !modeInfo) ? COLORS.white : COLORS.gray2,
                   }}>
                   Trading Balance
                 </Text>

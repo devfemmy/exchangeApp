@@ -19,7 +19,7 @@ const Header = ({info, note, modeInfo}: any) => {
     setIsEnabled(previousState => !previousState)
     dispatch(getModeStatus(isEnabled))
 };
-console.log('info image', info.image)
+
 
   return (
     <View style={GlobalStyle.rowBetween}>
@@ -49,9 +49,9 @@ console.log('info image', info.image)
             }}>
             {info?.username}
           </Text>
-          <Text style={[styles.txt, {...FONTS.body5, color: COLORS.darkGreen}]}>
+          {/* <Text style={[styles.txt, {...FONTS.body5, color: COLORS.darkGreen}]}>
             {info?.status}
-          </Text>
+          </Text> */}
         </View>
         <Text style={{...FONTS.body5,color: modeInfo ? COLORS.darkMode : "white"}}>{note}</Text>
       </View>

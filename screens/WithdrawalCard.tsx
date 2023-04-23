@@ -201,7 +201,7 @@ useEffect(() => {
 
  const handleAmountChange = (value: any) => {
   setAmount(value);
-  const bb = parseFloat(value) * parseFloat(currentPrice);
+  const bb = parseFloat(value) * parseFloat(currentPrice) as any;
   const dc = bb?.toFixed(5)?.slice(0, -1);
   setUsdAmount( isNaN(dc) ? 0 : dc?.toString());
  };

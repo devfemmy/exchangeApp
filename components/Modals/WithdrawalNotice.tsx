@@ -98,16 +98,16 @@ const WithdrawalNotice = ({modalVisible, setModalVisible, data}: any) => {
             :
             <View>
  <Text style={{marginBottom: hp(20)}}>
-                    <Text style={{...FONTS.body3, color: COLORS.gray}}>Address: </Text>
-                    <Text style={{...FONTS.body3, fontWeight: 'bold'}}>{data?.userAddress}</Text>
+                    <Text style={{...FONTS.body3, color:modeInfo ? COLORS.gray : COLORS.white}}>Address: </Text>
+                    <Text style={{...FONTS.body3, fontWeight: 'bold',color:modeInfo ? COLORS.black : COLORS.white}}>{data?.userAddress}</Text>
                 </Text>
                 <Text style={{marginBottom: hp(20)}}>
-                    <Text style={{...FONTS.body3, color: COLORS.gray}}>Token: </Text>
-                    <Text style={{...FONTS.body3, fontWeight: 'bold'}}>{data?.currencyName?.toUpperCase()}</Text>
+                    <Text style={{...FONTS.body3, color:modeInfo ? COLORS.gray : COLORS.white}}>Token: </Text>
+                    <Text style={{...FONTS.body3, fontWeight: 'bold',color:modeInfo ? COLORS.black : COLORS.white}}>{data?.currencyName?.toUpperCase()}</Text>
                 </Text>
                 <Text style={{marginBottom: hp(20)}}>
-                    <Text style={{...FONTS.body3, color: COLORS.gray}}>Network: </Text>
-                    <Text style={{...FONTS.body3, fontWeight: 'bold'}}>{data?.chain}</Text>
+                    <Text style={{...FONTS.body3, color:modeInfo ? COLORS.gray : COLORS.white}}>Network: </Text>
+                    <Text style={{...FONTS.body3, fontWeight: 'bold',color:modeInfo ? COLORS.black : COLORS.white}}>{data?.chain}</Text>
                 </Text>
               </View>
                }
