@@ -1,54 +1,160 @@
 
 
+// const CountryList = [
+//    { 
+//     name: "Ghana",
+//     code: "gh"
+// },
+// {
+//     name: "Cameroon",
+//     code: "cm"
+// },
+// {
+//     name: "Capeverde",
+//     code: ""
+// },
+// {
+//     name: "Nigeria",
+//     code: ""
+// },
+// {
+//     name: "Kenya",
+//     code: ""
+// },
+// {
+//     name: "Hong Kong",
+//     code: "",
+// },
+// {
+//     name: "United Arab Emirate",
+//     code: ""
+// },
+// {
+//     name: "Rwanda",
+//     code: ""
+// },
+// {
+//     name: "Canada",
+//     code: ""
+// },
+// {
+//     name: "Qatar",
+//     code: ""
+// },
+// {
+//     name: "Morocco",
+//     code: ""
+// },
+// {
+//     name: "Egypt",
+//     code: ""
+// },
+// {
+//     name: "Uganda",
+//     code: ""
+// },
+// {
+//     name: "Niger",
+//     code: ""
+// },
+// {
+//     name: "Spain",
+//     code: ""
+// },
+// {
+//     name: "Singapore",
+//     code: "",
+// },
+// {
+//     name: "South Africa",
+//     code: ""
+// },
+// {
+//     name: "El Salvador",
+//     code: ""
+// },
+// {
+//     name: "Zimbabwe",
+//     code: "",
+// },
+// {
+//     name: "Togo",
+//     code: ""
+// },
+// {
+//     name: "Germany",
+//     code: ""
+// },
+// {
+//     name: "Italy",
+//     code: ""
+// },
+// {
+//     name: "Mali",
+//     code: ""
+// },
+// {
+//     name: "Estonia",
+//     code: ""
+// },
+// {
+//     name: "China",
+//     code: ""
+// },
+// {
+//     name: "Central Africa Republic",
+//     code: ""
+// },
+// {
+//     name: "India",
+//     code: ""
+// },
+// {
+//     name: "Portugal",
+//     code: ""
+// },
+// {
+//     name: "Turkey",
+//     code: ""
+// }, {
+//     name: "Netherland",
+//     code: ""
+// },
+// {
+//     name: "Mexico",
+//     code: ""
+// },
+// {
+//     name: "Senegal",
+//     code: ""
+// },
+// {
+//     name: "Nepal",
+//     code: ""
+// },
+// {
+//     name: "United Kingdom",
+//     code: ""
+// },
+// {
+//     name: "Swaziland",
+//     code: ""
+// },
+// {
+//     name: "Isreal",
+//     code: ""
+// },
+// {
+//     name: "Vietnam",
+//     code: ""
+// },
+// {
+//     name: "Barbados",
+//     code: ""
+// }
+// ]
+
 const CountryList = [
-    {
-       name: "Andorra",
-       code: 'ad'
-    },
-    {
-        name: "Angola",
-        code: 'ao'
-    },
-    {
-        name:  "Argentina",
-        code: 'ar'
-    },
-    {
-        name: "Australia",
-        code: 'au'
-    },
-    {
-        name:  "Austria",
-        code: 'at'
-    },
-    {
-        name:  "Azerbaijan",
-        code: 'az'
-    },
-    {
-        name: "Belgium",
-        code: 'be'
-    },
-    {
-        name:  "Benin",
-        code: 'bj'
-    },
-    {
-        name:   "Bermuda",
-        code: 'bm'
-    },
-    {
-        name:     "Brazil",
-        code: 'br'
-    },
-    {
-        name: 'Bulgaria',
-        code: 'bg'
-    },
-    {
-        name: "Burkina Faso",
-        code: 'bf'
-    },
     {
         name: 'Canada',
         code: 'ca',
@@ -58,40 +164,12 @@ const CountryList = [
         code: 'cm'
     },
     {
-        name: 'Chile',
-        code: 'cl'
-    },
-    {
-        name: 'Croatia',
-        code: 'hr'
-    },
-    {
         name: 'China',
         code: 'cn'
     },
     {
-        name: 'Denmark',
-        code: 'dk'
-    },
-    {
-        name: 'Estonia',
-        code: 'ee'
-    },
-    {
-        name: 'Finland',
-        code: 'fl'
-    },
-    {
-        name: 'France',
-        code: 'fr'
-    },
-    {
         name: 'Germany',
         code: 'de'
-    },
-    {
-        name: 'Greece',
-        code: 'gr'
     },
     {
         name: "Hong Kong",
