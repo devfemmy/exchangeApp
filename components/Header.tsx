@@ -42,8 +42,7 @@ const Header = ({info, note, modeInfo}: any) => {
         <View style={styles.rowDiv}>
           <Text
             style={{
-              ...FONTS.body3,
-              fontWeight: '600',
+              ...FONTS.h3,
               textTransform: 'capitalize',
               color: modeInfo ? COLORS.darkMode : "white"
             }}>

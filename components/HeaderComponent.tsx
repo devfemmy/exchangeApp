@@ -13,15 +13,14 @@ const  HeaderComponent = ({onPress}: any) => {
 
   return (
     <TouchableOpacity onPress={onPress} style={styles.header}>
-      <TouchableOpacity onPress={onPress}>
-      <AntDesign onPress={onPress} name="arrowleft" style={styles.icon} size={hp(20)} color={modeInfo ? COLORS.gray2 : COLORS.white} />
-      </TouchableOpacity>
+      <AntDesign  name="arrowleft" style={styles.icon} size={hp(20)} color={modeInfo ? COLORS.gray2 : COLORS.white} />
     </TouchableOpacity>
   );
 };
 
 const styles = StyleSheet.create({
   header: {
+    width: '30%',
     // flex: 1
   },
   icon: {

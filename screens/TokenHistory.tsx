@@ -89,7 +89,8 @@ const TokenHistory = ({navigation}: any) => {
               <HeaderComponent onPress={() => navigation.goBack()} /> 
       <Text style={{...FONTS.h3, fontWeight: '600',color:modeInfo ? COLORS.black : COLORS.white}}>Token Transactions</Text>
       <View style={[GlobalStyle.rowStart, {marginTop: hp(30), marginBottom: hp(20)}]}>
-        <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+        <ScrollView style={{paddingVertical: 20}} horizontal showsHorizontalScrollIndicator={false} keyboardShouldPersistTaps="always">
+       
           <View
             style={{
               width: wp(70),
@@ -101,7 +102,7 @@ const TokenHistory = ({navigation}: any) => {
               padding: hp(5),
               justifyContent: 'center',
               alignItems: 'center',
-            }}>
+            }} pointerEvents="none">
             <TouchableOpacity onPress={() => setType('all')}>
               <Text
                 style={{
@@ -114,6 +115,7 @@ const TokenHistory = ({navigation}: any) => {
             </TouchableOpacity>
           </View>
           <View
+          pointerEvents="none"
             style={{
               width: wp(100),
               // backgroundColor:
@@ -141,6 +143,7 @@ const TokenHistory = ({navigation}: any) => {
             </TouchableOpacity>
           </View>
           <View
+          pointerEvents="none"
             style={{
               width: wp(100),
               // backgroundColor:
@@ -168,6 +171,7 @@ const TokenHistory = ({navigation}: any) => {
             </TouchableOpacity>
           </View>
           <View
+          pointerEvents="none"
             style={{
               width: wp(100),
               // backgroundColor:
@@ -195,6 +199,7 @@ const TokenHistory = ({navigation}: any) => {
             </TouchableOpacity>
           </View>
           <View
+          pointerEvents="none"
             style={{
               width: wp(100),
               // backgroundColor:
@@ -222,6 +227,7 @@ const TokenHistory = ({navigation}: any) => {
             </TouchableOpacity>
           </View>
           <View
+          pointerEvents="none"
             style={{
               width: wp(100),
               // backgroundColor:
@@ -331,8 +337,9 @@ const styles = StyleSheet.create({
       hr: {
         width: "100%",
         height: hp(2),
+        marginTop: -20,
         backgroundColor: COLORS.lightGray2,
-        marginVertical: hp(15)
+        marginBottom: hp(15)
       },
       actionCard2: {
         flexDirection: 'row',

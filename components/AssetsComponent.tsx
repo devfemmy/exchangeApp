@@ -28,7 +28,7 @@ const AssetsComponent = ({info, data, handleClick}: any) => {
     /> */}
             <Image
           source={info?.icon}
-          resizeMode="cover"
+          resizeMode='contain'
           style={styles.icons}
         />
     {/* <Image style={styles.icons} defaultSource={require('../assets/images/placeholder.png')} source={{uri: info?.icon}} /> */}

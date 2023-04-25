@@ -13,7 +13,7 @@ const PrepaidCard = () => {
       <View style={GlobalStyle.rowStart}>
         <Image
           source={tether}
-          resizeMode="cover"
+          resizeMode='contain'
           style={styles.icons}
         />
         <View style={{marginLeft: hp(10)}}>

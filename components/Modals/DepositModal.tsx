@@ -13,28 +13,48 @@ import {
     TouchableOpacity,
   ScrollView
   } from 'react-native';
-  import React from 'react';
+  import React, { useEffect, useState } from 'react';
   import AntDesign from 'react-native-vector-icons/AntDesign';
   import {COLORS, FONTS} from '../../utils/constants/theme';
   import { hp, wp} from '../../utils/helper';
 
 import { useNavigation } from '@react-navigation/native';
-import { useAppSelector } from '../../app/hooks';
+import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import { modeStatus } from '../../slice/TradeSlice';
+import { getWalletNetwork } from '../../slice/WalletSlice';
 
   
-  const DepositModal = ({modalVisible, setModalVisible, networks, otherInfo}: any) => {
+  const DepositModal = ({modalVisible, setModalVisible, otherInfo}: any) => {
     const navigation = useNavigation() as any
     const modeInfo = useAppSelector(modeStatus);
-
+    const [networks, setNetworks] = useState<any>();
+    const dispatch = useAppDispatch()
     
     const handleAction = (data: any) => {
         setModalVisible()
-       return navigation.navigate("DepositAddress", {
+
+         navigation.navigate("DepositAddress", {
             data: data,
             otherInfo: otherInfo
         })
+        return setNetworks(undefined)
     }
+
+    const handleCloseClick = () => {
+      setModalVisible()
+      setNetworks(undefined)
+    }
+
+    useEffect(() => {
+      if(networks?.length <= 0 || networks === undefined) {
+        console.log("my network",1)
+        dispatch(getWalletNetwork(otherInfo?.currency)).then(pp => {
+          var bb = pp?.payload?.[otherInfo?.currency?.toUpperCase()]
+          setNetworks(bb?.reverse())
+        }
+        );
+      }
+    }, [otherInfo?.currency])
 
 
 
@@ -46,11 +66,11 @@ import { modeStatus } from '../../slice/TradeSlice';
           transparent={true}
           visible={modalVisible}
           onRequestClose={() => {
-            setModalVisible();
+            handleCloseClick();
           }}>
           <View style={styles.centeredView}>
             <View style={[styles.modalView, {backgroundColor: modeInfo ? COLORS.white : COLORS.darkMode}]}>
-              <TouchableOpacity onPress={() => setModalVisible()}>
+              <TouchableOpacity onPress={() => handleCloseClick()}>
                 <View style={styles.end}>
                   <AntDesign name="close" size={30} color={modeInfo ? COLORS.black : COLORS.white} />
                 </View>
@@ -60,7 +80,7 @@ import { modeStatus } from '../../slice/TradeSlice';
              
              <ScrollView showsVerticalScrollIndicator={false}>
              {
-                networks?.reverse()?.map((data: any) => {
+                networks?.map((data: any) => {
                     return <TouchableOpacity onPress={() => handleAction(data)}>
                        <View style={styles.net}>
                        <Text style={{...FONTS.h4, color: COLORS.primary,fontWeight: '600', textAlign: 'center'}}>{data?.chain}</Text>

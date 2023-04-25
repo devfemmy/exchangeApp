@@ -285,19 +285,23 @@ const ZendUsdForm = (props: any) => {
     <ScrollView>
       <View style={[GlobalStyle.container, {backgroundColor: modeInfo ? COLORS.white : COLORS.darkMode}]}>
          <View style={[GlobalStyle.rowBetween, {marginBottom: hp(20)}]}>
-              <AntDesign
+             <View style={{width: '20%'}}>
+             <AntDesign
                 name="arrowleft"
                 size={hp(20)}
                 color={modeInfo ? COLORS.black : COLORS.white}
                 onPress={type === 1 ? () => props?.navigation.goBack() : () => setType(type - 1)}
               />
+             </View>
               <TouchableOpacity onPress={() => props?.navigation.navigate('Instructions')}>
+                  <TouchableOpacity onPress={() => props?.navigation.navigate('Instructions')}>
                 <View style={styles.swap}>
                   <Text style={{marginRight: hp(5),color:modeInfo ? COLORS.black : COLORS.white}}>Instructions</Text>
                   <MaterialIcons name="history" size={20} color={modeInfo ? COLORS.black : COLORS.white} />
                 </View>
+                </TouchableOpacity>
               </TouchableOpacity>
-            </View>
+          </View>
         <View style={GlobalStyle.rowBetween}>
           <View>
             <Text

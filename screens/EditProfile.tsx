@@ -141,14 +141,14 @@ const EditProfile = ({navigation}: any) => {
     };
 
   return (
-    <ScrollView style={[GlobalStyle.container, styles.div, {backgroundColor: modeInfo ? COLORS.white : COLORS.darkMode}]}>
+    <ScrollView keyboardShouldPersistTaps="always" style={[GlobalStyle.container, styles.div, {backgroundColor: modeInfo ? COLORS.white : COLORS.darkMode}]}>
        <KeyboardAwareScrollView showsVerticalScrollIndicator={false}>
         {/* <ScrollView showsVerticalScrollIndicator={false} style={styles.top}> */}
         {/* <AntDesign onPress={() => navigation.goBack()} name="arrowleft" style={styles.icon} size={hp(20)} color={COLORS.gray2} /> */}
          <HeaderComponent onPress={() => navigation.goBack()} />
         <Text style={{...FONTS.h2, fontWeight: '700',color: modeInfo ? COLORS.darkMode : COLORS.white}}>Edit Profile</Text>
 
-        <View style={styles.container}>
+        <View style={styles.container} >
           <Pressable style={GlobalStyle.profileCircle2} onPress={imagePickerHandler}>
                   <Image style={styles.icons} source={{uri: getUserInfo?.image}} defaultSource={require('../assets/images/placeholder.png')} />
           </Pressable>
@@ -162,7 +162,7 @@ const EditProfile = ({navigation}: any) => {
           </View>
         </View>
 
-       <View style={styles.top2}>
+       <View style={styles.top2} pointerEvents="none">
           <TextInput
               label={'First Name'}
               value={values.firstName}
