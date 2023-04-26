@@ -10,6 +10,7 @@ import {
   Pressable,
   TouchableOpacity,
   RefreshControl,
+  Platform,
 
 } from 'react-native';
 import React, {useState, useEffect} from 'react';
@@ -68,8 +69,9 @@ const Home = ({navigation}: any) => {
         socketUrl.on("connect", () => {
           socketUrl.emit("room", getUserInfo.id);
         });
-  
+
         socketUrl.on("message", (message) => {
+     
           dispatch(getTradingAccount()).then(gg => {
             setTradingAccountInfo(gg?.payload)
           }
@@ -77,7 +79,7 @@ const Home = ({navigation}: any) => {
           dispatch(getFundingAccount()).then(gg =>
             setFundingAccountInfo(gg?.payload),
           );
-
+          dispatch(getMarketPrice())
         });
       }
       socketUrl.on("roomError", (err) => {
@@ -104,7 +106,7 @@ const Home = ({navigation}: any) => {
   const [currentCount, setCount] = useState(1);
 
   const getMarketData = async () => {
-    await dispatch(getMarketPrice());
+    await dispatch(getMarketPrice())
   };
 
   const onRefresh = React.useCallback(() => {
@@ -128,6 +130,7 @@ const Home = ({navigation}: any) => {
     const id = setInterval(timer, 5000);
     return () => clearInterval(id);
   }, [currentCount]);
+
 
   useEffect(() => {
     dispatch(getTradingAccount()).then(gg =>
@@ -213,11 +216,11 @@ const Home = ({navigation}: any) => {
                 />
                 )}
               </View>
-              <Text style={[styles.txt, {...FONTS.h5,fontWeight: '600', marginTop: hp(10), color: COLORS.white}]}>
+              <Text style={[styles.txt, {...FONTS.h5, marginTop: hp(10), color: COLORS.white}]}>
                 Total Assets Balance
               </Text>
               <Text
-                style={[styles.txt, {...FONTS.largeTitle, fontWeight: '600',color: COLORS.white}]}>
+                style={[styles.txt, {...FONTS.largeTitle, color: COLORS.white}]}>
                 {show ? `$${format(totalAssetBalanceUsd ? totalAssetBalanceUsd.toString().match(/^-?\d+(?:\.\d{0,2})?/)[0] : 0)}` : '$-------'}
               </Text>
               <Text style={[styles.txt, {...FONTS.body5, color: COLORS.white}]}>
@@ -262,7 +265,7 @@ const Home = ({navigation}: any) => {
             {(!getUserInfo?.hasSetPin ||
               !getUserInfo?.isKycVerified ||
               !getUserInfo?.hasVerifiedPhoneNumber) &&
-            <Text style={[{...FONTS.h4, fontWeight: '600', marginVertical: hp(15),color: modeInfo ? COLORS.darkMode : "white"}]}>
+            <Text style={[{...FONTS.h4, marginVertical: hp(15),color: modeInfo ? COLORS.darkMode : "white"}]}>
               Pending Action
             </Text>
             }
@@ -303,19 +306,18 @@ const Home = ({navigation}: any) => {
                         <View style={GlobalStyle.rowStart}>
                           <Image
                             source={info?.icon}
-                            resizeMode="cover"
+                            resizeMode="contain"
                             style={styles.icons}
                           />
                           <View style={{marginLeft: hp(10)}}>
-                            <Text style={{...FONTS.h3, color: modeInfo ? COLORS.lightBlack : COLORS.white, fontWeight:"500"}}>
+                            <Text style={{...FONTS.h3, color: modeInfo ? COLORS.lightBlack : COLORS.white}}>
                               {data?.name}
                             </Text>
                             <Text
                               style={{
                                 ...FONTS.h5, color: modeInfo ? COLORS.lightBlack : COLORS.white,
-                                textTransform: 'uppercase',
                               }}>
-                              {info?.currency}
+                              {info?.currency?.toUpperCase()}
                             </Text>
                           </View>
                         </View>
@@ -325,7 +327,7 @@ const Home = ({navigation}: any) => {
                             alignItems: 'flex-end',
                           }}>
                           <Text
-                            style={{...FONTS.h3, color: modeInfo ? COLORS.lightBlack : "white", fontWeight:"500"}}>{`$${format(
+                            style={{...FONTS.h3, color: modeInfo ? COLORS.lightBlack : "white"}}>{`$${format(
                             data?.current_price.toFixed(2),
                           )}`}</Text>
                           <Text
@@ -340,7 +342,7 @@ const Home = ({navigation}: any) => {
                             }}>{`${
                             data?.price_change_24h.toFixed(2) +
                             ' ' +
-                            `(${data?.price_change_percentage_24h.toFixed(2)})%`
+                            `(${data?.price_change_percentage_24h.toFixed(3).slice(0, -1)})%`
                           }`}</Text>
                         </View>
                       </View>
@@ -401,7 +403,7 @@ const styles = StyleSheet.create({
     paddingVertical: hp(20),
     paddingHorizontal: hp(30),
     borderRadius: 13,
-    height: hp(280),
+    height: Platform.OS === "android" ? hp(300) : hp(280),
     marginTop: hp(10),
   },
   eyeDiv: {

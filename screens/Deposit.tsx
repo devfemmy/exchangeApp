@@ -14,8 +14,6 @@ import {getMarketPrice, marketInfo, modeStatus} from '../slice/TradeSlice';
 import DepositModal from '../components/Modals/DepositModal';
 import {
   fundingAccount,
-  getWalletNetwork,
-  tradingAccount,
 } from '../slice/WalletSlice';
 import AssetsComponent from '../components/AssetsComponent';
 import HeaderComponent from '../components/HeaderComponent';
@@ -55,10 +53,6 @@ const Deposit = ({navigation}: any) => {
 
   const handleModalOpen = (data: any) => {
     setOpenModal(true);
-    dispatch(getWalletNetwork(data?.currency)).then(pp => {
-      setNetworks(pp?.payload?.[data?.currency?.toUpperCase()])
-    }
-    );
     setOtherInfo(data);
   };
 
@@ -213,15 +207,14 @@ const Deposit = ({navigation}: any) => {
               {assets()}
             </ScrollView>
 
-            <DepositModal
-              modalVisible={openModal}
-              setModalVisible={() => handleModalClose()}
-              networks={networks}
-              otherInfo={otherInfo}
-            />
           </View>
         </View>
       </View>
+      <DepositModal
+              modalVisible={openModal}
+              setModalVisible={() => handleModalClose()}
+              otherInfo={otherInfo}
+            />
     </View>
   );
 };

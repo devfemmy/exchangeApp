@@ -53,6 +53,7 @@ export const TextInput = memo(
           autoCapitalize="none"
           autoCorrect={false}
           disabled={disabled}
+          contentStyle={{letterSpacing: 0.03}}
           textColor={!modeInfo ? COLORS.white : 'black'}
           style={{ height: searchInput ? 40 : 60}}
           outlineStyle={{borderWidth: 0.3, borderColor: !modeInfo ? COLORS.white : '#485FE6'}}

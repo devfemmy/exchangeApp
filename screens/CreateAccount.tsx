@@ -87,11 +87,11 @@ const CreateAccount = ({navigation}: any) => {
   
     <View style={GlobalStyle.container}>
       <KeyboardAwareScrollView showsVerticalScrollIndicator={false}>
-        <ScrollView showsVerticalScrollIndicator={false}>
+        <ScrollView showsVerticalScrollIndicator={false} keyboardShouldPersistTaps="always">
           <HeaderComponent onPress={() => navigation.goBack()} />
-          <View>
+          <View pointerEvents="none">
             <View style={styles.rowBtw}>
-              <Text style={{...FONTS.h2,fontWeight: '700'}}>Create Account</Text>
+              <Text style={{...FONTS.h2}}>Create Account</Text>
               <View />
             </View>
 
@@ -162,6 +162,7 @@ const CreateAccount = ({navigation}: any) => {
             )} */}
                 <CheckBox
                 boxType="square"
+           
                 value={cookieSelected}
                 onValueChange={(newValue) => setCookieSelected(newValue)}
                 style={{marginRight: 10, marginLeft: hp(3), width: hp(25), height: hp(25)}}

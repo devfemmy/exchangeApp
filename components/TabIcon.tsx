@@ -7,12 +7,12 @@ import { FONTS, COLORS } from '../utils/constants/theme'
 
 
 const TabIcon = ({focused, icon, iconStyle, label, isTrade, modeInfo}: any) => {
-  console.log({modeInfo})
+
 if(isTrade){
     return (
         <View style={[styles.container,{
-            width: 60,
-            height: 60,
+            width: 50,
+            height: 50,
             borderRadius: 30,
             backgroundColor: COLORS.primary,
         }]}>

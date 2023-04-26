@@ -10,12 +10,14 @@ import {
   StyleSheet,
   TouchableOpacity,
   ScrollView,
+  TextInput as Input
 } from 'react-native';
 import React, {useState} from 'react';
 import GlobalStyle from '../utils/globalStyle';
 import {hp, wp} from '../utils/helper';
 import {COLORS, FONTS} from '../utils/constants/theme';
 import {TextInput} from '../components/TextInput';
+
 import {LoginFormData} from '../utils/types';
 import {LoginSchema} from '../utils/schemas';
 import {useFormik} from 'formik';
@@ -76,7 +78,7 @@ const Login = ({navigation}: any) => {
       <View>
         {/* <HeaderComponent onPress={() => navigation.goBack()} /> */}
         <View style={styles.margin} />
-        <Text style={{...FONTS.h2, fontWeight: '700'}}>Log in</Text>
+        <Text style={{...FONTS.h2}}>Log in</Text>
         <Text style={[GlobalStyle.subTitle, {marginBottom: hp(5)}]}>
           Let’s get you started right away
         </Text>
@@ -87,6 +89,7 @@ const Login = ({navigation}: any) => {
               value={values.emailAddress}
               onBlur={handleBlur('emailAddress')}
               onChangeText={handleChange('emailAddress')}
+              underlineColor={"none"}
               errorMsg={touched.emailAddress ? errors.emailAddress : undefined}
             />
 
@@ -120,7 +123,7 @@ const Login = ({navigation}: any) => {
 
         <TouchableOpacity onPress={() => navigation.navigate('CreateAccount')}>
           <View style={styles.bottom}>
-            <Text>
+            <Text style={{textAlign: 'center'}}>
               <Text
                 style={{
                   ...FONTS.body4,

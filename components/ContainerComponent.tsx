@@ -54,6 +54,7 @@ const ContainerComponent = () => {
             animationTypeForReplace: 'push',
             gestureEnabled: true,
         }}
+        
         initialRouteName={'MainLayout'}
     >
         <Stack.Screen

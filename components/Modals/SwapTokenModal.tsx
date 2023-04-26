@@ -287,15 +287,15 @@ const SwapTokenModal = ({
               <View style={GlobalStyle.rowStart}>
                 <Image
                   source={info?.icon}
-                  resizeMode="cover"
+                  resizeMode='contain'
                   style={styles.icons}
                 />
                 <View style={[GlobalStyle.rowStart,{marginLeft: hp(10)}]}>
-                  <Text style={{...FONTS.body3, fontWeight: '600'}}>
+                  <Text style={{...FONTS.body3, }}>
                     {info?.token}
                   </Text>
-                  <Text style={{...FONTS.h5, textTransform: 'uppercase', marginLeft: hp(5)}}>
-                    ({info?.currency})
+                  <Text style={{...FONTS.h5, marginLeft: hp(5)}}>
+                    ({info?.currency?.toUpperCase()})
                   </Text>
                 </View>
               </View>
@@ -343,15 +343,15 @@ const SwapTokenModal = ({
               <View style={GlobalStyle.rowStart}>
                 <Image
                   source={info?.icon}
-                  resizeMode="cover"
+                  resizeMode='contain'
                   style={styles.icons}
                 />
                 <View style={[GlobalStyle.rowStart,{marginLeft: hp(10)}]}>
-                  <Text style={{...FONTS.body3, fontWeight: '600'}}>
+                  <Text style={{...FONTS.body3, }}>
                     {info?.token}
                   </Text>
-                  <Text style={{...FONTS.h5, textTransform: 'uppercase', marginLeft: hp(5)}}>
-                    ({info?.currency})
+                  <Text style={{...FONTS.h5, marginLeft: hp(5)}}>
+                    ({info?.currency?.toUpperCase()})
                   </Text>
                 </View>
               </View>

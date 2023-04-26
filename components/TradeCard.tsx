@@ -44,7 +44,7 @@ const TradeCard = ( {data}: any) => {
         </View>
         </View>
         <View style={{width: '70%'}}>
-        <Text style={{...FONTS.body3, color: modeInfo ? COLORS.black : COLORS.white, fontWeight: '500'}}>{header}</Text>
+        <Text style={{...FONTS.body3, color: modeInfo ? COLORS.black : COLORS.white}}>{header}</Text>
         <Text style={{...FONTS.body5, color: COLORS.gray}}>{title}</Text>
         </View>
         <View style={{width: '5%'}}>

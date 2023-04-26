@@ -98,8 +98,8 @@ const TransactionDetailModal = ({modalVisible, setModalVisible, data}: any) => {
                </View>
               </View>
 
-
-  <View style={styles.mt}>
+                  {
+                    data?.type === "internal" && data?.transactionType === "deposit" ? null :  <View style={styles.mt}>
                 <Text
                   style={{
                     textTransform: 'capitalize',
@@ -111,6 +111,8 @@ const TransactionDetailModal = ({modalVisible, setModalVisible, data}: any) => {
                   { data?.type === 'internal' ? data?.fee : data?.chain}
                 </Text>
               </View>
+                  }
+
 
               {
                 data?.transactionType === 'withdraw' && data?.type !== 'internal' && <View>

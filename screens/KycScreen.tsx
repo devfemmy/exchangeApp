@@ -121,7 +121,6 @@ const KycScreen = ({navigation}: any) => {
    * This is the data from doja
    */
   const response = (responseType: any, data: any) => {
-    console.log('kyc response 111', responseType);
     if (responseType === 'success') {
       setIsKycVerified(true);
       dispatch(getUserDetail())
@@ -132,7 +131,6 @@ const KycScreen = ({navigation}: any) => {
     }
   };
   useEffect(() => {
-    console.log('WIDGET IS CALLED');
     Dojah.hydrate(appID, publicKey);
   }, [appID, publicKey]);
 
@@ -161,23 +159,14 @@ const KycScreen = ({navigation}: any) => {
       <View style={styles.top}>
         <ScrollView showsVerticalScrollIndicator={false}>
         <HeaderComponent onPress={() => navigation.goBack()} />
-          {/* <AntDesign
-            onPress={() => navigation.goBack()}
-            name="arrowleft"
-            style={styles.icon}
-            size={hp(20)}
-            color={COLORS.gray2}
-          /> */}
-
-          <Text style={{...FONTS.h2, fontWeight: '700',color: modeInfo ? COLORS.darkMode : COLORS.white}}>KYC Verification</Text>
+        {!isKycVerified ? (
+          <View>
+          {/* <Text style={{...FONTS.h2, fontWeight: '700',color: modeInfo ? COLORS.darkMode : COLORS.white}}>KYC Verification</Text>
           <Text style={{...FONTS.body4, color: COLORS.gray, width: wp(250)}}>
             Complete your kyc process to increase your transaction limit
-          </Text>
+          </Text> */}
 
           <View style={[GlobalStyle.rowStart, {marginVertical: hp(15)}]}>
-            {/* <View style={{width: type === 1 ? "50%" : "100%", borderBottomWidth: 1,paddingBottom: hp(10), borderBottomColor: COLORS.primary}}>
-                <Text style={{...FONTS.body4}}>{type === 1 ? "1/2" : "2/2"}</Text>
-            </View> */}
             <View
               style={{
                 width: '50%',
@@ -188,8 +177,7 @@ const KycScreen = ({navigation}: any) => {
               <Text style={{...FONTS.body4,color: modeInfo ? COLORS.darkMode : COLORS.white}}>Level 2</Text>
             </View>
           </View>
-          <View>
-            {!isKycVerified ? (
+
               <ScrollView style={styles.dojahContainer} showsVerticalScrollIndicator={false}>
                 <Dojah
                   response={response}
@@ -264,7 +252,9 @@ const KycScreen = ({navigation}: any) => {
                   </View>
                 </View>
               </ScrollView>
-            ) : (
+              </View>
+            ) 
+            : (
               <View>
                 <View>
                   <View
@@ -297,7 +287,6 @@ const KycScreen = ({navigation}: any) => {
                 </View>
               </View>
             )}
-          </View>
         </ScrollView>
       </View>
       <View></View>
