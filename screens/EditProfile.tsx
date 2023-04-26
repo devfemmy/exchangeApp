@@ -1,6 +1,6 @@
 /* eslint-disable react-native/no-inline-styles */
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { View, Text, StyleSheet, ScrollView, Pressable } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, Pressable, Platform } from 'react-native';
 import React, { useState } from 'react';
 import GlobalStyle from '../utils/globalStyle';
 import { ForgetPasswordFormData, ProfileFormData } from '../utils/types';
@@ -11,11 +11,11 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 import { TextInput } from '../components/TextInput';
 import IconTextButton from '../components/IconTextButton';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import { hp, wp } from '../utils/helper';
+import { capitalizeWord, hp, wp } from '../utils/helper';
 import { COLORS, FONTS } from '../utils/constants/theme';
 import { Image } from 'react-native';
 import { useAppDispatch, useAppSelector } from '../app/hooks';
-import { userState } from '../slice/AuthSlice';
+import { updateImageProfile, userState } from '../slice/AuthSlice';
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import SelectDropdowns from '../components/SelectDropdowns';
@@ -27,6 +27,7 @@ import FastImage from 'react-native-fast-image';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import HeaderComponent from '../components/HeaderComponent';
 import { modeStatus } from '../slice/TradeSlice';
+import { ActivityIndicator } from 'react-native-paper';
 
 const EditProfile = ({navigation}: any) => {
   const dispatch = useAppDispatch();
@@ -36,7 +37,7 @@ const EditProfile = ({navigation}: any) => {
   const [, setCountry] = useState(null);
   const modeInfo = useAppSelector(modeStatus);
   const getUserInfo = userStateInfo?.userData ? userStateInfo?.userData : userStateInfo;
-
+  const [imageLoader, setImageLoader] = useState(false)
   const [imgUri, setImageUri] = useState(getUserInfo?.image);
   const [base64Img, setBase64] = useState<string>('');
   const [gender, setGender] = useState(getUserInfo?.gender);
@@ -107,6 +108,7 @@ const EditProfile = ({navigation}: any) => {
       setCountryCode(country.cca2);
       setCountry(country);
     };
+    
     const imagePickerHandler = async() => {
       const options: any = {
         quality: 1.0,
@@ -127,7 +129,7 @@ const EditProfile = ({navigation}: any) => {
           //('ImagePicker Error: ', response.error);
         } else {
           // const uri = response.uri;
-
+          setImageLoader(true);
           const imageUri = response?.assets[0].uri;
           const base64Image = response?.assets[0].base64;
           setBase64(base64Image);
@@ -136,6 +138,39 @@ const EditProfile = ({navigation}: any) => {
           const avatarUri = response.uri;
           const type = response.type;
           const name = response.fileName;
+
+          const payload = {
+            userId: getUserInfo?._id,
+            image: base64Image ? `data:image/jpeg;base64,${base64Image}` : imgUri,
+          };
+       
+          try {
+            var response = (await dispatch(updateImageProfile(payload))) as any;
+            if (updateImageProfile.fulfilled.match(response)) {
+              setImageLoader(false);
+              dispatch(getProfile());
+              let msg = "Image uploaded successfully";
+              Notifier.showNotification({
+                title: 'Success',
+                description: msg,
+                Component: NotifierComponents.Alert,
+                componentProps: {
+                  alertType: 'success',
+                },
+              });
+            } else {
+              var errMsg = response?.payload as string;
+              setImageLoader(false);
+              Notifier.showNotification({
+                title: 'Error',
+                description: errMsg,
+                Component: NotifierComponents.Alert,
+                componentProps: {
+                  alertType: 'error',
+                },
+              });
+            }
+          } catch (e) {}
         }
       });
     };
@@ -146,14 +181,19 @@ const EditProfile = ({navigation}: any) => {
         {/* <ScrollView showsVerticalScrollIndicator={false} style={styles.top}> */}
         {/* <AntDesign onPress={() => navigation.goBack()} name="arrowleft" style={styles.icon} size={hp(20)} color={COLORS.gray2} /> */}
          <HeaderComponent onPress={() => navigation.goBack()} />
-        <Text style={{...FONTS.h2, fontWeight: '700',color: modeInfo ? COLORS.darkMode : COLORS.white}}>Edit Profile</Text>
+        <Text style={{...FONTS.h2, color: modeInfo ? COLORS.darkMode : COLORS.white}}>Edit Profile</Text>
 
         <View style={styles.container} >
-          <Pressable style={GlobalStyle.profileCircle2} onPress={imagePickerHandler}>
+          {
+            imageLoader ? <View style={{justifyContent: 'center', alignItems: 'center',backgroundColor: 'gray', width: 100, height: 100, borderRadius: 50}}>
+              <ActivityIndicator color={COLORS.primary} size={20} />
+              </View> : <Pressable style={GlobalStyle.profileCircle2} onPress={imagePickerHandler}>
                   <Image style={styles.icons} source={{uri: getUserInfo?.image}} defaultSource={require('../assets/images/placeholder.png')} />
           </Pressable>
+          }
+          
           <View>
-            <Text style={{...FONTS.h3, fontSize: hp(18), fontWeight: '600', color: COLORS.primary, textAlign: 'center', textTransform: 'capitalize'}}>{getUserInfo?.firstName} {getUserInfo?.lastName}</Text>
+            <Text style={{...FONTS.h3, fontSize: hp(18), fontWeight: '600', color: COLORS.primary, textAlign: 'center', textTransform: 'capitalize'}}>{capitalizeWord(getUserInfo?.firstName)}  {capitalizeWord(getUserInfo?.lastName)}</Text>
             <Text style={{...FONTS.h4, fontSize: hp(16), fontWeight: '400', color: '#808080', textAlign: 'center'}}>{getUserInfo?.emailAddress}</Text>
           <Text>
           <Text style={{...FONTS.h4, fontSize: hp(11), fontWeight: '400', color: '#808080', textAlign: 'center', fontStyle: 'italic'}}>Joined on:</Text>

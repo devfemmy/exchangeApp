@@ -1,6 +1,6 @@
-import {View, StyleSheet, Text, Switch, Image} from 'react-native';
+import {View, StyleSheet, Text, Switch, Image, Platform} from 'react-native';
 import React, {useState} from 'react';
-import {hp, wp} from '../utils/helper';
+import {capitalizeWord, hp, wp} from '../utils/helper';
 import {COLORS, FONTS} from '../utils/constants/theme';
 import {useNavigation} from '@react-navigation/native';
 import FastImage from 'react-native-fast-image';
@@ -43,10 +43,12 @@ const Header = ({info, note, modeInfo}: any) => {
           <Text
             style={{
               ...FONTS.h3,
+              fontWeight: Platform.OS === "ios" ? "600" : "",
               textTransform: 'capitalize',
               color: modeInfo ? COLORS.darkMode : "white"
             }}>
-            {info?.username}
+              {capitalizeWord(info?.username)}
+            {/* {info?.username} */}
           </Text>
           {/* <Text style={[styles.txt, {...FONTS.body5, color: COLORS.darkGreen}]}>
             {info?.status}

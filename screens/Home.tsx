@@ -220,7 +220,7 @@ const Home = ({navigation}: any) => {
                 Total Assets Balance
               </Text>
               <Text
-                style={[styles.txt, {...FONTS.largeTitle, color: COLORS.white}]}>
+                style={[styles.txt, {...FONTS.h2, color: COLORS.white}]}>
                 {show ? `$${format(totalAssetBalanceUsd ? totalAssetBalanceUsd.toString().match(/^-?\d+(?:\.\d{0,2})?/)[0] : 0)}` : '$-------'}
               </Text>
               <Text style={[styles.txt, {...FONTS.body5, color: COLORS.white}]}>
@@ -403,7 +403,7 @@ const styles = StyleSheet.create({
     paddingVertical: hp(20),
     paddingHorizontal: hp(30),
     borderRadius: 13,
-    height: Platform.OS === "android" ? hp(300) : hp(280),
+    height: Platform.OS === "android" ? hp(280) : hp(260),
     marginTop: hp(10),
   },
   eyeDiv: {

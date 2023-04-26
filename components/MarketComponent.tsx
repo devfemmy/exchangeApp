@@ -37,11 +37,11 @@ const MarketComponent = ({info, navigation,type, modeInfo}: any) => {
         />
     {/* <Image style={styles.icons} defaultSource={require('../assets/images/placeholder.png')}  source={{uri: info?.icon}} /> */}
         <View style={{marginLeft: hp(10)}}>
-          <Text style={{...FONTS.body4, color: modeInfo ? COLORS.lightBlack : COLORS.white, fontWeight: '600'}}>
+          <Text style={{...FONTS.h4, color: modeInfo ? COLORS.lightBlack : COLORS.white, fontWeight: '600'}}>
             {info?.token}
           </Text>
-          <Text style={{...FONTS.body4, color: modeInfo ? COLORS.lightBlack : COLORS.white, textTransform: 'uppercase'}}>
-            {info?.currency}
+          <Text style={{...FONTS.h4, color: modeInfo ? COLORS.lightBlack : COLORS.white, textTransform: 'uppercase'}}>
+            {info?.currency?.toUpperCase()}
           </Text>
         </View>
 

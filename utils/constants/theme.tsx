@@ -1,7 +1,7 @@
 /* eslint-disable comma-dangle */
 /* eslint-disable prettier/prettier */
 /* eslint-disable quotes */
-import { Dimensions } from "react-native";
+import { Dimensions, Platform } from "react-native";
 import { hp } from "../helper";
 const { width, height } = Dimensions.get("window");
 
@@ -59,11 +59,11 @@ export const SIZES = {
 };
 export const FONTS = {
     largeTitle: { fontFamily: "Poppins-ExtraBold", fontSize: SIZES.largeTitle, color: COLORS.black },
-    h1: { fontFamily: "Poppins-Bold", fontSize: SIZES.h1, lineHeight: 36, color: COLORS.black },
-    h2: { fontFamily: "Poppins-Bold", fontSize: SIZES.h2, lineHeight: 30, color: COLORS.black },
-    h3: { fontFamily: "Poppins-Bold", fontSize: SIZES.h3, lineHeight: 22, color: COLORS.black },
-    h4: { fontFamily: "Poppins-Bold", fontSize: SIZES.h4, lineHeight: 22, color: COLORS.black },
-    h5: { fontFamily: "Poppins-Bold", fontSize: SIZES.h5, lineHeight: 22, color: COLORS.black },
+    h1: { fontFamily: "Poppins-Medium", fontWeight: Platform.OS === "android" ? 700 : "600", fontSize: SIZES.h1, lineHeight: 36, color: COLORS.black },
+    h2: { fontFamily: "Poppins-Medium", fontWeight: Platform.OS === "android" ? 700 : "600", fontSize: SIZES.h2, lineHeight: 30, color: COLORS.black },
+    h3: { fontFamily: "Poppins-Medium", fontWeight: Platform.OS === "android" ? 700 : "600", fontSize: SIZES.h3, lineHeight: 22, color: COLORS.black },
+    h4: { fontFamily: "Poppins-Medium", fontWeight: Platform.OS === "android" ? 700 : "600", fontSize: SIZES.h4, lineHeight: 22, color: COLORS.black },
+    h5: { fontFamily: "Poppins-Medium", fontWeight: Platform.OS === "android" ? 700 : "600", fontSize: SIZES.h5, lineHeight: 22, color: COLORS.black },
     body1: { fontFamily: "Poppins-Regular", fontSize: SIZES.body1, lineHeight: 36, color: COLORS.black },
     body2: { fontFamily: "Poppins-Regular", fontSize: SIZES.body2, lineHeight: 30, color: COLORS.black },
     body3: { fontFamily: "Poppins-Regular", fontSize: SIZES.body3, lineHeight: 22, color: COLORS.black },
