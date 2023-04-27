@@ -202,7 +202,7 @@ const EditProfile = ({navigation}: any) => {
           </View>
         </View>
 
-       <View style={styles.top2} pointerEvents="none">
+       <View style={styles.top2}>
           <TextInput
               label={'First Name'}
               value={values.firstName}

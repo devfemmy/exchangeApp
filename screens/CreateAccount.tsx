@@ -1,6 +1,6 @@
 /* eslint-disable react-native/no-inline-styles */
 
-import {View, Text, StyleSheet, ScrollView, Linking} from 'react-native';
+import {View, Text, StyleSheet, ScrollView,Pressable, Linking,TouchableOpacity} from 'react-native';
 import React, {useState} from 'react';
 import GlobalStyle from '../utils/globalStyle';
 import {CreateAccountFormDataUi} from '../utils/types';
@@ -9,15 +9,18 @@ import {CreateAccountSchema} from '../utils/schemas';
 import {COLORS, FONTS} from '../utils/constants/theme';
 import {TextInput} from '../components/TextInput';
 import IconTextButton from '../components/IconTextButton';
-import {TouchableOpacity} from 'react-native-gesture-handler';
+// import {TouchableOpacity} from 'react-native-gesture-handler';
 import {hp, wp} from '../utils/helper';
 import {useAppDispatch} from '../app/hooks';
 import {createUser, verifyEmailSend} from '../slice/AuthSlice';
 import {Notifier, NotifierComponents} from 'react-native-notifier';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import HeaderComponent from '../components/HeaderComponent';
-import CheckBox from '@react-native-community/checkbox';
 // import CheckBox from '@react-native-community/checkbox';
+// import CheckBox from '@react-native-community/checkbox';
+import BouncyCheckbox from "react-native-bouncy-checkbox";
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+
 
 const CreateAccount = ({navigation}: any) => {
   const [cookieSelected, setCookieSelected] = useState(false);
@@ -83,13 +86,14 @@ const CreateAccount = ({navigation}: any) => {
       enableReinitialize: true,
     });
 
+    console.log({cookieSelected})
   return (
   
     <View style={GlobalStyle.container}>
       <KeyboardAwareScrollView showsVerticalScrollIndicator={false}>
         <ScrollView showsVerticalScrollIndicator={false} keyboardShouldPersistTaps="always">
           <HeaderComponent onPress={() => navigation.goBack()} />
-          <View pointerEvents="none">
+          <View>
             <View style={styles.rowBtw}>
               <Text style={{...FONTS.h2}}>Create Account</Text>
               <View />
@@ -151,23 +155,20 @@ const CreateAccount = ({navigation}: any) => {
             />
 
             <View style={[styles.row, {marginVertical: hp(2)}]}>
-              {/* {cookieSelected ? (
-              <TouchableOpacity onPress={() => setCookieSelected(false)}>
-                <View style={styles.coloredBox} />
-              </TouchableOpacity>
+              {cookieSelected ? (
+                <MaterialCommunityIcons name="checkbox-marked" size={40} color={COLORS.primary} onPress={() => setCookieSelected(false)} />
             ) : (
-              <TouchableOpacity onPress={() => setCookieSelected(true)}>
-                <View style={styles.box} />
-              </TouchableOpacity>
-            )} */}
-                <CheckBox
+                <MaterialCommunityIcons name="checkbox-blank-outline" size={40} color={COLORS.lightGray} onPress={() => setCookieSelected(true)} />
+
+            )}
+                {/* <CheckBox
                 boxType="square"
            
                 value={cookieSelected}
                 onValueChange={(newValue) => setCookieSelected(newValue)}
                 style={{marginRight: 10, marginLeft: hp(3), width: hp(25), height: hp(25)}}
-              />
-
+              /> */}
+         
               <View
                 style={{
                   flexDirection: 'row',
