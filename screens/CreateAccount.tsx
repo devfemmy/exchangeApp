@@ -86,7 +86,6 @@ const CreateAccount = ({navigation}: any) => {
       enableReinitialize: true,
     });
 
-    console.log({cookieSelected})
   return (
   
     <View style={GlobalStyle.container}>
