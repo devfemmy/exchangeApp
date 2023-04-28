@@ -2,7 +2,7 @@
 /* eslint-disable */
 
 
-import { View, Text,ScrollView } from 'react-native'
+import { View, Text,ScrollView, Image, StyleSheet } from 'react-native'
 import React from 'react'
 import MainLayout from './mainLayout'
 import GlobalStyle from '../utils/globalStyle'
@@ -15,9 +15,14 @@ import UsdIcon from '../assets/svg/usd.svg';
 import TransIcon from '..//assets/svg/transaction-minus.svg'
 import { useAppSelector } from '../app/hooks'
 import { modeStatus } from '../slice/TradeSlice'
+import { userState } from '../slice/AuthSlice'
 
 const Transaction = () => {
   const modeInfo = useAppSelector(modeStatus);
+  const userStateInfo = useAppSelector(userState);
+  const getUserInfo = userStateInfo?.userData
+  ? userStateInfo?.userData
+  : userStateInfo;
   const transactionArray = [
     {
       id: 2,
@@ -60,12 +65,17 @@ const Transaction = () => {
     <View style={[GlobalStyle.container, {backgroundColor: modeInfo ? "white" : COLORS.darkMode}]}>
     <ScrollView showsVerticalScrollIndicator={false}>
           <Text style={{...FONTS.h2, fontWeight: '600', marginBottom: hp(5),color: modeInfo ? COLORS.lightBlack : COLORS.white}}>Transactions</Text>
-          <Text style={{...FONTS.body4, color: modeInfo ? COLORS.gray : COLORS.white, marginBottom: hp(30), width: wp(200)}}>
-          Kindly select the transaction category you are looking for
+       <View style={{flexDirection: 'row', justifyContent: 'space-between', marginBottom: 15}}>
+       <Text style={{...FONTS.body4, color: modeInfo ? COLORS.gray : COLORS.white, marginBottom: hp(30), width: wp(200)}}>
+          Select a transaction you will like to view
             </Text>
+            <View>
+                <Image style={styles.image} source={{uri: getUserInfo?.image}} defaultSource={require('../assets/images/placeholder.png')} />
+            </View>
+       </View>
             {
-              transactionArray?.map(data => {
-                return <TransactionCard data={data} />
+              transactionArray?.map((data, i) => {
+                return <TransactionCard data={data} index={i} />
               })
             }
           </ScrollView>
@@ -75,3 +85,11 @@ const Transaction = () => {
 }
 
 export default Transaction
+
+const styles = StyleSheet.create({
+  image: {
+    width: wp(50),
+    height: hp(50),
+    borderRadius: 50,
+},
+})

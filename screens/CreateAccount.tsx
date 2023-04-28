@@ -1,6 +1,6 @@
 /* eslint-disable react-native/no-inline-styles */
 
-import {View, Text, StyleSheet, ScrollView,Pressable, Linking,TouchableOpacity} from 'react-native';
+import {View, Text, StyleSheet, ScrollView,Pressable, Linking} from 'react-native';
 import React, {useState} from 'react';
 import GlobalStyle from '../utils/globalStyle';
 import {CreateAccountFormDataUi} from '../utils/types';
@@ -9,7 +9,7 @@ import {CreateAccountSchema} from '../utils/schemas';
 import {COLORS, FONTS} from '../utils/constants/theme';
 import {TextInput} from '../components/TextInput';
 import IconTextButton from '../components/IconTextButton';
-// import {TouchableOpacity} from 'react-native-gesture-handler';
+import {TouchableOpacity} from 'react-native-gesture-handler';
 import {hp, wp} from '../utils/helper';
 import {useAppDispatch} from '../app/hooks';
 import {createUser, verifyEmailSend} from '../slice/AuthSlice';
@@ -90,7 +90,6 @@ const CreateAccount = ({navigation}: any) => {
   
     <View style={GlobalStyle.container}>
       <KeyboardAwareScrollView showsVerticalScrollIndicator={false}>
-        <ScrollView showsVerticalScrollIndicator={false} keyboardShouldPersistTaps="always">
           <HeaderComponent onPress={() => navigation.goBack()} />
           <View>
             <View style={styles.rowBtw}>
@@ -107,6 +106,7 @@ const CreateAccount = ({navigation}: any) => {
               onBlur={handleBlur('email')}
               onChangeText={handleChange('email')}
               errorMsg={touched.email ? errors.email : undefined}
+            
             />
 
             <TextInput
@@ -155,9 +155,15 @@ const CreateAccount = ({navigation}: any) => {
 
             <View style={[styles.row, {marginVertical: hp(2)}]}>
               {cookieSelected ? (
+                <TouchableOpacity onPress={() => setCookieSelected(false)}>
                 <MaterialCommunityIcons name="checkbox-marked" size={40} color={COLORS.primary} onPress={() => setCookieSelected(false)} />
+                </TouchableOpacity>
+
             ) : (
-                <MaterialCommunityIcons name="checkbox-blank-outline" size={40} color={COLORS.lightGray} onPress={() => setCookieSelected(true)} />
+              <TouchableOpacity onPress={() => setCookieSelected(true)}>
+                     <MaterialCommunityIcons name="checkbox-blank-outline" size={40} color={COLORS.lightGray} onPress={() => setCookieSelected(true)} />
+              </TouchableOpacity>
+             
 
             )}
                 {/* <CheckBox
@@ -226,7 +232,7 @@ const CreateAccount = ({navigation}: any) => {
               </Text>
             </View>
           </TouchableOpacity>
-        </ScrollView>
+
       </KeyboardAwareScrollView>
     </View>
   );

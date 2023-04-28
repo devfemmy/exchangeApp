@@ -16,6 +16,7 @@ export const COLORS = {
     successGreen: "rgb(33, 150, 83)",
     warning: 'rgb(247, 147, 26)',
     darkGreen: "#44eb8b",
+    lightDark: "#2D3748",
     orange: "#F09242",
     lightOrange: "rgb(255, 241, 204)",
     red: "#FF0000",

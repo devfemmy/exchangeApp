@@ -39,6 +39,7 @@ import Instructions from '../screens/Instructions';
 import TwoFactorVerification from '../screens/TwoFactorVerification';
 import SuccessScreen from '../screens/SuccessScreen';
 import SupportScreen from '../screens/SupportScreen';
+import { Platform } from 'react-native';
 
 const Stack = createStackNavigator();
 
@@ -49,9 +50,10 @@ const ContainerComponent = () => {
     <Stack.Navigator
         screenOptions={{
             headerShown: false,
-            cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
-            animationEnabled: true,
-            animationTypeForReplace: 'push',
+            cardStyleInterpolator: Platform.OS === "ios" ? CardStyleInterpolators.forHorizontalIOS : CardStyleInterpolators.forRevealFromBottomAndroid,
+            //cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
+          //  animationEnabled: true,
+          //  animationTypeForReplace: 'push',
             gestureEnabled: true,
         }}
         

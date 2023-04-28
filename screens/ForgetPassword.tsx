@@ -12,6 +12,7 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import { hp, wp } from '../utils/helper';
 import { COLORS, FONTS } from '../utils/constants/theme';
 import HeaderComponent from '../components/HeaderComponent';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 const ForgetPassword = ({navigation}: any) => {
   const initialValues: ForgetPasswordFormData = {
@@ -30,7 +31,7 @@ const ForgetPassword = ({navigation}: any) => {
     });
 
   return (
-    <View style={[GlobalStyle.container, styles.div]}>
+    <KeyboardAwareScrollView style={[GlobalStyle.container, styles.div]}>
         <View style={styles.top}>
         {/* <AntDesign onPress={() => navigation.goBack()} name="arrowleft" style={styles.icon} size={hp(20)} color={COLORS.gray2} />
          */}
@@ -69,7 +70,7 @@ const ForgetPassword = ({navigation}: any) => {
           </View>
         </TouchableOpacity>
       </View>
-    </View>
+    </KeyboardAwareScrollView>
   );
 };
 
