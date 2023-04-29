@@ -200,8 +200,8 @@ const Deposit = ({navigation}: any) => {
               />
             </View>
             <View style={[GlobalStyle.rowBetween, {marginVertical: hp(5)}]}>
-              <Text style={{...FONTS.body3,color: modeInfo ? COLORS.black : COLORS.white}}>Token</Text>
-              <Text style={{...FONTS.body3,color: modeInfo ? COLORS.black : COLORS.white}}>Balance</Text>
+              <Text style={{...FONTS.h3,color: modeInfo ? COLORS.black : COLORS.white}}>Token</Text>
+              <Text style={{...FONTS.h3,color: modeInfo ? COLORS.black : COLORS.white}}>Balance</Text>
             </View>
             <ScrollView showsVerticalScrollIndicator={false}>
               {assets()}
@@ -226,8 +226,9 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   modalView: {
-    margin: 10,
-    height: hp(650),
+    marginTop: 10,
+    marginBottom: hp(300)
+    // height: hp(650),
   },
   end: {
     width: '100%',

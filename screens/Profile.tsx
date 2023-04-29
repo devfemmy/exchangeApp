@@ -28,11 +28,17 @@ import EditIcon from '../assets/svg/edit.svg';
 import TextIconIndicator from '../components/TextIcon';
 import CheckIcon from '../assets/svg/check.svg';
 import UserDark from '../assets/svg/userdark.svg';
+import UserLight from '../assets/svg/userlight.svg';
 import UserSearch from '../assets/svg/user-search.svg';
+import UserSearchLight from '../assets/svg/user-search-light.svg';
 import SecuritySafe from '../assets/svg/security-safe.svg';
+import SecuritySafeLight from '../assets/svg/security-safe-light.svg';
 import SupportDark from '../assets/svg/24-supportdark.svg';
+import SupportLight from '../assets/svg/24-supportlight.svg';
 import SignOutDark from '../assets/svg/logoutdark.svg';
+import SignOutLight from '../assets/svg/logoutdark-light.svg';
 import LogOuts from "../assets/svg/logout.svg"
+import LogOutLight from "../assets/svg/logout-light.svg"
 import { modeStatus } from '../slice/TradeSlice';
 import { Notifier, NotifierComponents } from 'react-native-notifier';
 
@@ -65,37 +71,37 @@ const Profile = ({navigation}: any) => {
     {
       id: 1,
       name: 'General',
-      icon: <UserDark />,
+      icon: !modeInfo ? <UserLight /> : <UserDark  />,
       route: 'EditProfile',
     },
     {
       id: 4,
       name: 'KYC',
-      icon: <UserSearch />,
+      icon: !modeInfo ? <UserSearchLight /> : <UserSearch />,
       route: 'KycScreen',
     },
     {
       id: 2,
       name: 'Security',
-      icon: <SecuritySafe />,
+      icon: !modeInfo ? <SecuritySafeLight /> : <SecuritySafe />,
       route: 'SecurityScreen',
     },
     {
       id: 3,
       name: 'Support',
-      icon: <SupportDark />,
+      icon: !modeInfo ? <SupportLight /> : <SupportDark />,
       route: 'SupportScreen',
     },
     {
       id: 5,
       name: 'Refer & Earn',
-      icon: <UserDark />,
+      icon: !modeInfo ? <UserLight /> : <UserDark />,
       route: 'ReferAndEarn',
     },
     {
       id: 7,
       name: 'Sign Out',
-      icon: <SignOutDark />,
+      icon: !modeInfo ? <SignOutLight /> :<SignOutDark />,
       route: 'SignOut',
     },
     // {

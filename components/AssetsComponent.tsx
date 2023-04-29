@@ -33,8 +33,8 @@ const AssetsComponent = ({info, data, handleClick}: any) => {
         />
     {/* <Image style={styles.icons} defaultSource={require('../assets/images/placeholder.png')} source={{uri: info?.icon}} /> */}
         <View style={{marginLeft: hp(10)}}>
-          <Text style={{...FONTS.h3}}>
-            {info?.token}
+          <Text style={{...FONTS.body3}}>
+            {info?.token} ({info?.currency?.toUpperCase()})
           </Text>
         </View>
       </View>

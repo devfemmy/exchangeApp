@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet,ImageBackground } from 'react-native';
 import React from 'react';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import AntDesign from 'react-native-vector-icons/AntDesign';
@@ -8,21 +8,23 @@ import { useNavigation } from '@react-navigation/native';
 import { useAppSelector } from '../app/hooks';
 import { modeStatus } from '../slice/TradeSlice';
 
+
 const TransactionCard = ({ data, index }: any) => {
   const { header, icon, navigationScreen, color, title } = data;
   const modeInfo = useAppSelector(modeStatus);
   const navigation = useNavigation() as any;
   return (
-    <TouchableOpacity onPress={() => navigation.navigate(navigationScreen)}>
+    <ImageBackground source={{uri: "https://res.cloudinary.com/dtbjhs8a6/image/upload/v1682781235/kvsqqywb3k0n8qakmcao.svg"}}>
+       <TouchableOpacity onPress={() => navigation.navigate(navigationScreen)}>
       <View style={[styles.card, { backgroundColor: modeInfo ? color : index % 2 === 0 ? COLORS.lightDark : COLORS.darkMode }]}>
         <View style={{ flexDirection: "row", justifyContent: 'flex-start', alignItems: 'center' }}>
           
           <View>
             <Text
               style={{
-                ...FONTS.h3,
-                fontWeight: '600',
-                color: modeInfo ? COLORS.black : COLORS.white,
+                ...FONTS.h2,
+                fontSize: hp(20),
+                color: (modeInfo && color === COLORS.primary) ? COLORS.white : (modeInfo && color !== COLORS.primary) ? COLORS.black : COLORS.white,
               }}>
               {header}
             </Text>
@@ -31,8 +33,8 @@ const TransactionCard = ({ data, index }: any) => {
               style={{
                 ...FONTS.h4,
                 fontWeight: 'normal',
-                color: modeInfo ? COLORS.gray : COLORS.white,
-                width: '80%'
+                color: (modeInfo && color === COLORS.primary) ? COLORS.white : (modeInfo && color !== COLORS.primary) ? COLORS.gray : COLORS.white,
+                width: '70%'
               }}>
               {title}
             </Text> 
@@ -50,6 +52,8 @@ const TransactionCard = ({ data, index }: any) => {
         </View>
       </View>
     </TouchableOpacity>
+    </ImageBackground>
+   
   );
 };
 
@@ -73,7 +77,8 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     justifyContent: 'flex-end',
     alignItems: 'flex-end',
-    width: '20%'
+    width: '30%',
+    marginBottom: hp(20)
   },
   btn: {
     backgroundColor: COLORS.white,

@@ -246,13 +246,13 @@ useEffect(() => {
             <View style={styles.form}>
             <KeyboardAwareScrollView showsVerticalScrollIndicator={false}>
               <ScrollView showsVerticalScrollIndicator={false}>
-              <View style={styles.card2}>
+              <View style={[styles.card2,{backgroundColor: !modeInfo ? COLORS.lightDark : COLORS.primary2}]}>
                 <View style={{width: '78%'}}>
-                  <Text style={{...FONTS.body5, color: COLORS.gray}}>
+                  <Text style={{...FONTS.body5, color: !modeInfo ? COLORS.white : COLORS.gray}}>
                     Enter Amount
                   </Text>
                   <TextInput2
-                    style={styles.input}
+                    style={[styles.input, {color: !modeInfo ? COLORS.white : COLORS.gray}]}
                     onChangeText={value => handleAmountChange(value)}
                     value={amount?.toString()}
                     keyboardType="default"
@@ -271,13 +271,13 @@ useEffect(() => {
                </TouchableOpacity>
               </View>
               {
-                currencyName !== 'usdc' && currencyName !== 'usdt' &&  <View style={[styles.card2, {marginBottom: hp(30)}]}>
+                currencyName !== 'usdc' && currencyName !== 'usdt' &&  <View style={[styles.card2, {marginBottom: hp(30),backgroundColor: !modeInfo ? COLORS.lightDark : COLORS.primary2}]}>
                 <View style={{width: '78%'}}>
-                  <Text style={{...FONTS.body5, color: COLORS.gray}}>
+                  <Text style={{...FONTS.body5, color: !modeInfo ? COLORS.white : COLORS.gray}}>
                     Enter Usd Amount
                   </Text>
                   <TextInput2
-                    style={styles.input}
+                    style={[styles.input, {color: !modeInfo ? COLORS.white : COLORS.gray}]}
                     onChangeText={value => handleUsdAmountChange(value)}
                     value={usdAmount?.toString()}
                     keyboardType="default"
@@ -285,7 +285,7 @@ useEffect(() => {
                 </View>
                <TouchableOpacity>
                <View>
-                  <Text style={{...FONTS.body4, color: COLORS.black}}>USD</Text>
+                  <Text style={{...FONTS.body4, color: !modeInfo ? COLORS.white : COLORS.black}}>USD</Text>
                 </View>
                </TouchableOpacity>
               </View>
@@ -330,15 +330,15 @@ useEffect(() => {
                     (currencyName === 'xrp' || currencyName === 'xlm') && walletType ===  'External Wallet' && <TextInput value={memo} onChangeText={(value) => setMemo(value)} label="Enter Memo" />
                   }
               {
-                    walletType ===  'External Wallet' && <View style={styles.card}>
+                    walletType ===  'External Wallet' && <View style={[styles.card, {backgroundColor: !modeInfo ? COLORS.lightDark : COLORS.primary2}]}>
                         <View style={GlobalStyle.rowBetween}>
-                          <Text>Fees:</Text>
-                          <Text>{fee?.minFee} {currencyName?.toUpperCase()}</Text>
+                          <Text style={{color: !modeInfo ? COLORS.white : COLORS.black}}>Fees:</Text>
+                          <Text style={{color: !modeInfo ? COLORS.white : COLORS.black}}>{fee?.minFee} {currencyName?.toUpperCase()}</Text>
                         </View>
                         <View style={styles.hr} />
                         <View style={GlobalStyle.rowBetween}>
-                          <Text>Recipient will receive:</Text>
-                          <Text>{ amount?.length <= 0 || amount === 'Na' || isNaN(amount) || fee?.minFee === undefined ? 0 : (parseFloat(amount) - parseFloat(fee?.minFee))?.toFixed(4).slice(0, -1)} {currencyName?.toUpperCase()}</Text>
+                          <Text style={{color: !modeInfo ? COLORS.white : COLORS.black}}>Recipient will receive:</Text>
+                          <Text style={{color: !modeInfo ? COLORS.white : COLORS.black}}>{ amount?.length <= 0 || amount === 'Na' || isNaN(amount) || fee?.minFee === undefined ? 0 : (parseFloat(amount) - parseFloat(fee?.minFee))?.toFixed(4).slice(0, -1)} {currencyName?.toUpperCase()}</Text>
                         </View>
                     </View>
                   }

@@ -37,10 +37,10 @@ const MarketComponent = ({info, navigation,type, modeInfo}: any) => {
         />
     {/* <Image style={styles.icons} defaultSource={require('../assets/images/placeholder.png')}  source={{uri: info?.icon}} /> */}
         <View style={{marginLeft: hp(10)}}>
-          <Text style={{...FONTS.h4, color: modeInfo ? COLORS.lightBlack : COLORS.white, fontWeight: '600'}}>
+          <Text style={{...FONTS.body3, color: modeInfo ? COLORS.lightBlack : COLORS.white, fontWeight: "500"}}>
             {info?.token}
           </Text>
-          <Text style={{...FONTS.h4, color: modeInfo ? COLORS.lightBlack : COLORS.white, textTransform: 'uppercase'}}>
+          <Text style={{...FONTS.body4, color: modeInfo ? COLORS.lightBlack : COLORS.white, textTransform: 'uppercase'}}>
             {info?.currency?.toUpperCase()}
           </Text>
         </View>
@@ -48,8 +48,8 @@ const MarketComponent = ({info, navigation,type, modeInfo}: any) => {
       </View>
    
      <View style={{justifyContent: 'flex-end', alignItems: 'flex-end', width: "30%"}}>
-                 <Text style={{...FONTS.h3,color: modeInfo ? COLORS.lightBlack : COLORS.white}}>{info?.availBalance % 1 === 0 ? `${format(info?.availBalance ? parseFloat(info?.availBalance) : 0)}`   : `${format(info?.availBalance ? parseFloat(info?.availBalance)?.toFixed(5).slice(0, -1) : 0)}`}</Text>
-                 <Text style={{...FONTS.h3,color: modeInfo ? COLORS.lightBlack : COLORS.white}}>{info?.balUsd % 1 === 0 ? `$${format(info?.balUsd ? parseFloat(info?.balUsd) : 0)}` : `$${format(info?.balUsd ? parseFloat(info?.balUsd)?.toFixed(3).slice(0, -1) : 0)}`}</Text>
+                 <Text style={{...FONTS.body3,color: modeInfo ? COLORS.lightBlack : COLORS.white}}>{info?.availBalance % 1 === 0 ? `${format(info?.availBalance ? parseFloat(info?.availBalance) : 0)}`   : `${format(info?.availBalance ? parseFloat(info?.availBalance)?.toFixed(5).slice(0, -1) : 0)}`}</Text>
+                 <Text style={{...FONTS.body3,color: modeInfo ? COLORS.lightBlack : COLORS.white}}>{info?.balUsd % 1 === 0 ? `$${format(info?.balUsd ? parseFloat(info?.balUsd) : 0)}` : `$${format(info?.balUsd ? parseFloat(info?.balUsd)?.toFixed(3).slice(0, -1) : 0)}`}</Text>
                  </View>
     </View>
   </TouchableOpacity>

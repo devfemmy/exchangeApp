@@ -30,7 +30,7 @@ const Transaction = () => {
       title: "View all your token transactions",
       icon: <HistoryIcon />,
       navigationScreen: "TokenHistory",
-      color: COLORS.lightOrange,
+      color: "#e2e6fd",
   }, 
     {
       id: 1,
@@ -38,7 +38,7 @@ const Transaction = () => {
       title: "View all your swap transactions",
       icon: <SwapIcon />,
       navigationScreen: "SwapHistory",
-      color: COLORS.primary2,
+      color: COLORS.primary,
   },
   {
     id: 4,
@@ -54,7 +54,7 @@ const Transaction = () => {
         title: "View all your usd transactions",
         icon: <UsdIcon />,
         navigationScreen: "ZendUsdHistory",
-        color: COLORS.primary2,
+        color: COLORS.lightOrange,
     },
    
 ]

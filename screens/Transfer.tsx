@@ -184,15 +184,15 @@ const Transfer = ({navigation}: any) => {
                 Select assets you want to transfer
               </Text>
 
-              <View style={styles.card}>
+              <View style={[styles.card, { backgroundColor: !modeInfo ? COLORS.lightDark : COLORS.primary2,}]}>
                 <View style={styles.row}>
                   <View style={styles.rowDiv}>
-                    <Text style={{...FONTS.body4, color: COLORS.gray}}>
+                    <Text style={{...FONTS.body4, color: !modeInfo ? COLORS.white : COLORS.gray}}>
                       From:
                     </Text>
                   </View>
                   <View style={styles.cardDiv}>
-                    <Text style={{...FONTS.body4, color: COLORS.gray, fontWeight: '600', textTransform: 'capitalize'}}>
+                    <Text style={{...FONTS.body4, color: !modeInfo ? COLORS.white : COLORS.gray, fontWeight: '600', textTransform: 'capitalize'}}>
                       {from}
                     </Text>
                     <Image source={stroke} />
@@ -200,7 +200,7 @@ const Transfer = ({navigation}: any) => {
                 </View>
                 <View style={styles.row}>
                   <View style={styles.nd} />
-                  <View style={styles.nd1} />
+                  <View style={[styles.nd1, {borderBottomColor: !modeInfo ? COLORS.white : "rgb(51, 51, 51)"}]} />
                   <TouchableOpacity onPress={() => changeDirection()}>
                     <View style={styles.icon}>
                       <Image
@@ -216,10 +216,10 @@ const Transfer = ({navigation}: any) => {
                 </View>
                 <View style={styles.row}>
                   <View style={styles.rowDiv}>
-                    <Text style={{...FONTS.body4, color: COLORS.gray}}>To:</Text>
+                    <Text style={{...FONTS.body4, color: !modeInfo ? COLORS.white : COLORS.gray}}>To:</Text>
                   </View>
                   <View style={styles.cardDiv}>
-                    <Text style={{...FONTS.body4, color: COLORS.gray, fontWeight: '600', textTransform: 'capitalize'}}>
+                    <Text style={{...FONTS.body4, color: !modeInfo ? COLORS.white : COLORS.gray, fontWeight: '600', textTransform: 'capitalize'}}>
                       {to}
                     </Text>
                     <Image source={stroke} />
@@ -228,31 +228,32 @@ const Transfer = ({navigation}: any) => {
               </View>
 
               <TouchableOpacity onPress={() => handleOpenSelectOpen()}>
-                <View style={[styles.card2, {height: selectedAssets === "Select Token" ? hp(70) : ""}]}>
+                <View style={[styles.card2, {height: selectedAssets === "Select Token" ? hp(70) : "",backgroundColor: !modeInfo ? COLORS.lightDark : COLORS.primary2}]}>
                   <View>
                     {
-                      selectedAssets === "Select Token" ? <Text style={{display: 'none'}}></Text> : <Text style={{...FONTS.body5, color: COLORS.gray}}>
+                      selectedAssets === "Select Token" ? <Text style={{display: 'none'}}></Text> : <Text style={{...FONTS.body5, color: !modeInfo ? COLORS.white : COLORS.gray}}>
                       Select Token
                     </Text>
                     }
                     
-                    <Text style={{...FONTS.body3}}>{selectedAssets}</Text>
+                    <Text style={{...FONTS.body3,color: !modeInfo ? COLORS.white : COLORS.gray}}>{selectedAssets}</Text>
                   </View>
-                  <AntDesign name="down" size={10} />
+                  <AntDesign name="down" size={10} color={!modeInfo ? COLORS.white : COLORS.gray} />
                 </View>
               </TouchableOpacity>
 
-              <View style={styles.card2}>
+              <View style={[styles.card2, {backgroundColor: !modeInfo ? COLORS.lightDark : COLORS.primary2}]}>
                 <View style={{width: '78%'}}>
-                  <Text style={{...FONTS.body5, color: COLORS.gray}}>
+                  <Text style={{...FONTS.body5, color: !modeInfo ? COLORS.white : COLORS.gray}}>
                     Enter Amount
                   </Text>
                   <TextInput
-                    style={styles.input}
+                    style={[styles.input, {color: !modeInfo ? COLORS.white : COLORS.gray}]}
                     onChangeText={value => setNumber(value)}
                     value={number}
                     placeholder={`0 ${selectedAssets}`}
                     keyboardType="default"
+                    
                   />
                 </View>
                <TouchableOpacity onPress={() => handleMax()}>
@@ -322,7 +323,6 @@ const styles = StyleSheet.create({
   },
   card: {
     marginVertical: hp(20),
-    backgroundColor: COLORS.primary2,
     padding: hp(25),
     borderRadius: 10,
   },
@@ -331,7 +331,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     marginVertical: hp(15),
-    backgroundColor: COLORS.primary2,
+    // backgroundColor: COLORS.primary2,
     paddingHorizontal: hp(25),
     paddingVertical: hp(10),
     borderRadius: 10,
@@ -351,10 +351,10 @@ const styles = StyleSheet.create({
   },
   icon: {
     backgroundColor: COLORS.primary,
-    borderRadius: 18,
+    borderRadius: 50,
     padding: hp(10),
-    width: wp(35),
-    height: hp(35),
+    width: wp(45),
+    height: hp(45),
     justifyContent: 'center',
     alignItems: 'center',
     marginLeft: hp(20),
@@ -362,7 +362,6 @@ const styles = StyleSheet.create({
   nd1: {
     width: '60%',
     height: hp(1),
-    borderBottomColor: 'rgb(51, 51, 51)',
     borderBottomWidth: 0.2,
     // backgroundColor: COLORS.gray,
   },

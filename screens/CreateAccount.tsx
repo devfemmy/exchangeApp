@@ -37,6 +37,8 @@ const CreateAccount = ({navigation}: any) => {
     confirmPassword: '',
   };
 
+  console.log("cook=", cookieSelected)
+
   const continueSubmit = async (data: any) => {
     const payload = {
       email: data?.email,
