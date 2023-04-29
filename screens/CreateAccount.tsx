@@ -158,12 +158,12 @@ const CreateAccount = ({navigation}: any) => {
             <View style={[styles.row, {marginVertical: hp(2)}]}>
               {cookieSelected ? (
                 <TouchableOpacity onPress={() => setCookieSelected(false)}>
-                <MaterialCommunityIcons name="checkbox-marked" size={40} color={COLORS.primary} onPress={() => setCookieSelected(false)} />
+                <MaterialCommunityIcons name="checkbox-marked" size={40} color={COLORS.primary} />
                 </TouchableOpacity>
 
             ) : (
               <TouchableOpacity onPress={() => setCookieSelected(true)}>
-                     <MaterialCommunityIcons name="checkbox-blank-outline" size={40} color={COLORS.lightGray} onPress={() => setCookieSelected(true)} />
+                     <MaterialCommunityIcons name="checkbox-blank-outline" size={40} color={COLORS.lightGray} />
               </TouchableOpacity>
              
 

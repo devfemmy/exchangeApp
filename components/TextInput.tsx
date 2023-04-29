@@ -65,7 +65,7 @@ export const TextInput = memo(
               primary: (userStateInfo && !modeInfo) ? COLORS.white : COLORS.primary,
               background: (userStateInfo && !modeInfo) ? COLORS.darkMode : COLORS.primary2,
               text: (userStateInfo && !modeInfo) ? COLORS.white : COLORS.white,
-              placeholder: COLORS.gray,
+              placeholder: (userStateInfo && !modeInfo) ? COLORS.white : COLORS.gray,
             },
           }}
           right={

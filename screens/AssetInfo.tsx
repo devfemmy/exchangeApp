@@ -126,7 +126,7 @@ const AssetInfo = (props: any) => {
         />
         </TouchableOpacity>
         <Text style={{...FONTS.h2, fontWeight: '600', color: modeInfo ? COLORS.lightBlack : COLORS.white}}>{assetName}</Text>
-        <Image source={iconData} style={styles.icon} resizeMode='contain' />
+        <Image source={{uri:iconData}} style={styles.icon} resizeMode='contain' />
       </View>
       <View style={[styles.walletCard, {backgroundColor:modeInfo ? COLORS.white : "#13224f"}]}>
         <View>

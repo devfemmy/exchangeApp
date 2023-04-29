@@ -308,7 +308,7 @@ const Home = ({navigation}: any) => {
                       <View style={styles.actionCard2}>
                         <View style={GlobalStyle.rowStart}>
                           <Image
-                            source={info?.icon}
+                            source={{uri: info?.icon}}
                             resizeMode="contain"
                             style={styles.icons}
                           />

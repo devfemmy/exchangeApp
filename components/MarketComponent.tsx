@@ -7,7 +7,7 @@ import { COLORS, FONTS } from '../utils/constants/theme';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
 const MarketComponent = ({info, navigation,type, modeInfo}: any) => {
-
+// console.log("imag", info?.icon)
   return (
     <TouchableOpacity
     onPress={type === 'funding' ? () =>
@@ -31,7 +31,7 @@ const MarketComponent = ({info, navigation,type, modeInfo}: any) => {
         resizeMode={FastImage.resizeMode.cover}
     /> */}
             <Image
-          source={info?.icon}
+          source={isNaN(info?.icon) ? {uri: info?.icon} : info?.icon}
           resizeMode='contain'
           style={styles.icons}
         />

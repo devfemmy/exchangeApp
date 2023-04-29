@@ -173,7 +173,7 @@ const SwapCard = (props: any) => {
                         alignItems: 'center',
                       }}>
                       {currencyIcon && (
-                        <Image source={currencyIcon} style={styles.icons} />
+                        <Image source={isNaN(currencyIcon) ? {uri: currencyIcon} : currencyIcon} style={styles.icons} />
                       )}
 
                       <Text
@@ -260,7 +260,7 @@ const SwapCard = (props: any) => {
                 </View>
                <TouchableOpacity>
                <View style={GlobalStyle.rowStart}>
-                 <Image source={currencyIcon} style={styles.icons} />
+                 <Image source={isNaN(currencyIcon) ? {uri: currencyIcon} : currencyIcon} style={styles.icons} />
                   <Text style={{...FONTS.body4, fontWeight: "700", marginLeft: hp(5)}}>{currencyName}</Text>
                 </View>
                </TouchableOpacity>

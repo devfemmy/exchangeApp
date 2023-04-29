@@ -1,7 +1,7 @@
 /* eslint-disable react-native/no-inline-styles */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable react-hooks/exhaustive-deps */
-import {View, Text, StyleSheet, TouchableOpacity, Image, TextInput as TextInput2} from 'react-native';
+import {View, Text, StyleSheet, Image, TextInput as TextInput2} from 'react-native';
 import React, {useState, useEffect} from 'react';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import {COLORS, FONTS} from '../utils/constants/theme';
@@ -19,7 +19,7 @@ import SelectDropdowns from '../components/SelectDropdowns';
 import WithdrawalNotice from '../components/Modals/WithdrawalNotice';
 import { Notifier, NotifierComponents } from 'react-native-notifier';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
-
+import {TouchableOpacity} from 'react-native-gesture-handler';
 
 const WithdrawalCard = (props: any) => {
   const assetName = props.route?.params?.info?.token;
@@ -230,7 +230,7 @@ useEffect(() => {
 
             <View style={[GlobalStyle.rowBetween, {marginTop: hp(20)}]}>
               <View style={GlobalStyle.rowStart}>
-                <Image source={currencyIcon} style={styles.icon} />
+                <Image source={isNaN(currencyIcon) ? {uri: currencyIcon} : currencyIcon} style={styles.icon} />
                 <Text style={{textTransform: 'capitalize', ...FONTS.body3,color:modeInfo ? COLORS.black : COLORS.white}}>
                   {assetName}
                 </Text>

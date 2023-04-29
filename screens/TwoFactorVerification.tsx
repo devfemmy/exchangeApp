@@ -139,7 +139,7 @@ const TwoFactorVerification = (props: any) => {
 
 
   return (
-    <View style={[GlobalStyle.container, {backgroundColor: modeInfo ? "white" : COLORS.darkMode}]}>
+    <View style={[GlobalStyle.container, {backgroundColor: modeInfo ? COLORS.white : COLORS.darkMode}]}>
         <HeaderComponent onPress={() => props?.navigation.goBack()} />
       <Text style={{...FONTS.h2, fontWeight: '600',color:modeInfo ? COLORS.black : COLORS.white}}>2FA Verification</Text>
       <Text style={{...FONTS.body5, fontWeight: '500', color: COLORS.gray}}>Just making sure its you </Text>
@@ -152,11 +152,12 @@ const TwoFactorVerification = (props: any) => {
             <TextInput
                     placeholderTextColor={COLORS.black}
                     placeholder=""
-                   inputMode="text"
+                    inputMode="text"
                     keyboardType="default"
                     value={emailCode}
+                    textColor={modeInfo ? COLORS.black : COLORS.white}
                     onChangeText={value => setEmailCode(value)}
-                    style={{backgroundColor: COLORS.primary2}}  />
+                    style={{backgroundColor: modeInfo ? COLORS.primary2 : COLORS.darkMode, color: 'red'}}  />
             </View>
              <TouchableOpacity disabled={emailLoader} style={[styles.btn, {backgroundColor: emailLoader ? COLORS.gray : COLORS.primary}]} onPress={() => resendMail()}>
                <Text style={{...FONTS.body5, color: COLORS.white}}>Send code</Text>

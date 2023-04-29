@@ -14,6 +14,8 @@ import Share from 'react-native-share';
 import { captureRef, captureScreen } from 'react-native-view-shot';
 import { useAppSelector } from '../app/hooks';
 import { modeStatus } from '../slice/TradeSlice';
+import RNFetchBlob from 'rn-fetch-blob';
+import { PermissionsAndroid } from 'react-native';
 
 const DepositAddress = (props: any) => {
   const {chain, address, memo} = props?.route?.params?.data;
@@ -23,36 +25,10 @@ const DepositAddress = (props: any) => {
   const viewRef = useRef()
 
 
+
   const onShare = async () => {
     
-    // if (Platform.OS === "ios") {
-    //   try {
-    //   const uri = await captureRef(viewRef, {
-    //     format: 'png',
-    //     quality: 0.7
-    //   })
-
-    //   await Share.open({url: uri})
-    // }
-    // catch(e) {
-    //   console.log(e)
-    // }
-    // }
-    // else {
-    //   try {
-       
-    //    const option = {
-    //     type: 'png',
-    //     message: "Share me",
-    //     url: "https://static.javatpoint.com/computer/images/what-is-the-url.png"
-    //    }
-    //     await Share.open(option)
-    //   }
-    //   catch(e) {
-    //     console.log(e)
-    //   }
-    // }
-
+   if (Platform.OS === "ios") {
     try {
       const uri = await captureRef(viewRef, {
         format: 'png',
@@ -64,6 +40,30 @@ const DepositAddress = (props: any) => {
     catch(e) {
       console.log(e)
     }
+  }
+  else {
+    viewRef?.current.toDataURL(async (data: any) => {
+      var imageConvert = 'data:image/png;base64,'+data
+      var isReadGranted = await PermissionsAndroid.request(
+        PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
+      )
+      if (isReadGranted === PermissionsAndroid.RESULTS.GRANTED) {
+        const dirs = RNFetchBlob.fs.dirs
+        var qrcode_data = imageConvert.split('data:image/png;base64,');
+        const filePath = dirs.DownloadDir+"/"+'QRCode'+new Date().getSeconds()+'.png'
+        RNFetchBlob.fs.writeFile(filePath, qrcode_data[1], 'base64')
+        .then(async () =>  {
+          const options={
+            title: 'Share is your QRcode',
+            url: imageConvert,
+          }
+          await Share.open(options);
+        })
+        .catch((errorMessage) =>console.log(errorMessage))      
+        }
+
+    })
+  }
     
   }
 
@@ -146,8 +146,8 @@ const DepositAddress = (props: any) => {
                 <Text style={{...FONTS.h4,fontWeight: '600',color: modeInfo ? COLORS.black : COLORS.white, marginRight: hp(20)}}>{chain}</Text>
               </View>
             </View>
-            <View style={[styles.card, {backgroundColor: modeInfo ? COLORS.lightGray2 : COLORS.darkMode}]}>
-              <Text style={{...FONTS.h4, fontWeight: '600',  color: modeInfo ? COLORS.black : COLORS.white}}>Important Information</Text>
+            <View style={[styles.card]}>
+              <Text style={{...FONTS.h4, fontWeight: '600',  color: modeInfo ? COLORS.gray : COLORS.white}}>Important Information</Text>
               <View style={styles.strt}>
                 <Text style={{fontSize: hp(20),color: modeInfo ? COLORS.black : COLORS.white}}>{'\u2022'}</Text>
                 <Text style={{...FONTS.body4, color: modeInfo ? COLORS.gray : COLORS.white}}>
@@ -204,10 +204,8 @@ const styles = StyleSheet.create({
     marginTop: hp(10),
   },
   card: {
-    backgroundColor: COLORS.lightGray2,
-    padding: hp(15),
     borderRadius: hp(10),
-    marginVertical: hp(15),
+    marginVertical: hp(15)
   },
   strt: {
     flexDirection: 'row',

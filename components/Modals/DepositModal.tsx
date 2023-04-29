@@ -29,7 +29,6 @@ import { getWalletNetwork } from '../../slice/WalletSlice';
     const modeInfo = useAppSelector(modeStatus);
     const [networks, setNetworks] = useState<any>();
     const dispatch = useAppDispatch()
-    
     const handleAction = (data: any) => {
         setModalVisible()
 
@@ -47,7 +46,7 @@ import { getWalletNetwork } from '../../slice/WalletSlice';
 
     useEffect(() => {
       if(networks?.length <= 0 || networks === undefined) {
-        console.log("my network",1)
+  
         dispatch(getWalletNetwork(otherInfo?.currency)).then(pp => {
           var bb = pp?.payload?.[otherInfo?.currency?.toUpperCase()]
           setNetworks(bb?.reverse())

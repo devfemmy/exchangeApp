@@ -286,7 +286,7 @@ const SwapTokenModal = ({
               ]}>
               <View style={GlobalStyle.rowStart}>
                 <Image
-                  source={info?.icon}
+                  source={{uri: info?.icon}}
                   resizeMode='contain'
                   style={styles.icons}
                 />
@@ -341,7 +341,7 @@ const SwapTokenModal = ({
               ]}>
               <View style={GlobalStyle.rowStart}>
                 <Image
-                  source={info?.icon}
+                  source={{uri: info?.icon}}
                   resizeMode='contain'
                   style={styles.icons}
                 />

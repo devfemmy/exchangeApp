@@ -170,20 +170,20 @@ const ZendUsdForm = (props: any) => {
             setSelected={(value: any) => setSelectedCountry(value)}
             search
           />
-          <TextInput label={'Enter amount you want to send'} value={amount} onChangeText={(value) => setAmount(value)} />
+          <TextInput label={'Enter amount you want to send'} value={amount} onChangeText={(value) => setAmount(value)}  />
         </View>
 
-        <View style={styles.card}>
+        <View style={[styles.card, {backgroundColor: !modeInfo ? COLORS.lightDark : COLORS.primary2}]}>
           <View style={[GlobalStyle.rowBetween, {paddingVertical: hp(10)}]}>
-            <Text style={{...FONTS.body5, color: COLORS.black}}>Charges</Text>
-            <Text style={{...FONTS.body5, color: COLORS.black}}>$0</Text>
+            <Text style={{...FONTS.body5, color: !modeInfo ? COLORS.white : COLORS.black}}>Charges</Text>
+            <Text style={{...FONTS.body5, color: !modeInfo ? COLORS.white : COLORS.black}}>$0</Text>
           </View>
           <View style={styles.hr} />
           <View style={[GlobalStyle.rowBetween, {paddingVertical: hp(10)}]}>
-            <Text style={{...FONTS.body5, color: COLORS.black}}>
+            <Text style={{...FONTS.body5, color: !modeInfo ? COLORS.white : COLORS.black}}>
               Recipents will receive
             </Text>
-            <Text style={{...FONTS.body5, color: COLORS.black}}>${ amount ? parseFloat(amount) * parseFloat(rate?.rate) : 0}</Text>
+            <Text style={{...FONTS.body5, color: !modeInfo ? COLORS.white : COLORS.black}}>${ amount ? parseFloat(amount) * parseFloat(rate?.rate) : 0}</Text>
           </View>
         </View>
 

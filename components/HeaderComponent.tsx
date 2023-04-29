@@ -13,7 +13,7 @@ const  HeaderComponent = ({onPress}: any) => {
 
   return (
     <TouchableOpacity onPress={() => onPress()} style={styles.header}>
-      <AntDesign  name="arrowleft" style={styles.icon} size={hp(20)} color={modeInfo ? COLORS.gray2 : COLORS.white} />
+      <AntDesign  name="arrowleft" style={styles.icon} size={hp(20)} color={modeInfo ? COLORS.gray2 : COLORS.black} />
     </TouchableOpacity>
   );
 };

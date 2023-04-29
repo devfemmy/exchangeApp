@@ -12,7 +12,7 @@ import { algorand, avalanche, bitcoin, bitcoinCash, dogeCoin, ethereum, litecoin
 
 const tokenBalanceData = [
     {
-      icon: tether,
+      icon: "https://res.cloudinary.com/dtbjhs8a6/image/upload/v1682809875/qba6vnzvpezwugypvs97.png",
       token: "Tether",
       currency: "usdt",
       pendingBalance: 0,
@@ -20,28 +20,28 @@ const tokenBalanceData = [
       fall: true
     },
     {
-      icon: ethereum,
+      icon: "https://res.cloudinary.com/dtbjhs8a6/image/upload/v1682809867/x0nw7s4vxdubiefgxi6a.png",
       token: "Ethereum",
       currency: "eth",
       pendingBalance: 0,
       availableBalance: 0,
     },
     {
-      icon: usd,
+      icon: "https://res.cloudinary.com/dtbjhs8a6/image/upload/v1682809877/bc81wrgmaxzyxptie2er.png",
       token: "USD Coin",
       currency: "usdc",
       pendingBalance: 0,
       availableBalance: 0,
     },
     {
-      icon: tron,
+      icon: "https://res.cloudinary.com/dtbjhs8a6/image/upload/v1682809876/wbgxrfexxb4uegfqkwdo.png",
       token: "Tron",
       currency: "trx",
       pendingBalance: 0,
       availableBalance: 0,
     },
     {
-      icon: solana,
+      icon: "https://res.cloudinary.com/dtbjhs8a6/image/upload/v1682809874/dlomjcpebmtr1txv2rog.png",
       token: "Solana",
       currency: "sol",
       pendingBalance: 0,
@@ -49,42 +49,42 @@ const tokenBalanceData = [
       fall: true
     },
     {
-      icon: bitcoin,
+      icon: "https://res.cloudinary.com/dtbjhs8a6/image/upload/v1682809865/e1tgyepzknaarvtbca9u.png",
       token: "Bitcoins",
       currency: "btc",
       pendingBalance: 0,
       availableBalance: 0,
     },
     {
-      icon: algorand,
+      icon: "https://res.cloudinary.com/dtbjhs8a6/image/upload/v1682809863/wp8ndsswutgyskbvgddj.png",
       token: "Algorand",
       currency: "algo",
       pendingBalance: 0,
       availableBalance: 0,
     },
     {
-      icon: ripple,
+      icon: "https://res.cloudinary.com/dtbjhs8a6/image/upload/v1682809872/edbzaww78if7l6rv6hos.png",
       token: "Ripple",
       currency: "xrp",
       pendingBalance: 0,
       availableBalance: 0,
     },
     {
-      icon: bitcoinCash,
+      icon: "https://res.cloudinary.com/dtbjhs8a6/image/upload/v1682809867/dxnl14b5yipngxxpidld.png",
       token: "Bitcoin Cash",
       currency: "bch",
       pendingBalance: 0,
       availableBalance: 0,
     },
     {
-      icon: polygon,
+      icon:  "https://res.cloudinary.com/dtbjhs8a6/image/upload/v1682809872/lsgzo7vc913j7dxkfwnt.png",
       token: "Polygon",
       currency: "matic",
       pendingBalance: 0,
       availableBalance: 0,
     },
     {
-      icon: avalanche,
+      icon: "https://res.cloudinary.com/dtbjhs8a6/image/upload/v1682809866/fjbrxegrtwvyrou8pj4g.png",
       token: "Avalanche",
       currency: "avax",
       pendingBalance: 0,
@@ -92,28 +92,28 @@ const tokenBalanceData = [
       fall: true
     },
     {
-      icon: steller,
+      icon:"https://res.cloudinary.com/dtbjhs8a6/image/upload/v1682809874/lirttnw92kxmbgd0iuib.png",
       token: "Stellar",
       currency: "xlm",
       pendingBalance: 0,
       availableBalance: 0,
     },
     {
-      icon: litecoin,
+      icon: "https://res.cloudinary.com/dtbjhs8a6/image/upload/v1682809869/hpjyjmry4t8tlgip0dkk.png",
       token: "LiteCoin",
       currency: "ltc",
       pendingBalance: 0,
       availableBalance: 0,
     },
     {
-      icon: dogeCoin,
+      icon: "https://res.cloudinary.com/dtbjhs8a6/image/upload/v1682809872/dwq2gn0rukb7tjiwhsjy.png",
       token: "DogeCoin",
       currency: "doge",
       pendingBalance: 0,
       availableBalance: 0,
     },
     {
-      icon: okb,
+      icon: "https://res.cloudinary.com/dtbjhs8a6/image/upload/v1682809870/zezvdlkcurime4yxgyog.png",
       token: "OKX",
       currency: "okb",
       pendingBalance: 0,

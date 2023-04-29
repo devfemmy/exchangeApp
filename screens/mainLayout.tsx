@@ -89,8 +89,7 @@ const MainLayout = ({children}: any) => {
   
   return (
     <View style={{flex: 1}}>
-    <StatusBar  animated={true}
-        backgroundColor="white" />
+   <StatusBar backgroundColor={modeInfo ? "white" : COLORS.darkMode} barStyle={modeInfo ? "dark-content" : "light-content"} />
      {children}
 
      {/* Dim Background */}
