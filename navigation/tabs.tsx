@@ -59,9 +59,9 @@ const Tabs = () => {
                 headerShown: false,
                 tabBarStyle: {
                   height: 120,
-                  borderTopColor: COLORS.primary,
+                  borderTopColor: modeInfo ? COLORS.primary : COLORS.white,
                   borderTopWidth: 2,
-                  backgroundColor: modeInfo ? "white" : COLORS.darkMode
+                  backgroundColor: modeInfo ? COLORS.white : COLORS.darkMode
                 }
             }}
         >

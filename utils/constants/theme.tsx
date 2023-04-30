@@ -1,7 +1,7 @@
 /* eslint-disable comma-dangle */
 /* eslint-disable prettier/prettier */
 /* eslint-disable quotes */
-import { Dimensions } from "react-native";
+import { Dimensions, Platform } from "react-native";
 import { hp } from "../helper";
 const { width, height } = Dimensions.get("window");
 
@@ -16,6 +16,7 @@ export const COLORS = {
     successGreen: "rgb(33, 150, 83)",
     warning: 'rgb(247, 147, 26)',
     darkGreen: "#44eb8b",
+    lightDark: "#2D3748",
     orange: "#F09242",
     lightOrange: "rgb(255, 241, 204)",
     red: "#FF0000",
@@ -59,11 +60,11 @@ export const SIZES = {
 };
 export const FONTS = {
     largeTitle: { fontFamily: "Poppins-ExtraBold", fontSize: SIZES.largeTitle, color: COLORS.black },
-    h1: { fontFamily: "Poppins-Bold", fontSize: SIZES.h1, lineHeight: 36, color: COLORS.black },
-    h2: { fontFamily: "Poppins-Bold", fontSize: SIZES.h2, lineHeight: 30, color: COLORS.black },
-    h3: { fontFamily: "Poppins-Bold", fontSize: SIZES.h3, lineHeight: 22, color: COLORS.black },
-    h4: { fontFamily: "Poppins-Bold", fontSize: SIZES.h4, lineHeight: 22, color: COLORS.black },
-    h5: { fontFamily: "Poppins-Bold", fontSize: SIZES.h5, lineHeight: 22, color: COLORS.black },
+    h1: { fontFamily: "Poppins-Medium", fontWeight: Platform.OS === "android" ? 500 : "500", fontSize: SIZES.h1, lineHeight: 35, color: COLORS.black },
+    h2: { fontFamily: "Poppins-Medium", fontWeight: Platform.OS === "android" ? 500 : "500", fontSize: SIZES.h2, lineHeight: 30, color: COLORS.black },
+    h3: { fontFamily: "Poppins-Medium", fontWeight: Platform.OS === "android" ? 500 : "500", fontSize: SIZES.h3, lineHeight: 22, color: COLORS.black },
+    h4: { fontFamily: "Poppins-Medium", fontWeight: Platform.OS === "android" ? 500 : "500", fontSize: SIZES.h4, lineHeight: 22, color: COLORS.black },
+    h5: { fontFamily: "Poppins-Medium", fontWeight: Platform.OS === "android" ? 500 : "500", fontSize: SIZES.h5, lineHeight: 22, color: COLORS.black },
     body1: { fontFamily: "Poppins-Regular", fontSize: SIZES.body1, lineHeight: 36, color: COLORS.black },
     body2: { fontFamily: "Poppins-Regular", fontSize: SIZES.body2, lineHeight: 30, color: COLORS.black },
     body3: { fontFamily: "Poppins-Regular", fontSize: SIZES.body3, lineHeight: 22, color: COLORS.black },

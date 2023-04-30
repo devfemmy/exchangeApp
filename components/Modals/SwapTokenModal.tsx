@@ -281,20 +281,20 @@ const SwapTokenModal = ({
                     selectedToken?.toLowerCase() ===
                     info?.currency?.toLowerCase()
                       ? COLORS.lightGray2
-                      : "#f1f3fe",
+                      : !modeInfo ? COLORS.lightDark : "#f1f3fe",
                 },
               ]}>
               <View style={GlobalStyle.rowStart}>
                 <Image
-                  source={info?.icon}
+                  source={{uri: info?.icon}}
                   resizeMode='contain'
                   style={styles.icons}
                 />
                 <View style={[GlobalStyle.rowStart,{marginLeft: hp(10)}]}>
-                  <Text style={{...FONTS.body3, }}>
+                  <Text style={{...FONTS.body3,color:!modeInfo ? COLORS.white : COLORS.black }}>
                     {info?.token}
                   </Text>
-                  <Text style={{...FONTS.h5, marginLeft: hp(5)}}>
+                  <Text style={{...FONTS.h5, marginLeft: hp(5),color:!modeInfo ? COLORS.white : COLORS.black}}>
                     ({info?.currency?.toUpperCase()})
                   </Text>
                 </View>
@@ -302,7 +302,7 @@ const SwapTokenModal = ({
               <View
                 style={{justifyContent: 'flex-end', alignItems: 'flex-end'}}>
                 <Text
-                  style={{...FONTS.h5, color: COLORS.lightBlack}}>{`${format(
+                  style={{...FONTS.h5, color:!modeInfo ? COLORS.white : COLORS.lightBlack}}>{`${format(
                   info?.availBalance
                     ? parseFloat(info?.availBalance)?.toFixed(4)
                     : 0,
@@ -310,8 +310,7 @@ const SwapTokenModal = ({
                 <Text
                   style={{
                     ...FONTS.h5,
-                    color: COLORS.lightBlack,
-                    fontWeight: '600',
+                    color:!modeInfo ? COLORS.white : COLORS.lightBlack,
                   }}>{`$${format(
                   info?.balUsd ? parseFloat(info?.balUsd)?.toFixed(2) : 0,
                 )}`}</Text>
@@ -342,7 +341,7 @@ const SwapTokenModal = ({
               ]}>
               <View style={GlobalStyle.rowStart}>
                 <Image
-                  source={info?.icon}
+                  source={{uri: info?.icon}}
                   resizeMode='contain'
                   style={styles.icons}
                 />
@@ -433,7 +432,8 @@ const styles = StyleSheet.create({
   },
   modalView: {
     margin: 20,
-    height: hp(600),
+    height: hp(650),
+   // marginBottom: hp(50),
     backgroundColor: 'white',
     borderRadius: 20,
     padding: 25,

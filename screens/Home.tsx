@@ -11,7 +11,7 @@ import {
   TouchableOpacity,
   RefreshControl,
   Platform,
-
+  ImageBackground
 } from 'react-native';
 import React, {useState, useEffect} from 'react';
 import SkeletonPlaceholder from 'react-native-skeleton-placeholder';
@@ -167,19 +167,19 @@ const Home = ({navigation}: any) => {
     {
       id: 1,
       name: 'Set Transaction Pin',
-      status: getUserInfo?.hasSetPin ? 'Done' : 'Pending',
+      status: getUserInfo?.hasSetPin ? 'Done' : 'Set Now',
       route: "ChangePin"
     },
     {
       id: 2,
       name: 'Verify your identity',
-      status: getUserInfo?.isKycVerified ? 'Done' : 'Pending',
+      status: getUserInfo?.isKycVerified ? 'Done' : 'Set Now',
       route: "KycScreen"
     },
     {
       id: 3,
       name: 'Verify phone number',
-      status: getUserInfo?.hasVerifiedPhoneNumber ? 'Done' : 'Pending',
+      status: getUserInfo?.hasVerifiedPhoneNumber ? 'Done' : 'Set Now',
       route: "VerifyPhone"
     },
   ];
@@ -197,7 +197,8 @@ const Home = ({navigation}: any) => {
             refreshControl={
               <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
             }>
-            <View style={[styles.card, {backgroundColor: modeInfo ? "#485FE6" : "#12248726"}]}>
+              <ImageBackground style={{borderRadius:hp(25), overflow: 'hidden'}} source={{uri: modeInfo ? "https://res.cloudinary.com/dtbjhs8a6/image/upload/v1682779416/v8cdwzwmg0lmjbjlq3re.png" : "https://res.cloudinary.com/dtbjhs8a6/image/upload/v1682779416/ugmo4kuadw8pi6zm0uv1.png"}} resizeMode="cover">
+                  <View style={[styles.card]}>
               <View style={styles.eyeDiv}>
                 {show ? (
                    <Pressable onPress={() => setShow(!show)}>
@@ -220,7 +221,7 @@ const Home = ({navigation}: any) => {
                 Total Assets Balance
               </Text>
               <Text
-                style={[styles.txt, {...FONTS.largeTitle, color: COLORS.white}]}>
+                style={[styles.txt, {...FONTS.h2, color: COLORS.white}]}>
                 {show ? `$${format(totalAssetBalanceUsd ? totalAssetBalanceUsd.toString().match(/^-?\d+(?:\.\d{0,2})?/)[0] : 0)}` : '$-------'}
               </Text>
               <Text style={[styles.txt, {...FONTS.body5, color: COLORS.white}]}>
@@ -262,6 +263,8 @@ const Home = ({navigation}: any) => {
                 </View>
               </View>
             </View>
+              </ImageBackground>
+          
             {(!getUserInfo?.hasSetPin ||
               !getUserInfo?.isKycVerified ||
               !getUserInfo?.hasVerifiedPhoneNumber) &&
@@ -270,12 +273,12 @@ const Home = ({navigation}: any) => {
             </Text>
             }
             {actions
-              ?.filter(info => info?.status === 'Pending')
+              ?.filter(info => info?.status === 'Set Now')
               .map(data => {
                 return (
                  <TouchableOpacity onPress={() => navigation.navigate(data?.route)}>
                    <View style={styles.actionCard}>
-                    <Text style={[{...FONTS.body5, fontWeight: '600'}]}>{data?.name}</Text>
+                    <Text style={[{...FONTS.body5}]}>{data?.name}</Text>
                     <Text style={[styles.tag, {...FONTS.body5, color: COLORS.white}]}>
                       {data?.status}
                     </Text>
@@ -305,7 +308,7 @@ const Home = ({navigation}: any) => {
                       <View style={styles.actionCard2}>
                         <View style={GlobalStyle.rowStart}>
                           <Image
-                            source={info?.icon}
+                            source={{uri: info?.icon}}
                             resizeMode="contain"
                             style={styles.icons}
                           />
@@ -399,11 +402,11 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   card: {
-    backgroundColor: '#485FE6',
+    // backgroundColor: '#485FE6',
     paddingVertical: hp(20),
     paddingHorizontal: hp(30),
     borderRadius: 13,
-    height: Platform.OS === "android" ? hp(300) : hp(280),
+    height: Platform.OS === "android" ? hp(280) : hp(260),
     marginTop: hp(10),
   },
   eyeDiv: {

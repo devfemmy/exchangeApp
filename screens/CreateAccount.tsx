@@ -1,6 +1,6 @@
 /* eslint-disable react-native/no-inline-styles */
 
-import {View, Text, StyleSheet, ScrollView, Linking} from 'react-native';
+import {View, Text, StyleSheet, ScrollView,Pressable, Linking} from 'react-native';
 import React, {useState} from 'react';
 import GlobalStyle from '../utils/globalStyle';
 import {CreateAccountFormDataUi} from '../utils/types';
@@ -16,8 +16,11 @@ import {createUser, verifyEmailSend} from '../slice/AuthSlice';
 import {Notifier, NotifierComponents} from 'react-native-notifier';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import HeaderComponent from '../components/HeaderComponent';
-import CheckBox from '@react-native-community/checkbox';
 // import CheckBox from '@react-native-community/checkbox';
+// import CheckBox from '@react-native-community/checkbox';
+import BouncyCheckbox from "react-native-bouncy-checkbox";
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+
 
 const CreateAccount = ({navigation}: any) => {
   const [cookieSelected, setCookieSelected] = useState(false);
@@ -33,6 +36,8 @@ const CreateAccount = ({navigation}: any) => {
     password: '',
     confirmPassword: '',
   };
+
+  console.log("cook=", cookieSelected)
 
   const continueSubmit = async (data: any) => {
     const payload = {
@@ -87,9 +92,8 @@ const CreateAccount = ({navigation}: any) => {
   
     <View style={GlobalStyle.container}>
       <KeyboardAwareScrollView showsVerticalScrollIndicator={false}>
-        <ScrollView showsVerticalScrollIndicator={false} keyboardShouldPersistTaps="always">
           <HeaderComponent onPress={() => navigation.goBack()} />
-          <View pointerEvents="none">
+          <View>
             <View style={styles.rowBtw}>
               <Text style={{...FONTS.h2}}>Create Account</Text>
               <View />
@@ -104,6 +108,7 @@ const CreateAccount = ({navigation}: any) => {
               onBlur={handleBlur('email')}
               onChangeText={handleChange('email')}
               errorMsg={touched.email ? errors.email : undefined}
+            
             />
 
             <TextInput
@@ -151,23 +156,26 @@ const CreateAccount = ({navigation}: any) => {
             />
 
             <View style={[styles.row, {marginVertical: hp(2)}]}>
-              {/* {cookieSelected ? (
-              <TouchableOpacity onPress={() => setCookieSelected(false)}>
-                <View style={styles.coloredBox} />
-              </TouchableOpacity>
+              {cookieSelected ? (
+                <TouchableOpacity onPress={() => setCookieSelected(false)}>
+                <MaterialCommunityIcons name="checkbox-marked" size={40} color={COLORS.primary} />
+                </TouchableOpacity>
+
             ) : (
               <TouchableOpacity onPress={() => setCookieSelected(true)}>
-                <View style={styles.box} />
+                     <MaterialCommunityIcons name="checkbox-blank-outline" size={40} color={COLORS.lightGray} />
               </TouchableOpacity>
-            )} */}
-                <CheckBox
+             
+
+            )}
+                {/* <CheckBox
                 boxType="square"
            
                 value={cookieSelected}
                 onValueChange={(newValue) => setCookieSelected(newValue)}
                 style={{marginRight: 10, marginLeft: hp(3), width: hp(25), height: hp(25)}}
-              />
-
+              /> */}
+         
               <View
                 style={{
                   flexDirection: 'row',
@@ -226,7 +234,7 @@ const CreateAccount = ({navigation}: any) => {
               </Text>
             </View>
           </TouchableOpacity>
-        </ScrollView>
+
       </KeyboardAwareScrollView>
     </View>
   );

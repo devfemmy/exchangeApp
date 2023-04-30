@@ -204,7 +204,15 @@ const Assets = ({navigation}: any) => {
   })
   };
 
- 
+  const showTradingAssets = () => {
+    return searchTradData?.map((info: any) => {
+      return marketInfos?.map((data: any) => {
+        return info?.currency === data?.symbol && <MarketComponent modeInfo={modeInfo} info={info} type="trading" navigation={navigation} marketData={data} action={(data: any) => tradingAssets(data)} />
+      });
+    })
+  };
+
+
 
 
   useEffect(() => {
@@ -219,14 +227,6 @@ const Assets = ({navigation}: any) => {
   }, []);
 
 
-
-  const showTradingAssets = () => {
-    return searchTradData?.map((info: any) => {
-      return marketInfos?.map((data: any) => {
-        return info?.currency === data?.symbol && <MarketComponent modeInfo={modeInfo} info={info} type="trading" navigation={navigation} marketData={data} action={(data: any) => tradingAssets(data)} />
-      });
-    })
-  };
 
 
 

@@ -2,7 +2,7 @@
 /* eslint-disable comma-dangle */
 /* eslint-disable quotes */
 /* eslint-disable react-native/no-inline-styles */
-import { View, Animated, Dimensions } from 'react-native'
+import { View, Animated, Dimensions, StatusBar } from 'react-native'
 import React, { useEffect } from 'react'
 import { COLORS, SIZES, } from '../utils/constants/theme'
 import { useAppSelector } from '../app/hooks'
@@ -89,6 +89,7 @@ const MainLayout = ({children}: any) => {
   
   return (
     <View style={{flex: 1}}>
+   <StatusBar backgroundColor={modeInfo ? "white" : COLORS.darkMode} barStyle={modeInfo ? "dark-content" : "light-content"} />
      {children}
 
      {/* Dim Background */}

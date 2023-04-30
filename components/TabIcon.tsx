@@ -37,11 +37,11 @@ if(isTrade){
         style={{
             width: 25,
             height: 25,
-            tintColor: (focused && modeInfo) ? COLORS.primary : (focused && !modeInfo) ? "white" : COLORS.lightPrimary,
+            tintColor: (focused && modeInfo) ? COLORS.primary : (focused && !modeInfo) ? COLORS.white : (!focused && modeInfo) ? COLORS.lightPrimary : COLORS.gray,
             ...iconStyle,
         }}
       />
-      <Text style={[styles.text, { ...FONTS.h5, color: (focused && modeInfo) ? COLORS.primary : (focused && !modeInfo) ? "white" : COLORS.lightPrimary}]}>{label}</Text>
+      <Text style={[styles.text, { ...FONTS.h5, color: (focused && modeInfo) ? COLORS.primary : (focused && !modeInfo) ? COLORS.white : (!focused && modeInfo) ? COLORS.lightPrimary : COLORS.gray}]}>{label}</Text>
     </View>
   )
 }

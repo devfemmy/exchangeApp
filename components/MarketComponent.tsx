@@ -7,7 +7,7 @@ import { COLORS, FONTS } from '../utils/constants/theme';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
 const MarketComponent = ({info, navigation,type, modeInfo}: any) => {
-
+// console.log("imag", info?.icon)
   return (
     <TouchableOpacity
     onPress={type === 'funding' ? () =>
@@ -31,25 +31,25 @@ const MarketComponent = ({info, navigation,type, modeInfo}: any) => {
         resizeMode={FastImage.resizeMode.cover}
     /> */}
             <Image
-          source={info?.icon}
+          source={isNaN(info?.icon) ? {uri: info?.icon} : info?.icon}
           resizeMode='contain'
           style={styles.icons}
         />
     {/* <Image style={styles.icons} defaultSource={require('../assets/images/placeholder.png')}  source={{uri: info?.icon}} /> */}
         <View style={{marginLeft: hp(10)}}>
-          <Text style={{...FONTS.body4, color: modeInfo ? COLORS.lightBlack : COLORS.white, fontWeight: '600'}}>
+          <Text style={{...FONTS.body3, color: modeInfo ? COLORS.lightBlack : COLORS.white, fontWeight: "500"}}>
             {info?.token}
           </Text>
           <Text style={{...FONTS.body4, color: modeInfo ? COLORS.lightBlack : COLORS.white, textTransform: 'uppercase'}}>
-            {info?.currency}
+            {info?.currency?.toUpperCase()}
           </Text>
         </View>
 
       </View>
    
      <View style={{justifyContent: 'flex-end', alignItems: 'flex-end', width: "30%"}}>
-                 <Text style={{...FONTS.h3,color: modeInfo ? COLORS.lightBlack : COLORS.white}}>{info?.availBalance % 1 === 0 ? `${format(info?.availBalance ? parseFloat(info?.availBalance) : 0)}`   : `${format(info?.availBalance ? parseFloat(info?.availBalance)?.toFixed(5).slice(0, -1) : 0)}`}</Text>
-                 <Text style={{...FONTS.h3,color: modeInfo ? COLORS.lightBlack : COLORS.white}}>{info?.balUsd % 1 === 0 ? `$${format(info?.balUsd ? parseFloat(info?.balUsd) : 0)}` : `$${format(info?.balUsd ? parseFloat(info?.balUsd)?.toFixed(3).slice(0, -1) : 0)}`}</Text>
+                 <Text style={{...FONTS.body3,color: modeInfo ? COLORS.lightBlack : COLORS.white}}>{info?.availBalance % 1 === 0 ? `${format(info?.availBalance ? parseFloat(info?.availBalance) : 0)}`   : `${format(info?.availBalance ? parseFloat(info?.availBalance)?.toFixed(5).slice(0, -1) : 0)}`}</Text>
+                 <Text style={{...FONTS.body3,color: modeInfo ? COLORS.lightBlack : COLORS.white}}>{info?.balUsd % 1 === 0 ? `$${format(info?.balUsd ? parseFloat(info?.balUsd) : 0)}` : `$${format(info?.balUsd ? parseFloat(info?.balUsd)?.toFixed(3).slice(0, -1) : 0)}`}</Text>
                  </View>
     </View>
   </TouchableOpacity>

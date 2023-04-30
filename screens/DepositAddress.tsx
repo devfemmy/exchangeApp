@@ -1,6 +1,6 @@
 /* eslint-disable quotes */
 /* eslint-disable comma-dangle */
-import {View, Text, StyleSheet, ScrollView} from 'react-native';
+import {View, Text, StyleSheet, ScrollView, Image, Platform} from 'react-native';
 import React, {useRef} from 'react';
 import GlobalStyle from '../utils/globalStyle';
 import AntDesign from 'react-native-vector-icons/AntDesign';
@@ -11,9 +11,11 @@ import Feather from 'react-native-vector-icons/Feather';
 import IconTextButton from '../components/IconTextButton';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import Share from 'react-native-share';
-import { captureRef } from 'react-native-view-shot';
+import { captureRef, captureScreen } from 'react-native-view-shot';
 import { useAppSelector } from '../app/hooks';
 import { modeStatus } from '../slice/TradeSlice';
+import RNFetchBlob from 'rn-fetch-blob';
+import { PermissionsAndroid } from 'react-native';
 
 const DepositAddress = (props: any) => {
   const {chain, address, memo} = props?.route?.params?.data;
@@ -23,7 +25,10 @@ const DepositAddress = (props: any) => {
   const viewRef = useRef()
 
 
+
   const onShare = async () => {
+    
+   if (Platform.OS === "ios") {
     try {
       const uri = await captureRef(viewRef, {
         format: 'png',
@@ -35,6 +40,31 @@ const DepositAddress = (props: any) => {
     catch(e) {
       console.log(e)
     }
+  }
+  else {
+    viewRef?.current.toDataURL(async (data: any) => {
+      var imageConvert = 'data:image/png;base64,'+data
+      var isReadGranted = await PermissionsAndroid.request(
+        PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
+      )
+      if (isReadGranted === PermissionsAndroid.RESULTS.GRANTED) {
+        const dirs = RNFetchBlob.fs.dirs
+        var qrcode_data = imageConvert.split('data:image/png;base64,');
+        const filePath = dirs.DownloadDir+"/"+'QRCode'+new Date().getSeconds()+'.png'
+        RNFetchBlob.fs.writeFile(filePath, qrcode_data[1], 'base64')
+        .then(async () =>  {
+          const options={
+            title: 'Share is your QRcode',
+            url: imageConvert,
+          }
+          await Share.open(options);
+        })
+        .catch((errorMessage) =>console.log(errorMessage))      
+        }
+
+    })
+  }
+    
   }
 
 
@@ -53,7 +83,12 @@ const DepositAddress = (props: any) => {
         <Text style={{...FONTS.h3, fontWeight: '600',color: modeInfo ? COLORS.black : COLORS.white}}>Deposit {token}</Text>
         <View></View>
       </View>
-
+      {
+        Platform.OS === "android" &&  <View style={styles.bb}>
+     <Image source={icon} style={{width: 50, height: 50}} />
+     </View>
+      }
+   
       <View style={styles.top} ref={viewRef}>
         <ScrollView showsVerticalScrollIndicator={false}>
           <View style={styles.barCode}>
@@ -61,7 +96,7 @@ const DepositAddress = (props: any) => {
               <QRCode
                 value={address}
                 size={200}
-                logo={icon}
+                logo={Platform.OS === "ios" && icon}
                 logoSize={50}
                 logoBackgroundColor='transparent'
               />
@@ -111,8 +146,8 @@ const DepositAddress = (props: any) => {
                 <Text style={{...FONTS.h4,fontWeight: '600',color: modeInfo ? COLORS.black : COLORS.white, marginRight: hp(20)}}>{chain}</Text>
               </View>
             </View>
-            <View style={[styles.card, {backgroundColor: modeInfo ? COLORS.lightGray2 : COLORS.darkMode}]}>
-              <Text style={{...FONTS.h4, fontWeight: '600',  color: modeInfo ? COLORS.black : COLORS.white}}>Important Information</Text>
+            <View style={[styles.card]}>
+              <Text style={{...FONTS.h4, fontWeight: '600',  color: modeInfo ? COLORS.gray : COLORS.white}}>Important Information</Text>
               <View style={styles.strt}>
                 <Text style={{fontSize: hp(20),color: modeInfo ? COLORS.black : COLORS.white}}>{'\u2022'}</Text>
                 <Text style={{...FONTS.body4, color: modeInfo ? COLORS.gray : COLORS.white}}>
@@ -169,10 +204,8 @@ const styles = StyleSheet.create({
     marginTop: hp(10),
   },
   card: {
-    backgroundColor: COLORS.lightGray2,
-    padding: hp(15),
     borderRadius: hp(10),
-    marginVertical: hp(15),
+    marginVertical: hp(15)
   },
   strt: {
     flexDirection: 'row',
@@ -200,4 +233,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     height: hp(65),
   },
+  bb: {
+    position: 'absolute',
+    top: "22%",
+    left: "48%",
+    zIndex: 11111
+  }
 });

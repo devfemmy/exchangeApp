@@ -126,19 +126,19 @@ const AssetInfo = (props: any) => {
         />
         </TouchableOpacity>
         <Text style={{...FONTS.h2, fontWeight: '600', color: modeInfo ? COLORS.lightBlack : COLORS.white}}>{assetName}</Text>
-        <Image source={iconData} style={styles.icon} resizeMode='contain' />
+        <Image source={{uri:iconData}} style={styles.icon} resizeMode='contain' />
       </View>
-      <View style={styles.walletCard}>
+      <View style={[styles.walletCard, {backgroundColor:modeInfo ? COLORS.white : "#13224f"}]}>
         <View>
         <Text
             style={{
               textAlign: 'center',
               ...FONTS.body3,
-              color: COLORS.gray2,
+              color: !modeInfo ? COLORS.white : COLORS.gray2
             }}>
             Total Balance
           </Text>
-          <Text style={{textAlign: 'center', fontWeight: '600', ...FONTS.h1, color: COLORS.black, marginVertical: hp(5)}}>
+          <Text style={{textAlign: 'center', fontWeight: '600', ...FONTS.h1, color: !modeInfo ? COLORS.white : COLORS.black, marginVertical: hp(5)}}>
           {`${assetData === undefined ? 0 :
               `${assetData[asset?.toUpperCase()]?.balance % 1 === 0 ?
                   format(parseFloat(assetData[asset?.toUpperCase()]?.balance))
@@ -158,8 +158,8 @@ const AssetInfo = (props: any) => {
               }}>
               Available
             </Text>
-            <Text style={{...FONTS.body3, color: COLORS.black, textAlign: 'center'}}>
-              {assetData &&
+            <Text style={{...FONTS.body3, color: !modeInfo ? COLORS.white : COLORS.black, textAlign: 'center'}}>
+              {assetData === undefined ? 0 :
                 `${
                   assetData[asset?.toUpperCase()]?.availBal % 1 === 0 ?
                  format(parseFloat(assetData[asset?.toUpperCase()]?.availBal))
@@ -184,9 +184,9 @@ const AssetInfo = (props: any) => {
               style={{
                 textAlign: 'center',
                 ...FONTS.body3,
-                color: COLORS.black,
+                color: !modeInfo ? COLORS.white : COLORS.black
               }}>
-              {assetData &&
+              {assetData === undefined ? 0 :
                 `${
                   assetData[asset?.toUpperCase()]?.pendingBal % 1 === 0 ?
                     format(parseFloat(assetData[asset?.toUpperCase()]?.pendingBal))
@@ -366,7 +366,7 @@ const AssetInfo = (props: any) => {
               </Text>
             </TouchableOpacity>
           </View>
-          <View
+          {/* <View
             style={{
                width: wp(100),
               // backgroundColor:
@@ -392,8 +392,8 @@ const AssetInfo = (props: any) => {
                 Pending
               </Text>
             </TouchableOpacity>
-          </View>
-          <View
+          </View> */}
+          {/* <View
             style={{
                width: wp(100),
               // backgroundColor:
@@ -419,7 +419,7 @@ const AssetInfo = (props: any) => {
                 Failed
               </Text>
             </TouchableOpacity>
-          </View>
+          </View> */}
         </ScrollView>
       </View>
       <View style={styles.search}>

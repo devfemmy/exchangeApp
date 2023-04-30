@@ -10,7 +10,8 @@ import {
   StyleSheet,
   TouchableOpacity,
   ScrollView,
-  TextInput as Input
+  TextInput as Input,
+  StatusBar
 } from 'react-native';
 import React, {useState} from 'react';
 import GlobalStyle from '../utils/globalStyle';
@@ -75,6 +76,7 @@ const Login = ({navigation}: any) => {
 
   return (
     <KeyboardAwareScrollView style={[GlobalStyle.container, styles.div]}>
+      <StatusBar backgroundColor={"white"} barStyle={"dark-content"} />
       <View>
         {/* <HeaderComponent onPress={() => navigation.goBack()} /> */}
         <View style={styles.margin} />

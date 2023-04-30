@@ -275,6 +275,38 @@ export const updateProfile = createAsyncThunk(
   },
 );
 
+export const updateImageProfile = createAsyncThunk(
+  'auth/updateImageProfile',
+  async (
+    payload: {
+      userId: string;
+      image: string;
+    },
+    {rejectWithValue},
+  ) => {
+    try {
+      const data = {
+        image: payload?.image,
+      };
+      const response = await postRequest(
+        `${config.api_base_url}/users/${payload?.userId}/update`,
+        data,
+      );
+      if (response?.status === 200) {
+        await AsyncStorage.setItem(
+          'userInfo',
+          JSON.stringify(response?.data?.data),
+        );
+        return response?.data;
+      }
+    } catch (e: any) {
+      console.log({e}, e.toJSON());
+      return rejectWithValue(e?.response?.data?.message);
+    }
+  },
+);
+
+
 export const changePassword = createAsyncThunk(
   'auth/changePassword',
   async (
@@ -452,6 +484,18 @@ export const AuthSlice = createSlice({
         },
       );
     builder.addCase(updateProfile.rejected, (state, action) => {
+      (state.loading = false), (state.error = action.error.message);
+    });
+    builder.addCase(updateImageProfile.pending, (state, action) => {
+      state.loading = true;
+    }),
+      builder.addCase(
+        updateImageProfile.fulfilled,
+        (state, action: PayloadAction<any>) => {
+          state.loading = false;
+        },
+      );
+    builder.addCase(updateImageProfile.rejected, (state, action) => {
       (state.loading = false), (state.error = action.error.message);
     });
     builder.addCase(verifyPhoneNumberOtp.pending, (state, action) => {

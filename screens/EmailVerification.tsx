@@ -72,6 +72,7 @@ const EmailVerification = (props: any) => {
         }}>{`Enter the OTP code sent to your email ${emailAddress}`}</Text>
 
       <View style={styles.otp}>
+      <View style={{alignItems: 'center', marginVertical: 5, marginBottom: 5}}>
          <SmoothPinCodeInput
          keyboardType="default"
                 cellStyle={{
@@ -79,12 +80,12 @@ const EmailVerification = (props: any) => {
                   borderRadius: 5,
                   color: COLORS.primary,
                   borderWidth: 0,
-                  // width: hp(63),
+                   //width: hp(43),
                   // height: hp(63),
                 }}
                 codeLength={6}
                 cellSize={40}
-                cellSpacing={20}
+                cellSpacing={15}
                 cellStyleFocused={{
                   borderColor: COLORS.primary,
                   borderBottomWidth: 4,
@@ -92,6 +93,7 @@ const EmailVerification = (props: any) => {
                 value={code}
                 onTextChange={(value: string) => setCode(value)}
               />
+              </View>
       </View>
       <View style={styles.bottom}>
         <IconTextButton

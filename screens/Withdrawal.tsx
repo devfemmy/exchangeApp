@@ -164,8 +164,8 @@ const searchTradData = !value
               />
             </View>
             <View style={[GlobalStyle.rowBetween, {marginVertical: hp(5)}]}>
-              <Text style={{...FONTS.body3, color:modeInfo ? COLORS.black : COLORS.white}}>Token</Text>
-              <Text style={{...FONTS.body3,color:modeInfo ? COLORS.black : COLORS.white}}>Balance</Text>
+              <Text style={{...FONTS.h3, color:modeInfo ? COLORS.black : COLORS.white}}>Token</Text>
+              <Text style={{...FONTS.h3,color:modeInfo ? COLORS.black : COLORS.white}}>Balance</Text>
             </View>
             <ScrollView showsVerticalScrollIndicator={false}>{assets()}</ScrollView>
           </View>
@@ -183,7 +183,7 @@ const styles = StyleSheet.create({
   },
   modalView: {
     margin: 10,
-    height: hp(650),
+    marginBottom: hp(300)
   },
   end: {
     width: '100%',

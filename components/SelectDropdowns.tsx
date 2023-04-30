@@ -64,20 +64,20 @@ const SelectDropdowns = ({label, data, selected, setSelected, dob, onPress, sear
                search ?
                filterSearch?.map((info: any) => {
                 return <TouchableOpacity onPress={() => handleSelected(info)} key={info?.id}>
-                  <View style={styles.modalP}>
+                  <View style={[styles.modalP, {backgroundColor: !modeInfo ? COLORS.lightDark : COLORS.primary2}]}>
                  
                   {info?.code &&  <CountryFlag isoCode={info?.code} size={25} style={{width: 20, height: 20, marginRight: 10}} />}
-                  <Text style={{...FONTS.body5, fontWeight: '700', textTransform: 'uppercase', textAlign: !info?.code? 'center' : 'left' ,  color: COLORS.primary}}>{info?.name}</Text>
+                  <Text style={{...FONTS.body5, fontWeight: '700', textTransform: 'uppercase', textAlign: !info?.code? 'center' : 'left' ,  color: !modeInfo ? COLORS.white : COLORS.primary}}>{info?.name}</Text>
                 </View>
                 </TouchableOpacity>;
               })
               :
               data?.map((info: any) => {
                 return <TouchableOpacity onPress={() => handleSelected(info)} key={info?.id}>
-                  <View style={styles.modalP}>
+                  <View style={[styles.modalP, {backgroundColor: !modeInfo ? COLORS.lightDark : COLORS.primary2}]}>
                  
                   {info?.code &&  <CountryFlag isoCode={info?.code} size={25} style={{width: 20, height: 20, marginRight: 10}} />}
-                  <Text style={{...FONTS.body5, fontWeight: '700', textTransform: 'uppercase', textAlign: !info?.code? 'center' : 'left' ,  color: COLORS.primary}}>{info?.name}</Text>
+                  <Text style={{...FONTS.body5, fontWeight: '700', textTransform: 'uppercase', textAlign: !info?.code? 'center' : 'left' ,  color: !modeInfo ? COLORS.white : COLORS.primary}}>{info?.name}</Text>
                 </View>
                 </TouchableOpacity>;
               })

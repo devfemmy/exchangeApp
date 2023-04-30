@@ -107,9 +107,9 @@ const ConfirmSwap = (props: any) => {
       <Text style={{...FONTS.body5, color:modeInfo ? COLORS.black : COLORS.white}}>Kindly confirm this transaction</Text>
       <View style={styles.div}>
         <View style={styles.div2}>
-          <Image source={fromIcon} style={styles.icon} />
+          <Image source={isNaN(fromIcon) ? {uri: fromIcon} : fromIcon} style={styles.icon} />
           <AntDesign name="swap" size={20} color={modeInfo ? COLORS.black : COLORS.white} />
-          <Image source={toIcon} style={styles.icon} />
+          <Image source={isNaN(toIcon) ? {uri: toIcon} :toIcon} style={styles.icon} />
         </View>
       </View>
 

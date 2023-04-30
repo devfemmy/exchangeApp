@@ -1,5 +1,6 @@
 
 import React from 'react';
+import { Platform } from 'react-native';
 import { CardStyleInterpolators, createStackNavigator } from '@react-navigation/stack';
 import { NavigationContainer } from '@react-navigation/native';
 import Login from '../screens/Login';
@@ -10,6 +11,7 @@ import EmailVerification from '../screens/EmailVerification';
 import RequireConfirmation from '../screens/RequireConfirmation';
 
 
+
 const Stack = createStackNavigator();
 
 const NoAuthComponennt = () => {
@@ -18,9 +20,9 @@ const NoAuthComponennt = () => {
     <Stack.Navigator
         screenOptions={{
             headerShown: false,
-            cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
-            animationEnabled: true,
-            animationTypeForReplace: 'push',
+            cardStyleInterpolator: Platform.OS === "ios" ? CardStyleInterpolators.forHorizontalIOS : CardStyleInterpolators.forRevealFromBottomAndroid,
+            // animationEnabled: true,
+            // animationTypeForReplace: 'push',
         }}
         initialRouteName={'Login'}
     >
