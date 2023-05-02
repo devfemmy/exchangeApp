@@ -255,7 +255,7 @@ const Assets = ({navigation}: any) => {
                     }}
                     resizeMode={FastImage.resizeMode.cover}
                 /> */}
-                <Image style={styles.image} source={{uri: getUserInfo?.image}} defaultSource={require('../assets/images/placeholder.png')} />
+                <Image style={styles.image} resizeMode='cover'  source={{uri: getUserInfo?.image}} defaultSource={require('../assets/images/placeholder.png')} />
             </View>
             </View>
           </View>
