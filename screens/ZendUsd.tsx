@@ -3,7 +3,6 @@ import {
   Text,
   StyleSheet,
   ScrollView,
-  TouchableOpacity,
   Modal,
 } from 'react-native';
 import { useIsFocused } from '@react-navigation/native';
@@ -15,6 +14,7 @@ import {COLORS, FONTS} from '../utils/constants/theme';
 import {hp} from '../utils/helper';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import IconTextButton from '../components/IconTextButton';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 import {TextInput} from '../components/TextInput';
 import {useFormik} from 'formik';
 import {CompanyVerificationSchema} from '../utils/schemas';

@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, Modal, ScrollView, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, Modal, ScrollView, TouchableOpacity, FlatList } from 'react-native';
 import React, { useState } from 'react';
 import { hp } from '../utils/helper';
 import { COLORS, FONTS } from '../utils/constants/theme';
@@ -55,34 +55,44 @@ const SelectDropdowns = ({label, data, selected, setSelected, dob, onPress, sear
                    value={value}
                    onChangeText={(value: any) => setValue(value)}
                    searchInput
-                   style={{backgroundColor: COLORS.ldPrimary}}
+                   style={{backgroundColor: !modeInfo ? COLORS.darkMode : COLORS.ldPrimary, color:modeInfo ? COLORS.black : COLORS.white}}
                  />
                 </View>
               }
-             <ScrollView>
+             <View style={{maxHeight: hp(400)}}>
               {
                search ?
-               filterSearch?.map((info: any) => {
-                return <TouchableOpacity onPress={() => handleSelected(info)} key={info?.id}>
-                  <View style={[styles.modalP, {backgroundColor: !modeInfo ? COLORS.lightDark : COLORS.primary2}]}>
-                 
-                  {info?.code &&  <CountryFlag isoCode={info?.code} size={25} style={{width: 20, height: 20, marginRight: 10}} />}
-                  <Text style={{...FONTS.body5, fontWeight: '700', textTransform: 'uppercase', textAlign: !info?.code? 'center' : 'left' ,  color: !modeInfo ? COLORS.white : COLORS.primary}}>{info?.name}</Text>
-                </View>
-                </TouchableOpacity>;
-              })
+              <FlatList 
+              keyExtractor={(item) => item?.id}
+              data={filterSearch}
+              showsVerticalScrollIndicator={false}
+              renderItem={({item}) => {
+                return <TouchableOpacity onPress={() => handleSelected(item)} key={item?.id}>
+                <View style={[styles.modalP, {backgroundColor: !modeInfo ? COLORS.lightDark : COLORS.primary2}]}>
+               
+                {item?.code &&  <CountryFlag isoCode={item?.code} size={25} style={{width: 20, height: 20, marginRight: 10}} />}
+                <Text style={{...FONTS.body5, fontWeight: '700', textTransform: 'uppercase', textAlign: !item?.code? 'center' : 'left' ,  color: !modeInfo ? COLORS.white : COLORS.primary}}>{item?.name}</Text>
+              </View>
+              </TouchableOpacity>
+              }}
+            />
               :
-              data?.map((info: any) => {
-                return <TouchableOpacity onPress={() => handleSelected(info)} key={info?.id}>
+              <FlatList 
+                keyExtractor={(item) => item?.id}
+                data={data}
+                showsVerticalScrollIndicator={false}
+                renderItem={({item}) => {
+                  return <TouchableOpacity onPress={() => handleSelected(item)} key={item?.id}>
                   <View style={[styles.modalP, {backgroundColor: !modeInfo ? COLORS.lightDark : COLORS.primary2}]}>
                  
-                  {info?.code &&  <CountryFlag isoCode={info?.code} size={25} style={{width: 20, height: 20, marginRight: 10}} />}
-                  <Text style={{...FONTS.body5, fontWeight: '700', textTransform: 'uppercase', textAlign: !info?.code? 'center' : 'left' ,  color: !modeInfo ? COLORS.white : COLORS.primary}}>{info?.name}</Text>
+                  {item?.code &&  <CountryFlag isoCode={item?.code} size={25} style={{width: 20, height: 20, marginRight: 10}} />}
+                  <Text style={{...FONTS.body5, fontWeight: '700', textTransform: 'uppercase', textAlign: !item?.code? 'center' : 'left' ,  color: !modeInfo ? COLORS.white : COLORS.primary}}>{item?.name}</Text>
                 </View>
-                </TouchableOpacity>;
-              })
+                </TouchableOpacity>
+                }}
+              />
               }
-             </ScrollView>
+             </View>
             </View>
           </View>
         </Modal>

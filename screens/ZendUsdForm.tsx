@@ -1,11 +1,11 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import {View, Text, StyleSheet, Image, ScrollView, TouchableOpacity} from 'react-native';
+import {View, Text, StyleSheet, Image, ScrollView} from 'react-native';
 import React, {useEffect, useState} from 'react';
 import GlobalStyle from '../utils/globalStyle';
 import {COLORS, FONTS} from '../utils/constants/theme';
 import {format, hp, wp} from '../utils/helper';
 import {tether} from '../assets/images';
-
+import { TouchableOpacity } from 'react-native-gesture-handler';
 import {TextInput} from '../components/TextInput';
 import IconTextButton from '../components/IconTextButton';
 import InvoiceUploadModal from '../components/Modals/InvoiceUploadModal';

@@ -81,8 +81,8 @@ import { getWalletNetwork } from '../../slice/WalletSlice';
              {
                 networks?.map((data: any) => {
                     return <TouchableOpacity onPress={() => handleAction(data)}>
-                       <View style={styles.net}>
-                       <Text style={{...FONTS.h4, color: COLORS.primary,fontWeight: '600', textAlign: 'center'}}>{data?.chain}</Text>
+                       <View style={[styles.net, {backgroundColor: !modeInfo ? COLORS.lightDark : COLORS.primary2}]}>
+                       <Text style={{...FONTS.h4, color: !modeInfo ? COLORS.white : COLORS.primary,fontWeight: '600', textAlign: 'center'}}>{data?.chain}</Text>
                        </View>
                     </TouchableOpacity>
                 })

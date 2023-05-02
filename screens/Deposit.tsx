@@ -196,7 +196,7 @@ const Deposit = ({navigation}: any) => {
                 value={value}
                 onChangeText={(value: any) => setValue(value)}
                 searchInput
-                style={{backgroundColor: COLORS.white}}
+                style={{backgroundColor: !modeInfo ? COLORS.darkMode : COLORS.ldPrimary, color:modeInfo ? COLORS.black : COLORS.white}}
               />
             </View>
             <View style={[GlobalStyle.rowBetween, {marginVertical: hp(5)}]}>

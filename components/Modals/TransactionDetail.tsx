@@ -10,7 +10,7 @@ import {View, Text, Modal, StyleSheet, TouchableOpacity} from 'react-native';
 import React from 'react';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import {COLORS, FONTS} from '../../utils/constants/theme';
-import {copyToClipboard, format, hp, wp} from '../../utils/helper';
+import {capitalizeWord, copyToClipboard, format, hp, wp} from '../../utils/helper';
 import GlobalStyle from '../../utils/globalStyle';
 import Feather from 'react-native-vector-icons/Feather';
 import moment from 'moment';
@@ -64,7 +64,7 @@ const TransactionDetailModal = ({modalVisible, setModalVisible, data}: any) => {
                 </View>
                 <View>
                   <Text style={{textTransform: 'capitalize', ...FONTS.body4,color:modeInfo ? COLORS.black : COLORS.white}}>
-                    {data?.transactionType}
+                    {capitalizeWord(data?.transactionType)}
                   </Text>
                   <Text style={{...FONTS.body5, color:modeInfo ? COLORS.gray : COLORS.white}}>
                   { (data?.currency === "USDT" || data?.currency === "USDC") ? parseFloat(data?.amount) : parseFloat(data?.amount)?.toFixed(5).slice(0, -1)} {data?.currency?.toUpperCase()}

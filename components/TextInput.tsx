@@ -46,7 +46,7 @@ export const TextInput = memo(
     return (
       <View style={[styles.containerStyle, containerStyle]}>
         <BaseInput
-          label={label}
+          label={<Text style={{color: modeInfo ? COLORS.black : COLORS.white}}>{label}</Text>}
           mode="outlined"
           placeholder={placeholder}
           placeholderTextColor={COLORS.white}
@@ -55,7 +55,7 @@ export const TextInput = memo(
           autoCorrect={false}
           disabled={disabled}
           contentStyle={{letterSpacing: 0.03}}
-          textColor={(userStateInfo && !modeInfo)? COLORS.white : 'black'}
+          textColor={(userStateInfo && !modeInfo)? COLORS.white : COLORS.black}
           style={{ height: searchInput ? 40 : 60}}
           outlineStyle={{borderWidth: 0.3, borderColor: !modeInfo ? COLORS.white : '#485FE6'}}
           outlineColor={searchInput ? "transparent" : '#485FE6'}

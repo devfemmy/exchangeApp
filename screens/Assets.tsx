@@ -260,7 +260,7 @@ const Assets = ({navigation}: any) => {
             </View>
           </View>
           <View style={styles.search}>
-            <TextInput label={'Search Assets'} value={value} onChangeText={(value) => setValue(value)} searchInput />
+            <TextInput label={'Search Assets'} value={value} onChangeText={(value) => setValue(value)} searchInput  style={{backgroundColor: !modeInfo ? COLORS.darkMode : COLORS.ldPrimary}} />
           </View>
           <View style={GlobalStyle.rowStart}>
             <View
