@@ -113,19 +113,19 @@ const ConfirmSwap = (props: any) => {
         </View>
       </View>
 
-      <View style={styles.swapCard}>
+      <View style={[styles.swapCard, {backgroundColor: !modeInfo ? COLORS.lightDark : COLORS.primary2}]}>
         <View style={[GlobalStyle.rowBetween, {paddingVertical: hp(15)}]}>
-          <Text>From</Text>
+          <Text style={{ color: !modeInfo ? COLORS.white : COLORS.black}}>From</Text>
           <Text style={{textTransform: 'uppercase', color: COLORS.primary, fontWeight: '600'}}>
             {amount} {fromName}
           </Text>
         </View>
         <View style={[GlobalStyle.rowBetween, {paddingVertical: hp(10)}]}>
-          <Text>Fee</Text>
+          <Text style={{ color: !modeInfo ? COLORS.white : COLORS.black}}>Fee</Text>
           <Text style={{textTransform: 'uppercase',color: COLORS.primary, fontWeight: '600'}}>{quoteInfo?.fee}</Text>
         </View>
         <View style={[GlobalStyle.rowBetween, {paddingVertical: hp(10)}]}>
-          <Text>Total value to receive</Text>
+          <Text style={{ color: !modeInfo ? COLORS.white : COLORS.black}}>Total value to receive</Text>
           <Text style={{textTransform: 'uppercase',color: COLORS.primary, fontWeight: '600'}}>{quoteInfo?.amtToGet}</Text>
         </View>
       </View>

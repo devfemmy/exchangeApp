@@ -281,6 +281,7 @@ const KycScreen = ({navigation}: any) => {
                       ...FONTS.body4,
                       textAlign: 'center',
                       marginTop: hp(-20),
+                      color: modeInfo ? COLORS.black : COLORS.white
                     }}>
                     Your account has been successfully verified
                   </Text>

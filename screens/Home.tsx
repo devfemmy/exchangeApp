@@ -221,7 +221,7 @@ const Home = ({navigation}: any) => {
                 Total Assets Balance
               </Text>
               <Text
-                style={[styles.txt, {...FONTS.h2, color: COLORS.white}]}>
+                style={[styles.txt, {...FONTS.h1, color: COLORS.white, marginVertical: hp(5)}]}>
                 {show ? `$${format(totalAssetBalanceUsd ? totalAssetBalanceUsd.toString().match(/^-?\d+(?:\.\d{0,2})?/)[0] : 0)}` : '$-------'}
               </Text>
               <Text style={[styles.txt, {...FONTS.body5, color: COLORS.white}]}>

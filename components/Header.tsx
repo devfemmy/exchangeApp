@@ -35,7 +35,7 @@ const Header = ({info, note, modeInfo}: any) => {
             }}
             resizeMode={FastImage.resizeMode.cover}
           /> */}
-          <Image source={{uri: info?.image}} style={styles.image} defaultSource={require('../assets/images/placeholder.png')}  />
+          <Image source={{uri: info?.image}} resizeMode='cover' style={styles.image} defaultSource={require('../assets/images/placeholder.png')}  />
         </View>
       </TouchableOpacity>
       <View style={styles.div}>

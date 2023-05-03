@@ -255,12 +255,12 @@ const Assets = ({navigation}: any) => {
                     }}
                     resizeMode={FastImage.resizeMode.cover}
                 /> */}
-                <Image style={styles.image} source={{uri: getUserInfo?.image}} defaultSource={require('../assets/images/placeholder.png')} />
+                <Image style={styles.image} resizeMode='cover'  source={{uri: getUserInfo?.image}} defaultSource={require('../assets/images/placeholder.png')} />
             </View>
             </View>
           </View>
           <View style={styles.search}>
-            <TextInput label={'Search Assets'} value={value} onChangeText={(value) => setValue(value)} searchInput />
+            <TextInput label={'Search Assets'} value={value} onChangeText={(value) => setValue(value)} searchInput  style={{backgroundColor: !modeInfo ? COLORS.darkMode : COLORS.ldPrimary}} />
           </View>
           <View style={GlobalStyle.rowStart}>
             <View

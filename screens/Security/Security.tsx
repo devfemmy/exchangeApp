@@ -7,7 +7,9 @@ import { hp, wp } from '../../utils/helper';
 import HeaderComponent from '../../components/HeaderComponent';
 import GlobalStyle from '../../utils/globalStyle';
 import SecurityIcon from '../../assets/svg/security-safe.svg';
+import SecurityLight from '../../assets/svg/security-safe-light.svg';
 import PassswordIcon from '../../assets/svg/password-check.svg';
+import PassswordLight from '../../assets/svg/password-check-light.svg';
 // import BioMetricIcon from '../../assets/svg/finger-scan.svg';
 import ListCardItem from '../../components/ListCardItem';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
@@ -33,28 +35,28 @@ export default function Security({navigation}: any) {
     {
       id: 2,
       name: 'Change Transaction Pin',
-      icon: <SecurityIcon width={25} height={25} />,
+      icon: modeInfo ? <SecurityIcon width={25} height={25} /> : <SecurityLight width={25} height={25} />,
       route: 'ChangePin',
       isVerify: false
     },
     {
       id: 3,
       name: 'Change Password',
-      icon: <PassswordIcon width={25} height={25} />,
+      icon: modeInfo ? <PassswordIcon width={25} height={25} /> : <PassswordLight width={25} height={25} />,
       route: 'ChangePassword',
       isVerify: false,
     },
     {
       id: 4,
       name: 'Verfify Phone Number',
-      icon: <PassswordIcon width={25} height={25} />,
+      icon: modeInfo ? <PassswordIcon width={25} height={25} /> : <PassswordLight width={25} height={25} />,
       route: 'VerifyPhone',
       isVerify: getUserInfo?.hasVerifiedPhoneNumber ? true : false
     },
        {
       id: 5,
       name: 'Delete Account',
-      icon: <SecurityIcon width={25} height={25} color="red" />,
+      icon: modeInfo ? <SecurityIcon width={25} height={25} /> : <SecurityLight width={25} height={25} />,
       route: 'DeleteAccount',
     },
     // {

@@ -51,7 +51,7 @@ import { Notifier, NotifierComponents } from 'react-native-notifier';
   }
   
   export const capitalizeWord = (value: string) => {
-    const res = value?.charAt(0).toUpperCase() + value?.slice(1);
+    const res = value?.charAt(0)?.toUpperCase() + value?.slice(1);
     return res
   }
   export const useSecureTextEntry = (isPassword: boolean): useSecureTextEntryReturnType => {

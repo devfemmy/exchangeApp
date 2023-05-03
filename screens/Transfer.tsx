@@ -15,7 +15,7 @@ import {
 import React, {useEffect, useState} from 'react';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import {COLORS, FONTS} from '../utils/constants/theme';
-import {format, hp, wp} from '../utils/helper';
+import {capitalizeWord, format, hp, wp} from '../utils/helper';
 import {stroke} from '../assets/images';
 import icons from '../utils/constants/icons';
 import IconTextButton from '../components/IconTextButton';
@@ -31,6 +31,7 @@ import {
 import { modeStatus, transferToken } from '../slice/TradeSlice';
 import { Notifier, NotifierComponents } from 'react-native-notifier';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
+import AnimatedText from '../components/AnimatedText';
 
 
 
@@ -192,9 +193,7 @@ const Transfer = ({navigation}: any) => {
                     </Text>
                   </View>
                   <View style={styles.cardDiv}>
-                    <Text style={{...FONTS.body4, color: !modeInfo ? COLORS.white : COLORS.gray, fontWeight: '600', textTransform: 'capitalize'}}>
-                      {from}
-                    </Text>
+                    <AnimatedText style={{...FONTS.body4, color: !modeInfo ? COLORS.white : COLORS.gray, fontWeight: '600', textTransform: 'capitalize'}} text={capitalizeWord(from)} />
                     <Image source={stroke} />
                   </View>
                 </View>
@@ -207,8 +206,8 @@ const Transfer = ({navigation}: any) => {
                         source={icons?.trade}
                         resizeMode="contain"
                         style={{
-                          width: 25,
-                          height: 25,
+                          width: 20,
+                          height: 20,
                         }}
                       />
                     </View>
@@ -219,9 +218,7 @@ const Transfer = ({navigation}: any) => {
                     <Text style={{...FONTS.body4, color: !modeInfo ? COLORS.white : COLORS.gray}}>To:</Text>
                   </View>
                   <View style={styles.cardDiv}>
-                    <Text style={{...FONTS.body4, color: !modeInfo ? COLORS.white : COLORS.gray, fontWeight: '600', textTransform: 'capitalize'}}>
-                      {to}
-                    </Text>
+                    <AnimatedText style={{...FONTS.body4, color: !modeInfo ? COLORS.white : COLORS.gray, fontWeight: '600', textTransform: 'capitalize'}} text={capitalizeWord(to)} />
                     <Image source={stroke} />
                   </View>
                 </View>
@@ -353,8 +350,8 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.primary,
     borderRadius: 50,
     padding: hp(10),
-    width: wp(45),
-    height: hp(45),
+    width: wp(35),
+    height: hp(35),
     justifyContent: 'center',
     alignItems: 'center',
     marginLeft: hp(20),

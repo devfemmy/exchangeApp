@@ -23,6 +23,7 @@ import {
 import SwapHeader from '../components/SwapHeader';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import { bitcoin, tether } from '../assets/images';
+import { Colors } from 'react-native/Libraries/NewAppScreen';
 
 
 
@@ -163,7 +164,7 @@ const SwapCard = (props: any) => {
             </Text>
 
             <View style={styles.carddiv}>
-              <View style={[GlobalStyle.rowBetween, styles.card]}>
+              <View style={[GlobalStyle.rowBetween, styles.card, {backgroundColor: !modeInfo ? COLORS.lightDark : COLORS.primary2}]}>
                 <TouchableOpacity onPress={() => handleOpenSelectFromOpen()}>
                   <View style={{width: wp(120)}}>
                     <View
@@ -173,23 +174,25 @@ const SwapCard = (props: any) => {
                         alignItems: 'center',
                       }}>
                       {currencyIcon && (
-                        <Image source={isNaN(currencyIcon) ? {uri: currencyIcon} : currencyIcon} style={styles.icons} />
+                        <Image source={isNaN(currencyIcon) ? {uri: currencyIcon} : currencyIcon} style={styles.icons} resizeMode='contain'  />
                       )}
 
                       <Text
                         style={{
                           marginHorizontal: hp(5),
                           textTransform: 'uppercase',
+                          color: !modeInfo ? COLORS.white : COLORS.black
                         }}>
                         {currencyName}
                       </Text>
-                      <AntDesign name="down" />
+                      <AntDesign name="down" color={!modeInfo ? COLORS.white : COLORS.black} />
                     </View>
                     <Text
                       style={{
                         ...FONTS.body5,
                         textAlign: 'left',
                         marginTop: hp(10),
+                        color: !modeInfo ? COLORS.white : COLORS.black
                       }}>
                       Bal:{' '}
                       {assetData?.availBal
@@ -219,21 +222,23 @@ const SwapCard = (props: any) => {
                         justifyContent: 'flex-end',
                         alignItems: 'center',
                       }}>
-                      <Image source={selectedIcon} style={styles.icons} />
+                      <Image source={selectedIcon} style={styles.icons} resizeMode='contain' />
                       <Text
                         style={{
                           marginHorizontal: hp(5),
                           textTransform: 'uppercase',
+                          color: !modeInfo ? COLORS.white : COLORS.black
                         }}>
                         {selectedAssetsTo}
                       </Text>
-                      <AntDesign name="down" />
+                      <AntDesign name="down" color={!modeInfo ? COLORS.white : COLORS.black} />
                     </View>
                     <Text
                       style={{
                         ...FONTS.body5,
                         textAlign: 'right',
                         marginTop: hp(10),
+                        color: !modeInfo ? COLORS.white : COLORS.black
                       }}>
                       Bal:{' '}
                       {assetDataTo?.availBal
@@ -248,20 +253,21 @@ const SwapCard = (props: any) => {
                 </TouchableOpacity>
               </View>
       
-              <View style={styles.card2}>
+              <View style={[styles.card2, {backgroundColor: !modeInfo ? COLORS.lightDark : COLORS.primary2}]}>
                 <View style={{width: '78%'}}>
                   <TextInput
-                    style={styles.input}
+                    style={[styles.input, {color:modeInfo ? COLORS.black : COLORS.white}]}
                     onChangeText={value => setAmount(value)}
                     value={amount}
                     placeholder={`Enter Amount`}
                     keyboardType="default"
+
                   />
                 </View>
                <TouchableOpacity>
                <View style={GlobalStyle.rowStart}>
-                 <Image source={isNaN(currencyIcon) ? {uri: currencyIcon} : currencyIcon} style={styles.icons} />
-                  <Text style={{...FONTS.body4, fontWeight: "700", marginLeft: hp(5)}}>{currencyName}</Text>
+                 <Image source={isNaN(currencyIcon) ? {uri: currencyIcon} : currencyIcon} style={styles.icons} resizeMode='contain' />
+                  <Text style={{...FONTS.body4, fontWeight: "700", marginLeft: hp(5), color:modeInfo ? COLORS.black : COLORS.white}}>{currencyName}</Text>
                 </View>
                </TouchableOpacity>
               </View>
@@ -283,7 +289,7 @@ const SwapCard = (props: any) => {
                           backgroundColor:
                             max === data?.num
                               ? COLORS.primary
-                              : COLORS.ldPrimary,
+                              : !modeInfo ? COLORS.darkMode : COLORS.ldPrimary,
                           marginRight: hp(5),
                           borderColor: max === data?.num ? "" : COLORS.primary,
                           borderWidth: 0.4
@@ -292,7 +298,7 @@ const SwapCard = (props: any) => {
                           style={{
                             ...FONTS.body5,
                             color:
-                              max === data?.num ? COLORS.white : COLORS.black,
+                              max === data?.num ? COLORS.white : !modeInfo ? COLORS.white : COLORS.black,
                             padding: hp(5),
                             width: wp(60),
                             textAlign: 'center',

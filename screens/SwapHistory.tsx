@@ -192,7 +192,7 @@ const SwapHistory = ({navigation}: any) => {
                 value={value}
                 onChangeText={(value: any) => setValue(value)}
                 searchInput
-                style={{backgroundColor: COLORS.ldPrimary}}
+                style={{backgroundColor: !modeInfo ? COLORS.darkMode : COLORS.ldPrimary,color:modeInfo ? COLORS.black : COLORS.white}}
               />
             </View>
             {

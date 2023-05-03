@@ -66,6 +66,7 @@ const Swap = ({navigation}: any) => {
                 value={value}
                 onChangeText={(value: any) => setValue(value)}
                 searchInput
+                style={{backgroundColor: !modeInfo ? COLORS.darkMode : COLORS.ldPrimary,color:modeInfo ? COLORS.black : COLORS.white}}
               />
             </View>
             <ScrollView>{assets()}</ScrollView>

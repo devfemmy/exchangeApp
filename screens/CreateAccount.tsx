@@ -189,7 +189,7 @@ const CreateAccount = ({navigation}: any) => {
                   </TouchableOpacity>
                   <TouchableOpacity
                     onPress={() => {
-                      Linking.openURL('https://zendwallet-webapp.vercel.app/privacy ');
+                      Linking.openURL('https://zendwallet.com/privacy');
                     }}>
                     <Text style={{...FONTS.body5, color: COLORS.primary}}>
                       privacy policy{' '}
@@ -197,7 +197,7 @@ const CreateAccount = ({navigation}: any) => {
                   </TouchableOpacity>
                   <TouchableOpacity
                     onPress={() => {
-                      Linking.openURL('https://zendwallet-webapp.vercel.app/cookies');
+                      Linking.openURL('https://zendwallet.com/cookies');
                     }}>
                     <Text style={{...FONTS.body5, color: COLORS.primary}}>
                       cookies policy{' '}
@@ -206,7 +206,7 @@ const CreateAccount = ({navigation}: any) => {
                   <TouchableOpacity>
                     <Text style={{...FONTS.body5}}>and </Text>
                   </TouchableOpacity>
-                  <TouchableOpacity onPress={() => {Linking.openURL('https://zendwallet-webapp.vercel.app/terms');}}>
+                  <TouchableOpacity onPress={() => {Linking.openURL('https://zendwallet.com/terms');}}>
                     <Text style={{...FONTS.body5, color: COLORS.primary}}>
                       terms and conditions.
                     </Text>
