@@ -49,20 +49,20 @@ const MainLayout = ({children}: any) => {
             icon: 'arrowup',
             navigationScreen: "Withdraw",
         },
-        {
-            id: 4,
-            header: "Zend Prepaid",
-            title: "Convert prepaid to usdt",
-            icon: 'sync',
-            navigationScreen: "ZendPrepaidHistory",
-        },
-        {
-            id: 5,
-            header: "Zend USD",
-            title: "make Usd payment to customers",
-            icon: 'dollar',
-            navigationScreen: "ZendUsd",
-        },
+        // {
+        //     id: 4,
+        //     header: "Zend Prepaid",
+        //     title: "Convert prepaid to usdt",
+        //     icon: 'sync',
+        //     navigationScreen: "ZendPrepaidHistory",
+        // },
+        // {
+        //     id: 5,
+        //     header: "Zend USD",
+        //     title: "make Usd payment to customers",
+        //     icon: 'dollar',
+        //     navigationScreen: "ZendUsd",
+        // },
     ]
 
     useEffect(() => {

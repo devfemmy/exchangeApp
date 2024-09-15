@@ -40,22 +40,22 @@ const Transaction = () => {
       navigationScreen: "SwapHistory",
       color: COLORS.primary,
   },
-  {
-    id: 4,
-    header: "Zend Prepaid",
-    title: "View all your prepaid transactions",
-    icon: <TransIcon />,
-    navigationScreen: "ZendPrepaidHistory",
-    color: COLORS.primary2,
-},
-    {
-        id: 3,
-        header: "Zend USD",
-        title: "View all your usd transactions",
-        icon: <UsdIcon />,
-        navigationScreen: "ZendUsdHistory",
-        color: COLORS.lightOrange,
-    },
+//   {
+//     id: 4,
+//     header: "Zend Prepaid",
+//     title: "View all your prepaid transactions",
+//     icon: <TransIcon />,
+//     navigationScreen: "ZendPrepaidHistory",
+//     color: COLORS.primary2,
+// },
+//     {
+//         id: 3,
+//         header: "Zend USD",
+//         title: "View all your usd transactions",
+//         icon: <UsdIcon />,
+//         navigationScreen: "ZendUsdHistory",
+//         color: COLORS.lightOrange,
+//     },
    
 ]
 
